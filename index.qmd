@@ -1,20 +1,21 @@
 ---
-title: "Welcome"
+title: "The Foremost Facade"
 listing:
   id: recent-posts
   contents: posts
   sort: "date desc"
   type: default
+  categories: true
   max-items: 3
 ---
 
-Welcome to my personal homepage and blog! I use this space to publish research notes, expository articles on mathematics, and personal projects.
+This site is dedicated to the documentation of failure, fascination, and to those like me with failing memory. I have learned from the inside how much gate-keeping goes on in academics, whether it be in access to resources, or access to the human experience involved in the struggle to "know". This inclination (deliberate or otherwise) should be the antithesis of modern scholarship, as it decides (by itself) that the academy is dead; gestating in solitude and immaculately, as some strange kind of stillborn excellence. As such I intend to publish in progress research notes, expository articles on mathematics, and personal essays that are as transparent to my growth, struggles, and joys; all inherently flawed and at times potentially full of trivial errors.
 
 ## Explore Notes by Topic
 
-- [**Analysis**](notes.qmd#category=Analysis) — Measure theory, functional analysis, and operator algebras.
-- [**Topology**](notes.qmd#category=Topology) — General topology, algebraic topology, and differential geometry.
-- [**Algebra**](notes.qmd#category=Algebra) — Abstract algebra, category theory, and representation theory.
+- [**Analysis**](notes.qmd#category=Analysis) — Measure theory, functional analysis, and stochastic processes.
+- [**Loose Notes**](notes.qmd#category=Notes) — Applications, loose work, intuition, and musing.
+- [**Essays**](notes.qmd#category=Essays) — Rants, critiques, and writings.
 
 ------------------------------------------------------------------------
 

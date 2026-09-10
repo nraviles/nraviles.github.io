@@ -3,8 +3,8 @@ project:
   output-dir: _site
 
 website:
-  title: "Math & Musings"
-  site-url: "https://nraviles.github.io/<your-repo-name>"
+  title: "The Tilted Windmill"
+  site-url: "https://nraviles.github.io/"
   description: "A blog dedicated to mathematics notes and articles."
   navbar:
     left:
@@ -20,6 +20,7 @@ format:
     theme: cosmo
     toc: true
     toc-depth: 3
-    toc-location: right
+    toc-location: left
+    reference-location: margin
     html-math-method: mathjax
     include-before-body: macros.html

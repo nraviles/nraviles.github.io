@@ -2,17 +2,15 @@
   {
     "listing": "/notes.html",
     "items": [
-      "/posts/post-with-code/index.html",
-      "/posts/spectral-theory.html",
-      "/posts/welcome/index.html"
+      "/posts/Analysis/spectral-theory.html",
+      "/posts/welcome/welcome.html"
     ]
   },
   {
     "listing": "/index.html",
     "items": [
-      "/posts/post-with-code/index.html",
-      "/posts/spectral-theory.html",
-      "/posts/welcome/index.html"
+      "/posts/Analysis/spectral-theory.html",
+      "/posts/welcome/welcome.html"
     ]
   }
 ]

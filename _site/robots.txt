@@ -1,1 +1,1 @@
-Sitemap: https://nraviles.github.io/<your-repo-name>/sitemap.xml
+Sitemap: https://nraviles.github.io/sitemap.xml

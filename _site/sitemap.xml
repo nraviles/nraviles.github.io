@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://nraviles.github.io/&lt;your-repo-name&gt;/posts/spectral-theory.html</loc>
-    <lastmod>2026-09-10T19:17:03.802Z</lastmod>
+    <lastmod>2026-09-10T20:09:54.102Z</lastmod>
   </url>
   <url>
     <loc>https://nraviles.github.io/&lt;your-repo-name&gt;/posts/welcome/index.html</loc>
@@ -23,5 +23,37 @@
   <url>
     <loc>https://nraviles.github.io/&lt;your-repo-name&gt;/index.html</loc>
     <lastmod>2026-09-10T16:35:10.015Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nraviles.github.io/posts/spectral-theory.html</loc>
+    <lastmod>2026-09-10T21:25:49.541Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nraviles.github.io/index.html</loc>
+    <lastmod>2026-09-10T21:33:23.779Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nraviles.github.io/about.html</loc>
+    <lastmod>2026-09-10T21:04:11.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nraviles.github.io/notes.html</loc>
+    <lastmod>2026-09-10T21:21:52.737Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nraviles.github.io/posts/post-with-code/index.html</loc>
+    <lastmod>2026-09-10T16:28:01.297Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nraviles.github.io/posts/Analysis/spectral-theory.html</loc>
+    <lastmod>2026-09-10T21:51:32.612Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nraviles.github.io/posts/welcome/index.html</loc>
+    <lastmod>2026-09-10T21:55:47.581Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nraviles.github.io/posts/welcome/welcome.html</loc>
+    <lastmod>2026-09-10T21:55:47.581Z</lastmod>
   </url>
 </urlset>

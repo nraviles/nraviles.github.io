@@ -1,0 +1,10 @@
+---
+title: "Welcome To My Blog"
+author: "N. R. Aviles"
+date: "2026-09-07"
+categories: [news]
+---
+
+The killer is at large! (though it is unknown whether they are small)
+![](thumbnail.jpg)
+

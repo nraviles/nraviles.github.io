@@ -6,23 +6,24 @@ about:
   links:
     - icon: github
       text: GitHub
-      href: https://github.com/your-github-username
+      href: https://github.com/nraviles
     - icon: envelope
       text: Email
-      href: mailto:your.email@example.com
+      href: mailto:aviles.r.nathan@gmail.com
     - icon: file-pdf
       text: CV / Resume
       href: cv.pdf # Add cv.pdf to root folder if desired
 ---
 
 ## Bio
-I am a researcher / student in mathematics. My primary focus is functional analysis and its applications to mathematical physics.
+I am a currently a graduate student in the Department of Statistics at UW-Madison. I value purposeful and humble pedagogy, one that acknowledges that we are at once all students and teachers. I believe this value cannot be divorced from a praxis that continues to express joy, inspires solidarity, and romanticizes the process rather than valuing only the conclusion; where we might otherwise measure learning and living solely materially. 
 
 ## Research Interests
-* Functional Analysis & Operator Theory
-* Differential Geometry
-* Noncommutative Geometry
+* Probability Theory (e.g., limit theorems, "classical results")
+* Extreme Value Theory (e.g., regular variation, max-limits, risk)
+* Stochastic Dynamics (e.g., SDEs, Martingales, Ergodicity/path properties)
 
 ## Education
-* **Ph.D. in Mathematics** | University Name *(2024 – Present)*
-* **B.S. in Mathematics** | University Name *(2020 – 2024)*
+* **Ph.D. in Statistics** | University of Wisconsin-Madison *(2021 – Present)*
+* **M.S. in Statistics** | University of Arizona *(2017 – 2020)*
+* **B.S. in Mathematics** | University of Arizona *(2017 – 2020)*

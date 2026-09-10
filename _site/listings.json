@@ -1,0 +1,18 @@
+[
+  {
+    "listing": "/notes.html",
+    "items": [
+      "/posts/post-with-code/index.html",
+      "/posts/spectral-theory.html",
+      "/posts/welcome/index.html"
+    ]
+  },
+  {
+    "listing": "/index.html",
+    "items": [
+      "/posts/post-with-code/index.html",
+      "/posts/spectral-theory.html",
+      "/posts/welcome/index.html"
+    ]
+  }
+]

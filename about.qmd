@@ -1,0 +1,28 @@
+---
+title: "About Me"
+about:
+  template: trestles
+  # image: profile.jpg  (Uncomment if you add a profile image)
+  links:
+    - icon: github
+      text: GitHub
+      href: https://github.com/your-github-username
+    - icon: envelope
+      text: Email
+      href: mailto:your.email@example.com
+    - icon: file-pdf
+      text: CV / Resume
+      href: cv.pdf # Add cv.pdf to root folder if desired
+---
+
+## Bio
+I am a researcher / student in mathematics. My primary focus is functional analysis and its applications to mathematical physics.
+
+## Research Interests
+* Functional Analysis & Operator Theory
+* Differential Geometry
+* Noncommutative Geometry
+
+## Education
+* **Ph.D. in Mathematics** | University Name *(2024 – Present)*
+* **B.S. in Mathematics** | University Name *(2020 – 2024)*

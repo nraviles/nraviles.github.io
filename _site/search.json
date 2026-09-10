@@ -1,0 +1,100 @@
+[
+  {
+    "objectID": "posts/spectral-theory.html",
+    "href": "posts/spectral-theory.html",
+    "title": "Notes on Spectral Theory",
+    "section": "",
+    "text": "$$\n\n% Common Math Sets & Operators\n\n\\newcommand{\\R}{\\mathbb{R}}\n\n\\newcommand{\\C}{\\mathbb{C}}\n\n\\newcommand{\\N}{\\mathbb{N}}\n\n\\newcommand{\\Z}{\\mathbb{Z}}\n\n\\newcommand{\\Q}{\\mathbb{Q}}\n\n\n\n% Blackboard Bold\n\n\\newcommand{\\bbE}{\\mathbb{E}}\n\n\\newcommand{\\bbI}{\\mathbb{I}}\n\n\\newcommand{\\bbP}{\\mathbb{P}}\n\n\\newcommand{\\bbZ}{\\mathbb{Z}}\n\n\\newcommand{\\bbQ}{\\mathbb{Q}}\n\n\n\n% Calligraphic\n\n\\newcommand{\\calC}{\\mathcal{C}}\n\n\\newcommand{\\calF}{\\mathcal{F}}\n\n\\newcommand{\\calG}{\\mathcal{G}}\n\n\\newcommand{\\calK}{\\mathcal{K}}\n\n\\newcommand{\\calL}{\\mathcal{L}}\n\n\\newcommand{\\calR}{\\mathcal{R}}\n\n\\newcommand{\\calS}{\\mathcal{S}}\n\n\\newcommand{\\SR}{\\mathcal{SR}}\n\n\n\n% Accents & Overlines\n\n\\newcommand{\\fhat}{\\widehat{f}}\n\n\\newcommand{\\Fbar}{\\Bar{F}}\n\n\\newcommand{\\Bhat}{\\widehat{B}}\n\n\\newcommand{\\muhat}{\\widehat{\\mu}}\n\n\\newcommand{\\mub}{\\mu_{\\bullet}}\n\n\\newcommand{\\nub}{\\nu_{\\bullet}}\n\n\\newcommand{\\tu}{\\Tilde{u}}\n\n\\newcommand{\\tbeta}{\\Tilde{\\beta}}\n\n\\newcommand{\\Phistar}{{\\Phi^\\star}}\n\n\\newcommand{\\Omegastar}{\\Omega^\\star}\n\n\\newcommand{\\Ctilde}{\\tilde{C}}\n\n\n\n% Relations & Convergence\n\n\\newcommand{\\deq}{\\stackrel{d}{=}}\n\n\\newcommand{\\dsim}{\\stackrel{d}{\\sim}}\n\n\\newcommand{\\pto}{\\stackrel{p}{\\rightarrow}}\n\n\\newcommand{\\iid}{\\stackrel{\\text{iid}}{\\sim}}\n\n\\newcommand{\\tell}{\\Tilde{\\ell}}\n\n\\newcommand{\\tmu}{\\Tilde{\\mu}}\n\n\\newcommand{\\tnu}{\\Tilde{\\nu}}\n\n\\newcommand{\\tg}{\\Tilde{g}}\n\n\\newcommand{\\ex}{\\operatorname{ex}}\n\n\\newcommand{\\ind}{\\perp\\!\\!\\!\\!\\perp}\n\n\n\n% Delimiters & Paired Brackets\n\n\\newcommand{\\pr}[1]{\\left( #1 \\right)}\n\n\\newcommand{\\br}[1]{\\left[ #1 \\right]}\n\n\\newcommand{\\cbr}[1]{\\left\\{ #1 \\right\\}}\n\n\\newcommand{\\brZ}[1]{\\left[ #1 \\right]_{\\Z}}\n\n\\newcommand{\\inp}[2]{\\left\\langle #1, #2 \\right\\rangle}\n\n\\newcommand{\\norm}[1]{\\left\\lVert#1\\right\\rVert}\n\n\\newcommand{\\abs}[1]{\\left\\lvert#1\\right\\rvert}\n\n\\newcommand{\\inner}[2]{\\left\\langle #1, #2 \\right\\rangle}\n\n\n\n% Math Operators\n\n\\DeclareMathOperator{\\E}{\\mathbb{E}}\n\n\\DeclareMathOperator{\\V}{\\mathbb{V}}\n\n\\DeclareMathOperator{\\Gibbs}{Gibbs}\n\n\\DeclareMathOperator{\\Mult}{Mult}\n\n\\DeclareMathOperator{\\Pois}{Pois}\n\n\\DeclareMathOperator{\\End}{End}\n\n\\DeclareMathOperator{\\Aut}{Aut}\n\n\\DeclareMathOperator{\\Span}{span}\n\n\\DeclareMathOperator{\\Spec}{Spec}\n\n$$"
+  },
+  {
+    "objectID": "posts/spectral-theory.html#bounded-operators",
+    "href": "posts/spectral-theory.html#bounded-operators",
+    "title": "Notes on Spectral Theory",
+    "section": "Bounded Operators",
+    "text": "Bounded Operators\nLet \\(H\\) be a Hilbert space over \\(\\C\\). Recall our global macro test: \\(x \\in \\R^n\\) and \\(\\inner{u}{v}\\).\n\nDefinition 1 (Spectrum) Let \\(T \\in \\End(H)\\). The spectrum of \\(T\\), denoted \\(\\Spec(T)\\), is the set of all \\(\\lambda \\in \\C\\) such that \\(T - \\lambda I\\) is not invertible."
+  },
+  {
+    "objectID": "posts/spectral-theory.html#computations-and-environments",
+    "href": "posts/spectral-theory.html#computations-and-environments",
+    "title": "Notes on Spectral Theory",
+    "section": "Computations and Environments",
+    "text": "Computations and Environments\nWe can write aligned equations natively by wrapping aligned inside $$:\n\\[\\begin{aligned}\n\\norm{T x}^2 &= \\inner{Tx}{Tx} \\\\\n             &= \\inner{T^* T x}{x}\n\\end{aligned} \\tag{1}\\]\nAs seen in Equation 1, we can reference tagged equations seamlessly\n\nMatrix Examples\n\\[A = \\begin{pmatrix}\n0 & 1 \\\\\n-1 & 0\n\\end{pmatrix}\\]\nThe piecewise cases environment works as expected:\n\\[f(x) = \\begin{cases}\n1 & \\text{if } x \\in \\Q, \\\\\n0 & \\text{if } x \\notin \\Q.\n\\end{cases}\\]\n\nDefinition 2 (Hilbert Space) A Hilbert space \\(H\\) is a complete inner product space with an inner product \\(\\inner{x}{y}\\).\n\n\nTheorem 1 (Spectral Theorem) Let \\(T\\) be a compact self-adjoint operator on a Hilbert space \\(H\\).\n\nWe apply Definition 2 to prove Theorem 1."
+  },
+  {
+    "objectID": "posts/welcome/index.html",
+    "href": "posts/welcome/index.html",
+    "title": "Welcome To My Blog",
+    "section": "",
+    "text": "This is the first post in a Quarto blog. Welcome!\n\nSince this post doesn’t specify an explicit image, the first image in the post will be used in the listing page of posts."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About Me",
+    "section": "",
+    "text": "$$\n% Common Math Sets & Operators\n\\newcommand{\\R}{\\mathbb{R}}\n\\newcommand{\\C}{\\mathbb{C}}\n\\newcommand{\\N}{\\mathbb{N}}\n\\newcommand{\\Z}{\\mathbb{Z}}\n\\newcommand{\\Q}{\\mathbb{Q}}\n% Blackboard Bold\n\\newcommand{\\bbE}{\\mathbb{E}}\n\\newcommand{\\bbI}{\\mathbb{I}}\n\\newcommand{\\bbP}{\\mathbb{P}}\n\\newcommand{\\bbZ}{\\mathbb{Z}}\n\\newcommand{\\bbQ}{\\mathbb{Q}}\n% Calligraphic\n\\newcommand{\\calC}{\\mathcal{C}}\n\\newcommand{\\calF}{\\mathcal{F}}\n\\newcommand{\\calG}{\\mathcal{G}}\n\\newcommand{\\calK}{\\mathcal{K}}\n\\newcommand{\\calL}{\\mathcal{L}}\n\\newcommand{\\calR}{\\mathcal{R}}\n\\newcommand{\\calS}{\\mathcal{S}}\n\\newcommand{\\SR}{\\mathcal{SR}}\n% Accents & Overlines\n\\newcommand{\\fhat}{\\widehat{f}}\n\\newcommand{\\Fbar}{\\Bar{F}}\n\\newcommand{\\Bhat}{\\widehat{B}}\n\\newcommand{\\muhat}{\\widehat{\\mu}}\n\\newcommand{\\mub}{\\mu_{\\bullet}}\n\\newcommand{\\nub}{\\nu_{\\bullet}}\n\\newcommand{\\tu}{\\Tilde{u}}\n\\newcommand{\\tbeta}{\\Tilde{\\beta}}\n\\newcommand{\\Phistar}{{\\Phi^\\star}}\n\\newcommand{\\Omegastar}{\\Omega^\\star}\n\\newcommand{\\Ctilde}{\\tilde{C}}\n% Relations & Convergence\n\\newcommand{\\deq}{\\stackrel{d}{=}}\n\\newcommand{\\dsim}{\\stackrel{d}{\\sim}}\n\\newcommand{\\pto}{\\stackrel{p}{\\rightarrow}}\n\\newcommand{\\iid}{\\stackrel{\\text{iid}}{\\sim}}\n\\newcommand{\\tell}{\\Tilde{\\ell}}\n\\newcommand{\\tmu}{\\Tilde{\\mu}}\n\\newcommand{\\tnu}{\\Tilde{\\nu}}\n\\newcommand{\\tg}{\\Tilde{g}}\n\\newcommand{\\ex}{\\operatorname{ex}}\n\\newcommand{\\ind}{\\perp\\!\\!\\!\\!\\perp}\n% Delimiters & Paired Brackets\n\\newcommand{\\pr}[1]{\\left( #1 \\right)}\n\\newcommand{\\br}[1]{\\left[ #1 \\right]}\n\\newcommand{\\cbr}[1]{\\left\\{ #1 \\right\\}}\n\\newcommand{\\brZ}[1]{\\left[ #1 \\right]_{\\Z}}\n\\newcommand{\\inp}[2]{\\left\\langle #1, #2 \\right\\rangle}\n\\newcommand{\\norm}[1]{\\left\\lVert#1\\right\\rVert}\n\\newcommand{\\abs}[1]{\\left\\lvert#1\\right\\rvert}\n\\newcommand{\\inner}[2]{\\left\\langle #1, #2 \\right\\rangle}\n% Math Operators\n\\DeclareMathOperator{\\E}{\\mathbb{E}}\n\\DeclareMathOperator{\\V}{\\mathbb{V}}\n\\DeclareMathOperator{\\Gibbs}{Gibbs}\n\\DeclareMathOperator{\\Mult}{Mult}\n\\DeclareMathOperator{\\Pois}{Pois}\n\\DeclareMathOperator{\\End}{End}\n\\DeclareMathOperator{\\Aut}{Aut}\n\\DeclareMathOperator{\\Span}{span}\n\\DeclareMathOperator{\\Spec}{Spec}\n$$"
+  },
+  {
+    "objectID": "about.html#bio",
+    "href": "about.html#bio",
+    "title": "About Me",
+    "section": "Bio",
+    "text": "Bio\nI am a researcher / student in mathematics. My primary focus is functional analysis and its applications to mathematical physics."
+  },
+  {
+    "objectID": "about.html#research-interests",
+    "href": "about.html#research-interests",
+    "title": "About Me",
+    "section": "Research Interests",
+    "text": "Research Interests\n\nFunctional Analysis & Operator Theory\nDifferential Geometry\nNoncommutative Geometry"
+  },
+  {
+    "objectID": "about.html#education",
+    "href": "about.html#education",
+    "title": "About Me",
+    "section": "Education",
+    "text": "Education\n\nPh.D. in Mathematics | University Name (2024 – Present)\nB.S. in Mathematics | University Name (2020 – 2024)"
+  },
+  {
+    "objectID": "posts/post-with-code/index.html",
+    "href": "posts/post-with-code/index.html",
+    "title": "Post With Code",
+    "section": "",
+    "text": "This is a post with executable code.\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Welcome",
+    "section": "",
+    "text": "$$\n\n% Common Math Sets & Operators\n\n\\newcommand{\\R}{\\mathbb{R}}\n\n\\newcommand{\\C}{\\mathbb{C}}\n\n\\newcommand{\\N}{\\mathbb{N}}\n\n\\newcommand{\\Z}{\\mathbb{Z}}\n\n\\newcommand{\\Q}{\\mathbb{Q}}\n\n\n\n% Blackboard Bold\n\n\\newcommand{\\bbE}{\\mathbb{E}}\n\n\\newcommand{\\bbI}{\\mathbb{I}}\n\n\\newcommand{\\bbP}{\\mathbb{P}}\n\n\\newcommand{\\bbZ}{\\mathbb{Z}}\n\n\\newcommand{\\bbQ}{\\mathbb{Q}}\n\n\n\n% Calligraphic\n\n\\newcommand{\\calC}{\\mathcal{C}}\n\n\\newcommand{\\calF}{\\mathcal{F}}\n\n\\newcommand{\\calG}{\\mathcal{G}}\n\n\\newcommand{\\calK}{\\mathcal{K}}\n\n\\newcommand{\\calL}{\\mathcal{L}}\n\n\\newcommand{\\calR}{\\mathcal{R}}\n\n\\newcommand{\\calS}{\\mathcal{S}}\n\n\\newcommand{\\SR}{\\mathcal{SR}}\n\n\n\n% Accents & Overlines\n\n\\newcommand{\\fhat}{\\widehat{f}}\n\n\\newcommand{\\Fbar}{\\Bar{F}}\n\n\\newcommand{\\Bhat}{\\widehat{B}}\n\n\\newcommand{\\muhat}{\\widehat{\\mu}}\n\n\\newcommand{\\mub}{\\mu_{\\bullet}}\n\n\\newcommand{\\nub}{\\nu_{\\bullet}}\n\n\\newcommand{\\tu}{\\Tilde{u}}\n\n\\newcommand{\\tbeta}{\\Tilde{\\beta}}\n\n\\newcommand{\\Phistar}{{\\Phi^\\star}}\n\n\\newcommand{\\Omegastar}{\\Omega^\\star}\n\n\\newcommand{\\Ctilde}{\\tilde{C}}\n\n\n\n% Relations & Convergence\n\n\\newcommand{\\deq}{\\stackrel{d}{=}}\n\n\\newcommand{\\dsim}{\\stackrel{d}{\\sim}}\n\n\\newcommand{\\pto}{\\stackrel{p}{\\rightarrow}}\n\n\\newcommand{\\iid}{\\stackrel{\\text{iid}}{\\sim}}\n\n\\newcommand{\\tell}{\\Tilde{\\ell}}\n\n\\newcommand{\\tmu}{\\Tilde{\\mu}}\n\n\\newcommand{\\tnu}{\\Tilde{\\nu}}\n\n\\newcommand{\\tg}{\\Tilde{g}}\n\n\\newcommand{\\ex}{\\operatorname{ex}}\n\n\\newcommand{\\ind}{\\perp\\!\\!\\!\\!\\perp}\n\n\n\n% Delimiters & Paired Brackets\n\n\\newcommand{\\pr}[1]{\\left( #1 \\right)}\n\n\\newcommand{\\br}[1]{\\left[ #1 \\right]}\n\n\\newcommand{\\cbr}[1]{\\left\\{ #1 \\right\\}}\n\n\\newcommand{\\brZ}[1]{\\left[ #1 \\right]_{\\Z}}\n\n\\newcommand{\\inp}[2]{\\left\\langle #1, #2 \\right\\rangle}\n\n\\newcommand{\\norm}[1]{\\left\\lVert#1\\right\\rVert}\n\n\\newcommand{\\abs}[1]{\\left\\lvert#1\\right\\rvert}\n\n\\newcommand{\\inner}[2]{\\left\\langle #1, #2 \\right\\rangle}\n\n\n\n% Math Operators\n\n\\DeclareMathOperator{\\E}{\\mathbb{E}}\n\n\\DeclareMathOperator{\\V}{\\mathbb{V}}\n\n\\DeclareMathOperator{\\Gibbs}{Gibbs}\n\n\\DeclareMathOperator{\\Mult}{Mult}\n\n\\DeclareMathOperator{\\Pois}{Pois}\n\n\\DeclareMathOperator{\\End}{End}\n\n\\DeclareMathOperator{\\Aut}{Aut}\n\n\\DeclareMathOperator{\\Span}{span}\n\n\\DeclareMathOperator{\\Spec}{Spec}\n\n$$\nWelcome to my personal homepage and blog! I use this space to publish research notes, expository articles on mathematics, and personal projects."
+  },
+  {
+    "objectID": "index.html#explore-notes-by-topic",
+    "href": "index.html#explore-notes-by-topic",
+    "title": "Welcome",
+    "section": "Explore Notes by Topic",
+    "text": "Explore Notes by Topic\n\nAnalysis — Measure theory, functional analysis, and operator algebras.\nTopology — General topology, algebraic topology, and differential geometry.\nAlgebra — Abstract algebra, category theory, and representation theory."
+  },
+  {
+    "objectID": "index.html#recent-posts",
+    "href": "index.html#recent-posts",
+    "title": "Welcome",
+    "section": "Recent Posts",
+    "text": "Recent Posts\n\n\n\n\n\n\n\n\n\n\nPost With Code\n\n\n\n\n\n\n\n\nSep 10, 2026\n\n\nHarlow Malloc\n\n\n\n\n\n\n\n\n\n\n\n\nNotes on Spectral Theory\n\n\nA quick review of bounded operator spectra on Hilbert spaces.\n\n\n\n\n\nSep 10, 2026\n\n\nYour Name\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\n\n\nSep 7, 2026\n\n\nTristan O’Malley\n\n\n\n\n\nNo matching items\n\nView all notes and articles →"
+  },
+  {
+    "objectID": "notes.html",
+    "href": "notes.html",
+    "title": "Notes and Posts",
+    "section": "",
+    "text": "$$\n\n% Common Math Sets & Operators\n\n\\newcommand{\\R}{\\mathbb{R}}\n\n\\newcommand{\\C}{\\mathbb{C}}\n\n\\newcommand{\\N}{\\mathbb{N}}\n\n\\newcommand{\\Z}{\\mathbb{Z}}\n\n\\newcommand{\\Q}{\\mathbb{Q}}\n\n\n\n% Blackboard Bold\n\n\\newcommand{\\bbE}{\\mathbb{E}}\n\n\\newcommand{\\bbI}{\\mathbb{I}}\n\n\\newcommand{\\bbP}{\\mathbb{P}}\n\n\\newcommand{\\bbZ}{\\mathbb{Z}}\n\n\\newcommand{\\bbQ}{\\mathbb{Q}}\n\n\n\n% Calligraphic\n\n\\newcommand{\\calC}{\\mathcal{C}}\n\n\\newcommand{\\calF}{\\mathcal{F}}\n\n\\newcommand{\\calG}{\\mathcal{G}}\n\n\\newcommand{\\calK}{\\mathcal{K}}\n\n\\newcommand{\\calL}{\\mathcal{L}}\n\n\\newcommand{\\calR}{\\mathcal{R}}\n\n\\newcommand{\\calS}{\\mathcal{S}}\n\n\\newcommand{\\SR}{\\mathcal{SR}}\n\n\n\n% Accents & Overlines\n\n\\newcommand{\\fhat}{\\widehat{f}}\n\n\\newcommand{\\Fbar}{\\Bar{F}}\n\n\\newcommand{\\Bhat}{\\widehat{B}}\n\n\\newcommand{\\muhat}{\\widehat{\\mu}}\n\n\\newcommand{\\mub}{\\mu_{\\bullet}}\n\n\\newcommand{\\nub}{\\nu_{\\bullet}}\n\n\\newcommand{\\tu}{\\Tilde{u}}\n\n\\newcommand{\\tbeta}{\\Tilde{\\beta}}\n\n\\newcommand{\\Phistar}{{\\Phi^\\star}}\n\n\\newcommand{\\Omegastar}{\\Omega^\\star}\n\n\\newcommand{\\Ctilde}{\\tilde{C}}\n\n\n\n% Relations & Convergence\n\n\\newcommand{\\deq}{\\stackrel{d}{=}}\n\n\\newcommand{\\dsim}{\\stackrel{d}{\\sim}}\n\n\\newcommand{\\pto}{\\stackrel{p}{\\rightarrow}}\n\n\\newcommand{\\iid}{\\stackrel{\\text{iid}}{\\sim}}\n\n\\newcommand{\\tell}{\\Tilde{\\ell}}\n\n\\newcommand{\\tmu}{\\Tilde{\\mu}}\n\n\\newcommand{\\tnu}{\\Tilde{\\nu}}\n\n\\newcommand{\\tg}{\\Tilde{g}}\n\n\\newcommand{\\ex}{\\operatorname{ex}}\n\n\\newcommand{\\ind}{\\perp\\!\\!\\!\\!\\perp}\n\n\n\n% Delimiters & Paired Brackets\n\n\\newcommand{\\pr}[1]{\\left( #1 \\right)}\n\n\\newcommand{\\br}[1]{\\left[ #1 \\right]}\n\n\\newcommand{\\cbr}[1]{\\left\\{ #1 \\right\\}}\n\n\\newcommand{\\brZ}[1]{\\left[ #1 \\right]_{\\Z}}\n\n\\newcommand{\\inp}[2]{\\left\\langle #1, #2 \\right\\rangle}\n\n\\newcommand{\\norm}[1]{\\left\\lVert#1\\right\\rVert}\n\n\\newcommand{\\abs}[1]{\\left\\lvert#1\\right\\rvert}\n\n\\newcommand{\\inner}[2]{\\left\\langle #1, #2 \\right\\rangle}\n\n\n\n% Math Operators\n\n\\DeclareMathOperator{\\E}{\\mathbb{E}}\n\n\\DeclareMathOperator{\\V}{\\mathbb{V}}\n\n\\DeclareMathOperator{\\Gibbs}{Gibbs}\n\n\\DeclareMathOperator{\\Mult}{Mult}\n\n\\DeclareMathOperator{\\Pois}{Pois}\n\n\\DeclareMathOperator{\\End}{End}\n\n\\DeclareMathOperator{\\Aut}{Aut}\n\n\\DeclareMathOperator{\\Span}{span}\n\n\\DeclareMathOperator{\\Spec}{Spec}\n\n$$"
+  },
+  {
+    "objectID": "notes.html#browse-all-mathematical-notes-write-ups-and-blog-posts-below.-use-the-sidebar-categories-or-the-search-bar-to-filter-by-subject.",
+    "href": "notes.html#browse-all-mathematical-notes-write-ups-and-blog-posts-below.-use-the-sidebar-categories-or-the-search-bar-to-filter-by-subject.",
+    "title": "Notes and Posts",
+    "section": "Browse all mathematical notes, write-ups, and blog posts below. Use the sidebar categories or the search bar to filter by subject.",
+    "text": "Browse all mathematical notes, write-ups, and blog posts below. Use the sidebar categories or the search bar to filter by subject."
+  }
+]

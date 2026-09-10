@@ -1,0 +1,25 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "Math & Musings"
+  site-url: "https://nraviles.github.io/<your-repo-name>"
+  description: "A blog dedicated to mathematics notes and articles."
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: notes.qmd
+        text: Notes & Blog
+      - href: about.qmd
+        text: About
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    toc-depth: 3
+    toc-location: right
+    html-math-method: mathjax
+    include-before-body: macros.html

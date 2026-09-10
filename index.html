@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Welcome – Math &amp; Musings</title>
+<title>The Foremost Facade – The Tilted Windmill</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -85,9 +85,9 @@ ul.task-list li input[type="checkbox"] {
     }
 
     const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
       
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description"],
+      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -137,7 +137,7 @@ window.Quarto = {
 
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="floating nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -145,7 +145,7 @@ window.Quarto = {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">Math &amp; Musings</span>
+    <span class="navbar-title">The Tilted Windmill</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -176,9 +176,8 @@ window.Quarto = {
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-<!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
@@ -186,7 +185,11 @@ window.Quarto = {
   <li><a href="#recent-posts" id="toc-recent-posts" class="nav-link" data-scroll-target="#recent-posts">Recent Posts</a></li>
   </ul>
 </nav>
-    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(2)</span></div><div class="category" data-category="QW5hbHlzaXM=">Analysis <span class="quarto-category-count">(1)</span></div><div class="category" data-category="bmV3cw==">news <span class="quarto-category-count">(1)</span></div></div></div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 <div style="display:none;">
@@ -265,7 +268,7 @@ $$
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Welcome</h1>
+<h1 class="title">The Foremost Facade</h1>
 </div>
 
 
@@ -282,13 +285,13 @@ $$
 </header>
 
 
-<p>Welcome to my personal homepage and blog! I use this space to publish research notes, expository articles on mathematics, and personal projects.</p>
+<p>This site is dedicated to the documentation of failure, fascination, and to those like me with failing memory. I have learned from the inside how much gate-keeping goes on in academics, whether it be in access to resources, or access to the human experience involved in the struggle to “know”. This inclination (deliberate or otherwise) should be the antithesis of modern scholarship, as it decides (by itself) that the academy is dead; gestating in solitude and immaculately, as some strange kind of stillborn excellence. As such I intend to publish in progress research notes, expository articles on mathematics, and personal essays that are as transparent to my growth, struggles, and joys; all inherently flawed and at times potentially full of trivial errors.</p>
 <section id="explore-notes-by-topic" class="level2">
 <h2 class="anchored" data-anchor-id="explore-notes-by-topic">Explore Notes by Topic</h2>
 <ul>
-<li><a href="./notes.html#category=Analysis"><strong>Analysis</strong></a> — Measure theory, functional analysis, and operator algebras.</li>
-<li><a href="./notes.html#category=Topology"><strong>Topology</strong></a> — General topology, algebraic topology, and differential geometry.</li>
-<li><a href="./notes.html#category=Algebra"><strong>Algebra</strong></a> — Abstract algebra, category theory, and representation theory.</li>
+<li><a href="./notes.html#category=Analysis"><strong>Analysis</strong></a> — Measure theory, functional analysis, and stochastic processes.</li>
+<li><a href="./notes.html#category=Notes"><strong>Loose Notes</strong></a> — Applications, loose work, intuition, and musing.</li>
+<li><a href="./notes.html#category=Essays"><strong>Essays</strong></a> — Rants, critiques, and writings.</li>
 </ul>
 <hr>
 </section>
@@ -296,22 +299,27 @@ $$
 <h2 class="anchored" data-anchor-id="recent-posts">Recent Posts</h2>
 <div id="listing-recent-posts" class="quarto-listing quarto-listing-container-default">
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="QW5hbHlzaXMlMkNMaW5lYXIlMjBBbGdlYnJh" data-listing-date-sort="1788998400000" data-listing-file-modified-sort="1789073027674" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="162">
-<div class="thumbnail"><a href="./posts/spectral-theory.html" class="no-external">
+<div class="quarto-post image-right" data-index="0" data-categories="QW5hbHlzaXM=" data-listing-date-sort="1788998400000" data-listing-file-modified-sort="1789077582297" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="171">
+<div class="thumbnail"><a href="./posts/Analysis/spectral-theory.html" class="no-external">
 
 <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
 
 </a></div>
 <div class="body">
 <h3 class="no-anchor listing-title">
-<a href="./posts/spectral-theory.html" class="no-external">Notes on Spectral Theory</a>
+<a href="./posts/Analysis/spectral-theory.html" class="no-external">Notes on Spectral Theory</a>
 </h3>
-<div class="delink listing-description"><a href="./posts/spectral-theory.html" class="no-external">
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('QW5hbHlzaXM='); return false;">Analysis</div>
+
+</div>
+<div class="delink listing-description"><a href="./posts/Analysis/spectral-theory.html" class="no-external">
 <p>A quick review of bounded operator spectra on Hilbert spaces.</p>
 </a></div>
 </div>
 <div class="metadata">
-<a href="./posts/spectral-theory.html" class="no-external">
+<a href="./posts/Analysis/spectral-theory.html" class="no-external">
 <div class="listing-date">
 Sep 10, 2026
 </div>
@@ -321,52 +329,32 @@ Your Name
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="1" data-categories="bmV3cyUyQ2NvZGUlMkNhbmFseXNpcw==" data-listing-date-sort="1788998400000" data-listing-file-modified-sort="1789073027674" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="9">
-<div class="thumbnail"><a href="./posts/post-with-code/index.html" class="no-external">
-
-<img loading="lazy" src="./posts/post-with-code/image.jpg" class="thumbnail-image">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/post-with-code/index.html" class="no-external">Post With Code</a>
-</h3>
-<div class="delink listing-description"><a href="./posts/post-with-code/index.html" class="no-external">
-This is a post with executable code.
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/post-with-code/index.html" class="no-external">
-<div class="listing-date">
-Sep 10, 2026
-</div>
-<div class="listing-author">
-Harlow Malloc
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="bmV3cw==" data-listing-date-sort="1788739200000" data-listing-file-modified-sort="1789073027674" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="32">
-<div class="thumbnail"><a href="./posts/welcome/index.html" class="no-external">
+<div class="quarto-post image-right" data-index="1" data-categories="bmV3cw==" data-listing-date-sort="1788739200000" data-listing-file-modified-sort="1789077582297" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="13">
+<div class="thumbnail"><a href="./posts/welcome/welcome.html" class="no-external">
 
 <p class="card-img-top"><img loading='lazy' src="posts/welcome/thumbnail.jpg"  class="thumbnail-image card-img"/></p>
 
 </a></div>
 <div class="body">
 <h3 class="no-anchor listing-title">
-<a href="./posts/welcome/index.html" class="no-external">Welcome To My Blog</a>
+<a href="./posts/welcome/welcome.html" class="no-external">Welcome To My Blog</a>
 </h3>
-<div class="delink listing-description"><a href="./posts/welcome/index.html" class="no-external">
-This is the first post in a Quarto blog. Welcome!
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('bmV3cw=='); return false;">news</div>
+
+</div>
+<div class="delink listing-description"><a href="./posts/welcome/welcome.html" class="no-external">
+The killer is at large! (though it is unknown whether they are small) 
 </a></div>
 </div>
 <div class="metadata">
-<a href="./posts/welcome/index.html" class="no-external">
+<a href="./posts/welcome/welcome.html" class="no-external">
 <div class="listing-date">
 Sep 7, 2026
 </div>
 <div class="listing-author">
-Tristan O’Malley
+N. R. Aviles
 </div>
 </a>
 </div>
@@ -454,7 +442,7 @@ Tristan O’Malley
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/nraviles\.github\.io\/<your-repo-name>");
+        var filterRegex = new RegExp("https:\/\/nraviles\.github\.io\/");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

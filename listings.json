@@ -1,18 +1,16 @@
 [
   {
-    "listing": "/notes.html",
+    "listing": "/index.html",
     "items": [
-      "/posts/spectral-theory.html",
-      "/posts/post-with-code/index.html",
-      "/posts/welcome/index.html"
+      "/posts/Analysis/spectral-theory.html",
+      "/posts/welcome/welcome.html"
     ]
   },
   {
-    "listing": "/index.html",
+    "listing": "/notes.html",
     "items": [
-      "/posts/spectral-theory.html",
-      "/posts/post-with-code/index.html",
-      "/posts/welcome/index.html"
+      "/posts/Analysis/spectral-theory.html",
+      "/posts/welcome/welcome.html"
     ]
   }
 ]

@@ -6,10 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Your Name">
-<meta name="dcterms.date" content="2026-09-10">
+<meta name="author" content="N. R. Aviles">
+<meta name="dcterms.date" content="2026-09-07">
 
-<title>Notes on Spectral Theory – The Tilted Windmill</title>
+<title>Welcome To My Blog – The Tilted Windmill</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -31,23 +31,23 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-172ba59bd5e0b52282274ba0c0cc16fc.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-3e9b1289f5f353c49b617ce48ad2bc38.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -76,46 +76,17 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="floating nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top quarto-banner">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">The Tilted Windmill</span>
     </a>
   </div>
@@ -126,15 +97,15 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../notes.html"> 
+    <a class="nav-link" href="../../notes.html"> 
 <span class="menu-text">Notes &amp; Blog</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../about.html"> 
+    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
 </ul>
@@ -145,12 +116,12 @@ window.Quarto = {
     </nav>
 </header>
 <!-- content -->
-<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+<header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Notes on Spectral Theory</h1>
+      <h1 class="title">Welcome To My Blog</h1>
                                 <div class="quarto-categories">
-                <div class="quarto-category">Analysis</div>
+                <div class="quarto-category">news</div>
               </div>
                   </div>
   </div>
@@ -161,232 +132,113 @@ window.Quarto = {
       <div>
       <div class="quarto-title-meta-heading">Author</div>
       <div class="quarto-title-meta-contents">
-               <p>Your Name </p>
+               <p>N. R. Aviles </p>
             </div>
     </div>
       
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">September 10, 2026</p>
+        <p class="date">September 7, 2026</p>
       </div>
     </div>
     
       
     </div>
     
-  <div>
-    <div class="abstract">
-      <div class="block-title">Abstract</div>
-      A quick review of bounded operator spectra on Hilbert spaces.
-    </div>
-  </div>
   
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-<!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#bounded-operators" id="toc-bounded-operators" class="nav-link active" data-scroll-target="#bounded-operators">Bounded Operators</a></li>
-  <li><a href="#computations-and-environments" id="toc-computations-and-environments" class="nav-link" data-scroll-target="#computations-and-environments">Computations and Environments</a>
-  <ul class="collapse">
-  <li><a href="#matrix-examples" id="toc-matrix-examples" class="nav-link" data-scroll-target="#matrix-examples">Matrix Examples</a></li>
-  </ul></li>
-  </ul>
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    
 </nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
 <!-- main -->
 <main class="content quarto-banner-title-block" id="quarto-document-content">
 <div style="display:none;">
-
 $$
-
 % Common Math Sets &amp; Operators
-
 \newcommand{\R}{\mathbb{R}}
-
 \newcommand{\C}{\mathbb{C}}
-
 \newcommand{\N}{\mathbb{N}}
-
 \newcommand{\Z}{\mathbb{Z}}
-
 \newcommand{\Q}{\mathbb{Q}}
 
-
-
 % Blackboard Bold
-
 \newcommand{\bbE}{\mathbb{E}}
-
 \newcommand{\bbI}{\mathbb{I}}
-
 \newcommand{\bbP}{\mathbb{P}}
-
 \newcommand{\bbZ}{\mathbb{Z}}
-
 \newcommand{\bbQ}{\mathbb{Q}}
 
-
-
 % Calligraphic
-
 \newcommand{\calC}{\mathcal{C}}
-
 \newcommand{\calF}{\mathcal{F}}
-
 \newcommand{\calG}{\mathcal{G}}
-
 \newcommand{\calK}{\mathcal{K}}
-
 \newcommand{\calL}{\mathcal{L}}
-
 \newcommand{\calR}{\mathcal{R}}
-
 \newcommand{\calS}{\mathcal{S}}
-
 \newcommand{\SR}{\mathcal{SR}}
 
-
-
 % Accents &amp; Overlines
-
 \newcommand{\fhat}{\widehat{f}}
-
 \newcommand{\Fbar}{\Bar{F}}
-
 \newcommand{\Bhat}{\widehat{B}}
-
 \newcommand{\muhat}{\widehat{\mu}}
-
 \newcommand{\mub}{\mu_{\bullet}}
-
 \newcommand{\nub}{\nu_{\bullet}}
-
 \newcommand{\tu}{\Tilde{u}}
-
 \newcommand{\tbeta}{\Tilde{\beta}}
-
 \newcommand{\Phistar}{{\Phi^\star}}
-
 \newcommand{\Omegastar}{\Omega^\star}
-
 \newcommand{\Ctilde}{\tilde{C}}
 
-
-
 % Relations &amp; Convergence
-
 \newcommand{\deq}{\stackrel{d}{=}}
-
 \newcommand{\dsim}{\stackrel{d}{\sim}}
-
 \newcommand{\pto}{\stackrel{p}{\rightarrow}}
-
 \newcommand{\iid}{\stackrel{\text{iid}}{\sim}}
-
 \newcommand{\tell}{\Tilde{\ell}}
-
 \newcommand{\tmu}{\Tilde{\mu}}
-
 \newcommand{\tnu}{\Tilde{\nu}}
-
 \newcommand{\tg}{\Tilde{g}}
-
 \newcommand{\ex}{\operatorname{ex}}
-
 \newcommand{\ind}{\perp\!\!\!\!\perp}
 
-
-
 % Delimiters &amp; Paired Brackets
-
 \newcommand{\pr}[1]{\left( #1 \right)}
-
 \newcommand{\br}[1]{\left[ #1 \right]}
-
 \newcommand{\cbr}[1]{\left\{ #1 \right\}}
-
 \newcommand{\brZ}[1]{\left[ #1 \right]_{\Z}}
-
 \newcommand{\inp}[2]{\left\langle #1, #2 \right\rangle}
-
 \newcommand{\norm}[1]{\left\lVert#1\right\rVert}
-
 \newcommand{\abs}[1]{\left\lvert#1\right\rvert}
-
 \newcommand{\inner}[2]{\left\langle #1, #2 \right\rangle}
 
-
-
 % Math Operators
-
 \DeclareMathOperator{\E}{\mathbb{E}}
-
 \DeclareMathOperator{\V}{\mathbb{V}}
-
 \DeclareMathOperator{\Gibbs}{Gibbs}
-
 \DeclareMathOperator{\Mult}{Mult}
-
 \DeclareMathOperator{\Pois}{Pois}
-
 \DeclareMathOperator{\End}{End}
-
 \DeclareMathOperator{\Aut}{Aut}
-
 \DeclareMathOperator{\Span}{span}
-
 \DeclareMathOperator{\Spec}{Spec}
-
 $$
-
 </div>
 
 
 
 
 
-<section id="bounded-operators" class="level2">
-<h2 class="anchored" data-anchor-id="bounded-operators">Bounded Operators</h2>
-<p>Let <span class="math inline">\(H\)</span> be a Hilbert space over <span class="math inline">\(\C\)</span>. Recall our global macro test: <span class="math inline">\(x \in \R^n\)</span> and <span class="math inline">\(\inner{u}{v}\)</span>.</p>
-<div id="def-spectrum" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 1 (Spectrum)</strong></span> Let <span class="math inline">\(T \in \End(H)\)</span>. The <strong>spectrum</strong> of <span class="math inline">\(T\)</span>, denoted <span class="math inline">\(\Spec(T)\)</span>, is the set of all <span class="math inline">\(\lambda \in \C\)</span> such that <span class="math inline">\(T - \lambda I\)</span> is not invertible.</p>
-</div>
-</section>
-<section id="computations-and-environments" class="level2">
-<h2 class="anchored" data-anchor-id="computations-and-environments">Computations and Environments</h2>
-<p>We can write aligned equations natively by wrapping <code>aligned</code> inside <code>$$</code>:</p>
-<p><span id="eq-star"><span class="math display">\[\begin{aligned}
-\norm{T x}^2 &amp;= \inner{Tx}{Tx} \\
-             &amp;= \inner{T^* T x}{x}
-\end{aligned} \tag{1}\]</span></span></p>
-<p>As seen in <a href="#eq-star" class="quarto-xref">Equation&nbsp;1</a>, we can reference tagged equations seamlessly</p>
-<section id="matrix-examples" class="level3">
-<h3 class="anchored" data-anchor-id="matrix-examples">Matrix Examples</h3>
-<p><span class="math display">\[A = \begin{pmatrix}
-0 &amp; 1 \\
--1 &amp; 0
-\end{pmatrix}\]</span></p>
-<p>The piecewise cases environment works as expected:</p>
-<p><span class="math display">\[f(x) = \begin{cases}
-1 &amp; \text{if } x \in \Q, \\
-0 &amp; \text{if } x \notin \Q.
-\end{cases}\]</span></p>
-<div id="def-hilbert" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 2 (Hilbert Space)</strong></span> A Hilbert space <span class="math inline">\(H\)</span> is a complete inner product space with an inner product <span class="math inline">\(\inner{x}{y}\)</span>.</p>
-</div>
-<div id="thm-spectral" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 1 (Spectral Theorem)</strong></span> Let <span class="math inline">\(T\)</span> be a compact self-adjoint operator on a Hilbert space <span class="math inline">\(H\)</span>.</p>
-</div>
-<p>We apply <a href="#def-hilbert" class="quarto-xref">Definition&nbsp;2</a> to prove <a href="#thm-spectral" class="quarto-xref">Theorem&nbsp;1</a>.</p>
+<p>The killer is at large! (though it is unknown whether they are small) <img src="thumbnail.jpg" class="img-fluid"></p>
 
 
-</section>
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

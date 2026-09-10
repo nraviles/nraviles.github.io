@@ -6,6 +6,7 @@ categories: [Analysis, Linear Algebra]
 abstract: "A quick review of bounded operator spectra on Hilbert spaces."
 ---
 
+
 ## Bounded Operators
 
 Let $H$ be a Hilbert space over $\C$. Recall our global macro test: $x \in \R^n$ and $\inner{u}{v}$.

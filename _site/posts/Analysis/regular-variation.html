@@ -211,6 +211,10 @@ window.Quarto = {
   <ul>
   <li><a href="#preliminary-definitions" id="toc-preliminary-definitions" class="nav-link active" data-scroll-target="#preliminary-definitions">Preliminary Definitions</a></li>
   <li><a href="#fundamental-theorems" id="toc-fundamental-theorems" class="nav-link" data-scroll-target="#fundamental-theorems">Fundamental Theorems</a></li>
+  <li><a href="#karamatas-tauberian-theorem" id="toc-karamatas-tauberian-theorem" class="nav-link" data-scroll-target="#karamatas-tauberian-theorem">Karamata’s Tauberian Theorem</a>
+  <ul class="collapse">
+  <li><a href="#proof-of-implication-for-karamatas-tauberian-theorem" id="toc-proof-of-implication-for-karamatas-tauberian-theorem" class="nav-link" data-scroll-target="#proof-of-implication-for-karamatas-tauberian-theorem">Proof of implication for Karamata’s Tauberian Theorem</a></li>
+  </ul></li>
   </ul>
 </nav>
 </nav>
@@ -415,18 +419,20 @@ $$
         \infty, \quad \rho &gt; 0.
     \end{cases}
 \end{equation*}\]</span> Two simple examples of slowly varying functions are constants <span class="math inline">\(\ell(n) = C &gt; 0\)</span> and <span class="math inline">\(\ell(n) = \pr{\log n}^\gamma\)</span> for any <span class="math inline">\(\gamma \in \R\)</span>.</p></div><div id="fn2"><p><sup>2</sup>&nbsp;It is also very important here to ask what this means with respect to regularly varying sequences <span class="math inline">\(f_n\)</span>. Here there is no burden, and we may just define <span class="math inline">\(f_n = (f_n/n^{\alpha})n^{\alpha} \doteq \ell(n) n^{\alpha}\)</span>, though we must restrict ourselves to <span class="math inline">\(n\in \Z_{+}\)</span>; for instance by taking the integer part <span class="math inline">\(f(x) =\ell([x])[x]^\alpha\)</span>. What however is interesting, is that we may go even further and consider a continuous argument <span class="math inline">\(x\in \R_+\)</span> by defining a continuous function <span class="math inline">\(f(x)\)</span> which agrees with <span class="math inline">\(f_n = f(n)\)</span> on the integers, and otherwise has useful properties. For instance, for a regularly varying sequence <span class="math inline">\(f_n\)</span> we can simply define <span class="math inline">\(f(x)\)</span> as its smooth interpolation such that <span class="math inline">\(f([x]) = f_{[x]}\)</span>. This representation allow us to often ignore whether our regularly varying function is continuous or discrete, and derive general results.</p></div></div></section>
-<section id="fundamental-theorems" class="level2">
+<section id="fundamental-theorems" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="fundamental-theorems">Fundamental Theorems</h2>
-<p>The first of the ``fundamental theorems of regular variation’’ (for derivatives) to be discussed is the Monotone Density Theorem (Theorem 2.11 in <span class="citation" data-cites="heavy_tails">(<a href="#ref-heavy_tails" role="doc-biblioref">Nair et al. 2022</a>)</span>). This and the accompanying theorem to follow (dealing with integrals; see Theorem 2.10 in <span class="citation" data-cites="heavy_tails">(<a href="#ref-heavy_tails" role="doc-biblioref">Nair et al. 2022</a>)</span> or Theorem A3.7 in <span class="citation" data-cites="Embrechts">(<a href="#ref-Embrechts" role="doc-biblioref">Emchrechts et al. 2012</a>)</span>) will be used frequently in our proofs to follow. The condition of eventual-monotonicity required for the Monotone Density theorem is in some cases difficult to check, but is essentially determined by the behavior of the slowly varying function <span class="math inline">\(\ell(\cdot)\)</span>. This condition is often evaluated with a secondary notion, for instance log-concavity <span class="math inline">\(\mu_{j}^2\ge \mu_{j-1}\mu_{j+1}\)</span> for all <span class="math inline">\(j &gt; N\)</span>. As such, monotonicity is often treated as a simplifying assumption, or is ensured by selection of a specific case.</p>
-<div id="thm-MonotoneDensity" class="theorem">
+<p>The first of the ``fundamental theorems of regular variation’’ (for derivatives) to be discussed is the Monotone Density Theorem (Theorem 2.11 in <span class="citation" data-cites="heavy_tails">(<a href="#ref-heavy_tails" role="doc-biblioref">Nair et al. 2022</a>)</span>). This and the accompanying theorem to follow (dealing with integrals; see Theorem 2.10 in <span class="citation" data-cites="heavy_tails">(<a href="#ref-heavy_tails" role="doc-biblioref">Nair et al. 2022</a>)</span> or Theorem A3.7 in <span class="citation" data-cites="Embrechts">(<a href="#ref-Embrechts" role="doc-biblioref">Emchrechts et al. 2012</a>)</span>) will be used frequently in our proofs to follow. The condition of eventual-monotonicity required for the Monotone Density theorem is in some cases difficult to check, but is essentially determined by the behavior of the slowly varying function <span class="math inline">\(\ell(\cdot)\)</span>. This condition is often evaluated with a secondary notions/conditions.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+<div class="no-row-height column-margin column-container"><div id="fn3"><p><sup>3</sup>&nbsp;In the context of probability distributions <span class="math inline">\(\Pr[X \le n]\)</span>, and in the discrete case their associated probability masses, two conditions that guarantee eventual monotonicity are (1) <em>log-concavity</em> of <span class="math inline">\(\mu_n = \Pr[X = n]\)</span>, i.e.&nbsp;<span class="math inline">\(\mu_n^2 \ge \mu_{n-1}\mu_{n+1}\)</span> and (2) <em>complete monotonicity</em> where all <span class="math inline">\(k\)</span>-fold finite differences <span class="math inline">\(\Delta^k\)</span> of <span class="math inline">\(\mu_n\)</span> are such that <span class="math inline">\((-1)^k \Delta^k \mu_n \ge 0\)</span> for all <span class="math inline">\(k\ge 0\)</span> and <span class="math inline">\(n\ge 0\)</span>. This second result is equivalent to being able to write <span class="math display">\[\begin{equation*}
+\mu_n =\int_{0}^1 z^n\dd \nu (z) = \int_{0}^\infty e^{-sn}\dd \xi (s)
+\end{equation*}\]</span> by the Hausdorff moment theorem <span class="citation" data-cites="hausdorff1921">(<a href="#ref-hausdorff1921" role="doc-biblioref">Hausdorff 1921</a>)</span> for Borel measures <span class="math inline">\(\nu\)</span> and <span class="math inline">\(\xi\)</span>. For alternative conditions justifying the result of the Monotone Density Theorem, refer to Sections 1.6 and 1.7 of <span class="citation" data-cites="regular_variation">Bingham et al. (<a href="#ref-regular_variation" role="doc-biblioref">1987</a>)</span>. For instance, we are able to argue that the Monotone Density Theorem applies (see <span class="citation" data-cites="regular_variation">(<a href="#ref-regular_variation" role="doc-biblioref">Bingham et al. 1987</a>)</span>, Sec. 1.8.1, Proposition 1.8.2) so long as <span class="math inline">\(\mu_n\)</span> is <em>smoothly varying</em> (guaranteed if <span class="math inline">\(\Pr[X &gt; n] = \ell(n)n^{-\alpha}\)</span> is smoothly varying).</p></div></div><div id="thm-MonotoneDensity" class="theorem">
 <p><span class="theorem-title"><strong>Theorem 1</strong></span> Let <span class="math inline">\(F \in \calR_{\alpha}^{\infty}\)</span> and let <span class="math inline">\(\Delta F\)</span> denote the derivative <span class="math inline">\(\Delta F(n) = F'(n)\)</span>, if <span class="math inline">\(F\)</span> is absolutely continuous with respect to the Lebesgue measure, and the finite difference operator <span class="math inline">\(\Delta F(n) = F(n)-F(n-1)\)</span> if <span class="math inline">\(F\)</span> is discrete. If <span class="math inline">\(\Delta [F]\)</span> is eventually monotone in the sense that there exists an <span class="math inline">\(N\)</span> such that for <span class="math inline">\(\Delta F(n)\)</span> is monotone for <span class="math inline">\(n &gt; N\)</span>, then <span class="math display">\[
 \begin{align*}
     n \Delta F (n) \sim \alpha F(n), \quad n &gt; N,
 \end{align*}
 \]</span> and therefore <span class="math inline">\(\Delta F \in \calR_{\alpha-1}^{\infty}\)</span>.</p>
 </div>
-<div id="pf-monotone">
-<p>We consider the discrete case, which is not often seen, but whose proof is similar to the absolutely continuous case, where one needs only to substitute an integral whenever a sum appears below. Without loss of generality, assume that <span class="math inline">\(\Delta [F] (n)\)</span> is non-decreasing for <span class="math inline">\(n &gt; N\)</span>, and let $0 &lt; a &lt; b $; the non-increasing will be implied by changing the direction the following inequalities. By definition of <span class="math inline">\(F\)</span>, we can of course write <span class="math display">\[
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>We consider the discrete case, which is not often seen, but whose proof is similar to the absolutely continuous case, where one needs only to substitute an integral whenever a sum appears below. Without loss of generality, assume that <span class="math inline">\(\Delta [F] (n)\)</span> is non-decreasing for <span class="math inline">\(n &gt; N\)</span>, and let $0 &lt; a &lt; b $; the non-increasing will be implied by changing the direction the following inequalities. By definition of <span class="math inline">\(F\)</span>, we can of course write <span class="math display">\[
 \begin{equation*}
     \sum_{i = [sn]}^{[tn]} \frac{\Delta [F] (n)}{F (n)} = \frac{F ([tn]) - F ([sn])}{F (n)}.
 \end{equation*}
@@ -492,14 +498,254 @@ $$
 \end{aligned} \end{equation*}
 \]</span> That is, <span class="math inline">\(\int f(y) \dd y \in \calR_{\alpha + 1}^{\infty}\)</span> for <span class="math inline">\(\alpha &lt; 0\)</span> and <span class="math inline">\(\alpha &gt; 0\)</span>, respectively, over their valid intervals.</p>
 </div>
-<p>A proof of Theorem <a href="#thm-KaramataIntegral" class="quarto-xref">Theorem&nbsp;3</a> can be found in the appendix of <span class="citation" data-cites="deHaan">(<a href="#ref-deHaan" role="doc-biblioref"><span class="nocase">de Haan and Ferrerira</span> 2006</a>)</span>, as Theorem B.1.5 (see also Theorem 2.10 in <span class="citation" data-cites="heavy_tails">(<a href="#ref-heavy_tails" role="doc-biblioref">Nair et al. 2022</a>)</span> or Theorem A3.7 in <span class="citation" data-cites="Embrechts">(<a href="#ref-Embrechts" role="doc-biblioref">Emchrechts et al. 2012</a>)</span>). The primary argument comes from applying the Uniform Convergence Theorem for regular varying functions after a change of variables <span class="math display">\[
+<p>A proof of Theorem <a href="#thm-KaramataIntegral" class="quarto-xref">Theorem&nbsp;3</a> can be found in the appendix of <span class="citation" data-cites="deHaan">(<a href="#ref-deHaan" role="doc-biblioref"><span class="nocase">de Haan and Ferrerira</span> 2006</a>)</span><a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>, as Theorem B.1.5 (see also Theorem 2.10 in <span class="citation" data-cites="heavy_tails">(<a href="#ref-heavy_tails" role="doc-biblioref">Nair et al. 2022</a>)</span> or Theorem A3.7 in <span class="citation" data-cites="Embrechts">(<a href="#ref-Embrechts" role="doc-biblioref">Emchrechts et al. 2012</a>)</span>). The primary argument comes from applying the Uniform Convergence Theorem for regular varying functions after a change of variables <span class="math display">\[
 \begin{equation*}
     \frac{F(tx)-F(t)}{tf(t)} = \int_{1}^{x}\frac{f(tu)}{f(t)} \dd u \rightarrow \frac{x^{\alpha + 1}-1}{\alpha + 1}, \quad t \uparrow \infty.
 \end{equation*}
-\]</span> Extending this result to include integration over <span class="math inline">\([0,x]\)</span> or <span class="math inline">\([x,\infty)\)</span> for <span class="math inline">\(\alpha &gt; -1\)</span> and <span class="math inline">\(\alpha \le -1\)</span>, respectively, requires integrability of <span class="math inline">\(f\)</span> over these regions so that the denominator <span class="math inline">\(tf(t)\)</span> dominates <span class="math inline">\(\int f(s)\dd s\)</span> over these regions.</p>
+\]</span></p>
+<div class="no-row-height column-margin column-container"><div id="fn4"><p><sup>4</sup>&nbsp;The idea presented in <span class="citation" data-cites="deHaan">(<a href="#ref-deHaan" role="doc-biblioref"><span class="nocase">de Haan and Ferrerira</span> 2006</a>)</span> is to first show that these integrals are finite for finite intervals (locally bounded). Afterwards, by regular variation, one can show show that there exists a <span class="math inline">\(t_\varepsilon\)</span> such that for <span class="math inline">\(t &gt; t_\varepsilon\)</span>, <span class="math inline">\(f(xt) \le (1 + \varepsilon)x^{\alpha}f(t)\)</span>. For example as <span class="math inline">\(F(t) = \int_{t_0}^{t} f(y) \dd y \uparrow \infty\)</span> we can write for fixed <span class="math inline">\(x\)</span> <span class="math display">\[
+\begin{equation*}
+\frac{F(tx)}{F(t)} = \frac{\int_{t_0}^{tx} f(y) \dd y}{\int_{t_0}^{t} f(y) \dd y} \sim \frac{\int_{t_\varepsilon x}^{tx} f(y) \dd y}{\int_{t_\varepsilon}^{t} f(y) \dd y} = \frac{x\int_{t_\varepsilon }^{t} f(xy) \dd y}{\int_{t_\varepsilon}^{t} f(y) \dd y} \le (1+2\varepsilon)x^{\alpha+1}, \quad t \uparrow \infty
+\end{equation*}
+\]</span> where the <span class="math inline">\(2\varepsilon\)</span> considers the adjustment needed for the middle and final approximation as well as the stated inequality. A lower limit is also found in the same manner (with lower bound coefficient <span class="math inline">\((1-2\varepsilon)\)</span>). Thus by squeeze <span class="math inline">\(F(t) \in \calR_{\alpha + 1}\)</span>.</p></div></div><p>Extending this result to include integration over <span class="math inline">\([0,x]\)</span> or <span class="math inline">\([x,\infty)\)</span> for <span class="math inline">\(\alpha &gt; -1\)</span> and <span class="math inline">\(\alpha \le -1\)</span>, respectively, requires integrability of <span class="math inline">\(f\)</span> over these regions so that the denominator <span class="math inline">\(tf(t)\)</span> dominates <span class="math inline">\(\int f(s)\dd s\)</span> over these regions.</p>
+<hr>
+</section>
+<section id="karamatas-tauberian-theorem" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="karamatas-tauberian-theorem">Karamata’s Tauberian Theorem</h2>
+<p>Here we present one of the most important tools for our paper, the Extended Karamata Tauberian Theorem (thm-karataub). Proofs of this result rely on Potter’s Bound, which relies on the following representation theorem.</p>
+<div id="thm-karamatarep" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 4</strong></span> Let <span class="math inline">\(f \in \calR_{\alpha}^{\infty}\)</span>, and let <span class="math inline">\(F(x) = \int_{x_0}^{x}f(t) \dd t\)</span> where for <span class="math inline">\(x &gt; x_0\)</span> <span class="math inline">\(f(x)\)</span> is positive. Then there exists a function <span class="math inline">\(\lim_{x\uparrow\infty}c_0(x) = c_0 &gt; 0\)</span>, such that <span class="math display">\[
+\begin{equation*}
+    f(x) = c_0(x) b(x) \exp\pr{\int_{1}^{x} \frac{b(t) - 1}{t} \dd t},
+\end{equation*}
+\]</span> where <span class="math inline">\(b(x) = xf(x)/F(x)\)</span> obeys <span class="math display">\[
+\begin{equation*}
+    \lim_{x \uparrow \infty} b(x) = \begin{cases}
+        -(\alpha + 1), \quad \alpha &lt; -1 \\
+        \alpha + 1, \quad -1 \le \alpha .
+    \end{cases}
+\end{equation*}
+\]</span></p>
+</div>
+<p>A proof of this can be found in <span class="citation" data-cites="deHaan">(<a href="#ref-deHaan" role="doc-biblioref"><span class="nocase">de Haan and Ferrerira</span> 2006</a>)</span> as a remark related to the proof of Karamata’s Theorem, Theorem B.1.5. The case of discrete sequences is not obvious, but follows again by defining <span class="math inline">\(f(x)\)</span> as a smooth interpolation such that <span class="math inline">\(f([x]) = f_{[x]}\)</span>, which by Theorem <a href="#thm-karamatarep" class="quarto-xref">Theorem&nbsp;4</a> will have a valid representation.<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></p>
+<div class="no-row-height column-margin column-container"><div id="fn5"><p><sup>5</sup>&nbsp;Karamata’s Representation Theorem (Theorem B.1.6 in <span class="citation" data-cites="deHaan">(<a href="#ref-deHaan" role="doc-biblioref"><span class="nocase">de Haan and Ferrerira</span> 2006</a>)</span>) has multiple equivalent representations, sometimes just written as <span class="math display">\[
+\begin{equation*}
+f(x) = c_1(x) \exp\pr{\int_{x_0}^{x} \frac{a(t)}{t} \dd t},
+\end{equation*}
+\]</span> where <span class="math inline">\(a: \R^{+} \rightarrow \R\)</span> and <span class="math inline">\(c: \R^{+} \rightarrow \R\)</span> are measurable functions such that again <span class="math inline">\(a(x) \rightarrow \alpha\)</span> and <span class="math inline">\(c_1(x) \rightarrow c_1 &gt; 0\)</span>.</p></div></div><p>The representation given in <a href="#thm-karamatarep" class="quarto-xref">Theorem&nbsp;4</a> is useful in bounding the error of <span class="math inline">\(f(xt)/f(t)\)</span> compared to <span class="math inline">\(x^{\alpha}\)</span> uniformly in <span class="math inline">\(x\)</span>, rather than just point-wise. Applying this representation and a change of variables, <span class="math display">\[
+\begin{equation*}
+\frac{f(xt)}{f(t)}
+= \frac{c_1(xt) }{c_1(t) } \exp\pr{\int_{t}^{xt} \frac{b(s) - 1}{s} \dd s}
+= \frac{c_1(xt) }{c_1(t) } \exp\pr{\int_{1}^{x} \frac{b(ts) - 1}{s} \dd s}.
+\end{equation*}
+\]</span> By combining the <a href="#thm-rvuniformconvergence" class="quarto-xref">Theorem&nbsp;2</a> and <a href="#thm-KaramataIntegral" class="quarto-xref">Theorem&nbsp;3</a>, we have that for specified <span class="math inline">\(\delta_1,\delta_2&gt;0\)</span>, we can ensure that <span class="math inline">\(|\frac{c_1(xt) }{c_1(t) } - 1| \le \delta_1\)</span> and <span class="math inline">\(|b(ts)-1-\alpha| \le \delta_2\)</span> for large enough <span class="math inline">\(t &gt; t_0\)</span> uniformly in <span class="math inline">\(s \ge \min\{1,x\}\)</span>. For arbitrary <span class="math inline">\(x &gt; 0\)</span>, this gives us upper and lower bounds on the ratio, a result known as Potter’s Bound (see, e.g., Proposition B.4.1.5 in <span class="citation" data-cites="deHaan">(<a href="#ref-deHaan" role="doc-biblioref"><span class="nocase">de Haan and Ferrerira</span> 2006</a>)</span>).</p>
+<div id="thm-pottersbound" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 5</strong></span> Let <span class="math inline">\(f \in \calR_{\alpha}^{\infty}\)</span> and let <span class="math inline">\(\delta_1, \delta_2 &gt; 0\)</span>. There exists <span class="math inline">\(t_0 \in \R\)</span> such that <span class="math display">\[
+\begin{equation*}
+    (1-\delta_1) x^{\alpha} \min \{x^{-\delta_2},x^{\delta_2} \}\le \frac{f(xt)}{f(t)} \le (1+\delta_1) x^{\alpha} \max \{x^{-\delta_2},x^{\delta_2} \}
+\end{equation*}
+\]</span> for all <span class="math inline">\(t \ge \max\{ t_0, t_0/x \}\)</span>.</p>
+</div>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>Here, if we are considering the ratio <span class="math inline">\(g(x/t)/g(1/t)\)</span> for a function <span class="math inline">\(g\)</span> that is regular varying at <span class="math inline">\(0\)</span> rather than at <span class="math inline">\(\infty\)</span>, the condition presented in the theorem would be in terms of inverse arguments <span class="math inline">\(s = t\)</span> and <span class="math inline">\(y = 1/x\)</span>. The required relation per Potter’s Bound that <span class="math inline">\(s \ge \max\cbr{s_0, s_0/y}\)</span>, would here equate instead to <span class="math inline">\(t \ge \max\cbr{s_0,s_0x}\)</span>. We note therefore that for <span class="math inline">\(\theta \in [0,a]\)</span> for some fixed <span class="math inline">\(a&gt;0\)</span>, this condition can always be satisfied uniformly in <span class="math inline">\(\theta\)</span> for large enough <span class="math inline">\(t\)</span></p>
+</div><div class="">
+<p>The discrete case of <a href="#thm-pottersbound" class="quarto-xref">Theorem&nbsp;5</a> is also true, and ensures the existence of <span class="math inline">\(n_0 = n_0(\delta_1,\delta_2)\)</span> such that for <span class="math inline">\(n,m&gt;n_0(\delta_1,\delta_2)\)</span>, <span class="math display">\[
+\begin{equation*}
+    (1-\delta_1) (m/n)^{\alpha} \min \{(m/n)^{-\delta_2},(m/n)^{\delta_2} \}\le \frac{f_m}{f_n} \le (1+\delta_1) (m/n)^{\alpha} \max \{(m/n)^{-\delta_2},(m/n)^{\delta_2} \},
+\end{equation*}
+\]</span> with <span class="math inline">\(m/n\)</span> the analogue of <span class="math inline">\(x\)</span>; for instance we could define <span class="math inline">\(m=[xn]\)</span> for some <span class="math inline">\(x&gt;0\)</span>.</p>
+</div></div>
+<p>Potter’s Bound is an important result in justifying dominated convergence any compact interval not containing values below <span class="math inline">\(t_0\)</span>. For example, Potter’s bound can be used to prove the following lemma (see Lemma B.1.12 in <span class="citation" data-cites="deHaan">(<a href="#ref-deHaan" role="doc-biblioref"><span class="nocase">de Haan and Ferrerira</span> 2006</a>)</span>).</p>
+<div id="lem-domconv_regvar" class="theorem lemma">
+<p><span class="theorem-title"><strong>Lemma 1</strong></span> Let <span class="math inline">\(f \in \calR_{\alpha}^{\infty}\)</span> with <span class="math inline">\(\alpha &gt; -1\)</span> be Lebesgue integrable over finite intervals of <span class="math inline">\(\R_{+}\)</span>, and let <span class="math inline">\(k: \R_{+} \rightarrow \R\)</span> be a measurable function such that there exists <span class="math inline">\(\varepsilon &gt; 0\)</span> where <span class="math display">\[
+\begin{equation*}
+    \int_{0}^{1} x^{\alpha-\varepsilon} k(x) \dd x &lt; \infty, \quad \int_{1}^{\infty} x^{\alpha+\varepsilon} k(x) \dd x &lt; \infty .
+\end{equation*}
+\]</span> Then <span class="math display">\[
+\begin{equation*}
+    \lim_{t\uparrow \infty}\int_{0}^{\infty}\frac{f(xt)}{f(t)}k(x)  \dd x = \int_{0}^{\infty}x^{\alpha}k(x) \dd x .
+\end{equation*}
+\]</span></p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>The proof of <a href="#lem-domconv_regvar" class="quarto-xref">Lemma&nbsp;1</a> follows from Potter’s bound, which shows that dominated convergence holds for compact intervals, extended to <span class="math inline">\(\R_+\)</span> so long as the integral is finite.<br>
+The only complicating part is the interval near <span class="math inline">\(0\)</span>. Here, one has that as <span class="math inline">\(f\)</span> is integrable near <span class="math inline">\(0\)</span> and <span class="math inline">\(k(\cdot)\)</span> is bounded that <span class="math display">\[
+\begin{equation*}
+    \abs{\int_{0}^{t_0/t}\frac{f(xt)}{f(t)}k(x)  \dd x} \le \frac{1}{tf(t)}\int_{0}^{t_0}\abs{f(s)k\pr{\frac{s}{t}}}  \dd s \downarrow 0
+\end{equation*}
+\]</span> as when <span class="math inline">\(\alpha &gt; -1\)</span>, <span class="math inline">\(tf(t) \uparrow \infty\)</span>. Note that as long as <span class="math inline">\(1-\alpha - \varepsilon &gt; 0\)</span>, <span class="math inline">\(t^{-\alpha - \varepsilon}k(t)\)</span> is integrable on <span class="math inline">\((0,1)\)</span>. On the other end, we have by Potter’s bound i.e. <span class="math display">\[
+\begin{equation*}
+    \frac{f(tx)}{f(t)} \le c x^{-\alpha \pm \varepsilon}, \quad tx \ge t_0, x \in \R_{+}
+\end{equation*}
+\]</span> this implies in total by dominated convergence that <span class="math display">\[
+\begin{equation*}
+    \int_{t_0/t}^{1}k(x) \frac{f(tx)}{f(t)}\dd x \rightarrow \int_{0}^{1}k(x) x^\alpha \dd x
+\end{equation*}
+\]</span></p>
+</div>
+<p>thm-ext_karataub is a combination of two results. The first replaces the traditional Karamata Tauberian Theorem with its Fourier equivalent, a result established by Garsia and Lamperti (Lemma 3.2.1 in <span class="citation" data-cites="GarsiaLamperti1963">(<a href="#ref-GarsiaLamperti1963" role="doc-biblioref">Garsia and Lamperti 1963</a>)</span>; a straightforward application of Potter’s Bound <a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>). Garsia and Lamperti’s result will only apply, however, to distributions with regular varying tails <span class="math inline">\(\Pr[S_1&gt;n]=\ell(n)n^{-\alpha}\)</span> with infinite mean, i.e., where <span class="math inline">\(\alpha \in (0,1)\)</span>. The second result extends this result to <span class="math inline">\(\alpha&gt;1\)</span>, the case where <span class="math inline">\(S_1\)</span> has finite mean (see, for example, Theorem 2.16 in <span class="citation" data-cites="heavy_tails">(<a href="#ref-heavy_tails" role="doc-biblioref">Nair et al. 2022</a>)</span>). The proof of this result follows by analyzing iterated integrals of a regularly varying function through repeated integration-by-parts. Alternatively, this can be observed via Taylor expansion of <span class="math inline">\(\int_0^\infty e^{-st} \dd F(t)\)</span> which is non-decreasing (actually completely monotone) and absolutely continuous in <span class="math inline">\(s\)</span>.</p>
+<div class="no-row-height column-margin column-container"><div id="fn6"><p><sup>6</sup>&nbsp;Though we recommend just checking the paper, we briefly account the analysis. First they consider an integration by parts applied to <span class="math display">\[
+\begin{equation*}
+1-\Phi(\theta) = \int_{0}^{\infty}(1-e^{i\theta x})\dd \mu(x),
+\end{equation*}
+\]</span> so that this expression can be written in terms of <span class="math inline">\(\Fbar(x)\)</span> which is assumed to be regularly varying. In this context Potter’s Bound indicates still applies, where per Garsia and Lamperti <span class="citation" data-cites="GarsiaLamperti1963">(<a href="#ref-GarsiaLamperti1963" role="doc-biblioref">Garsia and Lamperti 1963</a>)</span>: there exists a <span class="math inline">\(\lambda(\varepsilon) &gt; 0\)</span> for a chosen small <span class="math inline">\(\varepsilon&gt;0\)</span> such that such that for all <span class="math inline">\(\sigma\)</span> with <span class="math inline">\(\theta\lambda(\varepsilon)\le \sigma \le 1\)</span> <span class="math display">\[
+\begin{equation*}
+\frac{\Fbar(\sigma/\theta)}{\Fbar(1/\theta)} \le \frac{1+\varepsilon}{1-\varepsilon}\sigma^{\alpha - \varepsilon}
+\end{equation*}
+\]</span> This argument clearly also extends to <span class="math inline">\(1\le \sigma\le M\)</span>, given that the condition of Potter’s Bound, requiring that for <span class="math inline">\(t= 1/\theta\)</span> and <span class="math inline">\(x = \sigma\)</span> <span class="math display">\[
+\begin{equation*}
+1/\theta \ge  \max\cbr{t_0 t_0/\sigma} \ge t_0
+\end{equation*}
+\]</span> can always be made to hold as <span class="math inline">\(\theta\downarrow 0\)</span> (fundamentally equivalent to <a href="#thm-rvuniformconvergence" class="quarto-xref">Theorem&nbsp;2</a>). In their work they observe the fact that <span class="math display">\[
+\begin{equation*}
+\abs{\int_{0}^{\theta\lambda(\varepsilon)}e^{i\sigma}\frac{\Fbar(\sigma/\theta)}{\Fbar(1/\theta)} \dd \sigma} \le \frac{\theta\lambda(\varepsilon)}{\Fbar(1/\theta)} = o(1), \quad \theta\uparrow\infty,
+\end{equation*}
+\]</span> These facts plus uniform convergence over compact <span class="math inline">\(1\le\sigma\le M\)</span> allows them to derive a commensurate complex Karamata’s Tauberian Theorem.</p></div></div><div id="thm-ext_karataub" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 6</strong></span> Let <span class="math inline">\(\mu\)</span> be a probability distribution strictly supported on <span class="math inline">\(\R_+\)</span> with <span class="math inline">\(S_1 \sim \mu\)</span> and <span class="math inline">\(\Pr[S_1&gt; n]=\ell(n)n^{-\alpha}\)</span> for <span class="math inline">\(\alpha &gt; 0\)</span>. Suppose that <span class="math inline">\(\alpha\)</span> can be decomposed as <span class="math inline">\(\alpha = n + \beta\)</span>, for <span class="math inline">\(n \in \cbr{0,1,2,\ldots}\)</span> and <span class="math inline">\(\beta \in (0,1)\)</span>. Then the following are equivalent:</p>
+<ol type="i">
+<li><span class="math inline">\(\Fbar(n) = \ell(n)n^{-\alpha}, \quad n\uparrow\infty\)</span>,</li>
+<li><span class="math inline">\((-1)^{n+1}\left[\Phi (\theta) - \sum_{i=0}^{n}\frac{\E[S_1^j](i\theta)^{j}}{j!}\right] \sim  e^{-\frac{i\pi\alpha}{2}}\abs{\Gamma(1-\alpha)}\abs{\theta}^{\alpha}\ell(1/\abs{\theta}), \quad \theta\downarrow 0.\)</span></li>
+</ol>
+<p>Specifically, for <span class="math inline">\(\alpha \in (0,1)\)</span>, <span class="math display">\[
+\begin{equation*}
+1- \Phi(\theta) \sim e^{-\frac{i\pi\alpha}{2}}\abs{\Gamma(1-\alpha)}\abs{\theta}^{\alpha}\ell(1/\abs{\theta}) , \quad \theta \downarrow 0,
+\end{equation*}
+\]</span> and for <span class="math inline">\(\alpha \in (1,2)\)</span>, <span class="math display">\[
+\begin{equation*}
+(1 - \Phi(\theta)) +i\theta\E[ S_1] \sim -e^{-\frac{i\pi\alpha}{2}}\abs{\Gamma(1-\alpha)}\abs{\theta}^{\alpha}\ell(1/\abs{\theta}) , \quad \theta \downarrow 0.
+\end{equation*}
+\]</span></p>
+</div>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>Consider a probability generating function <span class="math inline">\(\mu(z) = \sum_{k \ge 1 } \mu_k z^k\)</span> such that <span class="math inline">\(\Fbar(m) = \sum_{k&gt;m}\mu_k = \ell(m)m^{-\alpha}\)</span> for <span class="math inline">\(\alpha\in (0,1)\)</span>. Then, with <span class="math inline">\(z = e^{i\theta }\)</span> for <span class="math inline">\(\theta &gt;0\)</span> , noting that <span class="math inline">\(-i\theta \approx 1 - z\)</span> for small <span class="math inline">\(\theta\)</span>, <a href="#thm-ext_karataub" class="quarto-xref">Theorem&nbsp;6</a> is equivalent to <span id="eq-kt_pgf"><span class="math display">\[
+\begin{equation}
+1 -\mu(z)
+\sim \Gamma(1-\alpha)~ \ell\pr{ \frac{1}{\abs{1-z}}} \pr{1-z}^{\alpha} \quad z \uparrow 1,
+\end{equation}
+\tag{2}\]</span></span> where we note that <span class="math inline">\((\theta)^\alpha \approx (-i\theta)^\alpha = e^{-\frac{i\pi \alpha}{2}}\theta^\alpha\)</span> for <span class="math inline">\(\theta &gt; 0\)</span> as <span class="math inline">\(\theta\downarrow 0\)</span>. Using <span class="math inline">\(z\)</span> in this way, rather than <span class="math inline">\(\theta\)</span>, is the statement of Karamata’s Tauberian Theorem <span class="citation" data-cites="karamata1930">(<a href="#ref-karamata1930" role="doc-biblioref">Karamata 1930</a>)</span> that is more typical in the literature.</p>
+<p>Similarly, to use this equivalence to estimate the probability distribution from a given generator, we need only divide by the factor of <span class="math inline">\(\Gamma(1-\alpha)\)</span> on the right-hand side in <a href="#eq-kt_pgf" class="quarto-xref">Equation&nbsp;2</a>, and invert the argument. Explicitly, when <span class="math inline">\(1 - \mu(z)\)</span> is regularly varying as in <a href="#eq-kt_pgf" class="quarto-xref">Equation&nbsp;2</a>, we have that the tail is also regularly varying, with <span class="math display">\[
+\begin{align*}
+  \Fbar\pr{\frac{1}{\abs{1-z}} }
+  &amp;\sim \frac{\abs{1 - \mu(z)}}{\Gamma(1-\alpha)} \quad z \uparrow 1.
+\end{align*}
+\]</span> Here, with <span class="math inline">\(\abs{1-z}\sim 1/n\)</span> as <span class="math inline">\(n\uparrow\infty\)</span>, the expression <span class="math display">\[
+\begin{align*}
+  \Fbar(n)  
+  &amp;\sim \frac{\abs{1 - \mu\pr{1-\frac{1}{n}}}}{\Gamma(1-\alpha)} \quad n \uparrow \infty,
+\end{align*}
+\]</span> indicates directly that <span class="math inline">\(1-\mu(z)\)</span> as <span class="math inline">\(\abs{1-z}\downarrow 0\)</span> behaves inversely to <span class="math inline">\(\Fbar(n)\)</span> as <span class="math inline">\(n\uparrow\infty\)</span>.</p>
+</div></div><section id="proof-of-implication-for-karamatas-tauberian-theorem" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="proof-of-implication-for-karamatas-tauberian-theorem">Proof of implication for Karamata’s Tauberian Theorem</h3>
+<p>We begin by proving the only-if direction of the traditional version of Karamata’s Tauberian Theorem (for Laplace-Stieltjes transforms) for probability measures such that the tail <span class="math inline">\(\Fbar(m) = \ell(n)n^{-\alpha}\)</span> is regularly varying with <span class="math inline">\(\alpha \in (0,1)\)</span>. <a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a></p>
+<div class="no-row-height column-margin column-container"><div id="fn7"><p><sup>7</sup>&nbsp;We choose the traditional version here for its simplicity, as it will only require us to cite <a href="#lem-domconv_regvar" class="quarto-xref">Lemma&nbsp;1</a>. It is true however that <a href="#lem-domconv_regvar" class="quarto-xref">Lemma&nbsp;1</a> can be extended to complex <span class="math inline">\(k_\theta(x) = e^{i\theta x}\)</span>, where <span class="math inline">\(\int_0^\infty k_\theta(x) \Fbar(x) \dd x\)</span> may not actually be absolutely integrable. This is again demonstrated in Lemma 3.2.1 of <span class="citation" data-cites="GarsiaLamperti1963">(<a href="#ref-GarsiaLamperti1963" role="doc-biblioref">Garsia and Lamperti 1963</a>)</span>.</p></div></div><div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>Here we prove the only-if direction of <a href="#thm-ext_karataub" class="quarto-xref">Theorem&nbsp;6</a>, focusing on the case of discrete distribution <span class="math inline">\(\mu\)</span>. See Theorem 1.7.1 in <span class="citation" data-cites="regular_variation">(<a href="#ref-regular_variation" role="doc-biblioref">Bingham et al. 1987</a>)</span> for a full proof. By assumption, the survival function <span class="math inline">\(\Fbar(n) = \Pr[S_1 &gt;n] = \ell(n)n^{-\alpha}\)</span>, is regularly varying. We will use Abel Summation to express our generating function directly in terms of this tail. First, consider a truncation to the first <span class="math inline">\(n\)</span> terms which we will take the limit of <span class="math display">\[
+\begin{equation*}
+    \int_{0}^{n} e^{-st} \dd F(t) = \sum_{1 \le k \le n} \mu_k e^{-sk}
+\end{equation*}
+\]</span> written assuming that <span class="math inline">\(\mu_0 = 0\)</span>. We express the probability masses in terms of the tail as <span class="math display">\[
+\begin{equation*}
+    \mu_n = \Pr[S_1 &gt; n-1] - \Pr[S_1 &gt; n] \doteq \Fbar(n-1) - \Fbar(n).
+\end{equation*}
+\]</span> Using Abel Summation we may now write <span class="math display">\[
+\begin{align*}
+    &amp;\sum_{k=1}^n (\Fbar(k-1) - \Fbar(k)) e^{-sk} \\
+    &amp;= e^{-s n}\sum_{1 \le k \le n} (\Fbar(k-1) - \Fbar(k)) - \int_{[1,n]}  \dd (e^{-st}) \sum_{1 \le k \le \lfloor t\rfloor} (\Fbar(k-1) - \Fbar(k))
+\end{align*}
+\]</span> where, noting the summation is telescopic and that <span class="math inline">\(\Fbar(0) =1\)</span>, we have that <span class="math display">\[
+\begin{equation*}
+    \sum_{1 \le k \le n} (\Fbar(k-1) - \Fbar(k)) = \Fbar(0) - \Fbar(n) = 1 - \Fbar(n).
+\end{equation*}
+\]</span> We therefore write, with <span class="math inline">\(d\pr{e^{-st}} = -s e^{-st} \dd t\)</span>, <span id="eq-ktIBP_middle"><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+    &amp;\int_{0}^{n} e^{-st} \dd F(t) \\
+    &amp;= \sum_{1 \le k \le n} \mu_k e^{-sk} \\
+    &amp;= e^{-sn}(1 - \Fbar(n)) + s \int_{[1,n]}e^{-st}(1- \Fbar(\lfloor t \rfloor ))\dd t \\
+    &amp;= e^{-sn} - e^{-sn}\Fbar(n) + (e^{-s} - e^{-sn}) - s\int_{[1,n]}e^{-st} \Fbar(\lfloor t \rfloor )\dd t \\
+    &amp;= e^{-s} - e^{-sn}\Fbar(n) - s\int_{[1,n]}e^{-st} \Fbar(\lfloor t \rfloor )\dd t.
+\end{aligned}
+\end{equation}
+\tag{3}\]</span></span></p>
+<p>For <span class="math inline">\(t \in (0,1)\)</span>, we have that <span class="math inline">\(\Fbar(\lfloor t \rfloor) = 1\)</span> given our assumption that the associated random variable <span class="math inline">\(S_1 \in \Z_+\)</span>. Therefore, excluding the right endpoint, <span class="math display">\[
+\begin{align*}
+    s\int_{(0,1)}e^{-st} \Fbar(\lfloor t \rfloor )\dd s &amp;= s\int_{(0,1)}e^{-st} \dd t \\
+    &amp;= 1 - e^{-s}.
+\end{align*}
+\]</span> Thus we can rewrite <a href="#eq-ktIBP_middle" class="quarto-xref">Equation&nbsp;3</a> over the entire interval <span class="math inline">\((0,n]\)</span> as <span id="eq-ktIBP_middle2"><span class="math display">\[
+\begin{equation}
+    \int_{0}^{n} e^{-st} \dd F(t)= 1 - e^{-sn}\Fbar(n) - s \int_{(0,n]}e^{-st}\Fbar(\lfloor t \rfloor )\dd t
+\end{equation}
+\tag{4}\]</span></span> From here, we consider the change of variables <span class="math inline">\(u = st\)</span> in the integral expression in <a href="#eq-ktIBP_middle2" class="quarto-xref">Equation&nbsp;4</a> <span class="math display">\[
+\begin{align*}
+    \int_{0}^{n} e^{-st} \dd F(t)
+    % &amp;= 1 - e^{-sn}\Fbar(n) - s \int_{(0,n]}e^{-st}\Fbar(\lfloor t \rfloor )\dd t \\
+    &amp;= 1 - e^{-sn}\Fbar(n) - \int_{(0,n/s]}e^{-u}\Fbar(\lfloor u/s \rfloor )\dd u
+\end{align*}
+\]</span> and lastly we will simply re-write the second term, hinting at our application of <a href="#lem-domconv_regvar" class="quarto-xref">Lemma&nbsp;1</a>, as <span class="math display">\[
+\begin{equation*}
+    \int_{0}^{n} e^{-st} \dd F(t)= 1 - e^{-sn}\Fbar(n) - \Fbar(1/s)\int_{(0,n/s]}e^{-u}\frac{\Fbar(\lfloor u/s \rfloor )}{\Fbar( 1/s )}\dd u
+\end{equation*}
+\]</span> We now consider the truncated summation, for fixed <span class="math inline">\(s\)</span>, by sending <span class="math inline">\(n \uparrow \infty\)</span>. This eliminates the <span class="math inline">\(e^{-sn}\Fbar(n)\)</span>, and induces an integral over <span class="math inline">\(\R_+\)</span>, <span id="eq-ktIBP_dominated"><span class="math display">\[
+\begin{equation}
+   \lim_{n\uparrow\infty} \br{1 - e^{-sn}\Fbar(n) - \Fbar(1/s)\int_{(0,n/s]}e^{-u}\frac{\Fbar(\lfloor u/s \rfloor )}{\Fbar( 1/s )}\dd u }= 1  - \Fbar(1/s)\int_{(0,\infty)}e^{-u}\frac{\Fbar(\lfloor u/s \rfloor )}{\Fbar( 1/s )}\dd u
+\end{equation}
+\tag{5}\]</span></span> By <a href="#lem-domconv_regvar" class="quarto-xref">Lemma&nbsp;1</a>, taking <span class="math inline">\(k(u) = e^{-u}\)</span> we have <span class="math display">\[
+\begin{equation*}
+    \int_{0}^{\infty}e^{-u}\frac{\Fbar(\lfloor u/s \rfloor )}{\Fbar(\lfloor 1/s \rfloor )}\dd u  =  \int_{0}^{\infty}(1+ o(1))e^{-u}u^{-\alpha}\dd u = \int_{0}^{\infty}e^{-u}u^{-\alpha}\dd u + o(1) \rightarrow \Gamma(1-\alpha) &lt; \infty, \quad s\downarrow 0.
+\end{equation*}
+\]</span> Thus identifying <a href="#eq-ktIBP_dominated" class="quarto-xref">Equation&nbsp;5</a> with <span class="math inline">\(\Psi(s)\)</span> as defined in the lemma statement, and applying the asymptotic statement above, we have <span class="math display">\[
+\begin{align*}
+    1 - \Psi(s) &amp;= \Fbar(1/s)\int_{(0,\infty)}e^{-u}\frac{\Fbar(\lfloor u/s \rfloor )}{\Fbar( 1/s )}\dd u\\
+    &amp;\sim \Gamma(1-\alpha)\Fbar(1/s), \quad s \downarrow 0  \\
+    &amp;\sim \Gamma(1-\alpha) \ell(1/s)s^{\alpha}
+\end{align*}
+\]</span> where the last line comes from the assumption that <span class="math inline">\(\Fbar\)</span> is regularly varying with <span class="math inline">\(\Fbar(1/s) = \ell(1/s)s^{\alpha}\)</span>.</p>
+</div>
+<p>We now prove the extension of <a href="#thm-ext_karataub" class="quarto-xref">Theorem&nbsp;6</a> to <span class="math inline">\(\alpha &gt; 1\)</span>. It was not written in the context of, but this semi-proof is essentially what is provided in <span class="citation" data-cites="heavy_tails">(<a href="#ref-heavy_tails" role="doc-biblioref">Nair et al. 2022</a>)</span>. Again this proof is done in the context of a Laplace-Stieltjes transform rather than a Fourier.</p>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>For <span class="math inline">\(n=0\)</span>, consider that by by <a href="#thm-ext_karataub" class="quarto-xref">Theorem&nbsp;6</a> <span class="math display">\[
+\begin{equation*}
+    g(x) = \int_{0}^{x}\Fbar(y) \dd y
+\end{equation*}
+\]</span> has Laplace-Stieltjes transform after integration by parts which can be expressed as <span id="eq-ekt_IBT_substitution"><span class="math display">\[
+\begin{equation}
+    \hat{g}(s) = \frac{1}{s}\pr{1-\Psi(s)} \in \calR_{\alpha-1}^{0}.
+\end{equation}
+\tag{6}\]</span></span> where <span class="math inline">\(\Psi(s)\)</span> is the Laplace-Stieltjes transform of <span class="math inline">\(F\)</span>. For <span class="math inline">\(n =1\)</span>, i.e.&nbsp;<span class="math inline">\(-2 &lt;\alpha &lt; -1\)</span> the idea is to consider an iterated integral over the proper ranges as presented in Karamata’s Theorem (<a href="#thm-KaramataIntegral" class="quarto-xref">Theorem&nbsp;3</a>), where for some <span class="math inline">\(t_0 \ge 0\)</span> such that <span class="math inline">\(G(x)\)</span> is bounded for finite <span class="math inline">\(x\)</span>, <span id="eq-ext_kt_iteratedintegral"><span class="math display">\[
+\begin{equation}
+    G(x) = \int_{t_0}^{x}\pr{\int_{z}^{\infty}\Fbar(y) \dd y} \dd z \sim \frac{-1}{(2-\alpha)(1-\alpha )}x^2 \Fbar(x) \in \calR_{2-\alpha}^{\infty}.
+\end{equation}
+\tag{7}\]</span></span> Via integration by parts, provided <span class="math inline">\(\Pr[X\ge 0] = 1\)</span>, we have that <span class="math display">\[
+\begin{align*}
+    \int_{0}^{\infty}e^{-st} \dd G(t)
+    &amp;= \int_{0}^{\infty}e^{-st} \pr{\int_{t}^{\infty}\Fbar(y) \dd y} \dd t \\
+    &amp;= -\frac{1}{s}\pr{\int_{0}^{\infty}\Fbar(y) \dd y} + \frac{1}{s}\int_{0}^{\infty}e^{-st} \Fbar(t) \dd t \\
+    &amp;= -\frac{1}{s}\E[X] + \frac{1}{s}\int_{0}^{\infty}e^{-st} \Fbar(t) \dd t
+\end{align*}
+\]</span> noting that <span class="math inline">\(\E[X] = \int_{0}^{\infty}\Fbar(y) \dd y &lt; \infty\)</span>. Using the substation presented in <a href="#eq-ekt_IBT_substitution" class="quarto-xref">Equation&nbsp;6</a> <span class="math display">\[
+\begin{align*}
+    \int_{0}^{\infty}e^{-st} \dd G(t)
+    &amp;= -\frac{1}{s}\E[S_1] + \frac{1}{s^2}\pr{1-\Psi(s)}
+\end{align*}
+\]</span> Finally, per <a href="#eq-ext_kt_iteratedintegral" class="quarto-xref">Equation&nbsp;7</a>, is due to the standard Karamata-Tauberian Theorem, Theorem (<a href="#thm-ext_karataub" class="quarto-xref">Theorem&nbsp;6</a>, for <span class="math inline">\(\alpha \in (0,1)\)</span>), we have that <span class="math display">\[
+\begin{align*}
+    \int_{0}^{\infty}e^{-st} \dd G(t)
+    &amp;= -\frac{1}{s}\E[S_1] + \frac{1}{s^2}\pr{1-\Psi(s)} \\
+    &amp;\sim -\frac{\Gamma(3-\alpha)}{\Gamma(2-\alpha)\Gamma(1-\alpha)}\ell(1/s)s^{\alpha-2}.
+\end{align*}
+\]</span> Multiplying across by <span class="math inline">\(s^{2}\)</span> and re-arranging the expression, and recognizing that by the reflection principle for the <span class="math inline">\(\Gamma\)</span>-function, we can define <span class="math display">\[
+\begin{equation*}
+    -\frac{\Gamma(3-\alpha)}{(2-\alpha)(1-\alpha )} \doteq \abs{\Gamma(1-\alpha)}.
+\end{equation*}
+\]</span> completes our intended portion of the proof. We note additionally, as Weirmann et al.&nbsp;(page 47 of <span class="citation" data-cites="heavy_tails">Nair et al. (<a href="#ref-heavy_tails" role="doc-biblioref">2022</a>)</span>) point out, the reverse direction of the proof indicating the behavior of <span class="math inline">\(\Fbar(n)\)</span> is a simple result of the Monotone Density Theorem (<a href="#thm-MonotoneDensity" class="quarto-xref">Theorem&nbsp;1</a>) where by construction <span class="math inline">\(G(x)\)</span> is monotone.</p>
+</div>
+<p>Extending this to the Fourier Transform case amounts to simply inserting back the definition of <span class="math inline">\(s = -i\theta\)</span> in the integration by parts carried out, and adjusting the constant in front of the regular varying term..</p>
 
 
 
+</section>
 </section>
 
 
@@ -515,6 +761,15 @@ Emchrechts, P., C. Kluppelberg, and T. Mikosch. 2012. <em>Modelling Extremal Eve
 </div>
 <div id="ref-feller" class="csl-entry" role="listitem">
 Feller, William. 1971. <em>An Introduction to Probability Theory and Its Applications. <span>V</span>ol. <span>II</span>.</em> Second Edition. John Wiley &amp; Sons Inc.
+</div>
+<div id="ref-GarsiaLamperti1963" class="csl-entry" role="listitem">
+Garsia, A., and J. Lamperti. 1963. <span>“A Discrete Renewal Theorem with Infinite Mean.”</span> <em>Commentarii Mathematici Helvetici</em> 37: 221–34.
+</div>
+<div id="ref-hausdorff1921" class="csl-entry" role="listitem">
+Hausdorff, F. 1921. <span>“Summationsmethoden Und Momentfolgen i.”</span> <em>Mathematische Zeitschrift</em> 9: 74–109. <a href="http://eudml.org/doc/167613">http://eudml.org/doc/167613</a>.
+</div>
+<div id="ref-karamata1930" class="csl-entry" role="listitem">
+Karamata, J. 1930. <span>“<span class="nocase">Über die Hardy-Littlewoodschen Umkehrungen des Abelschen Stetigkeitssatzes</span>.”</span> <em>Mathematische Zeitschrift</em> 32 (1): 319–20. <a href="https://doi.org/10.1007/BF01194636">https://doi.org/10.1007/BF01194636</a>.
 </div>
 <div id="ref-heavy_tails" class="csl-entry" role="listitem">
 Nair, J., A. Wierman, and B. Zwart. 2022. <em>The Fundamentals of Heavy Tails</em>. Cambridge University Press.

@@ -16,7 +16,7 @@ about:
 ---
 
 ## Bio
-I am a currently a graduate student in the Department of Statistics at UW-Madison. I value purposeful and humble pedagogy, one that acknowledges that we are at once all students and teachers. I believe this value cannot be divorced from a praxis that continues to express joy, inspires solidarity, and romanticizes the process rather than valuing only the conclusion; where we might otherwise measure learning and living solely materially. 
+I am a currently a graduate student in the Department of Statistics at UW-Madison. I value purposeful and humble pedagogy, one that acknowledges that we are all at once students and teachers. I believe this value cannot be divorced from a praxis that continues to express joy, inspires solidarity, and romanticizes the process of learning and work, rather than valuing only the conclusion; where we might otherwise measure it solely materially. 
 
 ## Research Interests
 * Probability Theory (e.g., limit theorems, "classical results")
@@ -25,5 +25,5 @@ I am a currently a graduate student in the Department of Statistics at UW-Madiso
 
 ## Education
 * **Ph.D. in Statistics** | University of Wisconsin-Madison *(2021 – Present)*
-* **M.S. in Statistics** | University of Arizona *(2017 – 2020)*
+* **M.S. in Statistics** | University of Arizona *(2020 – 2021)*
 * **B.S. in Mathematics** | University of Arizona *(2017 – 2020)*

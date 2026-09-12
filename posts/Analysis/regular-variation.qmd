@@ -77,8 +77,17 @@ This representation allow us to often ignore whether our regularly varying funct
 The first of the ``fundamental theorems of regular variation'' (for derivatives) to be discussed is the Monotone Density Theorem (Theorem 2.11 in [@heavy_tails]).
 This and the accompanying theorem to follow (dealing with integrals; see Theorem 2.10 in [@heavy_tails] or Theorem A3.7 in [@Embrechts]) will be used frequently in our proofs to follow.
 The condition of eventual-monotonicity required for the Monotone Density theorem is in some cases difficult to check, but is essentially determined by the behavior of the slowly varying function $\ell(\cdot)$.
-This condition is often evaluated with a secondary notion, for instance log-concavity $\mu_{j}^2\ge \mu_{j-1}\mu_{j+1}$ for all $j > N$. 
-As such, monotonicity is often treated as a simplifying assumption, or is ensured by selection of a specific case.
+This condition is often evaluated with a secondary notions/conditions.[^mono_condiions]
+
+[^mono_condiions]: In the context of probability distributions $\Pr[X \le n]$, and in the discrete case their associated probability masses, two conditions that guarantee eventual monotonicity are (1) *log-concavity* of $\mu_n = \Pr[X = n]$, i.e. $\mu_n^2 \ge \mu_{n-1}\mu_{n+1}$ and (2) *complete monotonicity* where all $k$-fold finite differences $\Delta^k$ of $\mu_n$ are such that $(-1)^k \Delta^k \mu_n \ge 0$ for all $k\ge 0$ and $n\ge 0$.
+This second result is equivalent to being able to write
+\begin{equation*}
+    \mu_n =\int_{0}^1 z^n\dd \nu (z) = \int_{0}^\infty e^{-sn}\dd \xi (s)
+\end{equation*}
+by the Hausdorff moment theorem [@hausdorff1921] for Borel measures $\nu$ and $\xi$.
+For alternative conditions justifying the result of the Monotone Density Theorem, refer to Sections 1.6 and 1.7 of @regular_variation.
+For instance, we are able to argue that the Monotone Density Theorem applies (see [@regular_variation], Sec. 1.8.1, Proposition 1.8.2) so long as $\mu_n$ is *smoothly varying* (guaranteed if $\Pr[X > n] = \ell(n)n^{-\alpha}$ is smoothly varying).
+
 
 ::: {#thm-MonotoneDensity}
 Let $F \in \calR_{\alpha}^{\infty}$ and let $\Delta F$ denote the derivative $\Delta F(n) = F'(n)$, if $F$ is absolutely continuous with respect to the Lebesgue measure, and the finite difference operator $\Delta F(n) = F(n)-F(n-1)$ if $F$ is discrete. 
@@ -91,7 +100,7 @@ $$
 and therefore $\Delta F \in \calR_{\alpha-1}^{\infty}$.
 :::
 
-::: {#pf-monotone}
+::: {.proof}
 We consider the discrete case, which is not often seen, but whose proof is similar to the absolutely continuous case, where one needs only to substitute an integral whenever a sum appears below.
 Without loss of generality, assume that $\Delta [F] (n)$ is non-decreasing for $n > N$, and let $0 < a < b $; the non-increasing will be implied by changing the direction the following inequalities. 
 By definition of $F$, we can of course write
@@ -199,13 +208,397 @@ $$
 That is, $\int f(y) \dd y \in \calR_{\alpha + 1}^{\infty}$ for $\alpha < 0$ and $\alpha > 0$, respectively, over their valid intervals. 
 :::
 
-A proof of Theorem @thm-KaramataIntegral can be found in the appendix of [@deHaan], as Theorem B.1.5 (see also Theorem 2.10 in [@heavy_tails] or Theorem A3.7 in [@Embrechts]).
+A proof of Theorem @thm-KaramataIntegral can be found in the appendix of [@deHaan][^unifdehaan], as Theorem B.1.5 (see also Theorem 2.10 in [@heavy_tails] or Theorem A3.7 in [@Embrechts]).
 The primary argument comes from applying the Uniform Convergence Theorem for regular varying functions after a change of variables 
 $$
 \begin{equation*}
     \frac{F(tx)-F(t)}{tf(t)} = \int_{1}^{x}\frac{f(tu)}{f(t)} \dd u \rightarrow \frac{x^{\alpha + 1}-1}{\alpha + 1}, \quad t \uparrow \infty.
 \end{equation*}
 $$
+
+[^unifdehaan]: The idea presented in [@deHaan] is to first show that these integrals are finite for finite intervals (locally bounded). 
+Afterwards, by regular variation, one can show show that there exists a $t_\varepsilon$ such that for $t > t_\varepsilon$,  $f(xt) \le (1 + \varepsilon)x^{\alpha}f(t)$. 
+For example as $F(t) = \int_{t_0}^{t} f(y) \dd y \uparrow \infty$ we can write for fixed $x$
+$$
+\begin{equation*}
+    \frac{F(tx)}{F(t)} = \frac{\int_{t_0}^{tx} f(y) \dd y}{\int_{t_0}^{t} f(y) \dd y} \sim \frac{\int_{t_\varepsilon x}^{tx} f(y) \dd y}{\int_{t_\varepsilon}^{t} f(y) \dd y} = \frac{x\int_{t_\varepsilon }^{t} f(xy) \dd y}{\int_{t_\varepsilon}^{t} f(y) \dd y} \le (1+2\varepsilon)x^{\alpha+1}, \quad t \uparrow \infty
+\end{equation*}
+$$
+where the $2\varepsilon$ considers the adjustment needed for the middle and final approximation as well as the stated inequality. 
+A lower limit is also found in the same manner (with lower bound coefficient $(1-2\varepsilon)$).
+Thus by squeeze $F(t) \in \calR_{\alpha + 1}$.
+
+
 Extending this result to include integration over $[0,x]$ or $[x,\infty)$ for $\alpha > -1$ and $\alpha \le -1$, respectively, requires integrability of $f$ over these regions so that the denominator $tf(t)$ dominates $\int f(s)\dd s$ over these regions.
 
+----------------
+## Karamata's Tauberian Theorem
+
+Here we present one of the most important tools for our paper, the Extended Karamata Tauberian Theorem (thm-karataub).
+Proofs of this result rely on Potter's Bound, which relies on the following representation theorem.
+
+::: {#thm-karamatarep}
+Let $f \in \calR_{\alpha}^{\infty}$, and let $F(x) = \int_{x_0}^{x}f(t) \dd t$ where for $x > x_0$ $f(x)$ is positive.
+Then there exists a function $\lim_{x\uparrow\infty}c_0(x) = c_0 > 0$, such that
+$$
+\begin{equation*}
+    f(x) = c_0(x) b(x) \exp\pr{\int_{1}^{x} \frac{b(t) - 1}{t} \dd t},
+\end{equation*}
+$$
+where $b(x) = xf(x)/F(x)$ obeys 
+$$
+\begin{equation*}
+    \lim_{x \uparrow \infty} b(x) = \begin{cases}
+        -(\alpha + 1), \quad \alpha < -1 \\
+        \alpha + 1, \quad -1 \le \alpha .
+    \end{cases}
+\end{equation*}
+$$
+::: 
+
+A proof of this can be found in [@deHaan] as a remark related to the proof of Karamata's Theorem, Theorem B.1.5.
+The case of discrete sequences is not obvious, but follows again by defining $f(x)$ as a smooth interpolation such that $f([x]) = f_{[x]}$, which by Theorem @thm-karamatarep will have a valid representation.[^kararep]
+
+[^kararep]: Karamata's Representation Theorem (Theorem B.1.6 in [@deHaan])  has multiple equivalent representations, sometimes just written as
+$$
+\begin{equation*}
+    f(x) = c_1(x) \exp\pr{\int_{x_0}^{x} \frac{a(t)}{t} \dd t},
+\end{equation*}
+$$
+where $a: \R^{+} \rightarrow \R$ and $c: \R^{+} \rightarrow \R$ are measurable functions such that again $a(x) \rightarrow \alpha$ and $c_1(x) \rightarrow c_1 > 0$.
+
+The representation given in @thm-karamatarep is useful in bounding the error of $f(xt)/f(t)$ compared to $x^{\alpha}$ uniformly in $x$, rather than just point-wise. 
+Applying this representation and a change of variables,
+$$
+\begin{equation*}
+\frac{f(xt)}{f(t)} 
+= \frac{c_1(xt) }{c_1(t) } \exp\pr{\int_{t}^{xt} \frac{b(s) - 1}{s} \dd s}
+= \frac{c_1(xt) }{c_1(t) } \exp\pr{\int_{1}^{x} \frac{b(ts) - 1}{s} \dd s}.
+\end{equation*}
+$$
+By combining the @thm-rvuniformconvergence and @thm-KaramataIntegral, we have that for specified $\delta_1,\delta_2>0$, we can ensure that $|\frac{c_1(xt) }{c_1(t) } - 1| \le \delta_1$ and $|b(ts)-1-\alpha| \le \delta_2$ for large enough $t > t_0$ uniformly in $s \ge \min\{1,x\}$. 
+For arbitrary $x > 0$, this gives us upper and lower bounds on the ratio, a result known as Potter's Bound (see, e.g., Proposition B.4.1.5 in [@deHaan]).
+
+::: {#thm-pottersbound}
+Let $f \in \calR_{\alpha}^{\infty}$ and let $\delta_1, \delta_2 > 0$.
+There exists $t_0 \in \R$ such that
+$$
+\begin{equation*}
+    (1-\delta_1) x^{\alpha} \min \{x^{-\delta_2},x^{\delta_2} \}\le \frac{f(xt)}{f(t)} \le (1+\delta_1) x^{\alpha} \max \{x^{-\delta_2},x^{\delta_2} \}
+\end{equation*}
+$$
+for all $t \ge \max\{ t_0, t_0/x \}$.
+:::
+
+::: {.column-margin}
+Here, if we are considering the ratio $g(x/t)/g(1/t)$ for a function $g$ that is regular varying at $0$ rather than at $\infty$, the condition presented in the theorem would be in terms of inverse arguments $s = t$ and $y = 1/x$.
+The required relation per Potter's Bound that $s \ge \max\cbr{s_0, s_0/y}$, would here equate instead to $t \ge \max\cbr{s_0,s_0x}$.
+We note therefore that for $\theta \in [0,a]$ for some fixed $a>0$, this condition can always be satisfied uniformly in $\theta$ for large enough $t$
+:::
+
+::: {.column-margin}
+The discrete case of @thm-pottersbound is also true, and ensures the existence of $n_0 = n_0(\delta_1,\delta_2)$ such that for $n,m>n_0(\delta_1,\delta_2)$,
+$$
+\begin{equation*}
+    (1-\delta_1) (m/n)^{\alpha} \min \{(m/n)^{-\delta_2},(m/n)^{\delta_2} \}\le \frac{f_m}{f_n} \le (1+\delta_1) (m/n)^{\alpha} \max \{(m/n)^{-\delta_2},(m/n)^{\delta_2} \},
+\end{equation*}
+$$
+with $m/n$ the analogue of $x$; for instance we could define $m=[xn]$ for some $x>0$.
+:::
+
+Potter's Bound is an important result in justifying dominated convergence any compact interval not containing values below $t_0$.
+For example, Potter's bound can be used to prove the following lemma (see Lemma B.1.12 in [@deHaan]).
+
+::: {#lem-domconv_regvar} 
+Let $f \in \calR_{\alpha}^{\infty}$ with $\alpha > -1$ be Lebesgue integrable over finite intervals of $\R_{+}$, and let $k: \R_{+} \rightarrow \R$ be a measurable function such that there exists $\varepsilon > 0$ where
+$$
+\begin{equation*}
+    \int_{0}^{1} x^{\alpha-\varepsilon} k(x) \dd x < \infty, \quad \int_{1}^{\infty} x^{\alpha+\varepsilon} k(x) \dd x < \infty .
+\end{equation*} 
+$$
+Then
+$$
+\begin{equation*}
+    \lim_{t\uparrow \infty}\int_{0}^{\infty}\frac{f(xt)}{f(t)}k(x)  \dd x = \int_{0}^{\infty}x^{\alpha}k(x) \dd x .
+\end{equation*}
+$$
+:::
+
+::: {.proof}
+The proof of @lem-domconv_regvar follows from Potter's bound, which shows that dominated convergence holds for compact intervals, extended to $\R_+$ so long as the integral is finite.  
+The only complicating part is the interval near $0$. 
+Here, one has that as $f$ is integrable near $0$ and $k(\cdot)$ is bounded that
+$$
+\begin{equation*}
+    \abs{\int_{0}^{t_0/t}\frac{f(xt)}{f(t)}k(x)  \dd x} \le \frac{1}{tf(t)}\int_{0}^{t_0}\abs{f(s)k\pr{\frac{s}{t}}}  \dd s \downarrow 0
+\end{equation*}
+$$
+as when $\alpha > -1$, $tf(t) \uparrow \infty$. Note that as long as $1-\alpha - \varepsilon > 0$, $t^{-\alpha - \varepsilon}k(t)$ is integrable on $(0,1)$. 
+On the other end, we have by Potter's bound i.e.
+$$
+\begin{equation*}
+    \frac{f(tx)}{f(t)} \le c x^{-\alpha \pm \varepsilon}, \quad tx \ge t_0, x \in \R_{+}
+\end{equation*}
+$$
+this implies in total by dominated convergence that
+$$
+\begin{equation*}
+    \int_{t_0/t}^{1}k(x) \frac{f(tx)}{f(t)}\dd x \rightarrow \int_{0}^{1}k(x) x^\alpha \dd x
+\end{equation*}
+$$
+:::
+
+thm-ext_karataub is a combination of two results.
+The first replaces the traditional Karamata Tauberian Theorem with its Fourier equivalent, a result established by Garsia and Lamperti  (Lemma 3.2.1 in [@GarsiaLamperti1963]; a straightforward application of Potter's Bound [^garsia_proof]).
+Garsia and Lamperti's result will only apply, however, to distributions with regular varying tails $\Pr[S_1>n]=\ell(n)n^{-\alpha}$ with infinite mean, i.e., where $\alpha \in (0,1)$.
+The second result extends this result to $\alpha>1$, the case where $S_1$ has finite mean (see, for example, Theorem 2.16 in [@heavy_tails]). 
+The proof of this result follows by analyzing iterated integrals of a regularly varying function  through repeated integration-by-parts.
+Alternatively, this can be observed via Taylor expansion of $\int_0^\infty e^{-st} \dd F(t)$ which is non-decreasing (actually completely monotone) and absolutely continuous in $s$. 
+
+[^garsia_proof]: Though we recommend just checking the paper, we briefly account the analysis.
+First they consider an integration by parts applied to
+$$
+\begin{equation*}
+    1-\Phi(\theta) = \int_{0}^{\infty}(1-e^{i\theta x})\dd \mu(x),
+\end{equation*}
+$$
+so that this expression can be written in terms of $\Fbar(x)$ which is assumed to be regularly varying.
+In this context Potter's Bound indicates still applies, where per Garsia and Lamperti [@GarsiaLamperti1963]: there exists a $\lambda(\varepsilon) > 0$ for a chosen small $\varepsilon>0$ such that such that for all $\sigma$ with $\theta\lambda(\varepsilon)\le \sigma \le 1$ 
+$$
+\begin{equation*}
+    \frac{\Fbar(\sigma/\theta)}{\Fbar(1/\theta)} \le \frac{1+\varepsilon}{1-\varepsilon}\sigma^{\alpha - \varepsilon}
+\end{equation*}
+$$
+This argument clearly also extends to $1\le \sigma\le M$, given that the condition of Potter's Bound, requiring that for $t= 1/\theta$ and $x = \sigma$
+$$
+\begin{equation*}
+    1/\theta \ge  \max\cbr{t_0 t_0/\sigma} \ge t_0
+\end{equation*}
+$$
+can always be made to hold as $\theta\downarrow 0$ (fundamentally equivalent to @thm-rvuniformconvergence).
+In their work they observe the fact that
+$$
+\begin{equation*}
+    \abs{\int_{0}^{\theta\lambda(\varepsilon)}e^{i\sigma}\frac{\Fbar(\sigma/\theta)}{\Fbar(1/\theta)} \dd \sigma} \le \frac{\theta\lambda(\varepsilon)}{\Fbar(1/\theta)} = o(1), \quad \theta\uparrow\infty,
+\end{equation*}
+$$
+These facts plus uniform convergence over compact $1\le\sigma\le M$ allows them to derive a commensurate complex Karamata's Tauberian Theorem.
+
+
+::: {#thm-ext_karataub}
+Let $\mu$ be a probability distribution strictly supported on $\R_+$ with $S_1 \sim \mu$ and $\Pr[S_1> n]=\ell(n)n^{-\alpha}$ for $\alpha > 0$.
+Suppose that $\alpha$ can be decomposed as $\alpha = n + \beta$, for $n \in \cbr{0,1,2,\ldots}$ and $\beta \in (0,1)$. 
+Then the following are equivalent:
+
+i. $\Fbar(n) = \ell(n)n^{-\alpha}, \quad n\uparrow\infty$,
+ii. $(-1)^{n+1}\left[\Phi (\theta) - \sum_{i=0}^{n}\frac{\E[S_1^j](i\theta)^{j}}{j!}\right] \sim  e^{-\frac{i\pi\alpha}{2}}\abs{\Gamma(1-\alpha)}\abs{\theta}^{\alpha}\ell(1/\abs{\theta}), \quad \theta\downarrow 0.$
+
+Specifically, for $\alpha \in (0,1)$,
+$$
+\begin{equation*}
+1- \Phi(\theta) \sim e^{-\frac{i\pi\alpha}{2}}\abs{\Gamma(1-\alpha)}\abs{\theta}^{\alpha}\ell(1/\abs{\theta}) , \quad \theta \downarrow 0,
+\end{equation*} 
+$$
+and for $\alpha \in (1,2)$,
+$$
+\begin{equation*}
+(1 - \Phi(\theta)) +i\theta\E[ S_1] \sim -e^{-\frac{i\pi\alpha}{2}}\abs{\Gamma(1-\alpha)}\abs{\theta}^{\alpha}\ell(1/\abs{\theta}) , \quad \theta \downarrow 0.
+\end{equation*} 
+$$
+:::
+
+::: {.column-margin}
+Consider a probability generating function  $\mu(z) = \sum_{k \ge 1 } \mu_k z^k$ such that $\Fbar(m) = \sum_{k>m}\mu_k = \ell(m)m^{-\alpha}$ for $\alpha\in (0,1)$.
+Then, with $z = e^{i\theta }$ for $\theta >0$ , noting that $-i\theta \approx 1 - z$ for small $\theta$, @thm-ext_karataub is equivalent to
+$$
+\begin{equation}
+1 -\mu(z) 
+\sim \Gamma(1-\alpha)~ \ell\pr{ \frac{1}{\abs{1-z}}} \pr{1-z}^{\alpha} \quad z \uparrow 1,
+\end{equation}
+$${#eq-kt_pgf}
+where we note that $(\theta)^\alpha \approx (-i\theta)^\alpha = e^{-\frac{i\pi \alpha}{2}}\theta^\alpha$ for $\theta > 0$ as $\theta\downarrow 0$.
+Using $z$ in this way, rather than $\theta$, is the statement of Karamata's Tauberian Theorem [@karamata1930] that is more typical in the literature.
+
+Similarly, to use this equivalence to estimate the probability distribution from a given generator, we need only divide by the factor of $\Gamma(1-\alpha)$ on the right-hand side in @eq-kt_pgf, and invert the argument.
+Explicitly, when $1 - \mu(z)$ is regularly varying as in @eq-kt_pgf, we have that the tail is also regularly varying, with
+$$
+\begin{align*}
+  \Fbar\pr{\frac{1}{\abs{1-z}} }
+  &\sim \frac{\abs{1 - \mu(z)}}{\Gamma(1-\alpha)} \quad z \uparrow 1.
+\end{align*}
+$$
+Here, with $\abs{1-z}\sim 1/n$ as $n\uparrow\infty$, the expression
+$$
+\begin{align*}
+  \Fbar(n)  
+  &\sim \frac{\abs{1 - \mu\pr{1-\frac{1}{n}}}}{\Gamma(1-\alpha)} \quad n \uparrow \infty,
+\end{align*}
+$$
+indicates directly that $1-\mu(z)$ as $\abs{1-z}\downarrow 0$ behaves inversely to $\Fbar(n)$ as $n\uparrow\infty$.
+:::
+
+### Proof of implication for Karamata's Tauberian Theorem
+
+We begin by proving the only-if direction of the traditional version of Karamata's Tauberian Theorem (for Laplace-Stieltjes transforms) for probability measures such that the tail $\Fbar(m) = \ell(n)n^{-\alpha}$ is regularly varying with $\alpha \in (0,1)$. [^simpleprof]
+
+[^simpleprof]: We choose the traditional version here for its simplicity, as it will only require us to cite @lem-domconv_regvar.
+It is true however that @lem-domconv_regvar can be extended to complex $k_\theta(x) = e^{i\theta x}$, where $\int_0^\infty k_\theta(x) \Fbar(x) \dd x$ may not actually be absolutely integrable.
+This is again demonstrated in Lemma 3.2.1 of [@GarsiaLamperti1963].
+
+::: {.proof}
+Here we prove the only-if direction of @thm-ext_karataub, focusing on the case of discrete distribution $\mu$.
+See Theorem 1.7.1 in [@regular_variation] for a full proof.
+By assumption, the survival function $\Fbar(n) = \Pr[S_1 >n] = \ell(n)n^{-\alpha}$, is regularly varying. 
+We will use Abel Summation to express our generating function directly in terms of this tail.
+First, consider a truncation to the first $n$ terms which we will take the limit of
+$$
+\begin{equation*}
+    \int_{0}^{n} e^{-st} \dd F(t) = \sum_{1 \le k \le n} \mu_k e^{-sk}
+\end{equation*}
+$$
+written assuming that $\mu_0 = 0$.
+We express the probability masses in terms of the tail as
+$$
+\begin{equation*}
+    \mu_n = \Pr[S_1 > n-1] - \Pr[S_1 > n] \doteq \Fbar(n-1) - \Fbar(n).
+\end{equation*}
+$$
+Using Abel Summation we may now write
+$$
+\begin{align*}
+    &\sum_{k=1}^n (\Fbar(k-1) - \Fbar(k)) e^{-sk} \\
+    &= e^{-s n}\sum_{1 \le k \le n} (\Fbar(k-1) - \Fbar(k)) - \int_{[1,n]}  \dd (e^{-st}) \sum_{1 \le k \le \lfloor t\rfloor} (\Fbar(k-1) - \Fbar(k))
+\end{align*}
+$$
+where, noting the summation is telescopic and that $\Fbar(0) =1$, we have that
+$$
+\begin{equation*}
+    \sum_{1 \le k \le n} (\Fbar(k-1) - \Fbar(k)) = \Fbar(0) - \Fbar(n) = 1 - \Fbar(n).
+\end{equation*}
+$$
+We therefore write, with $d\pr{e^{-st}} = -s e^{-st} \dd t$,
+$$
+\begin{equation}
+\begin{aligned}
+    &\int_{0}^{n} e^{-st} \dd F(t) \\
+    &= \sum_{1 \le k \le n} \mu_k e^{-sk} \\
+    &= e^{-sn}(1 - \Fbar(n)) + s \int_{[1,n]}e^{-st}(1- \Fbar(\lfloor t \rfloor ))\dd t \\
+    &= e^{-sn} - e^{-sn}\Fbar(n) + (e^{-s} - e^{-sn}) - s\int_{[1,n]}e^{-st} \Fbar(\lfloor t \rfloor )\dd t \\
+    &= e^{-s} - e^{-sn}\Fbar(n) - s\int_{[1,n]}e^{-st} \Fbar(\lfloor t \rfloor )\dd t.
+\end{aligned}
+\end{equation}
+$${#eq-ktIBP_middle}
+
+For $t \in (0,1)$, we have that $\Fbar(\lfloor t \rfloor) = 1$ given our assumption that the associated random variable $S_1 \in \Z_+$. 
+Therefore, excluding the right endpoint,
+$$
+\begin{align*}
+    s\int_{(0,1)}e^{-st} \Fbar(\lfloor t \rfloor )\dd s &= s\int_{(0,1)}e^{-st} \dd t \\
+    &= 1 - e^{-s}.
+\end{align*}
+$$
+Thus we can rewrite @eq-ktIBP_middle over the entire interval $(0,n]$ as
+$$
+\begin{equation}
+    \int_{0}^{n} e^{-st} \dd F(t)= 1 - e^{-sn}\Fbar(n) - s \int_{(0,n]}e^{-st}\Fbar(\lfloor t \rfloor )\dd t
+\end{equation}
+$${#eq-ktIBP_middle2}
+From here, we consider the change of variables $u = st$ in the integral expression in @eq-ktIBP_middle2
+$$
+\begin{align*}
+    \int_{0}^{n} e^{-st} \dd F(t)
+    % &= 1 - e^{-sn}\Fbar(n) - s \int_{(0,n]}e^{-st}\Fbar(\lfloor t \rfloor )\dd t \\
+    &= 1 - e^{-sn}\Fbar(n) - \int_{(0,n/s]}e^{-u}\Fbar(\lfloor u/s \rfloor )\dd u
+\end{align*}
+$$
+and lastly we will simply re-write the second term, hinting at our application of @lem-domconv_regvar, as
+$$
+\begin{equation*}
+    \int_{0}^{n} e^{-st} \dd F(t)= 1 - e^{-sn}\Fbar(n) - \Fbar(1/s)\int_{(0,n/s]}e^{-u}\frac{\Fbar(\lfloor u/s \rfloor )}{\Fbar( 1/s )}\dd u
+\end{equation*}
+$$
+We now consider the truncated summation, for fixed $s$, by sending $n \uparrow \infty$. 
+This eliminates the $e^{-sn}\Fbar(n)$, and induces an integral over $\R_+$,
+$$
+\begin{equation}
+   \lim_{n\uparrow\infty} \br{1 - e^{-sn}\Fbar(n) - \Fbar(1/s)\int_{(0,n/s]}e^{-u}\frac{\Fbar(\lfloor u/s \rfloor )}{\Fbar( 1/s )}\dd u }= 1  - \Fbar(1/s)\int_{(0,\infty)}e^{-u}\frac{\Fbar(\lfloor u/s \rfloor )}{\Fbar( 1/s )}\dd u
+\end{equation}
+$${#eq-ktIBP_dominated}
+By @lem-domconv_regvar, taking $k(u) = e^{-u}$ we have 
+$$
+\begin{equation*}
+    \int_{0}^{\infty}e^{-u}\frac{\Fbar(\lfloor u/s \rfloor )}{\Fbar(\lfloor 1/s \rfloor )}\dd u  =  \int_{0}^{\infty}(1+ o(1))e^{-u}u^{-\alpha}\dd u = \int_{0}^{\infty}e^{-u}u^{-\alpha}\dd u + o(1) \rightarrow \Gamma(1-\alpha) < \infty, \quad s\downarrow 0.
+\end{equation*}
+$$
+Thus identifying @eq-ktIBP_dominated with $\Psi(s)$ as defined in the lemma statement, and applying the asymptotic statement above, we have
+$$
+\begin{align*}
+    1 - \Psi(s) &= \Fbar(1/s)\int_{(0,\infty)}e^{-u}\frac{\Fbar(\lfloor u/s \rfloor )}{\Fbar( 1/s )}\dd u\\
+    &\sim \Gamma(1-\alpha)\Fbar(1/s), \quad s \downarrow 0  \\
+    &\sim \Gamma(1-\alpha) \ell(1/s)s^{\alpha}
+\end{align*}
+$$
+where the last line comes from the assumption that $\Fbar$ is regularly varying with $\Fbar(1/s) = \ell(1/s)s^{\alpha}$.
+:::
+
+We now prove the extension of @thm-ext_karataub to $\alpha > 1$.
+It was not written in the context of, but this semi-proof is essentially what is provided in [@heavy_tails].
+Again this proof is done in the context of a Laplace-Stieltjes transform rather than a Fourier.
+
+::: {.proof}
+For $n=0$, consider that by by @thm-ext_karataub
+$$
+\begin{equation*}
+    g(x) = \int_{0}^{x}\Fbar(y) \dd y 
+\end{equation*}
+$$
+has Laplace-Stieltjes transform after integration by parts which can be expressed as
+$$
+\begin{equation}
+    \hat{g}(s) = \frac{1}{s}\pr{1-\Psi(s)} \in \calR_{\alpha-1}^{0}.
+\end{equation}
+$${#eq-ekt_IBT_substitution}
+where $\Psi(s)$ is the Laplace-Stieltjes transform of $F$.
+For $n =1$, i.e. $-2 <\alpha < -1$ the idea is to consider an iterated integral over the proper ranges as presented in Karamata's Theorem (@thm-KaramataIntegral), where for some $t_0 \ge 0$ such that $G(x)$ is bounded for finite $x$,
+$$
+\begin{equation}
+    G(x) = \int_{t_0}^{x}\pr{\int_{z}^{\infty}\Fbar(y) \dd y} \dd z \sim \frac{-1}{(2-\alpha)(1-\alpha )}x^2 \Fbar(x) \in \calR_{2-\alpha}^{\infty}.
+\end{equation}
+$${#eq-ext_kt_iteratedintegral}
+Via integration by parts, provided $\Pr[X\ge 0] = 1$, we have that
+$$
+\begin{align*}
+    \int_{0}^{\infty}e^{-st} \dd G(t) 
+    &= \int_{0}^{\infty}e^{-st} \pr{\int_{t}^{\infty}\Fbar(y) \dd y} \dd t \\
+    &= -\frac{1}{s}\pr{\int_{0}^{\infty}\Fbar(y) \dd y} + \frac{1}{s}\int_{0}^{\infty}e^{-st} \Fbar(t) \dd t \\
+    &= -\frac{1}{s}\E[X] + \frac{1}{s}\int_{0}^{\infty}e^{-st} \Fbar(t) \dd t 
+\end{align*}
+$$
+noting that $\E[X] = \int_{0}^{\infty}\Fbar(y) \dd y < \infty$.
+Using the substation presented in @eq-ekt_IBT_substitution
+$$
+\begin{align*}
+    \int_{0}^{\infty}e^{-st} \dd G(t) 
+    &= -\frac{1}{s}\E[S_1] + \frac{1}{s^2}\pr{1-\Psi(s)}
+\end{align*}
+$$
+Finally, per @eq-ext_kt_iteratedintegral, is due to the standard Karamata-Tauberian Theorem, Theorem (@thm-ext_karataub, for $\alpha \in (0,1)$), we have that
+$$
+\begin{align*}
+    \int_{0}^{\infty}e^{-st} \dd G(t) 
+    &= -\frac{1}{s}\E[S_1] + \frac{1}{s^2}\pr{1-\Psi(s)} \\
+    &\sim -\frac{\Gamma(3-\alpha)}{\Gamma(2-\alpha)\Gamma(1-\alpha)}\ell(1/s)s^{\alpha-2}.
+\end{align*}
+$$
+Multiplying across by $s^{2}$ and re-arranging the expression, and recognizing that by the reflection principle for the $\Gamma$-function, we can define
+$$
+\begin{equation*}
+    -\frac{\Gamma(3-\alpha)}{(2-\alpha)(1-\alpha )} \doteq \abs{\Gamma(1-\alpha)}.
+\end{equation*}
+$$
+completes our intended portion of the proof.
+We note additionally, as Weirmann et al. (page 47 of @heavy_tails) point out, the reverse direction of the proof indicating the behavior of $\Fbar(n)$ is a simple result of the Monotone Density Theorem  (@thm-MonotoneDensity) where by construction $G(x)$ is monotone.
+:::
+
+Extending this to the Fourier Transform case amounts to simply inserting back the definition of $s = -i\theta$ in the integration by parts carried out, and adjusting the constant in front of the regular varying term..
 

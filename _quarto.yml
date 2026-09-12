@@ -24,3 +24,5 @@ format:
     reference-location: margin
     html-math-method: mathjax
     include-before-body: macros.html
+    
+bibliography: references.bib

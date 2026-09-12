@@ -2,6 +2,7 @@
   {
     "listing": "/notes.html",
     "items": [
+      "/posts/Analysis/regular-variation.html",
       "/posts/Analysis/spectral-theory.html",
       "/posts/welcome/welcome.html"
     ]
@@ -9,6 +10,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/Analysis/regular-variation.html",
       "/posts/Analysis/spectral-theory.html",
       "/posts/welcome/welcome.html"
     ]

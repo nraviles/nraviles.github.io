@@ -1,0 +1,211 @@
+---
+title: "Notes on Regular Variation"
+date: "2026-09-10"
+author: "Your Name"
+categories: [Analysis, Probability]
+reference-location: margin
+abstract: "A review of the foundational results in Regular Variation. This material is a modified version of an appendix section in a forthcoming paper, presented to be as self-contained as possible."
+---
+
+For a more in-depth treatments of the topic of regular variation, with specific focus on useful results we refer the reader to [@regular_variation]
+For statistical applications of regular variation, see [@heavy_tails;@Embrechts;@deHaan].
+Many classical results applying this theory to probablity, particularly the arcsin distribution and applications to renewal theory can be found in Volume II of Feller [@feller].
+
+## Preliminary Definitions
+
+::: {#def-regularlyVarying}
+A function $f : \R \rightarrow \R$ is *regularly varying* at $\infty$ with exponent $\alpha \in \R$, and write $f \in \calR_\alpha^{\infty}$ if for all $\lambda > 0$,
+$$
+\begin{equation*}
+\lim_{x\uparrow\infty}\frac{f(\lambda x)}{f(x)} = \lambda^{\alpha}.
+\end{equation*}
+$$
+:::
+
+::: {#def-slowlyVarying}
+A function $\ell : \R \rightarrow \R$ is *slowly varying* at $\infty$, and write $\ell \in \calR_0^{\infty}$, if for all $\lambda > 0$,
+$$
+\begin{equation*}
+    \lim_{x\uparrow\infty}\frac{\ell(\lambda x)}{\ell(x)} = 1.
+\end{equation*} 
+$$
+:::
+
+::: {#def-regularlyVaryingZero}
+We call $g : \R \rightarrow \R$ regularly varying at $0$ with exponent $\alpha \in \R$, and write $g \in \calR_\alpha^{0}$ if for all $\lambda > 0$,
+$$
+\begin{equation*}
+\lim_{s\downarrow 0}\frac{g(\lambda s)}{g(s)} = \lambda^{\alpha}.
+\end{equation*}
+$$
+:::
+
+
+
+Structurally, this is equivalent to a regularly varying function at infinity with reciprocal argument, i.e., 
+$$
+\begin{equation*}
+    \lim_{s\downarrow 0}\frac{f\pr{\frac{1}{\lambda s}}}{f\pr{\frac{1}{s}}} = \lambda^{-\alpha} .
+\end{equation*}
+$$
+By construction, we can define any regularly varying function as the product of a slowly varying function $\ell \in \calR_{0}^{\infty}$ and a power law part $x^{\alpha} \in \calR_{\alpha}^{\infty}$. 
+That is, if $f \in \calR_{\alpha}^{\infty}$, we may write
+$$
+\begin{equation*}
+    f(x) = \ell(x) x^{\alpha},
+\end{equation*}
+$$
+where $\ell(x)$ is a suitably-chosen slowly varying function that captures deviation of $f(x)$ from a pure power law $\propto x^{\alpha}$ at finite values of $x$.[^subpoly] [^interp]
+
+[^subpoly]: It is useful to consider slowly varying functions $\ell(x)$ as sub-polynomial [Lemma 2.7 in @heavy_tails], where
+    \begin{equation*}
+        \lim_{x \uparrow \infty} \ell(x)x^{\rho} = \begin{cases}
+            0, \quad \rho < 0 \\
+            \infty, \quad \rho > 0.
+        \end{cases} 
+    \end{equation*} 
+    Two simple examples of slowly varying functions are constants $\ell(n) = C > 0$ and $\ell(n) = \pr{\log n}^\gamma$ for any $\gamma \in \R$.
+
+[^interp]: It is also very important here to ask what this means with respect to regularly varying sequences $f_n$.
+Here there is no burden, and we may just define $f_n = (f_n/n^{\alpha})n^{\alpha} \doteq \ell(n) n^{\alpha}$, though we must restrict ourselves to $n\in \Z_{+}$; for instance by taking the integer part $f(x) =\ell([x])[x]^\alpha$.
+What however is interesting, is that we may go even further and consider a continuous argument $x\in \R_+$ by defining a continuous function $f(x)$ which agrees with $f_n = f(n)$ on the integers, and otherwise has useful properties.
+For instance, for a regularly varying sequence $f_n$ we can simply define $f(x)$ as its smooth interpolation such that $f([x]) = f_{[x]}$.
+This representation allow us to often ignore whether our regularly varying function is continuous or discrete, and derive general results.
+
+## Fundamental Theorems
+
+The first of the ``fundamental theorems of regular variation'' (for derivatives) to be discussed is the Monotone Density Theorem (Theorem 2.11 in [@heavy_tails]).
+This and the accompanying theorem to follow (dealing with integrals; see Theorem 2.10 in [@heavy_tails] or Theorem A3.7 in [@Embrechts]) will be used frequently in our proofs to follow.
+The condition of eventual-monotonicity required for the Monotone Density theorem is in some cases difficult to check, but is essentially determined by the behavior of the slowly varying function $\ell(\cdot)$.
+This condition is often evaluated with a secondary notion, for instance log-concavity $\mu_{j}^2\ge \mu_{j-1}\mu_{j+1}$ for all $j > N$. 
+As such, monotonicity is often treated as a simplifying assumption, or is ensured by selection of a specific case.
+
+::: {#thm-MonotoneDensity}
+Let $F \in \calR_{\alpha}^{\infty}$ and let $\Delta F$ denote the derivative $\Delta F(n) = F'(n)$, if $F$ is absolutely continuous with respect to the Lebesgue measure, and the finite difference operator $\Delta F(n) = F(n)-F(n-1)$ if $F$ is discrete. 
+If $\Delta [F]$ is eventually monotone in the sense that there exists an $N$ such that for $\Delta F(n)$ is monotone for $n > N$, then
+$$
+\begin{align*}
+    n \Delta F (n) \sim \alpha F(n), \quad n > N,
+\end{align*}
+$$
+and therefore $\Delta F \in \calR_{\alpha-1}^{\infty}$.
+:::
+
+::: {#pf-monotone}
+We consider the discrete case, which is not often seen, but whose proof is similar to the absolutely continuous case, where one needs only to substitute an integral whenever a sum appears below.
+Without loss of generality, assume that $\Delta [F] (n)$ is non-decreasing for $n > N$, and let $0 < a < b $; the non-increasing will be implied by changing the direction the following inequalities. 
+By definition of $F$, we can of course write
+$$
+\begin{equation*}
+    \sum_{i = [sn]}^{[tn]} \frac{\Delta [F] (n)}{F (n)} = \frac{F ([tn]) - F ([sn])}{F (n)}.
+\end{equation*}
+$$
+With $n > N / s $, by monotonicity we have
+$$
+\begin{equation} 
+    \frac{\Delta [F] ([sn])([tn] - [sn])}{F(n)} \le \frac{F ([tn]) - F ([sn])}{F (n)} \le \frac{\Delta [F] ([tn])([tn] - [sn])}{F(n)} .
+\end{equation}
+$$ {#eq-pfmonotonicity}
+By regular variation, as $F \in \calR_{-\alpha}$, we may represent $F(n) = \ell(n)n^{-\alpha}$.
+Considering only valid integer arguments we see
+$$
+\begin{equation*}
+    \lim_{n}\frac{F ([sn])}{F (n)} = \lim_{n}\frac{[sn]^{\alpha}\ell([sn])}{n^{\alpha}\ell(n)} = s^{\alpha}.
+\end{equation*}
+$$
+The ratio $\lim_{n}[sn]/n = s$, is well known result, and therefore of course this implies that $\lim_{n}\pr{[sn]/n}^{\alpha} = s^{\alpha}$. 
+When $\ell(\cdot)$ is eventually non-decreasing as supposed by eventual monotonicity of $F(\cdot)$, then
+$$
+\begin{align*}
+    \frac{\ell(sn-1)}{\ell(n)} \le \frac{\ell([sn])}{\ell(n)} \le \frac{\ell(sn)}{\ell(n)} \rightarrow 1
+\end{align*}
+$$
+the left side can be re-written and satisfies the same limit as the right expression in our string of inequalities
+$$
+\begin{align*}
+    \frac{\ell(sn-1)}{\ell(n)}  = \frac{\ell((s-\frac{1}{n})n)}{\ell(n)} \rightarrow 1.
+\end{align*}
+$$
+If $\ell(\cdot)$ is not continuous, but rather a discrete $\ell_{[n]}$, as we will discuss later it is equivalent to define a new eventually monotone function which continuously interpolates $\ell([n])=\ell_{[n]}$ and use it as a surrogate.
+Going back now to @eq-pfmonotonicity, dividing all terms by $n(t-s)$, consider the left most expression
+$$
+\begin{equation*}
+    \limsup_{n}\frac{n\Delta [F] ([sn]) }{F(n)}\frac{([tn] - [sn])}{n(t-s)}. 
+\end{equation*}
+$$
+The second term in the product simply tends to $1$
+$$
+\begin{equation*}
+    \frac{([tn] - [sn])}{n(t-s)} \rightarrow 1,
+\end{equation*}
+$$
+so that in total
+$$
+\begin{equation*}
+    \limsup_{n}\frac{n \Delta [F] ([sn]) }{F(n)} \le \frac{t^{\alpha} - s^{\alpha}}{t-s}
+\end{equation*}
+$$
+By considering the right most expression in Equation @eq-pfmonotonicity we also have that
+$$
+\begin{equation*}
+    \liminf_{n}\frac{n\Delta [F] ([tn]) }{F(n)} \ge \frac{t^{\alpha} - s^{\alpha}}{t-s}.
+\end{equation*}
+$$
+where letting $a=1$ (respectively $b=1$) and taking $b\downarrow1$ (respectively $a\uparrow1$) gives the desired result that by squeeze
+$$
+\begin{equation*}
+    \lim_{n}\frac{n \Delta [F] (n) }{F(n)} = \alpha.
+\end{equation*}
+$$
+:::
+
+@thm-MonotoneDensity demonstrates that, far enough into the tail, the contribution of $\Delta F$ to $F$ can be estimated by simply taking the derivative of its power-law part.
+In the case of a probability distribution, this result indicates that when the tail is regularly varying, i.e., $\Fbar(m) = \Pr[S_1 > m]=\ell(m)m^{-\alpha}$, then so long as its probability masses $f_m$  are eventually-monotone decreasing, $f_m \sim \alpha \ell(m) m^{-(1+\alpha)}$.
+
+There are two important differences to highlight between the absolutely continuous case and the discrete case of @thm-MonotoneDensity.
+First is whether we express the original function $F$ as an integral or a summation when considering the ratio
+$$
+\begin{equation*}
+    \sum_{i = [sn]}^{[tn]} \frac{\Delta F (n)}{F (n)} = \frac{F ([tn]) - F ([sn])}{F (n)}.
+\end{equation*}
+$$
+Second is whether $\ell(\cdot)$ is continuous, rather discrete (i.e., $\ell(n) = \ell_{[n]}$).
+In the discrete case, as we will discuss later, it is equivalent to define a new eventually monotone function which smoothly interpolates $\ell([n])=\ell_{[n]}$.
+
+The complement to @thm-MonotoneDensity is known as Karamata's Integral Theorem.
+While the Monotone Density Theorem states that $\Delta F(x) \sim \ell(x) \Delta(x^\alpha)$ as $x\uparrow\infty$, Karamata's Integral Theorem states that $\int_0^y F(x)\dd x \sim \ell(y) \int_0^{y}x^\alpha \dd x$ as $y\uparrow\infty$ (up to some dependence on $\alpha$). 
+As this is no longer a point-wise result and instead requires integration over an interval, we will need the following theorem indicating the uniformity by which regular variation applies. 
+A proof can be found in [@deHaan], where this result appears as Theorem B.1.4.
+
+::: {#thm-rvuniformconvergence}
+If $f \in \calR_{\alpha}^{\infty}$ then there exists a $t_0 \ge 0$ such that for any bounded and non-negative $a$ and $b$, 
+$$
+\begin{equation*}
+    \frac{f(xt)}{f(x)} \rightarrow t^{\alpha}, \quad \text{uniformly over} \  t \in [a,b], \  t_0 \le a < b < \infty  .
+\end{equation*}
+$$
+:::
+
+::: {#thm-KaramataIntegral}
+Let $f \in \calR_{\alpha}^{\infty}$, then there exists a $t_0 > 0$ such that,
+$$
+\begin{equation*} \begin{aligned}
+    \int_{t_0}^{t}f(y) \dd y &\sim \frac{1}{\alpha + 1}tf(t), \quad t \uparrow \infty 
+        \quad \alpha \ge -1, \\
+    \int_{t}^{\infty}f(y) \dd y &\sim \frac{-1}{(\alpha + 1)}tf(t), \quad t \uparrow \infty
+    \quad \alpha < -1.
+\end{aligned} \end{equation*}
+$$
+That is, $\int f(y) \dd y \in \calR_{\alpha + 1}^{\infty}$ for $\alpha < 0$ and $\alpha > 0$, respectively, over their valid intervals. 
+:::
+
+A proof of Theorem @thm-KaramataIntegral can be found in the appendix of [@deHaan], as Theorem B.1.5 (see also Theorem 2.10 in [@heavy_tails] or Theorem A3.7 in [@Embrechts]).
+The primary argument comes from applying the Uniform Convergence Theorem for regular varying functions after a change of variables 
+$$
+\begin{equation*}
+    \frac{F(tx)-F(t)}{tf(t)} = \int_{1}^{x}\frac{f(tu)}{f(t)} \dd u \rightarrow \frac{x^{\alpha + 1}-1}{\alpha + 1}, \quad t \uparrow \infty.
+\end{equation*}
+$$
+Extending this result to include integration over $[0,x]$ or $[x,\infty)$ for $\alpha > -1$ and $\alpha \le -1$, respectively, requires integrability of $f$ over these regions so that the denominator $tf(t)$ dominates $\int f(s)\dd s$ over these regions.
+
+

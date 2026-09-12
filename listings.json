@@ -1,15 +1,17 @@
 [
   {
-    "listing": "/index.html",
+    "listing": "/notes.html",
     "items": [
       "/posts/Analysis/spectral-theory.html",
+      "/posts/Analysis/regular-variation.html",
       "/posts/welcome/welcome.html"
     ]
   },
   {
-    "listing": "/notes.html",
+    "listing": "/index.html",
     "items": [
       "/posts/Analysis/spectral-theory.html",
+      "/posts/Analysis/regular-variation.html",
       "/posts/welcome/welcome.html"
     ]
   }

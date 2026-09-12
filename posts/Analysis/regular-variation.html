@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Your Name">
+<meta name="dcterms.date" content="2026-09-10">
+
+<title>Notes on Regular Variation – The Tilted Windmill</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-3e9b1289f5f353c49b617ce48ad2bc38.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="floating nav-fixed slimcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">The Tilted Windmill</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../notes.html"> 
+<span class="menu-text">Notes &amp; Blog</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Notes on Regular Variation</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">Analysis</div>
+                <div class="quarto-category">Probability</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Your Name </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">September 10, 2026</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  <div>
+    <div class="abstract">
+      <div class="block-title">Abstract</div>
+      A review of the foundational results in Regular Variation. This material is a modified version of an appendix section in a forthcoming paper, presented to be as self-contained as possible.
+    </div>
+  </div>
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#preliminary-definitions" id="toc-preliminary-definitions" class="nav-link active" data-scroll-target="#preliminary-definitions">Preliminary Definitions</a></li>
+  <li><a href="#fundamental-theorems" id="toc-fundamental-theorems" class="nav-link" data-scroll-target="#fundamental-theorems">Fundamental Theorems</a></li>
+  <li><a href="#karamatas-tauberian-theorem" id="toc-karamatas-tauberian-theorem" class="nav-link" data-scroll-target="#karamatas-tauberian-theorem">Karamata’s Tauberian Theorem</a>
+  <ul class="collapse">
+  <li><a href="#proof-of-implication-for-karamatas-tauberian-theorem" id="toc-proof-of-implication-for-karamatas-tauberian-theorem" class="nav-link" data-scroll-target="#proof-of-implication-for-karamatas-tauberian-theorem">Proof of implication for Karamata’s Tauberian Theorem</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block page-columns page-full" id="quarto-document-content">
+<div style="display:none;">
+$$
+% Common Math Sets &amp; Operators
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+
+% Blackboard Bold
+\newcommand{\bbE}{\mathbb{E}}
+\newcommand{\bbI}{\mathbb{I}}
+\newcommand{\bbP}{\mathbb{P}}
+\newcommand{\bbZ}{\mathbb{Z}}
+\newcommand{\bbQ}{\mathbb{Q}}
+\newcommand{\Fbar}{\Bar{F}}
+
+% Calligraphic
+\newcommand{\calC}{\mathcal{C}}
+\newcommand{\calF}{\mathcal{F}}
+\newcommand{\calG}{\mathcal{G}}
+\newcommand{\calK}{\mathcal{K}}
+\newcommand{\calL}{\mathcal{L}}
+\newcommand{\calR}{\mathcal{R}}
+\newcommand{\calS}{\mathcal{S}}
+\newcommand{\SR}{\mathcal{SR}}
+
+% Accents &amp; Overlines
+\newcommand{\fhat}{\widehat{f}}
+\newcommand{\Fbar}{\bar{F}}
+\newcommand{\Bhat}{\widehat{B}}
+\newcommand{\muhat}{\widehat{\mu}}
+\newcommand{\mub}{\mu_{\bullet}}
+\newcommand{\nub}{\nu_{\bullet}}
+\newcommand{\tu}{\Tilde{u}}
+\newcommand{\tbeta}{\Tilde{\beta}}
+\newcommand{\Phistar}{{\Phi^\star}}
+\newcommand{\Omegastar}{\Omega^\star}
+\newcommand{\Ctilde}{\tilde{C}}
+
+% Relations &amp; Convergence
+\newcommand{\deq}{\stackrel{d}{=}}
+\newcommand{\dsim}{\stackrel{d}{\sim}}
+\newcommand{\pto}{\stackrel{p}{\rightarrow}}
+\newcommand{\iid}{\stackrel{\text{iid}}{\sim}}
+\newcommand{\tell}{\Tilde{\ell}}
+\newcommand{\tmu}{\Tilde{\mu}}
+\newcommand{\tnu}{\Tilde{\nu}}
+\newcommand{\tg}{\Tilde{g}}
+\newcommand{\ex}{\operatorname{ex}}
+\newcommand{\ind}{\perp\!\!\!\!\perp}
+
+% Delimiters &amp; Paired Brackets
+\newcommand{\pr}[1]{\left( #1 \right)}
+\newcommand{\br}[1]{\left[ #1 \right]}
+\newcommand{\cbr}[1]{\left\{ #1 \right\}}
+\newcommand{\brZ}[1]{\left[ #1 \right]_{\Z}}
+\newcommand{\inp}[2]{\left\langle #1, #2 \right\rangle}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\abs}[1]{\left\lvert#1\right\rvert}
+\newcommand{\inner}[2]{\left\langle #1, #2 \right\rangle}
+
+% Math Operators
+\DeclareMathOperator{\E}{\mathbb{E}}
+\DeclareMathOperator{\V}{\mathbb{V}}
+\DeclareMathOperator{\Gibbs}{Gibbs}
+\DeclareMathOperator{\Mult}{Mult}
+\DeclareMathOperator{\Pois}{Pois}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Span}{span}
+\DeclareMathOperator{\Spec}{Spec}
+
+\newcommand{\dd}{\mathrm{d}}
+$$
+</div>
+
+
+
+
+
+<p>For a more in-depth treatments of the topic of regular variation, with specific focus on useful results we refer the reader to <span class="citation" data-cites="regular_variation">(<a href="#ref-regular_variation" role="doc-biblioref">Bingham et al. 1987</a>)</span> For statistical applications of regular variation, see <span class="citation" data-cites="heavy_tails Embrechts deHaan">(<a href="#ref-heavy_tails" role="doc-biblioref">Nair et al. 2022</a>; <a href="#ref-Embrechts" role="doc-biblioref">Emchrechts et al. 2012</a>; <a href="#ref-deHaan" role="doc-biblioref"><span class="nocase">de Haan and Ferrerira</span> 2006</a>)</span>. Many classical results applying this theory to probablity, particularly the arcsin distribution and applications to renewal theory can be found in Volume II of Feller <span class="citation" data-cites="feller">(<a href="#ref-feller" role="doc-biblioref">Feller 1971</a>)</span>.</p>
+<section id="preliminary-definitions" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="preliminary-definitions">Preliminary Definitions</h2>
+<div id="def-regularlyVarying" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 1</strong></span> A function <span class="math inline">\(f : \R \rightarrow \R\)</span> is <em>regularly varying</em> at <span class="math inline">\(\infty\)</span> with exponent <span class="math inline">\(\alpha \in \R\)</span>, and write <span class="math inline">\(f \in \calR_\alpha^{\infty}\)</span> if for all <span class="math inline">\(\lambda &gt; 0\)</span>, <span class="math display">\[
+\begin{equation*}
+\lim_{x\uparrow\infty}\frac{f(\lambda x)}{f(x)} = \lambda^{\alpha}.
+\end{equation*}
+\]</span></p>
+</div>
+<div id="def-slowlyVarying" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 2</strong></span> A function <span class="math inline">\(\ell : \R \rightarrow \R\)</span> is <em>slowly varying</em> at <span class="math inline">\(\infty\)</span>, and write <span class="math inline">\(\ell \in \calR_0^{\infty}\)</span>, if for all <span class="math inline">\(\lambda &gt; 0\)</span>, <span class="math display">\[
+\begin{equation*}
+    \lim_{x\uparrow\infty}\frac{\ell(\lambda x)}{\ell(x)} = 1.
+\end{equation*}
+\]</span></p>
+</div>
+<div id="def-regularlyVaryingZero" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 3</strong></span> We call <span class="math inline">\(g : \R \rightarrow \R\)</span> regularly varying at <span class="math inline">\(0\)</span> with exponent <span class="math inline">\(\alpha \in \R\)</span>, and write <span class="math inline">\(g \in \calR_\alpha^{0}\)</span> if for all <span class="math inline">\(\lambda &gt; 0\)</span>, <span class="math display">\[
+\begin{equation*}
+\lim_{s\downarrow 0}\frac{g(\lambda s)}{g(s)} = \lambda^{\alpha}.
+\end{equation*}
+\]</span></p>
+</div>
+<p>Structurally, this is equivalent to a regularly varying function at infinity with reciprocal argument, i.e., <span class="math display">\[
+\begin{equation*}
+    \lim_{s\downarrow 0}\frac{f\pr{\frac{1}{\lambda s}}}{f\pr{\frac{1}{s}}} = \lambda^{-\alpha} .
+\end{equation*}
+\]</span> By construction, we can define any regularly varying function as the product of a slowly varying function <span class="math inline">\(\ell \in \calR_{0}^{\infty}\)</span> and a power law part <span class="math inline">\(x^{\alpha} \in \calR_{\alpha}^{\infty}\)</span>. That is, if <span class="math inline">\(f \in \calR_{\alpha}^{\infty}\)</span>, we may write <span class="math display">\[
+\begin{equation*}
+    f(x) = \ell(x) x^{\alpha},
+\end{equation*}
+\]</span> where <span class="math inline">\(\ell(x)\)</span> is a suitably-chosen slowly varying function that captures deviation of <span class="math inline">\(f(x)\)</span> from a pure power law <span class="math inline">\(\propto x^{\alpha}\)</span> at finite values of <span class="math inline">\(x\)</span>.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> <a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<div class="no-row-height column-margin column-container"><div id="fn1"><p><sup>1</sup>&nbsp;It is useful to consider slowly varying functions <span class="math inline">\(\ell(x)\)</span> as sub-polynomial <span class="citation" data-cites="heavy_tails">(Lemma 2.7 in <a href="#ref-heavy_tails" role="doc-biblioref">Nair et al. 2022</a>)</span>, where <span class="math display">\[\begin{equation*}
+    \lim_{x \uparrow \infty} \ell(x)x^{\rho} = \begin{cases}
+        0, \quad \rho &lt; 0 \\
+        \infty, \quad \rho &gt; 0.
+    \end{cases}
+\end{equation*}\]</span> Two simple examples of slowly varying functions are constants <span class="math inline">\(\ell(n) = C &gt; 0\)</span> and <span class="math inline">\(\ell(n) = \pr{\log n}^\gamma\)</span> for any <span class="math inline">\(\gamma \in \R\)</span>.</p></div><div id="fn2"><p><sup>2</sup>&nbsp;It is also very important here to ask what this means with respect to regularly varying sequences <span class="math inline">\(f_n\)</span>. Here there is no burden, and we may just define <span class="math inline">\(f_n = (f_n/n^{\alpha})n^{\alpha} \doteq \ell(n) n^{\alpha}\)</span>, though we must restrict ourselves to <span class="math inline">\(n\in \Z_{+}\)</span>; for instance by taking the integer part <span class="math inline">\(f(x) =\ell([x])[x]^\alpha\)</span>. What however is interesting, is that we may go even further and consider a continuous argument <span class="math inline">\(x\in \R_+\)</span> by defining a continuous function <span class="math inline">\(f(x)\)</span> which agrees with <span class="math inline">\(f_n = f(n)\)</span> on the integers, and otherwise has useful properties. For instance, for a regularly varying sequence <span class="math inline">\(f_n\)</span> we can simply define <span class="math inline">\(f(x)\)</span> as its smooth interpolation such that <span class="math inline">\(f([x]) = f_{[x]}\)</span>. This representation allow us to often ignore whether our regularly varying function is continuous or discrete, and derive general results.</p></div></div></section>
+<section id="fundamental-theorems" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="fundamental-theorems">Fundamental Theorems</h2>
+<p>The first of the ``fundamental theorems of regular variation’’ (for derivatives) to be discussed is the Monotone Density Theorem (Theorem 2.11 in <span class="citation" data-cites="heavy_tails">(<a href="#ref-heavy_tails" role="doc-biblioref">Nair et al. 2022</a>)</span>). This and the accompanying theorem to follow (dealing with integrals; see Theorem 2.10 in <span class="citation" data-cites="heavy_tails">(<a href="#ref-heavy_tails" role="doc-biblioref">Nair et al. 2022</a>)</span> or Theorem A3.7 in <span class="citation" data-cites="Embrechts">(<a href="#ref-Embrechts" role="doc-biblioref">Emchrechts et al. 2012</a>)</span>) will be used frequently in our proofs to follow. The condition of eventual-monotonicity required for the Monotone Density theorem is in some cases difficult to check, but is essentially determined by the behavior of the slowly varying function <span class="math inline">\(\ell(\cdot)\)</span>. This condition is often evaluated with a secondary notions/conditions.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+<div class="no-row-height column-margin column-container"><div id="fn3"><p><sup>3</sup>&nbsp;In the context of probability distributions <span class="math inline">\(\Pr[X \le n]\)</span>, and in the discrete case their associated probability masses, two conditions that guarantee eventual monotonicity are (1) <em>log-concavity</em> of <span class="math inline">\(\mu_n = \Pr[X = n]\)</span>, i.e.&nbsp;<span class="math inline">\(\mu_n^2 \ge \mu_{n-1}\mu_{n+1}\)</span> and (2) <em>complete monotonicity</em> where all <span class="math inline">\(k\)</span>-fold finite differences <span class="math inline">\(\Delta^k\)</span> of <span class="math inline">\(\mu_n\)</span> are such that <span class="math inline">\((-1)^k \Delta^k \mu_n \ge 0\)</span> for all <span class="math inline">\(k\ge 0\)</span> and <span class="math inline">\(n\ge 0\)</span>. This second result is equivalent to being able to write <span class="math display">\[\begin{equation*}
+\mu_n =\int_{0}^1 z^n\dd \nu (z) = \int_{0}^\infty e^{-sn}\dd \xi (s)
+\end{equation*}\]</span> by the Hausdorff moment theorem <span class="citation" data-cites="hausdorff1921">(<a href="#ref-hausdorff1921" role="doc-biblioref">Hausdorff 1921</a>)</span> for Borel measures <span class="math inline">\(\nu\)</span> and <span class="math inline">\(\xi\)</span>. For alternative conditions justifying the result of the Monotone Density Theorem, refer to Sections 1.6 and 1.7 of <span class="citation" data-cites="regular_variation">Bingham et al. (<a href="#ref-regular_variation" role="doc-biblioref">1987</a>)</span>. For instance, we are able to argue that the Monotone Density Theorem applies (see <span class="citation" data-cites="regular_variation">(<a href="#ref-regular_variation" role="doc-biblioref">Bingham et al. 1987</a>)</span>, Sec. 1.8.1, Proposition 1.8.2) so long as <span class="math inline">\(\mu_n\)</span> is <em>smoothly varying</em> (guaranteed if <span class="math inline">\(\Pr[X &gt; n] = \ell(n)n^{-\alpha}\)</span> is smoothly varying).</p></div></div><div id="thm-MonotoneDensity" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 1</strong></span> Let <span class="math inline">\(F \in \calR_{\alpha}^{\infty}\)</span> and let <span class="math inline">\(\Delta F\)</span> denote the derivative <span class="math inline">\(\Delta F(n) = F'(n)\)</span>, if <span class="math inline">\(F\)</span> is absolutely continuous with respect to the Lebesgue measure, and the finite difference operator <span class="math inline">\(\Delta F(n) = F(n)-F(n-1)\)</span> if <span class="math inline">\(F\)</span> is discrete. If <span class="math inline">\(\Delta [F]\)</span> is eventually monotone in the sense that there exists an <span class="math inline">\(N\)</span> such that for <span class="math inline">\(\Delta F(n)\)</span> is monotone for <span class="math inline">\(n &gt; N\)</span>, then <span class="math display">\[
+\begin{align*}
+    n \Delta F (n) \sim \alpha F(n), \quad n &gt; N,
+\end{align*}
+\]</span> and therefore <span class="math inline">\(\Delta F \in \calR_{\alpha-1}^{\infty}\)</span>.</p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>We consider the discrete case, which is not often seen, but whose proof is similar to the absolutely continuous case, where one needs only to substitute an integral whenever a sum appears below. Without loss of generality, assume that <span class="math inline">\(\Delta [F] (n)\)</span> is non-decreasing for <span class="math inline">\(n &gt; N\)</span>, and let $0 &lt; a &lt; b $; the non-increasing will be implied by changing the direction the following inequalities. By definition of <span class="math inline">\(F\)</span>, we can of course write <span class="math display">\[
+\begin{equation*}
+    \sum_{i = [sn]}^{[tn]} \frac{\Delta [F] (n)}{F (n)} = \frac{F ([tn]) - F ([sn])}{F (n)}.
+\end{equation*}
+\]</span> With $n &gt; N / s $, by monotonicity we have <span id="eq-pfmonotonicity"><span class="math display">\[
+\begin{equation}
+    \frac{\Delta [F] ([sn])([tn] - [sn])}{F(n)} \le \frac{F ([tn]) - F ([sn])}{F (n)} \le \frac{\Delta [F] ([tn])([tn] - [sn])}{F(n)} .
+\end{equation}
+\tag{1}\]</span></span> By regular variation, as <span class="math inline">\(F \in \calR_{-\alpha}\)</span>, we may represent <span class="math inline">\(F(n) = \ell(n)n^{-\alpha}\)</span>. Considering only valid integer arguments we see <span class="math display">\[
+\begin{equation*}
+    \lim_{n}\frac{F ([sn])}{F (n)} = \lim_{n}\frac{[sn]^{\alpha}\ell([sn])}{n^{\alpha}\ell(n)} = s^{\alpha}.
+\end{equation*}
+\]</span> The ratio <span class="math inline">\(\lim_{n}[sn]/n = s\)</span>, is well known result, and therefore of course this implies that <span class="math inline">\(\lim_{n}\pr{[sn]/n}^{\alpha} = s^{\alpha}\)</span>. When <span class="math inline">\(\ell(\cdot)\)</span> is eventually non-decreasing as supposed by eventual monotonicity of <span class="math inline">\(F(\cdot)\)</span>, then <span class="math display">\[
+\begin{align*}
+    \frac{\ell(sn-1)}{\ell(n)} \le \frac{\ell([sn])}{\ell(n)} \le \frac{\ell(sn)}{\ell(n)} \rightarrow 1
+\end{align*}
+\]</span> the left side can be re-written and satisfies the same limit as the right expression in our string of inequalities <span class="math display">\[
+\begin{align*}
+    \frac{\ell(sn-1)}{\ell(n)}  = \frac{\ell((s-\frac{1}{n})n)}{\ell(n)} \rightarrow 1.
+\end{align*}
+\]</span> If <span class="math inline">\(\ell(\cdot)\)</span> is not continuous, but rather a discrete <span class="math inline">\(\ell_{[n]}\)</span>, as we will discuss later it is equivalent to define a new eventually monotone function which continuously interpolates <span class="math inline">\(\ell([n])=\ell_{[n]}\)</span> and use it as a surrogate. Going back now to <a href="#eq-pfmonotonicity" class="quarto-xref">Equation&nbsp;1</a>, dividing all terms by <span class="math inline">\(n(t-s)\)</span>, consider the left most expression <span class="math display">\[
+\begin{equation*}
+    \limsup_{n}\frac{n\Delta [F] ([sn]) }{F(n)}\frac{([tn] - [sn])}{n(t-s)}.
+\end{equation*}
+\]</span> The second term in the product simply tends to <span class="math inline">\(1\)</span> <span class="math display">\[
+\begin{equation*}
+    \frac{([tn] - [sn])}{n(t-s)} \rightarrow 1,
+\end{equation*}
+\]</span> so that in total <span class="math display">\[
+\begin{equation*}
+    \limsup_{n}\frac{n \Delta [F] ([sn]) }{F(n)} \le \frac{t^{\alpha} - s^{\alpha}}{t-s}
+\end{equation*}
+\]</span> By considering the right most expression in Equation <a href="#eq-pfmonotonicity" class="quarto-xref">Equation&nbsp;1</a> we also have that <span class="math display">\[
+\begin{equation*}
+    \liminf_{n}\frac{n\Delta [F] ([tn]) }{F(n)} \ge \frac{t^{\alpha} - s^{\alpha}}{t-s}.
+\end{equation*}
+\]</span> where letting <span class="math inline">\(a=1\)</span> (respectively <span class="math inline">\(b=1\)</span>) and taking <span class="math inline">\(b\downarrow1\)</span> (respectively <span class="math inline">\(a\uparrow1\)</span>) gives the desired result that by squeeze <span class="math display">\[
+\begin{equation*}
+    \lim_{n}\frac{n \Delta [F] (n) }{F(n)} = \alpha.
+\end{equation*}
+\]</span></p>
+</div>
+<p><a href="#thm-MonotoneDensity" class="quarto-xref">Theorem&nbsp;1</a> demonstrates that, far enough into the tail, the contribution of <span class="math inline">\(\Delta F\)</span> to <span class="math inline">\(F\)</span> can be estimated by simply taking the derivative of its power-law part. In the case of a probability distribution, this result indicates that when the tail is regularly varying, i.e., <span class="math inline">\(\Fbar(m) = \Pr[S_1 &gt; m]=\ell(m)m^{-\alpha}\)</span>, then so long as its probability masses <span class="math inline">\(f_m\)</span> are eventually-monotone decreasing, <span class="math inline">\(f_m \sim \alpha \ell(m) m^{-(1+\alpha)}\)</span>.</p>
+<p>There are two important differences to highlight between the absolutely continuous case and the discrete case of <a href="#thm-MonotoneDensity" class="quarto-xref">Theorem&nbsp;1</a>. First is whether we express the original function <span class="math inline">\(F\)</span> as an integral or a summation when considering the ratio <span class="math display">\[
+\begin{equation*}
+    \sum_{i = [sn]}^{[tn]} \frac{\Delta F (n)}{F (n)} = \frac{F ([tn]) - F ([sn])}{F (n)}.
+\end{equation*}
+\]</span> Second is whether <span class="math inline">\(\ell(\cdot)\)</span> is continuous, rather discrete (i.e., <span class="math inline">\(\ell(n) = \ell_{[n]}\)</span>). In the discrete case, as we will discuss later, it is equivalent to define a new eventually monotone function which smoothly interpolates <span class="math inline">\(\ell([n])=\ell_{[n]}\)</span>.</p>
+<p>The complement to <a href="#thm-MonotoneDensity" class="quarto-xref">Theorem&nbsp;1</a> is known as Karamata’s Integral Theorem. While the Monotone Density Theorem states that <span class="math inline">\(\Delta F(x) \sim \ell(x) \Delta(x^\alpha)\)</span> as <span class="math inline">\(x\uparrow\infty\)</span>, Karamata’s Integral Theorem states that <span class="math inline">\(\int_0^y F(x)\dd x \sim \ell(y) \int_0^{y}x^\alpha \dd x\)</span> as <span class="math inline">\(y\uparrow\infty\)</span> (up to some dependence on <span class="math inline">\(\alpha\)</span>). As this is no longer a point-wise result and instead requires integration over an interval, we will need the following theorem indicating the uniformity by which regular variation applies. A proof can be found in <span class="citation" data-cites="deHaan">(<a href="#ref-deHaan" role="doc-biblioref"><span class="nocase">de Haan and Ferrerira</span> 2006</a>)</span>, where this result appears as Theorem B.1.4.</p>
+<div id="thm-rvuniformconvergence" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 2</strong></span> If <span class="math inline">\(f \in \calR_{\alpha}^{\infty}\)</span> then there exists a <span class="math inline">\(t_0 \ge 0\)</span> such that for any bounded and non-negative <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>, <span class="math display">\[
+\begin{equation*}
+    \frac{f(xt)}{f(x)} \rightarrow t^{\alpha}, \quad \text{uniformly over} \  t \in [a,b], \  t_0 \le a &lt; b &lt; \infty  .
+\end{equation*}
+\]</span></p>
+</div>
+<div id="thm-KaramataIntegral" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 3</strong></span> Let <span class="math inline">\(f \in \calR_{\alpha}^{\infty}\)</span>, then there exists a <span class="math inline">\(t_0 &gt; 0\)</span> such that, <span class="math display">\[
+\begin{equation*} \begin{aligned}
+    \int_{t_0}^{t}f(y) \dd y &amp;\sim \frac{1}{\alpha + 1}tf(t), \quad t \uparrow \infty
+        \quad \alpha \ge -1, \\
+    \int_{t}^{\infty}f(y) \dd y &amp;\sim \frac{-1}{(\alpha + 1)}tf(t), \quad t \uparrow \infty
+    \quad \alpha &lt; -1.
+\end{aligned} \end{equation*}
+\]</span> That is, <span class="math inline">\(\int f(y) \dd y \in \calR_{\alpha + 1}^{\infty}\)</span> for <span class="math inline">\(\alpha &lt; 0\)</span> and <span class="math inline">\(\alpha &gt; 0\)</span>, respectively, over their valid intervals.</p>
+</div>
+<p>A proof of Theorem <a href="#thm-KaramataIntegral" class="quarto-xref">Theorem&nbsp;3</a> can be found in the appendix of <span class="citation" data-cites="deHaan">(<a href="#ref-deHaan" role="doc-biblioref"><span class="nocase">de Haan and Ferrerira</span> 2006</a>)</span><a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>, as Theorem B.1.5 (see also Theorem 2.10 in <span class="citation" data-cites="heavy_tails">(<a href="#ref-heavy_tails" role="doc-biblioref">Nair et al. 2022</a>)</span> or Theorem A3.7 in <span class="citation" data-cites="Embrechts">(<a href="#ref-Embrechts" role="doc-biblioref">Emchrechts et al. 2012</a>)</span>). The primary argument comes from applying the Uniform Convergence Theorem for regular varying functions after a change of variables <span class="math display">\[
+\begin{equation*}
+    \frac{F(tx)-F(t)}{tf(t)} = \int_{1}^{x}\frac{f(tu)}{f(t)} \dd u \rightarrow \frac{x^{\alpha + 1}-1}{\alpha + 1}, \quad t \uparrow \infty.
+\end{equation*}
+\]</span></p>
+<div class="no-row-height column-margin column-container"><div id="fn4"><p><sup>4</sup>&nbsp;The idea presented in <span class="citation" data-cites="deHaan">(<a href="#ref-deHaan" role="doc-biblioref"><span class="nocase">de Haan and Ferrerira</span> 2006</a>)</span> is to first show that these integrals are finite for finite intervals (locally bounded). Afterwards, by regular variation, one can show show that there exists a <span class="math inline">\(t_\varepsilon\)</span> such that for <span class="math inline">\(t &gt; t_\varepsilon\)</span>, <span class="math inline">\(f(xt) \le (1 + \varepsilon)x^{\alpha}f(t)\)</span>. For example as <span class="math inline">\(F(t) = \int_{t_0}^{t} f(y) \dd y \uparrow \infty\)</span> we can write for fixed <span class="math inline">\(x\)</span> <span class="math display">\[
+\begin{equation*}
+\frac{F(tx)}{F(t)} = \frac{\int_{t_0}^{tx} f(y) \dd y}{\int_{t_0}^{t} f(y) \dd y} \sim \frac{\int_{t_\varepsilon x}^{tx} f(y) \dd y}{\int_{t_\varepsilon}^{t} f(y) \dd y} = \frac{x\int_{t_\varepsilon }^{t} f(xy) \dd y}{\int_{t_\varepsilon}^{t} f(y) \dd y} \le (1+2\varepsilon)x^{\alpha+1}, \quad t \uparrow \infty
+\end{equation*}
+\]</span> where the <span class="math inline">\(2\varepsilon\)</span> considers the adjustment needed for the middle and final approximation as well as the stated inequality. A lower limit is also found in the same manner (with lower bound coefficient <span class="math inline">\((1-2\varepsilon)\)</span>). Thus by squeeze <span class="math inline">\(F(t) \in \calR_{\alpha + 1}\)</span>.</p></div></div><p>Extending this result to include integration over <span class="math inline">\([0,x]\)</span> or <span class="math inline">\([x,\infty)\)</span> for <span class="math inline">\(\alpha &gt; -1\)</span> and <span class="math inline">\(\alpha \le -1\)</span>, respectively, requires integrability of <span class="math inline">\(f\)</span> over these regions so that the denominator <span class="math inline">\(tf(t)\)</span> dominates <span class="math inline">\(\int f(s)\dd s\)</span> over these regions.</p>
+<hr>
+</section>
+<section id="karamatas-tauberian-theorem" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="karamatas-tauberian-theorem">Karamata’s Tauberian Theorem</h2>
+<p>Here we present one of the most important tools for our paper, the Extended Karamata Tauberian Theorem (thm-karataub). Proofs of this result rely on Potter’s Bound, which relies on the following representation theorem.</p>
+<div id="thm-karamatarep" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 4</strong></span> Let <span class="math inline">\(f \in \calR_{\alpha}^{\infty}\)</span>, and let <span class="math inline">\(F(x) = \int_{x_0}^{x}f(t) \dd t\)</span> where for <span class="math inline">\(x &gt; x_0\)</span> <span class="math inline">\(f(x)\)</span> is positive. Then there exists a function <span class="math inline">\(\lim_{x\uparrow\infty}c_0(x) = c_0 &gt; 0\)</span>, such that <span class="math display">\[
+\begin{equation*}
+    f(x) = c_0(x) b(x) \exp\pr{\int_{1}^{x} \frac{b(t) - 1}{t} \dd t},
+\end{equation*}
+\]</span> where <span class="math inline">\(b(x) = xf(x)/F(x)\)</span> obeys <span class="math display">\[
+\begin{equation*}
+    \lim_{x \uparrow \infty} b(x) = \begin{cases}
+        -(\alpha + 1), \quad \alpha &lt; -1 \\
+        \alpha + 1, \quad -1 \le \alpha .
+    \end{cases}
+\end{equation*}
+\]</span></p>
+</div>
+<p>A proof of this can be found in <span class="citation" data-cites="deHaan">(<a href="#ref-deHaan" role="doc-biblioref"><span class="nocase">de Haan and Ferrerira</span> 2006</a>)</span> as a remark related to the proof of Karamata’s Theorem, Theorem B.1.5. The case of discrete sequences is not obvious, but follows again by defining <span class="math inline">\(f(x)\)</span> as a smooth interpolation such that <span class="math inline">\(f([x]) = f_{[x]}\)</span>, which by Theorem <a href="#thm-karamatarep" class="quarto-xref">Theorem&nbsp;4</a> will have a valid representation.<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></p>
+<div class="no-row-height column-margin column-container"><div id="fn5"><p><sup>5</sup>&nbsp;Karamata’s Representation Theorem (Theorem B.1.6 in <span class="citation" data-cites="deHaan">(<a href="#ref-deHaan" role="doc-biblioref"><span class="nocase">de Haan and Ferrerira</span> 2006</a>)</span>) has multiple equivalent representations, sometimes just written as <span class="math display">\[
+\begin{equation*}
+f(x) = c_1(x) \exp\pr{\int_{x_0}^{x} \frac{a(t)}{t} \dd t},
+\end{equation*}
+\]</span> where <span class="math inline">\(a: \R^{+} \rightarrow \R\)</span> and <span class="math inline">\(c: \R^{+} \rightarrow \R\)</span> are measurable functions such that again <span class="math inline">\(a(x) \rightarrow \alpha\)</span> and <span class="math inline">\(c_1(x) \rightarrow c_1 &gt; 0\)</span>.</p></div></div><p>The representation given in <a href="#thm-karamatarep" class="quarto-xref">Theorem&nbsp;4</a> is useful in bounding the error of <span class="math inline">\(f(xt)/f(t)\)</span> compared to <span class="math inline">\(x^{\alpha}\)</span> uniformly in <span class="math inline">\(x\)</span>, rather than just point-wise. Applying this representation and a change of variables, <span class="math display">\[
+\begin{equation*}
+\frac{f(xt)}{f(t)}
+= \frac{c_1(xt) }{c_1(t) } \exp\pr{\int_{t}^{xt} \frac{b(s) - 1}{s} \dd s}
+= \frac{c_1(xt) }{c_1(t) } \exp\pr{\int_{1}^{x} \frac{b(ts) - 1}{s} \dd s}.
+\end{equation*}
+\]</span> By combining the <a href="#thm-rvuniformconvergence" class="quarto-xref">Theorem&nbsp;2</a> and <a href="#thm-KaramataIntegral" class="quarto-xref">Theorem&nbsp;3</a>, we have that for specified <span class="math inline">\(\delta_1,\delta_2&gt;0\)</span>, we can ensure that <span class="math inline">\(|\frac{c_1(xt) }{c_1(t) } - 1| \le \delta_1\)</span> and <span class="math inline">\(|b(ts)-1-\alpha| \le \delta_2\)</span> for large enough <span class="math inline">\(t &gt; t_0\)</span> uniformly in <span class="math inline">\(s \ge \min\{1,x\}\)</span>. For arbitrary <span class="math inline">\(x &gt; 0\)</span>, this gives us upper and lower bounds on the ratio, a result known as Potter’s Bound (see, e.g., Proposition B.4.1.5 in <span class="citation" data-cites="deHaan">(<a href="#ref-deHaan" role="doc-biblioref"><span class="nocase">de Haan and Ferrerira</span> 2006</a>)</span>).</p>
+<div id="thm-pottersbound" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 5</strong></span> Let <span class="math inline">\(f \in \calR_{\alpha}^{\infty}\)</span> and let <span class="math inline">\(\delta_1, \delta_2 &gt; 0\)</span>. There exists <span class="math inline">\(t_0 \in \R\)</span> such that <span class="math display">\[
+\begin{equation*}
+    (1-\delta_1) x^{\alpha} \min \{x^{-\delta_2},x^{\delta_2} \}\le \frac{f(xt)}{f(t)} \le (1+\delta_1) x^{\alpha} \max \{x^{-\delta_2},x^{\delta_2} \}
+\end{equation*}
+\]</span> for all <span class="math inline">\(t \ge \max\{ t_0, t_0/x \}\)</span>.</p>
+</div>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>Here, if we are considering the ratio <span class="math inline">\(g(x/t)/g(1/t)\)</span> for a function <span class="math inline">\(g\)</span> that is regular varying at <span class="math inline">\(0\)</span> rather than at <span class="math inline">\(\infty\)</span>, the condition presented in the theorem would be in terms of inverse arguments <span class="math inline">\(s = t\)</span> and <span class="math inline">\(y = 1/x\)</span>. The required relation per Potter’s Bound that <span class="math inline">\(s \ge \max\cbr{s_0, s_0/y}\)</span>, would here equate instead to <span class="math inline">\(t \ge \max\cbr{s_0,s_0x}\)</span>. We note therefore that for <span class="math inline">\(\theta \in [0,a]\)</span> for some fixed <span class="math inline">\(a&gt;0\)</span>, this condition can always be satisfied uniformly in <span class="math inline">\(\theta\)</span> for large enough <span class="math inline">\(t\)</span></p>
+</div><div class="">
+<p>The discrete case of <a href="#thm-pottersbound" class="quarto-xref">Theorem&nbsp;5</a> is also true, and ensures the existence of <span class="math inline">\(n_0 = n_0(\delta_1,\delta_2)\)</span> such that for <span class="math inline">\(n,m&gt;n_0(\delta_1,\delta_2)\)</span>, <span class="math display">\[
+\begin{equation*}
+    (1-\delta_1) (m/n)^{\alpha} \min \{(m/n)^{-\delta_2},(m/n)^{\delta_2} \}\le \frac{f_m}{f_n} \le (1+\delta_1) (m/n)^{\alpha} \max \{(m/n)^{-\delta_2},(m/n)^{\delta_2} \},
+\end{equation*}
+\]</span> with <span class="math inline">\(m/n\)</span> the analogue of <span class="math inline">\(x\)</span>; for instance we could define <span class="math inline">\(m=[xn]\)</span> for some <span class="math inline">\(x&gt;0\)</span>.</p>
+</div></div>
+<p>Potter’s Bound is an important result in justifying dominated convergence any compact interval not containing values below <span class="math inline">\(t_0\)</span>. For example, Potter’s bound can be used to prove the following lemma (see Lemma B.1.12 in <span class="citation" data-cites="deHaan">(<a href="#ref-deHaan" role="doc-biblioref"><span class="nocase">de Haan and Ferrerira</span> 2006</a>)</span>).</p>
+<div id="lem-domconv_regvar" class="theorem lemma">
+<p><span class="theorem-title"><strong>Lemma 1</strong></span> Let <span class="math inline">\(f \in \calR_{\alpha}^{\infty}\)</span> with <span class="math inline">\(\alpha &gt; -1\)</span> be Lebesgue integrable over finite intervals of <span class="math inline">\(\R_{+}\)</span>, and let <span class="math inline">\(k: \R_{+} \rightarrow \R\)</span> be a measurable function such that there exists <span class="math inline">\(\varepsilon &gt; 0\)</span> where <span class="math display">\[
+\begin{equation*}
+    \int_{0}^{1} x^{\alpha-\varepsilon} k(x) \dd x &lt; \infty, \quad \int_{1}^{\infty} x^{\alpha+\varepsilon} k(x) \dd x &lt; \infty .
+\end{equation*}
+\]</span> Then <span class="math display">\[
+\begin{equation*}
+    \lim_{t\uparrow \infty}\int_{0}^{\infty}\frac{f(xt)}{f(t)}k(x)  \dd x = \int_{0}^{\infty}x^{\alpha}k(x) \dd x .
+\end{equation*}
+\]</span></p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>The proof of <a href="#lem-domconv_regvar" class="quarto-xref">Lemma&nbsp;1</a> follows from Potter’s bound, which shows that dominated convergence holds for compact intervals, extended to <span class="math inline">\(\R_+\)</span> so long as the integral is finite.<br>
+The only complicating part is the interval near <span class="math inline">\(0\)</span>. Here, one has that as <span class="math inline">\(f\)</span> is integrable near <span class="math inline">\(0\)</span> and <span class="math inline">\(k(\cdot)\)</span> is bounded that <span class="math display">\[
+\begin{equation*}
+    \abs{\int_{0}^{t_0/t}\frac{f(xt)}{f(t)}k(x)  \dd x} \le \frac{1}{tf(t)}\int_{0}^{t_0}\abs{f(s)k\pr{\frac{s}{t}}}  \dd s \downarrow 0
+\end{equation*}
+\]</span> as when <span class="math inline">\(\alpha &gt; -1\)</span>, <span class="math inline">\(tf(t) \uparrow \infty\)</span>. Note that as long as <span class="math inline">\(1-\alpha - \varepsilon &gt; 0\)</span>, <span class="math inline">\(t^{-\alpha - \varepsilon}k(t)\)</span> is integrable on <span class="math inline">\((0,1)\)</span>. On the other end, we have by Potter’s bound i.e. <span class="math display">\[
+\begin{equation*}
+    \frac{f(tx)}{f(t)} \le c x^{-\alpha \pm \varepsilon}, \quad tx \ge t_0, x \in \R_{+}
+\end{equation*}
+\]</span> this implies in total by dominated convergence that <span class="math display">\[
+\begin{equation*}
+    \int_{t_0/t}^{1}k(x) \frac{f(tx)}{f(t)}\dd x \rightarrow \int_{0}^{1}k(x) x^\alpha \dd x
+\end{equation*}
+\]</span></p>
+</div>
+<p>thm-ext_karataub is a combination of two results. The first replaces the traditional Karamata Tauberian Theorem with its Fourier equivalent, a result established by Garsia and Lamperti (Lemma 3.2.1 in <span class="citation" data-cites="GarsiaLamperti1963">(<a href="#ref-GarsiaLamperti1963" role="doc-biblioref">Garsia and Lamperti 1963</a>)</span>; a straightforward application of Potter’s Bound <a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>). Garsia and Lamperti’s result will only apply, however, to distributions with regular varying tails <span class="math inline">\(\Pr[S_1&gt;n]=\ell(n)n^{-\alpha}\)</span> with infinite mean, i.e., where <span class="math inline">\(\alpha \in (0,1)\)</span>. The second result extends this result to <span class="math inline">\(\alpha&gt;1\)</span>, the case where <span class="math inline">\(S_1\)</span> has finite mean (see, for example, Theorem 2.16 in <span class="citation" data-cites="heavy_tails">(<a href="#ref-heavy_tails" role="doc-biblioref">Nair et al. 2022</a>)</span>). The proof of this result follows by analyzing iterated integrals of a regularly varying function through repeated integration-by-parts. Alternatively, this can be observed via Taylor expansion of <span class="math inline">\(\int_0^\infty e^{-st} \dd F(t)\)</span> which is non-decreasing (actually completely monotone) and absolutely continuous in <span class="math inline">\(s\)</span>.</p>
+<div class="no-row-height column-margin column-container"><div id="fn6"><p><sup>6</sup>&nbsp;Though we recommend just checking the paper, we briefly account the analysis. First they consider an integration by parts applied to <span class="math display">\[
+\begin{equation*}
+1-\Phi(\theta) = \int_{0}^{\infty}(1-e^{i\theta x})\dd \mu(x),
+\end{equation*}
+\]</span> so that this expression can be written in terms of <span class="math inline">\(\Fbar(x)\)</span> which is assumed to be regularly varying. In this context Potter’s Bound indicates still applies, where per Garsia and Lamperti <span class="citation" data-cites="GarsiaLamperti1963">(<a href="#ref-GarsiaLamperti1963" role="doc-biblioref">Garsia and Lamperti 1963</a>)</span>: there exists a <span class="math inline">\(\lambda(\varepsilon) &gt; 0\)</span> for a chosen small <span class="math inline">\(\varepsilon&gt;0\)</span> such that such that for all <span class="math inline">\(\sigma\)</span> with <span class="math inline">\(\theta\lambda(\varepsilon)\le \sigma \le 1\)</span> <span class="math display">\[
+\begin{equation*}
+\frac{\Fbar(\sigma/\theta)}{\Fbar(1/\theta)} \le \frac{1+\varepsilon}{1-\varepsilon}\sigma^{\alpha - \varepsilon}
+\end{equation*}
+\]</span> This argument clearly also extends to <span class="math inline">\(1\le \sigma\le M\)</span>, given that the condition of Potter’s Bound, requiring that for <span class="math inline">\(t= 1/\theta\)</span> and <span class="math inline">\(x = \sigma\)</span> <span class="math display">\[
+\begin{equation*}
+1/\theta \ge  \max\cbr{t_0 t_0/\sigma} \ge t_0
+\end{equation*}
+\]</span> can always be made to hold as <span class="math inline">\(\theta\downarrow 0\)</span> (fundamentally equivalent to <a href="#thm-rvuniformconvergence" class="quarto-xref">Theorem&nbsp;2</a>). In their work they observe the fact that <span class="math display">\[
+\begin{equation*}
+\abs{\int_{0}^{\theta\lambda(\varepsilon)}e^{i\sigma}\frac{\Fbar(\sigma/\theta)}{\Fbar(1/\theta)} \dd \sigma} \le \frac{\theta\lambda(\varepsilon)}{\Fbar(1/\theta)} = o(1), \quad \theta\uparrow\infty,
+\end{equation*}
+\]</span> These facts plus uniform convergence over compact <span class="math inline">\(1\le\sigma\le M\)</span> allows them to derive a commensurate complex Karamata’s Tauberian Theorem.</p></div></div><div id="thm-ext_karataub" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 6</strong></span> Let <span class="math inline">\(\mu\)</span> be a probability distribution strictly supported on <span class="math inline">\(\R_+\)</span> with <span class="math inline">\(S_1 \sim \mu\)</span> and <span class="math inline">\(\Pr[S_1&gt; n]=\ell(n)n^{-\alpha}\)</span> for <span class="math inline">\(\alpha &gt; 0\)</span>. Suppose that <span class="math inline">\(\alpha\)</span> can be decomposed as <span class="math inline">\(\alpha = n + \beta\)</span>, for <span class="math inline">\(n \in \cbr{0,1,2,\ldots}\)</span> and <span class="math inline">\(\beta \in (0,1)\)</span>. Then the following are equivalent:</p>
+<ol type="i">
+<li><span class="math inline">\(\Fbar(n) = \ell(n)n^{-\alpha}, \quad n\uparrow\infty\)</span>,</li>
+<li><span class="math inline">\((-1)^{n+1}\left[\Phi (\theta) - \sum_{i=0}^{n}\frac{\E[S_1^j](i\theta)^{j}}{j!}\right] \sim  e^{-\frac{i\pi\alpha}{2}}\abs{\Gamma(1-\alpha)}\abs{\theta}^{\alpha}\ell(1/\abs{\theta}), \quad \theta\downarrow 0.\)</span></li>
+</ol>
+<p>Specifically, for <span class="math inline">\(\alpha \in (0,1)\)</span>, <span class="math display">\[
+\begin{equation*}
+1- \Phi(\theta) \sim e^{-\frac{i\pi\alpha}{2}}\abs{\Gamma(1-\alpha)}\abs{\theta}^{\alpha}\ell(1/\abs{\theta}) , \quad \theta \downarrow 0,
+\end{equation*}
+\]</span> and for <span class="math inline">\(\alpha \in (1,2)\)</span>, <span class="math display">\[
+\begin{equation*}
+(1 - \Phi(\theta)) +i\theta\E[ S_1] \sim -e^{-\frac{i\pi\alpha}{2}}\abs{\Gamma(1-\alpha)}\abs{\theta}^{\alpha}\ell(1/\abs{\theta}) , \quad \theta \downarrow 0.
+\end{equation*}
+\]</span></p>
+</div>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>Consider a probability generating function <span class="math inline">\(\mu(z) = \sum_{k \ge 1 } \mu_k z^k\)</span> such that <span class="math inline">\(\Fbar(m) = \sum_{k&gt;m}\mu_k = \ell(m)m^{-\alpha}\)</span> for <span class="math inline">\(\alpha\in (0,1)\)</span>. Then, with <span class="math inline">\(z = e^{i\theta }\)</span> for <span class="math inline">\(\theta &gt;0\)</span> , noting that <span class="math inline">\(-i\theta \approx 1 - z\)</span> for small <span class="math inline">\(\theta\)</span>, <a href="#thm-ext_karataub" class="quarto-xref">Theorem&nbsp;6</a> is equivalent to <span id="eq-kt_pgf"><span class="math display">\[
+\begin{equation}
+1 -\mu(z)
+\sim \Gamma(1-\alpha)~ \ell\pr{ \frac{1}{\abs{1-z}}} \pr{1-z}^{\alpha} \quad z \uparrow 1,
+\end{equation}
+\tag{2}\]</span></span> where we note that <span class="math inline">\((\theta)^\alpha \approx (-i\theta)^\alpha = e^{-\frac{i\pi \alpha}{2}}\theta^\alpha\)</span> for <span class="math inline">\(\theta &gt; 0\)</span> as <span class="math inline">\(\theta\downarrow 0\)</span>. Using <span class="math inline">\(z\)</span> in this way, rather than <span class="math inline">\(\theta\)</span>, is the statement of Karamata’s Tauberian Theorem <span class="citation" data-cites="karamata1930">(<a href="#ref-karamata1930" role="doc-biblioref">Karamata 1930</a>)</span> that is more typical in the literature.</p>
+<p>Similarly, to use this equivalence to estimate the probability distribution from a given generator, we need only divide by the factor of <span class="math inline">\(\Gamma(1-\alpha)\)</span> on the right-hand side in <a href="#eq-kt_pgf" class="quarto-xref">Equation&nbsp;2</a>, and invert the argument. Explicitly, when <span class="math inline">\(1 - \mu(z)\)</span> is regularly varying as in <a href="#eq-kt_pgf" class="quarto-xref">Equation&nbsp;2</a>, we have that the tail is also regularly varying, with <span class="math display">\[
+\begin{align*}
+  \Fbar\pr{\frac{1}{\abs{1-z}} }
+  &amp;\sim \frac{\abs{1 - \mu(z)}}{\Gamma(1-\alpha)} \quad z \uparrow 1.
+\end{align*}
+\]</span> Here, with <span class="math inline">\(\abs{1-z}\sim 1/n\)</span> as <span class="math inline">\(n\uparrow\infty\)</span>, the expression <span class="math display">\[
+\begin{align*}
+  \Fbar(n)  
+  &amp;\sim \frac{\abs{1 - \mu\pr{1-\frac{1}{n}}}}{\Gamma(1-\alpha)} \quad n \uparrow \infty,
+\end{align*}
+\]</span> indicates directly that <span class="math inline">\(1-\mu(z)\)</span> as <span class="math inline">\(\abs{1-z}\downarrow 0\)</span> behaves inversely to <span class="math inline">\(\Fbar(n)\)</span> as <span class="math inline">\(n\uparrow\infty\)</span>.</p>
+</div></div><section id="proof-of-implication-for-karamatas-tauberian-theorem" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="proof-of-implication-for-karamatas-tauberian-theorem">Proof of implication for Karamata’s Tauberian Theorem</h3>
+<p>We begin by proving the only-if direction of the traditional version of Karamata’s Tauberian Theorem (for Laplace-Stieltjes transforms) for probability measures such that the tail <span class="math inline">\(\Fbar(m) = \ell(n)n^{-\alpha}\)</span> is regularly varying with <span class="math inline">\(\alpha \in (0,1)\)</span>. <a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a></p>
+<div class="no-row-height column-margin column-container"><div id="fn7"><p><sup>7</sup>&nbsp;We choose the traditional version here for its simplicity, as it will only require us to cite <a href="#lem-domconv_regvar" class="quarto-xref">Lemma&nbsp;1</a>. It is true however that <a href="#lem-domconv_regvar" class="quarto-xref">Lemma&nbsp;1</a> can be extended to complex <span class="math inline">\(k_\theta(x) = e^{i\theta x}\)</span>, where <span class="math inline">\(\int_0^\infty k_\theta(x) \Fbar(x) \dd x\)</span> may not actually be absolutely integrable. This is again demonstrated in Lemma 3.2.1 of <span class="citation" data-cites="GarsiaLamperti1963">(<a href="#ref-GarsiaLamperti1963" role="doc-biblioref">Garsia and Lamperti 1963</a>)</span>.</p></div></div><div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>Here we prove the only-if direction of <a href="#thm-ext_karataub" class="quarto-xref">Theorem&nbsp;6</a>, focusing on the case of discrete distribution <span class="math inline">\(\mu\)</span>. See Theorem 1.7.1 in <span class="citation" data-cites="regular_variation">(<a href="#ref-regular_variation" role="doc-biblioref">Bingham et al. 1987</a>)</span> for a full proof. By assumption, the survival function <span class="math inline">\(\Fbar(n) = \Pr[S_1 &gt;n] = \ell(n)n^{-\alpha}\)</span>, is regularly varying. We will use Abel Summation to express our generating function directly in terms of this tail. First, consider a truncation to the first <span class="math inline">\(n\)</span> terms which we will take the limit of <span class="math display">\[
+\begin{equation*}
+    \int_{0}^{n} e^{-st} \dd F(t) = \sum_{1 \le k \le n} \mu_k e^{-sk}
+\end{equation*}
+\]</span> written assuming that <span class="math inline">\(\mu_0 = 0\)</span>. We express the probability masses in terms of the tail as <span class="math display">\[
+\begin{equation*}
+    \mu_n = \Pr[S_1 &gt; n-1] - \Pr[S_1 &gt; n] \doteq \Fbar(n-1) - \Fbar(n).
+\end{equation*}
+\]</span> Using Abel Summation we may now write <span class="math display">\[
+\begin{align*}
+    &amp;\sum_{k=1}^n (\Fbar(k-1) - \Fbar(k)) e^{-sk} \\
+    &amp;= e^{-s n}\sum_{1 \le k \le n} (\Fbar(k-1) - \Fbar(k)) - \int_{[1,n]}  \dd (e^{-st}) \sum_{1 \le k \le \lfloor t\rfloor} (\Fbar(k-1) - \Fbar(k))
+\end{align*}
+\]</span> where, noting the summation is telescopic and that <span class="math inline">\(\Fbar(0) =1\)</span>, we have that <span class="math display">\[
+\begin{equation*}
+    \sum_{1 \le k \le n} (\Fbar(k-1) - \Fbar(k)) = \Fbar(0) - \Fbar(n) = 1 - \Fbar(n).
+\end{equation*}
+\]</span> We therefore write, with <span class="math inline">\(d\pr{e^{-st}} = -s e^{-st} \dd t\)</span>, <span id="eq-ktIBP_middle"><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+    &amp;\int_{0}^{n} e^{-st} \dd F(t) \\
+    &amp;= \sum_{1 \le k \le n} \mu_k e^{-sk} \\
+    &amp;= e^{-sn}(1 - \Fbar(n)) + s \int_{[1,n]}e^{-st}(1- \Fbar(\lfloor t \rfloor ))\dd t \\
+    &amp;= e^{-sn} - e^{-sn}\Fbar(n) + (e^{-s} - e^{-sn}) - s\int_{[1,n]}e^{-st} \Fbar(\lfloor t \rfloor )\dd t \\
+    &amp;= e^{-s} - e^{-sn}\Fbar(n) - s\int_{[1,n]}e^{-st} \Fbar(\lfloor t \rfloor )\dd t.
+\end{aligned}
+\end{equation}
+\tag{3}\]</span></span></p>
+<p>For <span class="math inline">\(t \in (0,1)\)</span>, we have that <span class="math inline">\(\Fbar(\lfloor t \rfloor) = 1\)</span> given our assumption that the associated random variable <span class="math inline">\(S_1 \in \Z_+\)</span>. Therefore, excluding the right endpoint, <span class="math display">\[
+\begin{align*}
+    s\int_{(0,1)}e^{-st} \Fbar(\lfloor t \rfloor )\dd s &amp;= s\int_{(0,1)}e^{-st} \dd t \\
+    &amp;= 1 - e^{-s}.
+\end{align*}
+\]</span> Thus we can rewrite <a href="#eq-ktIBP_middle" class="quarto-xref">Equation&nbsp;3</a> over the entire interval <span class="math inline">\((0,n]\)</span> as <span id="eq-ktIBP_middle2"><span class="math display">\[
+\begin{equation}
+    \int_{0}^{n} e^{-st} \dd F(t)= 1 - e^{-sn}\Fbar(n) - s \int_{(0,n]}e^{-st}\Fbar(\lfloor t \rfloor )\dd t
+\end{equation}
+\tag{4}\]</span></span> From here, we consider the change of variables <span class="math inline">\(u = st\)</span> in the integral expression in <a href="#eq-ktIBP_middle2" class="quarto-xref">Equation&nbsp;4</a> <span class="math display">\[
+\begin{align*}
+    \int_{0}^{n} e^{-st} \dd F(t)
+    % &amp;= 1 - e^{-sn}\Fbar(n) - s \int_{(0,n]}e^{-st}\Fbar(\lfloor t \rfloor )\dd t \\
+    &amp;= 1 - e^{-sn}\Fbar(n) - \int_{(0,n/s]}e^{-u}\Fbar(\lfloor u/s \rfloor )\dd u
+\end{align*}
+\]</span> and lastly we will simply re-write the second term, hinting at our application of <a href="#lem-domconv_regvar" class="quarto-xref">Lemma&nbsp;1</a>, as <span class="math display">\[
+\begin{equation*}
+    \int_{0}^{n} e^{-st} \dd F(t)= 1 - e^{-sn}\Fbar(n) - \Fbar(1/s)\int_{(0,n/s]}e^{-u}\frac{\Fbar(\lfloor u/s \rfloor )}{\Fbar( 1/s )}\dd u
+\end{equation*}
+\]</span> We now consider the truncated summation, for fixed <span class="math inline">\(s\)</span>, by sending <span class="math inline">\(n \uparrow \infty\)</span>. This eliminates the <span class="math inline">\(e^{-sn}\Fbar(n)\)</span>, and induces an integral over <span class="math inline">\(\R_+\)</span>, <span id="eq-ktIBP_dominated"><span class="math display">\[
+\begin{equation}
+   \lim_{n\uparrow\infty} \br{1 - e^{-sn}\Fbar(n) - \Fbar(1/s)\int_{(0,n/s]}e^{-u}\frac{\Fbar(\lfloor u/s \rfloor )}{\Fbar( 1/s )}\dd u }= 1  - \Fbar(1/s)\int_{(0,\infty)}e^{-u}\frac{\Fbar(\lfloor u/s \rfloor )}{\Fbar( 1/s )}\dd u
+\end{equation}
+\tag{5}\]</span></span> By <a href="#lem-domconv_regvar" class="quarto-xref">Lemma&nbsp;1</a>, taking <span class="math inline">\(k(u) = e^{-u}\)</span> we have <span class="math display">\[
+\begin{equation*}
+    \int_{0}^{\infty}e^{-u}\frac{\Fbar(\lfloor u/s \rfloor )}{\Fbar(\lfloor 1/s \rfloor )}\dd u  =  \int_{0}^{\infty}(1+ o(1))e^{-u}u^{-\alpha}\dd u = \int_{0}^{\infty}e^{-u}u^{-\alpha}\dd u + o(1) \rightarrow \Gamma(1-\alpha) &lt; \infty, \quad s\downarrow 0.
+\end{equation*}
+\]</span> Thus identifying <a href="#eq-ktIBP_dominated" class="quarto-xref">Equation&nbsp;5</a> with <span class="math inline">\(\Psi(s)\)</span> as defined in the lemma statement, and applying the asymptotic statement above, we have <span class="math display">\[
+\begin{align*}
+    1 - \Psi(s) &amp;= \Fbar(1/s)\int_{(0,\infty)}e^{-u}\frac{\Fbar(\lfloor u/s \rfloor )}{\Fbar( 1/s )}\dd u\\
+    &amp;\sim \Gamma(1-\alpha)\Fbar(1/s), \quad s \downarrow 0  \\
+    &amp;\sim \Gamma(1-\alpha) \ell(1/s)s^{\alpha}
+\end{align*}
+\]</span> where the last line comes from the assumption that <span class="math inline">\(\Fbar\)</span> is regularly varying with <span class="math inline">\(\Fbar(1/s) = \ell(1/s)s^{\alpha}\)</span>.</p>
+</div>
+<p>We now prove the extension of <a href="#thm-ext_karataub" class="quarto-xref">Theorem&nbsp;6</a> to <span class="math inline">\(\alpha &gt; 1\)</span>. It was not written in the context of, but this semi-proof is essentially what is provided in <span class="citation" data-cites="heavy_tails">(<a href="#ref-heavy_tails" role="doc-biblioref">Nair et al. 2022</a>)</span>. Again this proof is done in the context of a Laplace-Stieltjes transform rather than a Fourier.</p>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>For <span class="math inline">\(n=0\)</span>, consider that by by <a href="#thm-ext_karataub" class="quarto-xref">Theorem&nbsp;6</a> <span class="math display">\[
+\begin{equation*}
+    g(x) = \int_{0}^{x}\Fbar(y) \dd y
+\end{equation*}
+\]</span> has Laplace-Stieltjes transform after integration by parts which can be expressed as <span id="eq-ekt_IBT_substitution"><span class="math display">\[
+\begin{equation}
+    \hat{g}(s) = \frac{1}{s}\pr{1-\Psi(s)} \in \calR_{\alpha-1}^{0}.
+\end{equation}
+\tag{6}\]</span></span> where <span class="math inline">\(\Psi(s)\)</span> is the Laplace-Stieltjes transform of <span class="math inline">\(F\)</span>. For <span class="math inline">\(n =1\)</span>, i.e.&nbsp;<span class="math inline">\(-2 &lt;\alpha &lt; -1\)</span> the idea is to consider an iterated integral over the proper ranges as presented in Karamata’s Theorem (<a href="#thm-KaramataIntegral" class="quarto-xref">Theorem&nbsp;3</a>), where for some <span class="math inline">\(t_0 \ge 0\)</span> such that <span class="math inline">\(G(x)\)</span> is bounded for finite <span class="math inline">\(x\)</span>, <span id="eq-ext_kt_iteratedintegral"><span class="math display">\[
+\begin{equation}
+    G(x) = \int_{t_0}^{x}\pr{\int_{z}^{\infty}\Fbar(y) \dd y} \dd z \sim \frac{-1}{(2-\alpha)(1-\alpha )}x^2 \Fbar(x) \in \calR_{2-\alpha}^{\infty}.
+\end{equation}
+\tag{7}\]</span></span> Via integration by parts, provided <span class="math inline">\(\Pr[X\ge 0] = 1\)</span>, we have that <span class="math display">\[
+\begin{align*}
+    \int_{0}^{\infty}e^{-st} \dd G(t)
+    &amp;= \int_{0}^{\infty}e^{-st} \pr{\int_{t}^{\infty}\Fbar(y) \dd y} \dd t \\
+    &amp;= -\frac{1}{s}\pr{\int_{0}^{\infty}\Fbar(y) \dd y} + \frac{1}{s}\int_{0}^{\infty}e^{-st} \Fbar(t) \dd t \\
+    &amp;= -\frac{1}{s}\E[X] + \frac{1}{s}\int_{0}^{\infty}e^{-st} \Fbar(t) \dd t
+\end{align*}
+\]</span> noting that <span class="math inline">\(\E[X] = \int_{0}^{\infty}\Fbar(y) \dd y &lt; \infty\)</span>. Using the substation presented in <a href="#eq-ekt_IBT_substitution" class="quarto-xref">Equation&nbsp;6</a> <span class="math display">\[
+\begin{align*}
+    \int_{0}^{\infty}e^{-st} \dd G(t)
+    &amp;= -\frac{1}{s}\E[S_1] + \frac{1}{s^2}\pr{1-\Psi(s)}
+\end{align*}
+\]</span> Finally, per <a href="#eq-ext_kt_iteratedintegral" class="quarto-xref">Equation&nbsp;7</a>, is due to the standard Karamata-Tauberian Theorem, Theorem (<a href="#thm-ext_karataub" class="quarto-xref">Theorem&nbsp;6</a>, for <span class="math inline">\(\alpha \in (0,1)\)</span>), we have that <span class="math display">\[
+\begin{align*}
+    \int_{0}^{\infty}e^{-st} \dd G(t)
+    &amp;= -\frac{1}{s}\E[S_1] + \frac{1}{s^2}\pr{1-\Psi(s)} \\
+    &amp;\sim -\frac{\Gamma(3-\alpha)}{\Gamma(2-\alpha)\Gamma(1-\alpha)}\ell(1/s)s^{\alpha-2}.
+\end{align*}
+\]</span> Multiplying across by <span class="math inline">\(s^{2}\)</span> and re-arranging the expression, and recognizing that by the reflection principle for the <span class="math inline">\(\Gamma\)</span>-function, we can define <span class="math display">\[
+\begin{equation*}
+    -\frac{\Gamma(3-\alpha)}{(2-\alpha)(1-\alpha )} \doteq \abs{\Gamma(1-\alpha)}.
+\end{equation*}
+\]</span> completes our intended portion of the proof. We note additionally, as Weirmann et al.&nbsp;(page 47 of <span class="citation" data-cites="heavy_tails">Nair et al. (<a href="#ref-heavy_tails" role="doc-biblioref">2022</a>)</span>) point out, the reverse direction of the proof indicating the behavior of <span class="math inline">\(\Fbar(n)\)</span> is a simple result of the Monotone Density Theorem (<a href="#thm-MonotoneDensity" class="quarto-xref">Theorem&nbsp;1</a>) where by construction <span class="math inline">\(G(x)\)</span> is monotone.</p>
+</div>
+<p>Extending this to the Fourier Transform case amounts to simply inserting back the definition of <span class="math inline">\(s = -i\theta\)</span> in the integration by parts carried out, and adjusting the constant in front of the regular varying term..</p>
+
+
+
+</section>
+</section>
+
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-regular_variation" class="csl-entry" role="listitem">
+Bingham, N. H., C. M. Goldie, and J. L. Teugels. 1987. <em>Regular Variation</em>. Cambridge University Press.
+</div>
+<div id="ref-deHaan" class="csl-entry" role="listitem">
+<span class="nocase">de Haan, L., and A. Ferrerira</span>. 2006. <em>Extreme Value Theory: An Introduction</em>. Springer.
+</div>
+<div id="ref-Embrechts" class="csl-entry" role="listitem">
+Emchrechts, P., C. Kluppelberg, and T. Mikosch. 2012. <em>Modelling Extremal Events</em>. Springer.
+</div>
+<div id="ref-feller" class="csl-entry" role="listitem">
+Feller, William. 1971. <em>An Introduction to Probability Theory and Its Applications. <span>V</span>ol. <span>II</span>.</em> Second Edition. John Wiley &amp; Sons Inc.
+</div>
+<div id="ref-GarsiaLamperti1963" class="csl-entry" role="listitem">
+Garsia, A., and J. Lamperti. 1963. <span>“A Discrete Renewal Theorem with Infinite Mean.”</span> <em>Commentarii Mathematici Helvetici</em> 37: 221–34.
+</div>
+<div id="ref-hausdorff1921" class="csl-entry" role="listitem">
+Hausdorff, F. 1921. <span>“Summationsmethoden Und Momentfolgen i.”</span> <em>Mathematische Zeitschrift</em> 9: 74–109. <a href="http://eudml.org/doc/167613">http://eudml.org/doc/167613</a>.
+</div>
+<div id="ref-karamata1930" class="csl-entry" role="listitem">
+Karamata, J. 1930. <span>“<span class="nocase">Über die Hardy-Littlewoodschen Umkehrungen des Abelschen Stetigkeitssatzes</span>.”</span> <em>Mathematische Zeitschrift</em> 32 (1): 319–20. <a href="https://doi.org/10.1007/BF01194636">https://doi.org/10.1007/BF01194636</a>.
+</div>
+<div id="ref-heavy_tails" class="csl-entry" role="listitem">
+Nair, J., A. Wierman, and B. Zwart. 2022. <em>The Fundamentals of Heavy Tails</em>. Cambridge University Press.
+</div>
+</div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/nraviles\.github\.io\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

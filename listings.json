@@ -1,15 +1,17 @@
 [
   {
-    "listing": "/notes.html",
+    "listing": "/index.html",
     "items": [
+      "/posts/Analysis/notes-testing_dynamics.html",
       "/posts/Analysis/spectral-theory.html",
       "/posts/Analysis/regular-variation.html",
       "/posts/welcome/welcome.html"
     ]
   },
   {
-    "listing": "/index.html",
+    "listing": "/notes.html",
     "items": [
+      "/posts/Analysis/notes-testing_dynamics.html",
       "/posts/Analysis/spectral-theory.html",
       "/posts/Analysis/regular-variation.html",
       "/posts/welcome/welcome.html"

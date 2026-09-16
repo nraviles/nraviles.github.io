@@ -1,0 +1,273 @@
+---
+title: "Notes on Testing Dynamics"
+date: "2026-09-16"
+author: "N. R. Aviles"
+categories: [Notes, Probability]
+reference-location: margin
+abstract: "Some notes on a statistical testing problem: How different is a null-test from a simple random walk?"
+---
+
+The premise for these notes comes from a discussion with a friend where it was alleged that under the null hypothesis $H_0$, p-values should be comparable to a simple random walk.
+After considering the following example, it was made clear numerically that this is not exactly the case and for a rather interesting reason (there is a significant auto-correlation structure, and a non-trivial dependence on current value).
+
+Consider the sequence of random variables $X_{\bullet} =(X_1, X_2, \ldots)$ where $X_i \iid N(0,1)$, and it's sequence of running sums $\Sigma_{\bullet} = (\Sigma_1, \Sigma_2, \ldots )$ 
+ with $\Sigma_n = \sum_{i=1}^nX_i$.
+It is trivial to see that at each ``point in time'', or rather addition of a new sample $X_{n}$, with $\rho_n = n^{-1/2}$ our z-scores $Z_\bullet = \rho_\bullet \Sigma_\bullet = (\Sigma_1/\sqrt{1}, \Sigma_2/\sqrt{2}, \ldots)$ is marginally distributed $N(0,1)$.
+
+Consider the statistical test of $H_0 : X_{i} \iid N(0,1)$ vs. for now an arbitrary alternative $H_1:N(\mu,1), \  \mu \neq 0$.
+Under $H_0$ as the distribution of $Z_\bullet$ for any index is known, we have one again that marginally, where for our purposes consider $\mcE(\cdot) = 2(1-\Pr[Z \le \abs{\cdot}]) = 2(1-\Phi (\cdot))$ with $\Phi(\cdot)$ the CDF of a normal distribution and therefore $E(\cdot)$ the p-value of our statistic (essentially twice the error function) so that in any case
+$$
+\begin{equation*}
+    \mcE\pr{\rho_\bullet \Sigma_\bullet} = U_\bullet = (U_1, U_2, \ldots), \quad U_i \sim \text{Unif}[0,1]
+\end{equation*}
+$$
+but where again $U_i \not\ind U_j$ for $i,j \in \Z_+$. 
+We will importantly now consider the correlation structure of $U_\bullet$, which is a fairly simply one in the SDE sense.
+We will first consider $Z_\bullet$ as a discrete time process (as well as $U_\bullet$), and analyze the stochastic structure of $U_\bullet$ via the standard argument of Taylor expansion (The non-linearity of $E(\cdot)$ being the object that clearly induces a non-trivial correlation structure).
+It is reasonable to extend  this discrete structure, instead as a discrete Taylor expansion, but we will side-step this for now; we may come back to this late.
+For simplicity, we will extend this analysis asymptotically in $n$, and consider is extending $Z_\bullet$ to the process with continuous time version.
+
+
+## Simple Continuous Time Case
+
+Here we simplify our argument by consider $\Sigma_t \doteq B_t = \int_{0}^t \dd B_t$ where $B_t$ is a Brownian motion.
+We can therefore write via Ito's lemma for $Z_t = \rho_t B_t$ as
+$$
+\begin{equation*}
+    \dd \mcE(Z_t) = \partial_t \mcE(Z_t) \dd t + \partial_z\mcE(Z_t) \dd Z_t + \frac{\partial_z^2\mcE(Z_t)}{2}\dd \br{Z_t, Z_t}_t
+\end{equation*}
+$$
+Written explicitly in terms of $Z_t$, we therefore have, with $\partial_t \mcE(Z_t) = 0$ and $\dd \br{Z_t, Z_t} = \dd \br{\rho_t B_t, \rho_t B_t} = \rho_t^2 \dd t$,
+$$
+\begin{align*}
+    \mcE(Z_t) 
+    &= \mcE(Z_1) + \int_{1}^t\dd \mcE(Z_t) \\
+    &= \mcE(Z_1) + \int_{1}^t \pr{\partial_t \mcE(Z_t) \dd t + \partial_z\mcE(Z_t) \dd Z_t + \frac{\partial_z^2\mcE(Z_t)}{2}\dd \br{Z_t, Z_t}_t} \\
+     &= \mcE(Z_1) + \int_{1}^t\partial_z\mcE(Z_t) \dd Z_t + \frac{1}{2}\int_{1}^t\rho_t^2\partial_z^2\mcE(Z_t) \dd t
+\end{align*}
+$$
+
+::: {.column-margin}
+Here we note that under $H_0$ $\mcE(Z_t)\sim U[0,1]$ at each time point, and therefore
+$$
+\begin{align*}
+    \frac{1}{2} =\E[\mcE(Z_t)] 
+    &= \E[\mcE(Z_1) + \int_{1}^t\partial_z\mcE(Z_t) \dd Z_t + \frac{1}{2}\int_{0}^t\rho_t^2\partial_z^2\mcE(Z_t) \dd t] \\
+    &= \frac{1}{2} + \E\br{\frac{1}{2}\int_{0}^t\rho_t^2\partial_z^2\mcE(Z_t) \dd t]}
+\end{align*}
+$$
+by definition, and therefore $\E\br{\frac{1}{2}\int_{0}^t\rho_t^2\partial_z^2\mcE(Z_t) \dd t]} = 0$ for all $t$; without assuming inter-changing the expectation and integral is valid.
+:::
+
+Expanding out $\dd Z_t$ properly, 
+$$
+\begin{align*}
+    \dd Z_t 
+    &= \partial_t \rho_t B_t \dd t + \rho_t \dd B_t + \frac{1}{2}\dd \br{\rho_s, B_s}_t \\
+    &= \partial_t \rho_t B_t \dd t + \rho_t \dd B_t \\
+    &= \frac{\partial_t \rho_t}{\rho_t} Z_t \dd t + \rho_t \dd B_t ,
+\end{align*}
+$$
+where the co-variation $\dd \br{\rho_s, B_s}_t = 0$ as $\rho_s$ is deterministic (finite variation, zero quadratic variation, increments have $0$ covariance with $B_s$; established later in discrete case as a useless fact - who is testing at infinity?).
+We observe
+$$
+\begin{align*}
+    \mcE\pr{Z_{t}} 
+    &= \mcE(Z_1) + \int_1^{t}\rho_{t}\partial \mcE(Z_t) \dd B_t + \int_{1}^{t}\pr{\frac{\partial_t \rho_t}{\rho_t} \partial \mcE(Z_t) Z_t + \frac{1}{2}\rho_{t}^2\partial^2 \mcE(Z_t)}\dd t \\
+    &= \mcE(Z_1) + \int_1^{t}\rho_{t}\partial \mcE(Z_t) \dd B_t + \int_{1}^{t}\pr{\partial_t \log\pr{ \rho_t} \partial \mcE(Z_t) Z_t + \frac{1}{2}\rho_{t}^2\partial^2 \mcE(Z_t)}\dd t. 
+\end{align*}
+$$
+
+This second term encompassing the drift is
+$$
+\begin{equation*}
+    \partial_t \log\pr{ \rho_t} \partial \mcE(Z_t)Z_t  + \frac{1}{2}\rho_{t}^2\partial^2 \mcE(Z_t) = 2 Z_t \phi(Z_t)\pr{\partial_t \log\pr{ \rho_t} - \frac{1}{2}\rho_t^2}
+\end{equation*}
+$$
+expressed in terms of $\phi(\cdot)$ the density of a standard normal as.
+We are interested now in exact or approximate solutions to
+$$
+\begin{equation*}
+    2 Z_t \phi(Z_t)\pr{\partial_t \log\pr{ \rho_t} - \frac{1}{2}\rho_t^2} =0.
+\end{equation*}
+$$
+We observe that this implies the drift is $0$ when $Z_t = 0$, and or if the ODE
+$$
+\begin{equation*}
+    \partial_t \log\pr{ \rho_t} - \frac{1}{2}\rho_t^2 = 0
+\end{equation*}
+$$
+is not satisfied.
+We know in this case the exact form of $\rho_t$, but we can in any case solve this expression.
+This is a relatively simple ODE which can as previously identified just be expressed as
+$$
+\begin{equation*}
+    \partial_t \rho_t = \frac{1}{2}\rho_t^3
+\end{equation*}
+$$
+providing a solution of 
+$$
+\begin{equation*}
+    \rho_t = \frac{1}{\sqrt{C-t}}
+\end{equation*}
+$$
+for some constant $C$, identifying a finite blow-up time.
+
+We therefore observe, with $\rho_t = t^{-1/2}$, that we only have approximate zeros.
+Firstly,
+$$
+\begin{equation*}
+    \partial_t \log\pr{ \rho_t} - \frac{1}{2}\rho_t^2  = -t
+\end{equation*}
+$$
+so that our expression of consideration (ha) is
+$$
+\begin{equation*}
+    -2t Z_t \phi(Z_t) \approx 0.
+\end{equation*}
+$$
+We observe two things (1) the sign of the drift is opposite in direction to $Z_t$ (note: compared to its center, $0$), where with $Z_t$ (in distribution) and $\phi(\cdot)$ both symmetric we write 
+$$
+\begin{equation*}
+    \bA_t \mcE(Z_t) = -2t\mathrm{sgn}(Z_t)\abs{Z_t}\phi(\abs{Z_t}) = -t \partial^2 \mcE(Z_t)
+\end{equation*}
+$$
+which is approximately zero only when $\abs{Z_t}\approx 0$ or $\abs{Z_t}\uparrow \infty$ (tending to $0$ exponentially quickly when $\abs{Z_t} \gg 1$).
+Maximum drift at each $t$ occurs when $\abs{Z_t} = 1$ (when $\abs{x}\phi(x)$ is at its peak), meaning that we should see the strongest reversion of our p-value process $U_t$ back to $1/2$ under the null when $Z_t\approx1$.
+
+
+
+## Discrete Time Differences
+A clear question now however, is how to relate $U_i$ and $U_j$ which will act as our sequential p-values. 
+Under our prior assumptions, that the z-scores can be simply written in terms of the previous value as
+$$
+\begin{align*}
+    Z_{n} = Z_{n-1} + \pr{Z_{n} - Z_{n-1}} \doteq Z_{n} + \Delta Z_{n}.
+\end{align*}
+$$
+If we now express $U_{n} = \mcE(Z_{n})$ in terms of $Z_n$ via Taylor expansion, 
+$$
+\begin{align*}
+    \mcE\pr{Z_{n}} 
+    &= \mcE\pr{ Z_n + \Delta Z_n} \\
+    &= \mcE( Z_n) + \partial \mcE(Z_n)\Delta Z_n+ \frac{1}{2}\partial^2 \mcE(Z_n)\pr{\Delta Z_n}^2 + R_n
+\end{align*}
+$$
+where explicitly $R_n = \frac{1}{2}\pr{\partial^2 \mcE(\xi_n)-\partial^2 \mcE(Z_n)}\pr{\Delta Z_n}^2$, where $\xi_n$ by the mean value theorem is the midpoint corresponding to equality of our function value to the expansion.
+
+
+As the $\partial^3\mcE(\cdot)$ is also continuous and bounded, the remainder term $R_n$ can be bounded in order. 
+Note that we can express
+$$
+\begin{align*}
+    \Delta Z_n 
+    &= \rho_{n}\Sigma_{n} - \rho_{n-1}\Sigma_{n-1}  \\
+    &= \rho_{n}\Delta\Sigma_{n} - \Delta \rho_{n}\Sigma_{n-1} \\
+    &\doteq  \rho_{n}\Delta \Sigma_{n} + \frac{\Delta \rho_{n} }{\rho_{n-1}}Z_{n-1}.
+\end{align*}
+$$
+For large $n$, remembering that $\rho_n = 1/\sqrt{n}$, we see that $\Delta\rho_{n} \approx -\frac{1}{2}\frac{1}{n\sqrt{n}}$, as 
+$$
+\begin{align*}
+    \Delta \rho_{n}
+    &= \frac{1}{\sqrt{n}} - \frac{1}{\sqrt{n-1}} \\
+    &= \frac{\sqrt{n-1} - \sqrt{n}}{\sqrt{n}\sqrt{n-1}} \\
+    &= -\frac{1}{n\sqrt{n-1}}\frac{\sqrt{1-\frac{1}{n}}- \sqrt{1}}{ -\frac{1}{n}} \\
+    &\approx -\frac{1}{2}\frac{1}{n\sqrt{n-1}} = -\frac{1}{2}\frac{1}{n}\pr{\frac{\rho_{n-1}}{\rho_n}}\rho_n
+\end{align*}
+$$
+and therefore that 
+$$
+\begin{align*}
+    \frac{\Delta \rho_{n} }{\rho_{n-1}}Z_{n-1}  
+    &\approx -\frac{1}{2}\frac{1}{n}\pr{1+\frac{1}{n}}^{1/2} Z_{n-1}, \quad n \uparrow \infty \\
+    &=O_p\pr{\frac{1}{n}}.
+\end{align*}
+$$
+Hence, the dominating factor here is $\rho_n\Delta\Sigma_{n} =\rho_n X_{n} = O_p\pr{n^{-1/2}}$ in the difference
+$$
+\begin{align*}
+    \Delta Z_{n}  
+    &= \rho_{n}X_{n} + \frac{\Delta\rho_{n}}{\rho_{n-1}}Z_{n-1} = O_p\pr{n^{-1/2}} .
+\end{align*} 
+$$
+Approximating the remainder (I believe it might just be Lipchitz, so maybe just a bound not approximation) $\abs{\xi_n - Z_n} \le \abs{Z_{n} - Z_n}$
+$$
+\begin{align*}
+    R_n 
+    &= \pr{\partial^2 \mcE(\xi_n)-\partial^2 \mcE(Z_n)}\pr{\Delta Z_n}^2 \\
+    &\approx \partial^3 \mcE(Z_n)\pr{\xi_n - Z_n}\pr{\Delta Z_n}^2 \\
+    &= O_p \pr{\abs{\Delta Z_{n} }^3} \\
+    &= O_p \pr{n^{-3/2}}
+\end{align*}
+$$
+
+## Asymptotic SDE
+
+Using the expression
+$$
+\begin{align*}
+    \Delta Z_{n} 
+    & \doteq  \rho_{n}\Delta \Sigma_{n} + \frac{\Delta \rho_{n} }{\rho_{n-1}}Z_n
+\end{align*}
+$$
+we can consolidate our Taylor expansion in terms of increments in $\Sigma_n$ and $\rho_n$ as
+$$
+\begin{align*}
+    \mcE\pr{Z_{n}} 
+    &= \mcE( Z_n) + \partial \mcE(Z_n)\pr{\rho_{n}\Delta \Sigma_{n} + \frac{\Delta \rho_{n} }{\rho_{n-1}}Z_n} + \frac{1}{2}\partial^2 \mcE(Z_n)\pr{\rho_{n}\Delta \Sigma_{n} + \frac{\Delta \rho_{n} }{\rho_{n-1}}Z_n}^2 + R_n \\
+    &= \mcE( Z_n) + \rho_{n}\partial \mcE(Z_n)\Delta \Sigma_{n} + \frac{\partial \mcE(Z_n) Z_n}{\rho_{n-1}}\Delta \rho_{n} + \frac{1}{2}\rho_{n}^2\partial^2 \mcE(Z_n)\pr{\Delta \Sigma_{n}}^2  +\frac{1}{2}\partial^2 \mcE(Z_n)\pr{\frac{ Z_n}{\rho_{n-1}}}^2\pr{\Delta \rho_{n}}^2 +  \tilde{R}_n
+\end{align*}
+$$
+where $\tilde{R}_n$ includes not just the error but also the mixed term $2\Delta\rho_{n}\Delta \Sigma_{n}Z_n$.
+We therefore arrive at a representation of the difference as
+$$
+\begin{align*}
+    \mcE\pr{Z_{n}} -\mcE( Z_n)
+    = \rho_{n}&\partial \mcE(Z_n)\Delta \Sigma_{n} + \frac{\partial \mcE(Z_n) Z_n}{\rho_{n-1}}\Delta \rho_{n}\\
+    &+ \frac{1}{2}\rho_{n}^2\partial^2 \mcE(Z_n)\pr{\Delta \Sigma_{n}}^2  +\frac{1}{2}\partial^2 \mcE(Z_n)\pr{\frac{ Z_n}{\rho_{n-1}}}^2\pr{\Delta \rho_{n}}^2 +  \tilde{R}_n.
+\end{align*}
+$$
+Now, using these differences, by telescoping sum we see
+$$
+\begin{align*}
+    \mcE\pr{Z_{n}} = \mcE(Z_1) +\sum_{k=1}^{n-1}\rho_{k}&\partial \mcE(Z_k)\Delta \Sigma_{k} + \sum_{k=1}^{n-1}\frac{\partial \mcE(Z_k) Z_k}{\rho_{k-1}}\Delta \rho_{k} \\
+    &+ \frac{1}{2}\sum_{k=1}^{n-1}\rho_{k}^2\partial^2 \mcE(Z_k)\pr{\Delta \Sigma_{k}}^2  +\frac{1}{2}\sum_{k=1}^{n-1}\partial^2 \mcE(Z_n)\pr{\frac{Z_k}{\rho_{k-1}}}^2\pr{\Delta \rho_{k}}^2 +  \sum_{k=1}^{n-1}\tilde{R}_n   
+\end{align*}
+$$
+
+
+
+\subsection{Continuous from Discrete Time}
+We can see this also rise from the discrete time equation, where we let the increments in time $\Delta t \downarrow 0$, and use an integral approximation of
+$$
+\begin{align*}
+    \mcE\pr{Z_{n}} = \sum_{k=1}^{n-1}\rho_{k}&\partial \mcE(Z_k)\Delta \Sigma_{k} + \sum_{k=1}^{n-1}\frac{\partial \mcE(Z_k) Z_k}{\rho_{k-1}}\Delta \rho_{k} \\
+    &+ \frac{1}{2}\sum_{k=1}^{n-1}\rho_{k}^2\partial^2 \mcE(Z_k)\pr{\Delta \Sigma_{k}}^2  +\frac{1}{2}\sum_{k=1}^{n-1}\partial^2 \mcE(Z_n)\pr{\frac{ Z_k}{\rho_{k-1}}}^2\pr{\Delta \rho_{k}}^2 +  \sum_{k=1}^{n-1}\tilde{R}_k.    
+\end{align*}
+$$
+We already showed that $R_n = O_p\pr{\abs{Z_{n} - Z_n}^3}$.
+For our purposes in considering the continuous limit $\tilde{R}_n$ is not so much changed given it adds a term of $2 \Delta \Sigma_{n}\Delta\rho_{n} Z_n$ to $R_n$, as the quadratic variation of $[Z,Z]_t = \rho_t^2 t$, where  mixed term in the limit which is essentially $2\dd \br{\int Z_{s} \dd B_s, \rho_s}_t=0$ is eventually negligible. 
+The summation of $R_k$ therefore tends to $0$ and so
+$$
+\begin{align*}
+    \mcE\pr{Z_{t}} = \mcE(Z_1) + \int_1^{t}\rho_{t}&\partial \mcE(Z_t) \dd B_t + \int_{1}^{t}\pr{\frac{\partial_t \rho_t}{\rho_t} Z_t\partial \mcE(Z_t)  + \frac{1}{2}\rho_{t}^2\partial^2 \mcE(Z_t)}\dd t.     
+\end{align*}
+$$
+We see of course that 
+this would be the same result as we would see from considering the Ito integral with respect to increments 
+$$
+\begin{align*}
+    \dd Z_t 
+    &= \partial_t \rho_t B_t \dd t + \rho_t \dd B_t + \frac{1}{2}\dd \br{\rho_s, B_s}_t \\
+    &= \partial_t \rho_t B_t \dd t + \rho_t \dd B_t \\
+    &= \frac{\partial_t \rho_t}{\rho_t} Z_t \dd t + \rho_t \dd B_t .
+\end{align*}
+$$
+where the co-variation $\dd \br{\rho_s, B_s}_t = 0$ as $\rho_s$ is deterministic (finite variation, zero quadratic variation, increments have $0$ covariance with $B_s$).
+This second term encompassing the drift is
+$$
+\begin{equation}
+    \frac{\partial_t \rho_t}{\rho_t} Z_t\partial \mcE(Z_t)  + \frac{1}{2}\rho_{t}^2\partial^2 \mcE(Z_t).
+\end{equation}
+$$

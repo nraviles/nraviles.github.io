@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Your Name">
+<meta name="dcterms.date" content="2026-09-17">
+
+<title>Notes on Ergodicity Economics Conference – The Tilted Windmill</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-3e9b1289f5f353c49b617ce48ad2bc38.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">The Tilted Windmill</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../notes.html"> 
+<span class="menu-text">Notes &amp; Blog</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Notes on Ergodicity Economics Conference</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">Analysis</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Your Name </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">September 17, 2026</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  <div>
+    <div class="abstract">
+      <div class="block-title">Abstract</div>
+      Some notes I made awhile ago commenting on discussions had at an EE conference a few years back. This is mostly a superfical an account of some confusion (that I or others indicated) when attempting to formulate some EE problems. These notes were written by a slightly arrogant and slightly frustrated youth (at least young-ish); likely full of typos.
+    </div>
+  </div>
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#path-wise-dynamics" id="toc-path-wise-dynamics" class="nav-link" data-scroll-target="#path-wise-dynamics">Path-wise Dynamics</a>
+  <ul class="collapse">
+  <li><a href="#ergodicity-concepts" id="toc-ergodicity-concepts" class="nav-link" data-scroll-target="#ergodicity-concepts">Ergodicity Concepts</a></li>
+  <li><a href="#detailed-critique" id="toc-detailed-critique" class="nav-link" data-scroll-target="#detailed-critique">Detailed Critique</a></li>
+  </ul></li>
+  <li><a href="#growth-rates-and-multiplicative-gambles-in-finite-time" id="toc-growth-rates-and-multiplicative-gambles-in-finite-time" class="nav-link" data-scroll-target="#growth-rates-and-multiplicative-gambles-in-finite-time">Growth Rates and Multiplicative Gambles in Finite Time</a>
+  <ul class="collapse">
+  <li><a href="#stochastic-precedence" id="toc-stochastic-precedence" class="nav-link" data-scroll-target="#stochastic-precedence">Stochastic Precedence</a></li>
+  <li><a href="#ergodic-transform-in-finite-time" id="toc-ergodic-transform-in-finite-time" class="nav-link" data-scroll-target="#ergodic-transform-in-finite-time">Ergodic Transform in Finite time</a></li>
+  <li><a href="#remarks" id="toc-remarks" class="nav-link" data-scroll-target="#remarks">Remarks</a>
+  <ul class="collapse">
+  <li><a href="#first" id="toc-first" class="nav-link" data-scroll-target="#first">First</a></li>
+  <li><a href="#second" id="toc-second" class="nav-link" data-scroll-target="#second">Second</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#gambling-under-ruin" id="toc-gambling-under-ruin" class="nav-link" data-scroll-target="#gambling-under-ruin">Gambling under Ruin</a>
+  <ul class="collapse">
+  <li><a href="#consequence-ruin-under-agrm-indistinguishably" id="toc-consequence-ruin-under-agrm-indistinguishably" class="nav-link" data-scroll-target="#consequence-ruin-under-agrm-indistinguishably">Consequence: Ruin under AGRM Indistinguishably</a></li>
+  </ul></li>
+  <li><a href="#one-time-bets-living-with-the-consequences" id="toc-one-time-bets-living-with-the-consequences" class="nav-link" data-scroll-target="#one-time-bets-living-with-the-consequences">One-Time Bets: Living with the Consequences</a></li>
+  <li><a href="#ergodic-transforms-diffusion-processes" id="toc-ergodic-transforms-diffusion-processes" class="nav-link" data-scroll-target="#ergodic-transforms-diffusion-processes">Ergodic Transforms, Diffusion Processes</a>
+  <ul class="collapse">
+  <li><a href="#oops-wrong-transform" id="toc-oops-wrong-transform" class="nav-link" data-scroll-target="#oops-wrong-transform">Oops, Wrong Transform!</a></li>
+  <li><a href="#martingales" id="toc-martingales" class="nav-link" data-scroll-target="#martingales">Martingales</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+<div style="display:none;">
+$$
+% Common Math Sets &amp; Operators
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+
+% Blackboard Bold
+\newcommand{\bbE}{\mathbb{E}}
+\newcommand{\bbI}{\mathbb{I}}
+\newcommand{\bbP}{\mathbb{P}}
+\newcommand{\bbZ}{\mathbb{Z}}
+\newcommand{\bbQ}{\mathbb{Q}}
+\newcommand{\Fbar}{\Bar{F}}
+
+% Calligraphic
+\newcommand{\calC}{\mathcal{C}}
+\newcommand{\calF}{\mathcal{F}}
+\newcommand{\calG}{\mathcal{G}}
+\newcommand{\calK}{\mathcal{K}}
+\newcommand{\calL}{\mathcal{L}}
+\newcommand{\calR}{\mathcal{R}}
+\newcommand{\calS}{\mathcal{S}}
+\newcommand{\SR}{\mathcal{SR}}
+\newcommand{\mcE}{\mathcal{E}}
+
+% Accents &amp; Overlines
+\newcommand{\fhat}{\widehat{f}}
+\newcommand{\Fbar}{\bar{F}}
+\newcommand{\Bhat}{\widehat{B}}
+\newcommand{\muhat}{\widehat{\mu}}
+\newcommand{\mub}{\mu_{\bullet}}
+\newcommand{\nub}{\nu_{\bullet}}
+\newcommand{\tu}{\Tilde{u}}
+\newcommand{\tbeta}{\Tilde{\beta}}
+\newcommand{\Phistar}{{\Phi^\star}}
+\newcommand{\Omegastar}{\Omega^\star}
+\newcommand{\Ctilde}{\tilde{C}}
+\newcommand{\bA}{\mathbf{A}}
+
+% Relations &amp; Convergence
+\newcommand{\deq}{\stackrel{d}{=}}
+\newcommand{\dsim}{\stackrel{d}{\sim}}
+\newcommand{\pto}{\stackrel{p}{\rightarrow}}
+\newcommand{\iid}{\stackrel{\text{iid}}{\sim}}
+\newcommand{\tell}{\Tilde{\ell}}
+\newcommand{\tmu}{\Tilde{\mu}}
+\newcommand{\tnu}{\Tilde{\nu}}
+\newcommand{\tg}{\Tilde{g}}
+\newcommand{\ex}{\operatorname{ex}}
+\newcommand{\ind}{\perp\!\!\!\!\perp}
+
+% Delimiters &amp; Paired Brackets
+\newcommand{\pr}[1]{\left( #1 \right)}
+\newcommand{\br}[1]{\left[ #1 \right]}
+\newcommand{\cbr}[1]{\left\{ #1 \right\}}
+\newcommand{\brZ}[1]{\left[ #1 \right]_{\Z}}
+\newcommand{\inp}[2]{\left\langle #1, #2 \right\rangle}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\abs}[1]{\left\lvert#1\right\rvert}
+\newcommand{\inner}[2]{\left\langle #1, #2 \right\rangle}
+
+% Math Operators
+\DeclareMathOperator{\E}{\mathbb{E}}
+\DeclareMathOperator{\V}{\mathbb{V}}
+\DeclareMathOperator{\Gibbs}{Gibbs}
+\DeclareMathOperator{\Mult}{Mult}
+\DeclareMathOperator{\Pois}{Pois}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Span}{span}
+\DeclareMathOperator{\Spec}{Spec}
+
+\newcommand{\dd}{\mathrm{d}}
+$$
+</div>
+
+
+
+
+
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>Fundamentally, agents must act in and react to the environment they inhabit. If in this the system dynamics of scale matter, they should accordingly take action in a way that differentiate between scales; if time matters they choose their actions under the precedence that they must live or die in time. This is rudimentary, and the models we use to explain agents actions must reflect this.</p>
+<p>This is not what standard Economics does explicitly, but it is what it envisioned. Ergodicity Economics attempts to do what it intended to do, and that is study actors under varying dynamics and mathematically explain what Economics relegates very quickly to psychology.</p>
+<p>This (hopefully) short notes will attempt to explain and justify the short comings of the current (note: as of 5 years ago) “precise” framework of Ergodicity Economics, where I feel the hammer used (or at least whats expounded over and over) is just one aspect of a more general theory. This leads to very agitating situation where at least in discussion, so that where the hammer doesn’t strike flush, the situation gets bemoaned as a place the entire “theory” doesn’t apply (“at least for now’’).</p>
+</section>
+<section id="path-wise-dynamics" class="level1">
+<h1>Path-wise Dynamics</h1>
+<section id="ergodicity-concepts" class="level2">
+<h2 class="anchored" data-anchor-id="ergodicity-concepts">Ergodicity Concepts</h2>
+<p>The main driving force of Ergodicity Economics is it relation to the rich literature of Ergodic Theory and it’s further relation to path-wise dynamics. Ergodicity is a property whereby the only invariant set under the forward action is the entire set (move forward in time <span class="math inline">\(T_s (X_t) = X_{t+s}\)</span>, which in technical math-y must be measure preserving <span class="math inline">\(\mu(T_s^{-1}\Omega) = \mu(\Omega)\)</span>, i.e.&nbsp;no loss in mass).</p>
+<p>Rephrase in math whenever we have a set <span class="math inline">\(\mathcal{I}\)</span> s.t.</p>
+<p><span class="math display">\[
+T_s^{-1} \mathcal{I} = \mathcal{I}
+\]</span></p>
+<p>then for our probability measure of interest <span class="math inline">\(\mu\)</span> on <span class="math inline">\(\Omega\)</span> we must have</p>
+<p><span class="math display">\[
+\mu(\mathcal{I}) \in \{0, 1\}
+\]</span></p>
+<p>This is a statement where by <span class="math inline">\(\mathcal{I}\)</span> must be either “essentially” the entire space (<span class="math inline">\(\mu(\Omega) = 1\)</span>) or “essentially” nothing (<span class="math inline">\(\mu(\phi) = 0\)</span>); in either case the difference between <span class="math inline">\(\mathcal{I}\)</span> and the two options is of size or measure zero - e.g.&nbsp;maybe a countable number of points for example).</p>
+<p>One can rephrase this for as saying that if <span class="math inline">\(X_t \in \mathcal{I}\)</span> then it is in there forever with probability 1 (in the nice entire space case), due to the invariance under the forward map (<span class="math inline">\(\mu(T_s^{-1}\mathcal{I}) = \mu(\mathcal{I})\)</span>) plus the measure preserving property.</p>
+<p>A consequence of this is that if we define</p>
+<p><span class="math display">\[
+N(t,A) = \lambda\{s : X_s \in A, t \in [0,s]\},
+\]</span></p>
+<p>which is really just the “amount of time, <span class="math inline">\(X_t\)</span> is in <span class="math inline">\(A\)</span>” (<span class="math inline">\(\lambda\)</span> is the Lebesgue measure which is just the length of the set in the traditional sense <span class="math inline">\(\lambda [0,t) = t\)</span>), then if <span class="math inline">\(X \deq \lim_{t\rightarrow \infty}X_t\)</span></p>
+<p><span class="math display">\[
+\lim_{t\rightarrow \infty} \frac{N(t,A)}{t} = \mathbb{P}(X \in A)
+\]</span></p>
+<p>which says that the amount of time spent in set <span class="math inline">\(A\)</span> is equal to the probability that any path might be in <span class="math inline">\(A\)</span> if we wait long enough (basically forget the limit and approximate). The premise here is that eventually all paths and the ensemble “look” alike, you could even “substitute” one for the other.</p>
+<p>This is a very simple example of what is the hammer of Ergodicity Economics, Birkhoff’s Theorem which states that</p>
+<p><span class="math display">\[
+\mathbb{E}[f(X)] = \lim_{T\rightarrow \infty} \frac{1}{T} \int_{0}^{T} f(X_t)dt \quad \text{a.s.}
+\]</span></p>
+<p>the almost sure part why this is often called the “Point-wise Ergodic Theorem”, which say for almost all but a size 0 set of paths, the right side always converges to a deterministic value which happens to be the ensemble average for the function (generalization of law of large numbers).</p>
+<p>If you wanted to be blatant and very informal, this says that if we scramble time (even though time matters) and just take the usual average under permutation (sample mean) and treat it as if it was from an ensemble, the usual law of large numbers for sample means holds. <span class="math display">\[
+\begin{align*}
+    \frac{1}{T} \int_{0}^{T} f(X_t)dt &amp;\approx \frac{1}{T} \sum_{j=0}^{N-1} f(X_{t_j}) \Delta t_j \\
+    &amp;= \frac{1}{T} \sum_{j=0}^{N-1} f(X_{t_{\pi(j)}}) \Delta t_{\pi(j)}
+\end{align*}
+\]</span> Where <span class="math inline">\(\pi (\cdot)\)</span> is a permutation of numbers. This looks silly and obvious, the tricky part here comes if I were to say that I allowed this permutation is not just of the original <span class="math inline">\(N\)</span> points, but actually comes from any point in time!</p>
+<p>Once I say “any point” Ergodicity tells me that there are an overwelmingly infinite number of points after a large enough <span class="math inline">\(T\)</span> that are essentially indistinguishable from one another in the grand scheme of things and therefore this average should look like some kind of ensemble average getting even closer the larger <span class="math inline">\(N\)</span> is as it relates to <span class="math inline">\(T\)</span> (size <span class="math inline">\(T = \lambda[0,T) &lt; \lambda[T,\infty) = \infty, \implies\)</span> “uniform sampling” of points for my average gives <span class="math inline">\(0\)</span> points coming from <span class="math inline">\([0,T]\)</span> with probability 1).</p>
+</section>
+<section id="detailed-critique" class="level2">
+<h2 class="anchored" data-anchor-id="detailed-critique">Detailed Critique</h2>
+<p>These prior theorems, and not my commentary, deal with the “long-time” dynamics of this process <span class="math inline">\(f(X_t)\)</span>. Essentially you can think of the variability of this quantity vanishing, and then boom-pow everything is just a scalar quantity. But if treated more formally, you can rephrase this as our error being “small enough” after some large time <span class="math inline">\(T\)</span>.</p>
+<p>This is my main point, what matters first and foremost is path-wise dynamics, and this Ergodicity concept tells us about some quantities that are for the most part well-behaved and give us information about the properties of any path we might be on. This information is not restricted to infinite time as required by Birkhoff (<span class="math inline">\(T\rightarrow\infty)\)</span> but has value also in medium or short (finite) time processes, and even processes that are “Ergodicity breaking” such as dynamics under ruin.</p>
+<p>Again, what bothered me is that many problems with applying Birkhoff are treated as special cases or places where we need to extend the “theory that is Ergodicity Economics” where I believe we can, through formal treatment, make informed inference based on its foundation, Ergodic Theory.</p>
+</section>
+</section>
+<section id="growth-rates-and-multiplicative-gambles-in-finite-time" class="level1">
+<h1>Growth Rates and Multiplicative Gambles in Finite Time</h1>
+<p>Let us revisit the standard multiplicative gamble, but in more generality, including finite time horizons.</p>
+<p>You are forced to play a game, and can choose between two wealth dynamics:</p>
+<p><span class="math display">\[
+X_t = x_0 e^{Z_t}, \quad Y_t = y_0 e^{W_t}
+\]</span></p>
+<p>whose whose rate increments <span class="math inline">\(\Delta Z_t\)</span> and <span class="math inline">\(\Delta W_t\)</span> are Ergodic processes with long time-averages <span class="math inline">\(g_X\)</span> and <span class="math inline">\(g_Y\)</span>, and where <span class="math inline">\(x_0\)</span> and <span class="math inline">\(y_0\)</span> are initial values of wealth.</p>
+<p>In the short time, what should be obvious is that as long as I don’t force you to play forever, I might be able to ’’grease the wheel” and bribe you into the worse long-run gamble with enough money out-front (<span class="math inline">\(x_0, y_0\)</span>). However Asymptotic Growth-Rate Maximization, shortened as AGRM, as would be the recommendation of applying Birkhoff, may give you the wrong answer under finite time horizons.</p>
+<p>Now, lets take a step back and chat about path-wise probabilities. If I want to choose the process (<span class="math inline">\(X_t,Y_t\)</span>) that is best for me, with all the information I have, I should do so in a way in which I am more likely to make the better decision, i.e.&nbsp;the one I have to “live with”. Any option, a job, spouse or other, you’re usually expecting to have to live or die with it - the dynamics after the decision. Of course there are caveats, but forgive me for now and assume we are not considering ruin processes, and that these problems actually give me hope for the application of psychology (other criteria for good bets included of course, but hopefully relevant to individuals in practice).</p>
+<section id="stochastic-precedence" class="level2">
+<h2 class="anchored" data-anchor-id="stochastic-precedence">Stochastic Precedence</h2>
+<p>James Price brought up something which he showed had value in finite time (and is also in the original formulation of Ergodicity Economics - the Nature paper!), which is called Stochastic Precedence.</p>
+<p>Essentially when I am weighting my preference between (<span class="math inline">\(X_t,Y_t\)</span>), it is useful to consider whether</p>
+<p><span class="math display">\[
+\mathbb{P}(X_t &gt; Y_t)
+\]</span></p>
+<p>is very large, i.e.&nbsp;if <span class="math inline">\(X_t\)</span> is just more likely to produce better path outcomes as evaluated at time <span class="math inline">\(t\)</span>.</p>
+<p>This makes sense when one treats finite time “one-shot” gambles, and the expected difference</p>
+<p><span class="math display">\[
+\mathbb{E}[X_t - Y_t]
+\]</span></p>
+<p>might be the traditional proxy for the decision, but is just one criteria and of course may not include relevant information such as the the magnitude of potential losses.</p>
+<p>What’s useful with respect to Ergodicity is the implied stability of the variable, in this case (<span class="math inline">\(Z_t,W_t\)</span>), so it’s useful to start here first.</p>
+</section>
+<section id="ergodic-transform-in-finite-time" class="level2">
+<h2 class="anchored" data-anchor-id="ergodic-transform-in-finite-time">Ergodic Transform in Finite time</h2>
+<p>We will now consider the Ergodic transform under multiplicative dynamics on <span class="math inline">\(X_t\)</span> i.e.&nbsp;in probability as per Stochastic Precedence <span class="math display">\[
+\begin{align*}
+    \mathbb{P}(X_T &gt; Y_T) &amp;= \mathbb{P}\left(\frac{1}{T}\log (\frac{X_T}{X_0}) &gt; \frac{1}{T}\log (\frac{Y_T}{X_0})\right) \\
+    &amp;= \mathbb{P}\left(\frac{1}{T}Z_T &gt; \frac{1}{T}W_T + \frac{1}{T}\log (\frac{y_0}{x_0})\right) \\
+    &amp;= \mathbb{P}\left(\bar{g}_{T}^{X} &gt; \bar{g}_{T}^{Y} + \frac{1}{T}\log (\frac{y_0}{x_0})\right) \\
+    &amp;\doteq \mathbb{P}\left(\bar{g}_{T}^{X} &gt; \bar{g}_{T}^{Y} + \gamma_T \right)
+\end{align*}
+\]</span> what we see here is that we are once again comparing “relatively stable” processes, the average growth rate, and some bias attributed to the initial wealth.</p>
+<p>If <span class="math inline">\(X_T = Y_T\)</span>, the sign of <span class="math inline">\(\gamma_T\)</span> selects in probability the better process if we make our decision as whether</p>
+<p><span class="math display">\[
+\mathbb{P}\left(\bar{g}_{T}^{X} &gt; \bar{g}_{T}^{Y} + \gamma_T \right) &gt; \frac{1}{2}
+\]</span></p>
+<p>or not.</p>
+<p>There are of course issues here, in that Stochastic Precedence is not transitive, and that <span class="math inline">\(X_t\)</span> and <span class="math inline">\(Y_t\)</span> may be processes with very different dynamics, but its better than nothing, as it still selects the process that is better in probability regardless of whether the transform is correct.</p>
+<p>Here we can also ask, for what time <span class="math inline">\(\tau\)</span> could my decision “flip” i.e.&nbsp;I would prefer <span class="math inline">\(Y_\tau\)</span> to <span class="math inline">\(X_\tau\)</span>.</p>
+</section>
+<section id="remarks" class="level2">
+<h2 class="anchored" data-anchor-id="remarks">Remarks</h2>
+<section id="first" class="level3">
+<h3 class="anchored" data-anchor-id="first">First</h3>
+<p>Quick first remark, remembering Birkhoff</p>
+<p><span class="math display">\[
+\mathbb{E}[f(X)] = \lim_{T\rightarrow \infty} \frac{1}{T} \int_{0}^{T} f(X_t)dt \quad \text{a.s.}
+\]</span></p>
+<p>note that I didn’t care what <span class="math inline">\(Z_t\)</span> or <span class="math inline">\(W_t\)</span> looked like, all I did was say it was Ergodic, not that it was a stationary independent increment Brownian motion with constant drift and diffusion as many papers have assumed for simplicity. No need for “niceness” like</p>
+<p><span class="math display">\[
+dX_t = a dt + b dB_t, \quad a,b \in \mathbb{R},
+\]</span></p>
+<p>this is just a very special case that makes calculations easy, and is actually quite restrictive.</p>
+</section>
+<section id="second" class="level3">
+<h3 class="anchored" data-anchor-id="second">Second</h3>
+<p>Second, AGRM in either case “nice” or not, is implied by Stochastic precedence. Consider once again</p>
+<p><span class="math display">\[
+\mathbb{P}\left(\bar{g}_{T}^{X} &gt; \bar{g}_{T}^{Y} + \gamma_T \right)
+\]</span></p>
+<p>Birkhoff says that as the limit is in the almost sure sense we have that <span class="math display">\[
+\begin{align*}
+    \mathbb{P}\left(\lim_{T\rightarrow \infty}\{\bar{g}_{T}^{X} &gt; \bar{g}_{T}^{Y} + \gamma_T \}\right) &amp;= \mathbb{P}\left(\bar{g}_{\infty}^{X} &gt; \bar{g}_{\infty}^{Y}\right) \\
+    &amp;= \mathbb{P}\left(g_{X} &gt; g_{Y}\right) \in \{0,1\}
+\end{align*}
+\]</span></p>
+<p>the only worry one may have is when <span class="math inline">\(g_X = g_Y\)</span>, which is an infinite-time/limit issue that’s a great segway into the next section, ruin!</p>
+</section>
+</section>
+</section>
+<section id="gambling-under-ruin" class="level1">
+<h1>Gambling under Ruin</h1>
+<p>So, AGRM of course just shouldn’t be applied under ruin for finite time games. As before it gives you the correct answer if you’re force to play forever, every process has growth rate that goes either to zero - you eventually “blow-up” - or it doesn’t (note if the gamble will kill you either way, it doesn’t matter which you choose). This “Ergodicity-breaking” is kind of lame thing “Ergodically speaking” (<em>cough</em>).</p>
+<p>In Ergodic theory, what you can disucss are things called Ergodic Components. Basically say you have spaces <span class="math inline">\((T,\mathcal{I}_1,\mathcal{I}_2)\)</span> where these spaces don’t connect to one another except from <span class="math inline">\(T \rightarrow \mathcal{I}_j\)</span> (<span class="math inline">\(T\)</span> is the “transitive space”, basically you eventually leave, unless the process is ugly) and once in <span class="math inline">\(\mathcal{I}_j\)</span> you never leave (at least almost surely don’t). These <span class="math inline">\(\mathcal{I}_j\)</span> could be absorbing states, or might be richer sets, but at the end of the day what I am getting at is that instead of using Birkhoff in the traditional sense you need to use Birkhoff-Khinchin which augments Birkhoff as follows</p>
+<p><span class="math display">\[
+\mathbb{E}[f(X)| \mathcal{I}_j] = \left(\lim_{T\rightarrow \infty} \frac{1}{T} \int_{0}^{T} f(X_t)dt\right) \mathbb{I}_{\mathcal{I}_j} \quad \text{a.s.}
+\]</span></p>
+<p>which is a funky way of saying that conditioned on being in <span class="math inline">\(\mathcal{I}_j\)</span>, then Birkhoff holds (if you’re in an Ergodic component <span class="math inline">\(\implies\)</span> you’re Ergodic!). This now makes the AGRM results (<em>drum-roll</em>) random variables, results only in probability! <span class="math display">\[
+\begin{align*}
+    \lim_{T\rightarrow \infty} \frac{1}{T} \int_{0}^{T} f(X_t)dt &amp;= \mathbb{E}[f(X)| \mathcal{I}_j] \\
+    &amp;\text{w.p} \quad\mathbb{P}(X_t \ \text{eventually in } \mathcal{I}_j)
+\end{align*}
+\]</span></p>
+<p>The hope is that saying this, makes AGRM more questionable in terms of definitive preferences leading to better outcomes. It’s answer to decisions (while I believe correct in it’s approach for long enough time) is still something that just says “here’s the stable thing to look at” and even at infinity is still just something reduced to “choose the thing in probability that gives you a better number”.</p>
+<section id="consequence-ruin-under-agrm-indistinguishably" class="level2">
+<h2 class="anchored" data-anchor-id="consequence-ruin-under-agrm-indistinguishably">Consequence: Ruin under AGRM Indistinguishably</h2>
+<p>Say I give you two processes with random growth rate increments <span class="math display">\[
+\begin{align}
+    r_X &amp;\sim \mathcal{N}(g,\sigma_X^2) \\
+    r_Y &amp;\sim \mathcal{N}(g,\sigma_Y^2)
+\end{align}
+\]</span> under the potential for ruin/absorbance at</p>
+<p><span class="math display">\[
+W_t = 0
+\]</span></p>
+<p>(<span class="math inline">\(W_t\)</span> just the wealth process of your choice) then of course <span class="math inline">\((Y_t,r_Y)\)</span> has a higher probability of ruin each time step and therefore even if</p>
+<p><span class="math display">\[
+\mathbb{P}(X_{\delta t} &gt; Y_{\delta t}) \approx \frac{1}{2}, \quad \delta t \text{ small}
+\]</span></p>
+<p>very quickly if <span class="math inline">\(\frac{\sigma_Y}{\sigma_X} \gg 1\)</span>, you should be able to distinguish the two and have</p>
+<p><span class="math display">\[
+\mathbb{P}(X_{t} &gt; Y_{t}) &gt; \frac{1}{2}
+\]</span></p>
+<p>as <span class="math inline">\(Y_t \rightarrow 0\)</span> in probability quicker than <span class="math inline">\(X_t\)</span>.</p>
+</section>
+</section>
+<section id="one-time-bets-living-with-the-consequences" class="level1">
+<h1>One-Time Bets: Living with the Consequences</h1>
+<p>This framework of Stochastic Precedence once again translates quite nicely into one time bets. In this section we need to consider the multiplicative growth process (absorbed at absolute 0, not just relative - you still don’t ever have “negative” wealth) where I force you to play or allow you to choose to bet at a given time, say <span class="math inline">\(\tau\)</span> on gamble <span class="math inline">\(G_\tau\)</span>. In the very silly case one looks at <span class="math display">\[
+\begin{align*}
+    \mathbb{P}(X_{\tau}^{G} &gt; X_\tau) \doteq \mathbb{P}(X_\tau + G_\tau &gt; X_\tau)
+\end{align*}
+\]</span></p>
+<p>which is fine, you choose to play if its a favorable bet, but now realize that even after you cheated on your wife or went to the casino you have to go back to home and live under the old dynamics of wealth growth, so lets look at time <span class="math inline">\(X_{\tau + T}\)</span>. <span class="math display">\[
+\begin{align*}
+    \mathbb{P}(X_{\tau+T}^{G} &gt; X_{T+\tau}) &amp;\doteq \mathbb{P}((X_\tau + G_\tau)\frac{X_{\tau+T}}{X_\tau} &gt; X_{\tau+T}) \\
+    &amp;\doteq \mathbb{P}((X_\tau + G_\tau)e^{Z_{\tau + T} - Z_{\tau}} &gt; X_{\tau+T}) \\
+    &amp;= \mathbb{P}((X_\tau + G_\tau)e^{\Delta_T Z_{\tau}} &gt; X_{\tau+T})
+\end{align*}
+\]</span> now life literally makes more sense we once again go to growth rate optimization (fintite time average)</p>
+<p><span class="math display">\[
+\mathbb{P}((X_\tau + G_\tau)e^{\Delta_T Z_{\tau}} &gt; X_\tau) = \mathbb{P}(\frac{\tau + T}{T}\bar{g}_{[\tau,\tau + T]}^X &gt; \bar{g}_T^X + \gamma_T^G)
+\]</span></p>
+<p>Where now <span class="math inline">\(\gamma_{T}^{G}\)</span> is a random variable, and <span class="math inline">\(\bar{g}_{[\tau,\tau + T]}^X\)</span> is the average growth rate on the interval <span class="math inline">\([\tau, \tau + T]\)</span> (obviously you cant divide by 0, so forgive me please for being informal).</p>
+</section>
+<section id="ergodic-transforms-diffusion-processes" class="level1">
+<h1>Ergodic Transforms, Diffusion Processes</h1>
+<p>I would love to talk about Semi-Martingales in general here, but its a bit involved so for now lets say we consider growth-rates that are diffusion. A diffusion process is a process <span class="math inline">\(X_t\)</span> where</p>
+<p><span class="math display">\[
+dX_t = a(X_t) dt + b(X_t)dB_t
+\]</span></p>
+<p>where now we allow the drift and diffusion to be a function of the current position. The Ergodic Transform generates increments under the transform <span class="math inline">\(f\)</span>, <span class="math inline">\(\Delta f(X_t)\)</span>, which are Ergodic. When it exists in the constant drift constant variance sense things are nice, but assuming it doesn’t “exactly” is still fine.</p>
+<p>The simplest case one could come up with is just that these coefficients for drift and variance converge point-wise in time</p>
+<p><span class="math display">\[
+\lim_{t\rightarrow \infty} (a(X_t), b(X_t)) = (\mu, \sigma) \quad a.s.
+\]</span></p>
+<p>This is of course not in general required, as we can instead discuss “dominance” of the dynamics with respect to <span class="math inline">\(T\)</span>, i.e.&nbsp;integrating and dividing the process by <span class="math inline">\(T\)</span> we have</p>
+<p><span class="math display">\[
+\frac{1}{T} \int_{0}^{T} dX_t =  \frac{1}{T}X_0 + \frac{1}{T} \int_{0}^{T} a(X_t) dt + \frac{1}{T} \int_{0}^{T} b(X_t)dB_t
+\]</span></p>
+<p>Then if we let <span class="math inline">\(a = f\)</span> as a nice relabeling to make things familiar to the notation of Birkhoff, we have</p>
+<p><span class="math display">\[
+\frac{1}{T} \int_{0}^{T} f(X_t) dt = \frac{1}{T} (X_T - X_0) - \frac{1}{T} \int_{0}^{T} b(X_t)dB_t
+\]</span></p>
+<p>which is literally subtracting the “noise” (diffusion part) from the “signal” (drift part). What we have here essentially says that as long as</p>
+<p><span class="math display">\[
+\int_{0}^{T} b(X_t)dB_t = o(T)
+\]</span></p>
+<p>i.e.</p>
+<p><span class="math display">\[
+\lim_{T\rightarrow \infty} \frac{1}{T}\int_{0}^{T} b(X_t)dB_t = 0, \quad a.s.
+\]</span></p>
+<p>which is true by assumption as a random part of an Ergodic variable with mean 0,</p>
+<p><span class="math display">\[
+\frac{1}{T}\int b(X_t)dB_t \sim \mathcal{N}\pr{0, \frac{1}{T^2}\int_{0}^{T}\mathbb{E}[b(X_t)^2]dt}
+\]</span></p>
+<p>then as before which we used this willy-nilly, as with Birkhoff and maybe the nicer way to write this is instead</p>
+<p><span class="math display">\[
+\frac{1}{T} (X_T - X_0) \approx \frac{1}{T} \int f(X_t) dt + o_p(1)
+\]</span></p>
+<p>i.e.&nbsp;looking at the time average in increments of</p>
+<p><span class="math display">\[
+\frac{1}{T}X_t = \frac{1}{T}\sum \Delta X_s
+\]</span></p>
+<p>is just leaves some mean-zero noise around the actual “growth rate”.</p>
+<section id="oops-wrong-transform" class="level2">
+<h2 class="anchored" data-anchor-id="oops-wrong-transform">Oops, Wrong Transform!</h2>
+<p>Now lets say me and my Watson brain, or the random participant in a study doesn’t know whats going on, but takes an “educated” guess at the dynamics of the system. Then if you allow me the simplification and let me assume there truly is an Ergodic Transform, lets take the multiplicative process starting at <span class="math inline">\(X_0 = 1\)</span> and have</p>
+<p><span class="math display">\[
+X_t = e^{Z_t}
+\]</span></p>
+<p><span class="math display">\[
+d(\log(X_t)) = dZ_t =  \mu dt + \sigma dB_t
+\]</span></p>
+<p>be correct, but we instead we were knuckleheads and use</p>
+<p><span class="math display">\[
+\mathcal{E}_\alpha (X_t) = \varepsilon_\alpha(\log (X_t))
+\]</span></p>
+<p>then It <span class="math inline">\(\hat{\text{o}}\)</span>’s formula gives us <span class="math display">\[
+\begin{align*}
+    d(\mathcal{E}_\alpha (X_t)) &amp;= d( \varepsilon_\alpha (Z_t)) \\
+    &amp;= \partial_x \varepsilon_\alpha (Z_t) dZ_t + \frac{1}{2} \partial_x^2 \varepsilon_\alpha (Z_t)d[Z,Z]_t \\
+    &amp;= (\mu \partial_x \varepsilon_\alpha (Z_t) + \frac{\sigma^2}{2} \partial_x^2 \varepsilon_\alpha (Z_t))dt + \sigma  \partial_x \varepsilon_\alpha (Z_t) dB_t \\
+    &amp;\doteq \mathcal{A}_z \varepsilon_\alpha (Z_t) dt + \mathcal{B}_z \varepsilon_\alpha (Z_t) dB_t
+\end{align*}
+\]</span></p>
+<p>and to save space lets have</p>
+<p><span class="math display">\[
+\int_0^T \mathcal{A}_z \varepsilon_\alpha (Z_t) dt = \mathbf{A}_T (Z,\alpha)
+\]</span></p>
+<p>and</p>
+<p><span class="math display">\[
+\int_0^T \mathcal{B}_z \varepsilon_\alpha (Z_t) dB_t = \mathbb{M}_T (Z,\alpha)
+\]</span></p>
+<p>this is of course quite bad if <span class="math inline">\(\mathcal{E}_\alpha\)</span> is very far off. For a simple example lets compare this guessed process to the real one, in probability! <span class="math display">\[
+\begin{align*}
+    \mathbb{P}(\mathcal{E}_\alpha (X_t) &gt; Z_t) &amp;= P(\mathbf{A}_t (Z,\alpha) + \mathbb{M}_t (Z,\alpha) &gt; Z_t) \\
+    &amp;= P(\mathbf{A}_t (Z,\alpha) + \mathbb{M}_t (Z,\alpha) &gt; \mu t + \sigma B_t) \\
+    &amp;= P(\mathbf{A}_t (Z,\alpha) - \mu t &gt; \sigma B_t - \mathbb{M}_t (Z,\alpha))
+\end{align*}
+\]</span> the last line is written to suggest that the probability is dictated by “how much” the difference of the drifts is able to overwhelm the noisiness of the data from the diffusion term.</p>
+<p>The problem is now two-fold, the drift can be out-of-wack because of the wrong transform which leads to rapid increase/decrease in the difference driving the probability to 1/0 which should indicate that you feel much better/worse about the processes than you actually should. The same is true for the noise.</p>
+<p>Interesting here is that because of the flexibility you can thing of <span class="math inline">\((\mathbf{A}_t,\mathbf{B}_t)\)</span> as the participant themselves estimating the drift and diffusion over time, which is an interesting premise to explore especially if you force the participant/gambler to play a game at finite times for a process that in reality is continuous in time (they estimate over increments! <span class="math inline">\(\implies x^{1/t}\)</span> instead of <span class="math inline">\(\log(x)\)</span>?).</p>
+</section>
+<section id="martingales" class="level2">
+<h2 class="anchored" data-anchor-id="martingales">Martingales</h2>
+<p>I just wanted to reiterate that this can be discussed in more generality, I wrote</p>
+<p><span class="math display">\[
+\mathcal{E}_\alpha (X_t) = \mathbf{A}_t (Z,\alpha) + \mathbb{M}_t (Z,\alpha)
+\]</span></p>
+<p>for a reason, the RHS is just how one would write a Semi-Martingale (plus some bits and bobs that are missing in this specific case), more generally the above is the Doob Decomposition of the process <span class="math inline">\(\mathcal{E}_\alpha (X_t)\)</span></p>
+<p>Also very important to mention is that now that we’ve focused on Ergodic process with Martingale parts, there are many neat tricks for doing calculations (Optional Stopping, Martingale Convergence, Feynman-Kac/Dynkins Formula, etc).</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/nraviles\.github\.io\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

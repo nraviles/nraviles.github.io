@@ -1,31 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://nraviles.github.io/posts/Analysis/notes-testing_dynamics.html</loc>
-    <lastmod>2026-09-16T20:29:44.958Z</lastmod>
-  </url>
-  <url>
-    <loc>https://nraviles.github.io/posts/Analysis/spectral-theory.html</loc>
-    <lastmod>2026-09-16T20:29:44.958Z</lastmod>
-  </url>
-  <url>
-    <loc>https://nraviles.github.io/about.html</loc>
-    <lastmod>2026-09-16T20:29:44.957Z</lastmod>
-  </url>
-  <url>
-    <loc>https://nraviles.github.io/index.html</loc>
-    <lastmod>2026-09-16T20:29:44.957Z</lastmod>
-  </url>
-  <url>
-    <loc>https://nraviles.github.io/notes.html</loc>
-    <lastmod>2026-09-16T20:29:44.957Z</lastmod>
-  </url>
-  <url>
-    <loc>https://nraviles.github.io/posts/welcome/welcome.html</loc>
-    <lastmod>2026-09-16T20:29:44.958Z</lastmod>
+    <loc>https://nraviles.github.io/posts/Analysis/notes-ergodicityeconomics.html</loc>
+    <lastmod>2026-09-18T16:27:56.533Z</lastmod>
   </url>
   <url>
     <loc>https://nraviles.github.io/posts/Analysis/regular-variation.html</loc>
-    <lastmod>2026-09-16T20:29:44.958Z</lastmod>
+    <lastmod>2026-09-18T16:27:56.533Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nraviles.github.io/posts/welcome/welcome.html</loc>
+    <lastmod>2026-09-18T16:27:56.533Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nraviles.github.io/notes.html</loc>
+    <lastmod>2026-09-18T16:27:56.532Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nraviles.github.io/index.html</loc>
+    <lastmod>2026-09-18T16:27:56.532Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nraviles.github.io/about.html</loc>
+    <lastmod>2026-09-18T16:27:56.532Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nraviles.github.io/posts/Analysis/spectral-theory.html</loc>
+    <lastmod>2026-09-18T16:27:56.533Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nraviles.github.io/posts/Analysis/notes-testing_dynamics.html</loc>
+    <lastmod>2026-09-18T16:27:56.533Z</lastmod>
   </url>
 </urlset>

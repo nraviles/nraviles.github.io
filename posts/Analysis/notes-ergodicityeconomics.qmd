@@ -1,0 +1,376 @@
+---
+title: "Notes on Ergodicity Economics Conference"
+date: "2026-09-17"
+author: "Your Name"
+categories: [Analysis]
+reference-location: margin
+abstract: "Some notes I made awhile ago commenting on discussions had at an EE conference a few years back. This is mostly a superfical an account of some confusion (that I or others indicated) when attempting to formulate some EE problems. These notes were written by a slightly arrogant and slightly frustrated youth (at least young-ish); likely full of typos."
+---
+
+
+# Introduction
+
+Fundamentally, agents must act in and react to the environment they inhabit. If in this the system dynamics of scale matter, they should accordingly take action in a way that differentiate between scales; if time matters they choose their actions under the precedence that they must live or die in time. This is rudimentary, and the models we use to explain agents actions must reflect this. 
+
+This is not what standard Economics does explicitly, but it is what it envisioned. Ergodicity Economics attempts to do what it intended to do, and that is study actors under varying dynamics and mathematically explain what Economics relegates very quickly to psychology.
+
+This (hopefully) short notes will attempt to explain and justify the short comings of the current (note: as of 5 years ago) "precise" framework of Ergodicity Economics, where I feel the hammer used (or at least whats expounded over and over) is just one aspect of a more general theory. This leads to very agitating situation where at least in discussion, so that where the hammer doesn't strike flush, the situation gets bemoaned as a place the entire "theory" doesn't apply ("at least for now'').
+
+# Path-wise Dynamics
+
+## Ergodicity Concepts
+
+The main driving force of Ergodicity Economics is it relation to the rich literature of Ergodic Theory and it's further relation to path-wise dynamics. Ergodicity is a property whereby the only invariant set under the forward action is the entire set (move forward in time $T_s (X_t) = X_{t+s}$, which in technical math-y must be measure preserving $\mu(T_s^{-1}\Omega) = \mu(\Omega)$, i.e. no loss in mass). 
+
+Rephrase in math whenever we have a set $\mathcal{I}$ s.t. 
+
+$$ 
+T_s^{-1} \mathcal{I} = \mathcal{I}
+$$
+
+then for our probability measure of interest $\mu$ on $\Omega$ we must have
+
+$$
+\mu(\mathcal{I}) \in \{0, 1\}
+$$
+
+This is a statement where by $\mathcal{I}$ must be either "essentially" the entire space ($\mu(\Omega) = 1$) or "essentially" nothing ($\mu(\phi) = 0$); in either case the difference between $\mathcal{I}$ and the two options is of size or measure zero - e.g. maybe a countable number of points for example).
+
+One can rephrase this for as saying that if $X_t \in \mathcal{I}$ then it is in there forever with probability 1 (in the nice entire space case), due to the invariance under the forward map ($\mu(T_s^{-1}\mathcal{I}) = \mu(\mathcal{I})$) plus the measure preserving property. 
+
+A consequence of this is that if we define
+
+$$
+N(t,A) = \lambda\{s : X_s \in A, t \in [0,s]\},
+$$
+
+which is really just the "amount of time, $X_t$ is in $A$" ($\lambda$ is the Lebesgue measure which is just the length of the set in the traditional sense $\lambda [0,t) = t$), then if $X \deq \lim_{t\rightarrow \infty}X_t$ 
+
+$$
+\lim_{t\rightarrow \infty} \frac{N(t,A)}{t} = \mathbb{P}(X \in A)
+$$
+
+which says that the amount of time spent in set $A$ is equal to the probability that any path might be in $A$ if we wait long enough (basically forget the limit and approximate). The premise here is that eventually all paths and the ensemble "look" alike, you could even "substitute" one for the other.
+
+This is a very simple example of what is the hammer of Ergodicity Economics, Birkhoff's Theorem which states that
+
+$$
+\mathbb{E}[f(X)] = \lim_{T\rightarrow \infty} \frac{1}{T} \int_{0}^{T} f(X_t)dt \quad \text{a.s.}
+$$
+
+the almost sure part why this is often called the "Point-wise Ergodic Theorem", which say for almost all but a size 0 set of paths, the right side always converges to a deterministic value which happens to be the ensemble average for the function (generalization of law of large numbers).
+
+If you wanted to be blatant and very informal, this says that if we scramble time (even though time matters) and just take the usual average under permutation (sample mean) and treat it as if it was from an ensemble, the usual law of large numbers for sample means holds.
+$$
+\begin{align*}
+    \frac{1}{T} \int_{0}^{T} f(X_t)dt &\approx \frac{1}{T} \sum_{j=0}^{N-1} f(X_{t_j}) \Delta t_j \\
+    &= \frac{1}{T} \sum_{j=0}^{N-1} f(X_{t_{\pi(j)}}) \Delta t_{\pi(j)}
+\end{align*}
+$$
+Where $\pi (\cdot)$ is a permutation of numbers. This looks silly and obvious, the tricky part here comes if I were to say that I allowed this permutation is not just of the original $N$ points, but actually comes from any point in time!
+
+Once I say "any point" Ergodicity tells me that there are an overwelmingly infinite number of points after a large enough $T$ that are essentially indistinguishable from one another in the grand scheme of things and therefore this average should look like some kind of ensemble average getting even closer the larger $N$ is as it relates to $T$ (size $T = \lambda[0,T) < \lambda[T,\infty) = \infty, \implies$ "uniform sampling" of points for my average gives $0$ points coming from $[0,T]$ with probability 1).
+
+## Detailed Critique
+
+These prior theorems, and not my commentary, deal with the "long-time" dynamics of this process $f(X_t)$. Essentially you can think of the variability of this quantity vanishing, and then boom-pow everything is just a scalar quantity. But if treated more formally, you can rephrase this as our error being "small enough" after some large time $T$.
+
+This is my main point, what matters first and foremost is path-wise dynamics, and this Ergodicity concept tells us about some quantities that are for the most part well-behaved and give us information about the properties of any path we might be on. This information is not restricted to infinite time as required by Birkhoff ($T\rightarrow\infty)$ but has value also in medium or short (finite) time processes, and even processes that are "Ergodicity breaking" such as dynamics under ruin.
+
+Again, what bothered me is that many problems with applying Birkhoff are treated as special cases or places where we need to extend the "theory that is Ergodicity Economics" where I believe we can, through formal treatment, make informed inference based on its foundation, Ergodic Theory.
+
+# Growth Rates and Multiplicative Gambles in Finite Time
+
+Let us revisit the standard multiplicative gamble, but in more generality, including finite time horizons.
+
+You are forced to play a game, and can choose between two wealth dynamics:
+
+$$
+X_t = x_0 e^{Z_t}, \quad Y_t = y_0 e^{W_t}
+$$
+
+whose whose rate increments $\Delta Z_t$ and $\Delta W_t$ are Ergodic processes with long time-averages $g_X$ and $g_Y$, and where $x_0$ and $y_0$ are initial values of wealth. 
+
+In the short time, what should be obvious is that as long as I don't force you to play forever, I might be able to ''grease the wheel" and bribe you into the worse long-run gamble with enough money out-front ($x_0, y_0$). However Asymptotic Growth-Rate Maximization, shortened as AGRM, as would be the recommendation of applying Birkhoff, may give you the wrong answer under finite time horizons.
+
+Now, lets take a step back and chat about path-wise probabilities. If I want to choose the process ($X_t,Y_t$) that is best for me, with all the information I have, I should do so in a way in which I am more likely to make the better decision, i.e. the one I have to "live with". Any option, a job, spouse or other, you're usually expecting to have to live or die with it - the dynamics after the decision. Of course there are caveats, but forgive me for now and assume we are not considering ruin processes, and that these problems actually give me hope for the application of psychology (other criteria for good bets included of course, but hopefully relevant to individuals in practice).
+
+## Stochastic Precedence
+
+James Price brought up something which he showed had value in finite time (and is also in the original formulation of Ergodicity Economics - the Nature paper!), which is called Stochastic Precedence. 
+
+Essentially when I am weighting my preference between ($X_t,Y_t$), it is useful to consider whether
+
+$$
+\mathbb{P}(X_t > Y_t)
+$$
+
+is very large, i.e. if $X_t$ is just more likely to produce better path outcomes as evaluated at time $t$. 
+
+This makes sense when one treats finite time "one-shot" gambles, and the expected difference
+
+$$
+\mathbb{E}[X_t - Y_t]
+$$
+
+might be the traditional proxy for the decision, but is just one criteria and of course may not include relevant information such as the the magnitude of potential losses.
+
+What's useful with respect to Ergodicity is the implied stability of the variable, in this case ($Z_t,W_t$), so it's useful to start here first.
+
+## Ergodic Transform in Finite time
+
+We will now consider the Ergodic transform under multiplicative dynamics on $X_t$ i.e. in probability as per Stochastic Precedence
+$$
+\begin{align*}
+    \mathbb{P}(X_T > Y_T) &= \mathbb{P}\left(\frac{1}{T}\log (\frac{X_T}{X_0}) > \frac{1}{T}\log (\frac{Y_T}{X_0})\right) \\
+    &= \mathbb{P}\left(\frac{1}{T}Z_T > \frac{1}{T}W_T + \frac{1}{T}\log (\frac{y_0}{x_0})\right) \\
+    &= \mathbb{P}\left(\bar{g}_{T}^{X} > \bar{g}_{T}^{Y} + \frac{1}{T}\log (\frac{y_0}{x_0})\right) \\
+    &\doteq \mathbb{P}\left(\bar{g}_{T}^{X} > \bar{g}_{T}^{Y} + \gamma_T \right)
+\end{align*}
+$$
+what we see here is that we are once again comparing "relatively stable" processes, the average growth rate, and some bias attributed to the initial wealth. 
+
+If $X_T = Y_T$, the sign of $\gamma_T$ selects in probability the better process if we make our decision as whether
+
+$$
+\mathbb{P}\left(\bar{g}_{T}^{X} > \bar{g}_{T}^{Y} + \gamma_T \right) > \frac{1}{2}
+$$
+
+or not.
+
+There are of course issues here, in that Stochastic Precedence is not transitive, and that $X_t$ and $Y_t$ may be processes with very different dynamics, but its better than nothing, as it still selects the process that is better in probability regardless of whether the transform is correct.
+
+Here we can also ask, for what time $\tau$ could my decision "flip" i.e. I would prefer $Y_\tau$ to $X_\tau$.
+
+## Remarks
+### First
+Quick first remark, remembering Birkhoff
+
+$$
+\mathbb{E}[f(X)] = \lim_{T\rightarrow \infty} \frac{1}{T} \int_{0}^{T} f(X_t)dt \quad \text{a.s.}
+$$
+
+note that I didn't care what $Z_t$ or $W_t$ looked like, all I did was say it was Ergodic, not that it was a stationary independent increment Brownian motion with constant drift and diffusion as many papers have assumed for simplicity. No need for "niceness" like
+
+$$
+dX_t = a dt + b dB_t, \quad a,b \in \mathbb{R},
+$$
+
+this is just a very special case that makes calculations easy, and is actually quite restrictive.
+
+### Second
+Second, AGRM in either case "nice" or not, is implied by Stochastic precedence. Consider once again
+
+$$
+\mathbb{P}\left(\bar{g}_{T}^{X} > \bar{g}_{T}^{Y} + \gamma_T \right)
+$$
+
+Birkhoff says that as the limit is in the almost sure sense we have that
+$$
+\begin{align*}
+    \mathbb{P}\left(\lim_{T\rightarrow \infty}\{\bar{g}_{T}^{X} > \bar{g}_{T}^{Y} + \gamma_T \}\right) &= \mathbb{P}\left(\bar{g}_{\infty}^{X} > \bar{g}_{\infty}^{Y}\right) \\
+    &= \mathbb{P}\left(g_{X} > g_{Y}\right) \in \{0,1\}
+\end{align*}
+$$
+
+the only worry one may have is when $g_X = g_Y$, which is an infinite-time/limit issue that's a great segway into the next section, ruin!
+
+# Gambling under Ruin
+
+So, AGRM of course just shouldn't be applied under ruin for finite time games. As before it gives you the correct answer if you're force to play forever, every process has growth rate that goes either to zero - you eventually "blow-up" - or it doesn't (note if the gamble will kill you either way, it doesn't matter which you choose). This "Ergodicity-breaking" is kind of lame thing "Ergodically speaking" (*cough*).
+
+In Ergodic theory, what you can disucss are things called Ergodic Components. Basically say you have spaces $(T,\mathcal{I}_1,\mathcal{I}_2)$ where these spaces don't connect to one another except from $T \rightarrow \mathcal{I}_j$ ($T$ is the "transitive space", basically you eventually leave, unless the process is ugly) and once in $\mathcal{I}_j$ you never leave (at least almost surely don't). These $\mathcal{I}_j$ could be absorbing states, or might be richer sets, but at the end of the day what I am getting at is that instead of using Birkhoff in the traditional sense you need to use Birkhoff-Khinchin which augments Birkhoff as follows
+
+$$ 
+\mathbb{E}[f(X)| \mathcal{I}_j] = \left(\lim_{T\rightarrow \infty} \frac{1}{T} \int_{0}^{T} f(X_t)dt\right) \mathbb{I}_{\mathcal{I}_j} \quad \text{a.s.}
+$$
+
+which is a funky way of saying that conditioned on being in $\mathcal{I}_j$, then Birkhoff holds (if you're in an Ergodic component $\implies$ you're Ergodic!). This now makes the AGRM results (*drum-roll*) random variables, results only in probability!
+$$
+\begin{align*}
+    \lim_{T\rightarrow \infty} \frac{1}{T} \int_{0}^{T} f(X_t)dt &= \mathbb{E}[f(X)| \mathcal{I}_j] \\
+    &\text{w.p} \quad\mathbb{P}(X_t \ \text{eventually in } \mathcal{I}_j) 
+\end{align*}
+$$
+
+The hope is that saying this, makes AGRM more questionable in terms of definitive preferences leading to better outcomes. It's answer to decisions (while I believe correct in it's approach for long enough time) is still something that just says "here's the stable thing to look at" and even at infinity is still just something reduced to "choose the thing in probability that gives you a better number".
+
+## Consequence: Ruin under AGRM Indistinguishably
+
+Say I give you two processes with random growth rate increments 
+$$
+\begin{align}
+    r_X &\sim \mathcal{N}(g,\sigma_X^2) \\
+    r_Y &\sim \mathcal{N}(g,\sigma_Y^2)
+\end{align}
+$$
+under the potential for ruin/absorbance at 
+
+$$
+W_t = 0
+$$
+
+($W_t$ just the wealth process of your choice) then of course $(Y_t,r_Y)$ has a higher probability of ruin each time step and therefore even if
+
+$$
+\mathbb{P}(X_{\delta t} > Y_{\delta t}) \approx \frac{1}{2}, \quad \delta t \text{ small}
+$$
+
+very quickly if $\frac{\sigma_Y}{\sigma_X} \gg 1$, you should be able to distinguish the two and have
+
+$$
+\mathbb{P}(X_{t} > Y_{t}) > \frac{1}{2}
+$$
+
+as $Y_t \rightarrow 0$ in probability quicker than $X_t$.
+
+# One-Time Bets: Living with the Consequences
+
+This framework of Stochastic Precedence once again translates quite nicely into one time bets. In this section we need to consider the multiplicative growth process (absorbed at absolute 0, not just relative - you still don't ever have "negative" wealth) where I force you to play or allow you to choose to bet at a given time, say $\tau$ on gamble $G_\tau$. In the very silly case one looks at
+$$
+\begin{align*}
+    \mathbb{P}(X_{\tau}^{G} > X_\tau) \doteq \mathbb{P}(X_\tau + G_\tau > X_\tau)
+\end{align*}
+$$
+
+which is fine, you choose to play if its a favorable bet, but now realize that even after you cheated on your wife or went to the casino you have to go back to home and live under the old dynamics of wealth growth, so lets look at time $X_{\tau + T}$.
+$$
+\begin{align*}
+    \mathbb{P}(X_{\tau+T}^{G} > X_{T+\tau}) &\doteq \mathbb{P}((X_\tau + G_\tau)\frac{X_{\tau+T}}{X_\tau} > X_{\tau+T}) \\
+    &\doteq \mathbb{P}((X_\tau + G_\tau)e^{Z_{\tau + T} - Z_{\tau}} > X_{\tau+T}) \\
+    &= \mathbb{P}((X_\tau + G_\tau)e^{\Delta_T Z_{\tau}} > X_{\tau+T})
+\end{align*}
+$$
+now life literally makes more sense we once again go to growth rate optimization (fintite time average)
+
+$$
+\mathbb{P}((X_\tau + G_\tau)e^{\Delta_T Z_{\tau}} > X_\tau) = \mathbb{P}(\frac{\tau + T}{T}\bar{g}_{[\tau,\tau + T]}^X > \bar{g}_T^X + \gamma_T^G)
+$$
+
+Where now $\gamma_{T}^{G}$ is a random variable, and $\bar{g}_{[\tau,\tau + T]}^X$ is the average growth rate on the interval $[\tau, \tau + T]$ (obviously you cant divide by 0, so forgive me please for being informal).
+
+# Ergodic Transforms, Diffusion Processes
+
+I would love to talk about Semi-Martingales in general here, but its a bit involved so for now lets say we consider growth-rates that are diffusion. A diffusion process is a process $X_t$ where
+
+$$
+dX_t = a(X_t) dt + b(X_t)dB_t
+$$
+
+where now we allow the drift and diffusion to be a function of the current position. The Ergodic Transform generates increments under the transform $f$, $\Delta f(X_t)$, which are Ergodic. When it exists in the constant drift constant variance sense things are nice, but assuming it doesn't "exactly" is still fine.
+
+The simplest case one could come up with is just that these coefficients for drift and variance converge point-wise in time
+
+$$ 
+\lim_{t\rightarrow \infty} (a(X_t), b(X_t)) = (\mu, \sigma) \quad a.s.
+$$
+
+This is of course not in general required, as we can instead discuss "dominance" of the dynamics with respect to $T$, i.e. integrating and dividing the process by $T$ we have
+
+$$
+\frac{1}{T} \int_{0}^{T} dX_t =  \frac{1}{T}X_0 + \frac{1}{T} \int_{0}^{T} a(X_t) dt + \frac{1}{T} \int_{0}^{T} b(X_t)dB_t
+$$
+
+Then if we let $a = f$ as a nice relabeling to make things familiar to the notation of Birkhoff, we have
+
+$$
+\frac{1}{T} \int_{0}^{T} f(X_t) dt = \frac{1}{T} (X_T - X_0) - \frac{1}{T} \int_{0}^{T} b(X_t)dB_t
+$$
+
+which is literally subtracting the "noise" (diffusion part) from the "signal" (drift part). What we have here essentially says that as long as 
+
+$$
+\int_{0}^{T} b(X_t)dB_t = o(T)
+$$
+
+i.e.
+
+$$
+\lim_{T\rightarrow \infty} \frac{1}{T}\int_{0}^{T} b(X_t)dB_t = 0, \quad a.s.
+$$
+
+which is true by assumption as a random part of an Ergodic variable with mean 0, 
+
+$$
+\frac{1}{T}\int b(X_t)dB_t \sim \mathcal{N}\pr{0, \frac{1}{T^2}\int_{0}^{T}\mathbb{E}[b(X_t)^2]dt}
+$$
+
+then as before which we used this willy-nilly, as with Birkhoff and maybe the nicer way to write this is instead
+
+$$
+\frac{1}{T} (X_T - X_0) \approx \frac{1}{T} \int f(X_t) dt + o_p(1)
+$$
+
+i.e. looking at the time average in increments of
+
+$$
+\frac{1}{T}X_t = \frac{1}{T}\sum \Delta X_s 
+$$
+
+is just leaves some mean-zero noise around the actual "growth rate".
+
+## Oops, Wrong Transform!
+
+Now lets say me and my Watson brain, or the random participant in a study doesn't know whats going on, but takes an "educated" guess at the dynamics of the system. Then if you allow me the simplification and let me assume there truly is an Ergodic Transform, lets take the multiplicative process starting at $X_0 = 1$ and have
+
+$$
+X_t = e^{Z_t}
+$$
+
+$$
+d(\log(X_t)) = dZ_t =  \mu dt + \sigma dB_t
+$$
+
+be correct, but we instead we were knuckleheads and use
+
+$$
+\mathcal{E}_\alpha (X_t) = \varepsilon_\alpha(\log (X_t))
+$$
+
+then It $\hat{\text{o}}$'s formula gives us
+$$
+\begin{align*}
+    d(\mathcal{E}_\alpha (X_t)) &= d( \varepsilon_\alpha (Z_t)) \\
+    &= \partial_x \varepsilon_\alpha (Z_t) dZ_t + \frac{1}{2} \partial_x^2 \varepsilon_\alpha (Z_t)d[Z,Z]_t \\
+    &= (\mu \partial_x \varepsilon_\alpha (Z_t) + \frac{\sigma^2}{2} \partial_x^2 \varepsilon_\alpha (Z_t))dt + \sigma  \partial_x \varepsilon_\alpha (Z_t) dB_t \\
+    &\doteq \mathcal{A}_z \varepsilon_\alpha (Z_t) dt + \mathcal{B}_z \varepsilon_\alpha (Z_t) dB_t
+\end{align*}
+$$
+
+and to save space lets have
+
+$$
+\int_0^T \mathcal{A}_z \varepsilon_\alpha (Z_t) dt = \mathbf{A}_T (Z,\alpha)
+$$
+
+and 
+
+$$
+\int_0^T \mathcal{B}_z \varepsilon_\alpha (Z_t) dB_t = \mathbb{M}_T (Z,\alpha)
+$$
+
+this is of course quite bad if $\mathcal{E}_\alpha$ is very far off. For a simple example lets compare this guessed process to the real one, in probability!
+$$
+\begin{align*}
+    \mathbb{P}(\mathcal{E}_\alpha (X_t) > Z_t) &= P(\mathbf{A}_t (Z,\alpha) + \mathbb{M}_t (Z,\alpha) > Z_t) \\
+    &= P(\mathbf{A}_t (Z,\alpha) + \mathbb{M}_t (Z,\alpha) > \mu t + \sigma B_t) \\
+    &= P(\mathbf{A}_t (Z,\alpha) - \mu t > \sigma B_t - \mathbb{M}_t (Z,\alpha))
+\end{align*}
+$$
+the last line is written to suggest that the probability is dictated by "how much" the difference of the drifts is able to overwhelm the noisiness of the data from the diffusion term. 
+
+The problem is now two-fold, the drift can be out-of-wack because of the wrong transform which leads to rapid increase/decrease in the difference driving the probability to 1/0 which should indicate that you feel much better/worse about the processes than you actually should. The same is true for the noise.
+
+Interesting here is that because of the flexibility you can thing of $(\mathbf{A}_t,\mathbf{B}_t)$ as the participant themselves estimating the drift and diffusion over time, which is an interesting premise to explore especially if you force the participant/gambler to play a game at finite times for a process that in reality is continuous in time (they estimate over increments! $\implies x^{1/t}$ instead of $\log(x)$?).
+
+## Martingales
+
+I just wanted to reiterate that this can be discussed in more generality, I wrote
+
+$$
+\mathcal{E}_\alpha (X_t) = \mathbf{A}_t (Z,\alpha) + \mathbb{M}_t (Z,\alpha)
+$$
+
+for a reason, the RHS is just how one would write a Semi-Martingale (plus some bits and bobs that are missing in this specific case), more generally the above is the Doob Decomposition of the process $\mathcal{E}_\alpha (X_t)$
+
+Also very important to mention is that now that we've focused on Ergodic process with Martingale parts, there are many neat tricks for doing calculations (Optional Stopping, Martingale Convergence, Feynman-Kac/Dynkins Formula, etc).

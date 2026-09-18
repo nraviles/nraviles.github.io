@@ -74,7 +74,7 @@ This representation allow us to often ignore whether our regularly varying funct
 
 ## Fundamental Theorems
 
-The first of the ``fundamental theorems of regular variation'' (for derivatives) to be discussed is the Monotone Density Theorem (Theorem 2.11 in [@heavy_tails]).
+The first of the "fundamental theorems of regular variation'' (for derivatives) to be discussed is the Monotone Density Theorem (Theorem 2.11 in [@heavy_tails]).
 This and the accompanying theorem to follow (dealing with integrals; see Theorem 2.10 in [@heavy_tails] or Theorem A3.7 in [@Embrechts]) will be used frequently in our proofs to follow.
 The condition of eventual-monotonicity required for the Monotone Density theorem is in some cases difficult to check, but is essentially determined by the behavior of the slowly varying function $\ell(\cdot)$.
 This condition is often evaluated with a secondary notions/conditions.[^mono_condiions]
@@ -234,7 +234,7 @@ Extending this result to include integration over $[0,x]$ or $[x,\infty)$ for $\
 ----------------
 ## Karamata's Tauberian Theorem
 
-Here we present one of the most important tools for our paper, the Extended Karamata Tauberian Theorem (thm-karataub).
+Here we present one of the most important/foundation tools in this theory, the Karamata Tauberian Theorem (@thm-ext_karataub).
 Proofs of this result rely on Potter's Bound, which relies on the following representation theorem.
 
 ::: {#thm-karamatarep}
@@ -348,7 +348,7 @@ $$
 $$
 :::
 
-thm-ext_karataub is a combination of two results.
+@thm-ext_karataub is a combination of two results.
 The first replaces the traditional Karamata Tauberian Theorem with its Fourier equivalent, a result established by Garsia and Lamperti  (Lemma 3.2.1 in [@GarsiaLamperti1963]; a straightforward application of Potter's Bound [^garsia_proof]).
 Garsia and Lamperti's result will only apply, however, to distributions with regular varying tails $\Pr[S_1>n]=\ell(n)n^{-\alpha}$ with infinite mean, i.e., where $\alpha \in (0,1)$.
 The second result extends this result to $\alpha>1$, the case where $S_1$ has finite mean (see, for example, Theorem 2.16 in [@heavy_tails]). 
@@ -437,7 +437,7 @@ $$
 indicates directly that $1-\mu(z)$ as $\abs{1-z}\downarrow 0$ behaves inversely to $\Fbar(n)$ as $n\uparrow\infty$.
 :::
 
-### Proof of implication for Karamata's Tauberian Theorem
+### Informal proof of Karamata's Tauberian Theorem
 
 We begin by proving the only-if direction of the traditional version of Karamata's Tauberian Theorem (for Laplace-Stieltjes transforms) for probability measures such that the tail $\Fbar(m) = \ell(n)n^{-\alpha}$ is regularly varying with $\alpha \in (0,1)$. [^simpleprof]
 
@@ -447,7 +447,7 @@ This is again demonstrated in Lemma 3.2.1 of [@GarsiaLamperti1963].
 
 ::: {.proof}
 Here we prove the only-if direction of @thm-ext_karataub, focusing on the case of discrete distribution $\mu$.
-See Theorem 1.7.1 in [@regular_variation] for a full proof.
+See Theorem 1.7.1 in [@regular_variation] for an alternative full proof.
 By assumption, the survival function $\Fbar(n) = \Pr[S_1 >n] = \ell(n)n^{-\alpha}$, is regularly varying. 
 We will use Abel Summation to express our generating function directly in terms of this tail.
 First, consider a truncation to the first $n$ terms which we will take the limit of
@@ -575,7 +575,7 @@ $$
 \end{align*}
 $$
 noting that $\E[X] = \int_{0}^{\infty}\Fbar(y) \dd y < \infty$.
-Using the substation presented in @eq-ekt_IBT_substitution
+Using the substitution presented in @eq-ekt_IBT_substitution
 $$
 \begin{align*}
     \int_{0}^{\infty}e^{-st} \dd G(t) 

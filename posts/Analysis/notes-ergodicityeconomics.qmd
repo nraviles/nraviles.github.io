@@ -4,7 +4,7 @@ date: "2026-09-17"
 author: "Your Name"
 categories: [Analysis]
 reference-location: margin
-abstract: "Some notes commenting on discussions had at an EE conference a few years back. This is mostly a superfical account of some confusion (percieved, not necessarily identified) when attempting to formulate some EE problems. These notes were written by a slightly arrogant and slightly frustrated youth (at least young-ish); likely full of typos."
+abstract: "Some notes commenting on discussions had at an EE conference a few years back. These notes are all over the place, and are now a mix of very old and some recent writing; will come back and make 'more professional'."
 ---
 
 
@@ -83,7 +83,7 @@ $$
   (S_{1}^{(j)},S_{2}^{(j)},\dots, S_{n}^{(j)}) \deq (S_{\pi_\infty(1)}^{(\pi(j))},S_{\pi_\infty(2)}^{(\pi(j))},\dots, S_{\pi_\infty(n)}^{(\pi(j))}).
 \end{equation*}
 $$
-For instance consider a random path $\pr{X_t^{(1)}}_{t\ge 0}$ and an ensemble at an arbitrary time $\tau$, $\br{X_\tau^{(j)}}_{j\ge 1}$, where invariance under $\pi_\infty$ holds in both time and label.
+For instance consider a random path $\pr{X_t^{(1)}}_{t\ge 0}$ and an ensemble at an arbitrary time $\tau$, $\cbr{X_\tau^{(j)}}_{j\ge 1}$, where invariance under $\pi_\infty$ holds in both time and label.
 Then for bounded functions $f$ (or potentially a larger class)
 
 $$
@@ -174,9 +174,9 @@ The hope is that saying this, makes AGRM more questionable in terms of definitiv
 
 [^birkoff_Nt]: We remember here that $N(t,A)/t \rightarrow \Pr[X\in A]$. Defining 
 $$
-\cbr{Y_s : s \in [0,N(T,\mathcal{I}_j)]} =\mathrm{Compact}\cbr{X_s : X_s \in \mathcal{I}_j, s \in [0,T]}
+\cbr{Y_s : s \in [0,N(T,\mathcal{I}_j)]} =\mathrm{Join}\cbr{X_s : X_s \in \mathcal{I}_j, s \in [0,T]}
 $$ 
-as a simply reordering/compactification of the process $X_s$ such that that $X_s \in \mathcal{I}_j$; which can approximate in as having times $s \in [0,T\Pr[X\in \mathcal{I}_j]] $; a change of variables in time induces the same space $[0,T].
+as a simply reordering/joining of the process $X_s$ such that that $X_s \in \mathcal{I}_j$; which can approximate in as having times $s \in [0,T\Pr[X\in \mathcal{I}_j]]$; a change of variables in time induces the same space $[0,T].
 By definition, we observe that $\E[f(Y_s)/\Pr[X \in \mathcal{I}_j]] = \E[\cbr{X_s | X_s \in \mathcal{I}_j}$.
 We therefore find the stated fact (in approximation):
 $$
@@ -195,8 +195,7 @@ These prior theorems deal with the "long-time" dynamics of this process $f(X_s)$
 
 The informal take on this result is just "our estimates are stable and descriptive", and "my estimates apply to populations, and equally to an individual across their life".
 What matters first and foremost however is not simplicity in estimation, but the fact that we may transfer ensemble dynamics to path-wise dynamics.
-Simply observing that some quantities that are for the most part well-behaved is the lesser one.
-Ergodicity give us information about the properties of any path we might be on. This information is not restricted to infinite time as required by Birkhoff ($T\rightarrow\infty)$ but has value also in medium or short (finite) time processes, and even processes that are "Ergodicity breaking" such as dynamics under ruin.
+Ergodicity give us information about the properties of any path we might be on. This information is not restricted to infinite time as required by Birkhoff ($T\rightarrow\infty)$ but has value also in medium or short (finite) time processes (it depends on the length of time in consideration), and even processes that are "Ergodicity breaking" such as dynamics under ruin.
 We do not live forever, and our enviroments are changing, so asymptotic properties though pleasant may not always be physically meaningful.
 This suffers the same problem of assuming "market equilibrium" and "uniform free-trade".
 For ergodicity, this assumption is replaced by path-wise stationarity, and infinite time horizons.

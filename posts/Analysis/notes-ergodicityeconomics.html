@@ -192,11 +192,12 @@ window.Quarto = {
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#path-wise-dynamics" id="toc-path-wise-dynamics" class="nav-link" data-scroll-target="#path-wise-dynamics">Path-wise Dynamics</a>
   <ul class="collapse">
+  <li><a href="#ensembles-vs.-paths" id="toc-ensembles-vs.-paths" class="nav-link" data-scroll-target="#ensembles-vs.-paths">Ensembles vs.&nbsp;Paths</a></li>
   <li><a href="#ergodicity-concepts" id="toc-ergodicity-concepts" class="nav-link" data-scroll-target="#ergodicity-concepts">Ergodicity Concepts</a>
   <ul class="collapse">
   <li><a href="#extentions-of-birkoff" id="toc-extentions-of-birkoff" class="nav-link" data-scroll-target="#extentions-of-birkoff">Extentions of Birkoff</a></li>
   </ul></li>
-  <li><a href="#detailed-critique" id="toc-detailed-critique" class="nav-link" data-scroll-target="#detailed-critique">Detailed Critique</a></li>
+  <li><a href="#commentary" id="toc-commentary" class="nav-link" data-scroll-target="#commentary">Commentary</a></li>
   </ul></li>
   <li><a href="#growth-rates-and-multiplicative-gambles-in-finite-time" id="toc-growth-rates-and-multiplicative-gambles-in-finite-time" class="nav-link" data-scroll-target="#growth-rates-and-multiplicative-gambles-in-finite-time">Growth Rates and Multiplicative Gambles in Finite Time</a>
   <ul class="collapse">
@@ -317,10 +318,58 @@ $$
 <h1>Introduction</h1>
 <p>Fundamentally, agents must act in and react to the environment they inhabit. If in this the system dynamics of scale matter, they should accordingly take action in a way that differentiate between scales; if time matters they choose their actions under the precedence that they must live or die in time. This is rudimentary, and the models we use to explain agents actions must reflect this.</p>
 <p>This is not what standard Economics does explicitly, but it is what it envisioned. Ergodicity Economics attempts to do what it intended to do, and that is study actors under varying dynamics and mathematically explain what Economics relegates very quickly to psychology.</p>
-<p>This (hopefully) short notes will attempt to explain and justify the short comings of the current (note: as of 5 years ago) “precise” framework of Ergodicity Economics, where I feel the hammer used (or at least whats expounded over and over) is just one aspect of a more general theory. This leads to very agitating situation where at least in discussion, so that where the hammer doesn’t strike flush, the situation gets bemoaned as a place the entire “theory” doesn’t apply (“at least for now”).</p>
 </section>
 <section id="path-wise-dynamics" class="level1 page-columns page-full">
 <h1>Path-wise Dynamics</h1>
+<section id="ensembles-vs.-paths" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="ensembles-vs.-paths">Ensembles vs.&nbsp;Paths</h2>
+<p>To provide context we will discuss briefly the difference between ensembles and paths. Consider the simple random walk <span class="math inline">\((\Sigma_1,\Sigma_2,\dots)\)</span>, with <span class="math inline">\(\Sigma_n \sum_{i=1}^n S_i\)</span> where <span class="math inline">\(S_i\)</span> is either <span class="math inline">\(-1\)</span> or <span class="math inline">\(1\)</span> with equal probability. An ensemble, or population, refers to a set of resamples of a random varibles, i.e.&nbsp;<span class="math inline">\((\Sigma_n^{(1)},\Sigma_n^{(2)},\dots, \Sigma_n^{(m)})\)</span> such that each <span class="math inline">\(\Sigma_n^{(j)}\)</span> for <span class="math inline">\(j\in[m]\)</span> marginally has the same distribution.</p>
+<p>These <span class="math inline">\(\Sigma_n^{(j)}\)</span> need not be independent, ensembles often just refer to a “sample” of random variables that are exchangeable. Specifically we assume that the distribution of the sample vector is invariant under any permutation <span class="math inline">\(\pi\)</span> of <span class="math inline">\([m]\)</span> <span class="math display">\[
+\begin{equation*}
+  (\Sigma_n^{(1)},\Sigma_n^{(2)},\dots, \Sigma_n^{(m)}) \deq (\Sigma_n^{(\pi(1))},\Sigma_n^{(\pi(2))},\dots, \Sigma_n^{(\pi(m))}).
+\end{equation*}
+\]</span> An important specification is <span class="math inline">\(n\)</span>, which acts as the time parameter. In the above definition, what was “scrambled” was the index associated with each value at time <span class="math inline">\(n\)</span>, not <span class="math inline">\(n\)</span> itself. It is clear therefore (given the structure of <span class="math inline">\(\Sigma_n^{(m)}\)</span>) that a temporal permutation, both within the ensemble, and within a specific sample is not invariant: the (ordered) vector<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> <span class="math display">\[
+\begin{equation*}
+  (\Sigma_{1}^{(j)},\Sigma_{2}^{(j)},\dots, \Sigma_{n}^{(j)}) \not \deq (\Sigma_{\pi(1)}^{(j)},\Sigma_{\pi(2)}^{(j)},\dots, \Sigma_{\pi(n)}^{(j)}).
+\end{equation*}
+\]</span></p>
+<div class="no-row-height column-margin column-container"><div id="fn1"><p><sup>1</sup>&nbsp;Clearly the distribution of a simple random walk is such that <span class="math inline">\(\Sigma_{n}^{(j)}\)</span> and <span class="math inline">\(\Sigma_{n+k}^{(j)}\)</span> are related, differing only by <span class="math inline">\(\sum_{i=n+1}^{n+k}S_i\)</span>; a time dependence. Invariance in permutation of label within a sample, so as to be considered an ensemble, just means that label doesn’t affect the distribution. Similarly invariance to permutation to time identifies that time doesn’t affect the distribution.</p></div><div id="fn2"><p><sup>2</sup>&nbsp;a simple random walk is not invariant to time, unless the walk is on a “finite graph”; e.g., a reflected walk with bounds at <span class="math inline">\(\abs{\Sigma_k} = B\)</span> (constraining <span class="math inline">\(\abs{\Sigma_k} \in [B]\)</span> for all <span class="math inline">\(k\in \Z_+\)</span>).</p></div></div><p>This leads to the question of what <em>would</em> it mean for an ensemble to be <em>invariant to time</em>?<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<p>If a random variable was invariant to time, each of the ensembles are also: <span class="math display">\[
+\begin{equation*}
+  (\Sigma_{n}^{(1)},\Sigma_{n}^{(2)},\dots, \Sigma_{n}^{(m)}) \deq (\Sigma_{\pi(n)}^{(1)},\Sigma_{\pi(n)}^{(2)},\dots, \Sigma_{\pi(n)}^{(m)}).
+\end{equation*}
+\]</span> A strengthening of this would be an invariance under compositions of single component permutations <span class="math display">\[
+\begin{equation*}
+  (\Sigma_{n}^{(1)},\Sigma_{n}^{(2)},\dots, \Sigma_{n}^{(m)}) \deq (\Sigma_{\pi(n)}^{(1)},\Sigma_{n}^{(2)},\dots, \Sigma_{n}^{(m)}),
+\end{equation*}
+\]</span> into multiple component-wise permutations <span class="math inline">\(\pi_j\)</span> <span class="math display">\[
+\begin{equation*}
+  (\Sigma_{n}^{(1)},\Sigma_{n}^{(2)},\dots, \Sigma_{n}^{(m)}) \deq (\Sigma_{\pi_1(n)}^{(1)},\Sigma_{\pi_2(n)}^{(2)},\dots, \Sigma_{\pi_2(n)}^{(m)}).
+\end{equation*}
+\]</span> A further strengthening requires “consistency” of invariance under permutations: we must extend our definition of exchangeability to invariance under permutations <span class="math inline">\(\pi\)</span> of <span class="math inline">\([\infty]\)</span>.</p>
+<p>Clearly as mentioned previously, for a simple random walk, for <span class="math inline">\(\pi_n\)</span> a permutation of <span class="math inline">\([n]\)</span> <span class="math display">\[
+\begin{equation*}
+  (\Sigma_{1}^{(j)},\Sigma_{2}^{(j)},\dots, \Sigma_{n}^{(j)}) \not \deq (\Sigma_{\pi(1)}^{(j)},\Sigma_{\pi(2)}^{(j)},\dots, \Sigma_{\pi(n)}^{(j)}).
+\end{equation*}
+\]</span> It is also therefore not invariant under <span class="math inline">\(\pi_\infty\)</span> a permutation of <span class="math inline">\(\infty\)</span>. What is however, are the increments of a simple random walk <span class="math display">\[
+\begin{equation*}
+  (S_{1}^{(j)},S_{2}^{(j)},\dots, S_{n}^{(j)}) \deq (S_{\pi_\infty(1)}^{(j)},S_{\pi_\infty(2)}^{(j)},\dots, S_{\pi_\infty(n)}^{(j)}).
+\end{equation*}
+\]</span> Here, we can also permute the index <span class="math display">\[
+\begin{equation*}
+  (S_{1}^{(j)},S_{2}^{(j)},\dots, S_{n}^{(j)}) \deq (S_{\pi_\infty(1)}^{(\pi(j))},S_{\pi_\infty(2)}^{(\pi(j))},\dots, S_{\pi_\infty(n)}^{(\pi(j))}).
+\end{equation*}
+\]</span> For instance consider a random path <span class="math inline">\(\pr{X_t^{(1)}}_{t\ge 0}\)</span> and an ensemble at an arbitrary time <span class="math inline">\(\tau\)</span>, <span class="math inline">\(\pr{X_\tau^{(j)}}_{j\ge 1}\)</span>, where invariance under <span class="math inline">\(\pi_\infty\)</span> holds in both time and label. Then for bounded functions <span class="math inline">\(f\)</span> (or potentially a larger class)</p>
+<p><span class="math display">\[
+\begin{equation*}
+  \frac{1}{T}\sum_{t=0}^{T}f\pr{X_t^{(1)}} \deq \frac{1}{T}\sum_{j=0}^{T}f\pr{X_\tau^{(j)}}.
+\end{equation*}
+\]</span> This will be the primary goal of Ergodic Theory, providing conditions for the weaker result that that we might asymptotically the ensemble and temporal are exchangeable, where for all choices of bounded <span class="math inline">\(f\)</span> conditioned on convergence (via the strong law of large numbers) <span class="math display">\[
+\begin{equation*}
+  \lim_{T\uparrow\infty}\frac{1}{T}\sum_{t=0}^{T}f\pr{X_t^{(1)}} = \lim_{T\uparrow\infty}\frac{1}{T}\sum_{j=0}^{T}f\pr{X_\tau^{(j)}} = \E[f(X_1)], \quad \mathrm{a.s}.
+\end{equation*}
+\]</span></p>
+</section>
 <section id="ergodicity-concepts" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="ergodicity-concepts">Ergodicity Concepts</h2>
 <p>The main driving force of Ergodicity Economics is it relation to the rich literature of Ergodic Theory and it’s further relation to path-wise dynamics. Ergodicity is a property whereby the only invariant set under the forward action is the entire set (move forward in time <span class="math inline">\(T_s (X_s) = X_{t+s}\)</span>, which in technical math-y must be measure preserving <span class="math inline">\(\mu(T_s^{-1}\Omega) = \mu(\Omega)\)</span>, i.e.&nbsp;no loss in mass).</p>
@@ -332,8 +381,8 @@ T_s^{-1} \mathcal{I} = \mathcal{I}
 <p><span class="math display">\[
 \mu(\mathcal{I}) \in \{0, 1\}
 \]</span></p>
-<p>This statement implies that <span class="math inline">\(\mathcal{I}\)</span> must be either “essentially” the entire space (<span class="math inline">\(\mu(\Omega) = 1\)</span>) or “essentially” nothing (<span class="math inline">\(\mu(\phi) = 0\)</span>); in either case the difference between <span class="math inline">\(\mathcal{I}\)</span> and the two options is of size or measure zero - e.g.&nbsp;maybe a countable number of points for example.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
-<div class="no-row-height column-margin column-container"><div id="fn1"><p><sup>1</sup>&nbsp;This, as already indicated, identifies that once a random variable <span class="math inline">\(X_s \in \mathcal{I}\)</span> (associated to our probability measure <span class="math inline">\(\mu \circ T_t^{-1}\)</span>), it is in there forever with probability 1. Note: if <span class="math inline">\(\mu(T_s^{-1}\mathcal{I}) = 0\)</span> then <span class="math inline">\(X_s\)</span> with probability <span class="math inline">\(1\)</span> is never in <span class="math inline">\(\mathcal{I}\)</span>; unless we define it that way with <span class="math inline">\(X_0 \in \mathcal{I}\)</span>). This is just a reiteration of the invariance under the forward map, <span class="math inline">\(\Pr[X_s \in \mathcal{I}] = \mu(T_t^{-1}\mathcal{I}) = \mu(\mathcal{I})\in \cbr{0,1}\)</span>, plus the measure preserving property and definition of ergodicity.</p></div></div><p>A consequence of this is that if we define</p>
+<p>This statement implies that <span class="math inline">\(\mathcal{I}\)</span> must be either “essentially” the entire space (<span class="math inline">\(\mu(\Omega) = 1\)</span>) or “essentially” nothing (<span class="math inline">\(\mu(\phi) = 0\)</span>); in either case the difference between <span class="math inline">\(\mathcal{I}\)</span> and the two options is of size or measure zero - e.g.&nbsp;maybe a countable number of points for example.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+<div class="no-row-height column-margin column-container"><div id="fn3"><p><sup>3</sup>&nbsp;This, as already indicated, identifies that once a random variable <span class="math inline">\(X_s \in \mathcal{I}\)</span> (associated to our probability measure <span class="math inline">\(\mu \circ T_t^{-1}\)</span>), it is in there forever with probability 1. Note: if <span class="math inline">\(\mu(T_s^{-1}\mathcal{I}) = 0\)</span> then <span class="math inline">\(X_s\)</span> with probability <span class="math inline">\(1\)</span> is never in <span class="math inline">\(\mathcal{I}\)</span>; unless we define it that way with <span class="math inline">\(X_0 \in \mathcal{I}\)</span>). This is just a reiteration of the invariance under the forward map, <span class="math inline">\(\Pr[X_s \in \mathcal{I}] = \mu(T_t^{-1}\mathcal{I}) = \mu(\mathcal{I})\in \cbr{0,1}\)</span>, plus the measure preserving property and definition of ergodicity.</p></div></div><p>A consequence of this is that if we define</p>
 <p><span class="math display">\[
 N(t,A) = \lambda\{s : X_s \in A, s \in [0,t]\},
 \]</span></p>
@@ -361,13 +410,13 @@ N(t,A) = \lambda\{s : X_s \in A, s \in [0,t]\},
 <p><span class="math display">\[
 \mathbb{E}[f(X)| \mathcal{I}_j] = \pr{\lim_{T\rightarrow \infty} \frac{1}{N(T,\mathcal{I}_j)} \int_{0}^{T} f(X_s)\mathbb{I}_{X_s \in \mathcal{I}_j} \dd s} \quad \text{a.s.}
 \]</span></p>
-<p>which is a funky way of saying that conditioned on being in <span class="math inline">\(\mathcal{I}_j\)</span>, then Birkhoff holds (if you’re in an Ergodic component <span class="math inline">\(\implies\)</span> you’re Ergodic!). This now makes the AGRM results (<em>drum-roll</em>) random variables, results only in probability! Specifically<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> <span class="math display">\[
+<p>which is a funky way of saying that conditioned on being in <span class="math inline">\(\mathcal{I}_j\)</span>, then Birkhoff holds (if you’re in an Ergodic component <span class="math inline">\(\implies\)</span> you’re Ergodic!). This now makes the AGRM results (<em>drum-roll</em>) random variables, results only in probability! Specifically<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> <span class="math display">\[
 \begin{align*}
     \lim_{T\rightarrow \infty} \frac{1}{T} \int_{0}^{T} f(X_s)\dd s &amp;= \mathbb{E}[f(X)| \mathcal{I}_j] \\
     &amp;\text{w.p} \quad\Pr[X_s \ \text{eventually in } \mathcal{I}_j]
 \end{align*}
 \]</span></p>
-<div class="no-row-height column-margin column-container"><div id="fn2"><p><sup>2</sup>&nbsp;We remember here that <span class="math inline">\(N(t,A)/t \rightarrow \Pr[X\in A]\)</span>. Defining <span class="math display">\[
+<div class="no-row-height column-margin column-container"><div id="fn4"><p><sup>4</sup>&nbsp;We remember here that <span class="math inline">\(N(t,A)/t \rightarrow \Pr[X\in A]\)</span>. Defining <span class="math display">\[
 \cbr{Y_s : s \in [0,N(T,\mathcal{I}_j)]} =\mathrm{Compact}\cbr{X_s : X_s \in \mathcal{I}_j, s \in [0,T]}
 \]</span> as a simply reordering/compactification of the process <span class="math inline">\(X_s\)</span> such that that <span class="math inline">\(X_s \in \mathcal{I}_j\)</span>; which can approximate in as having times $s ] $; a change of variables in time induces the same space $[0,T]. By definition, we observe that <span class="math inline">\(\E[f(Y_s)/\Pr[X \in \mathcal{I}_j]] = \E[\cbr{X_s | X_s \in \mathcal{I}_j}\)</span>. We therefore find the stated fact (in approximation): <span class="math display">\[
 \begin{align*}
@@ -379,9 +428,9 @@ N(t,A) = \lambda\{s : X_s \in A, s \in [0,t]\},
 \]</span></p></div></div><p>The hope is that saying this, makes AGRM more questionable in terms of definitive preferences leading to better outcomes. It’s answer to decisions (while I believe correct in it’s approach for long enough time) is still something that just says “here’s the stable thing to look at” and even at infinity is still just something reduced to “choose the thing in probability that gives you a better number”.</p>
 </section>
 </section>
-<section id="detailed-critique" class="level2">
-<h2 class="anchored" data-anchor-id="detailed-critique">Detailed Critique</h2>
-<p>These prior theorems, and not my commentary, deal with the “long-time” dynamics of this process <span class="math inline">\(f(X_s)\)</span>. Essentially you can think of the variability of averages vanishing, and then boom-pow everything is just a consistent scalar quantity rather than a random one; it is a “stable estimate” describing all times. In truth however, this is in calculation just an observation that the error of our time averages is “small enough” after some large time <span class="math inline">\(T\)</span> with respect to our ensemble average (a result of Ergodicity, but not “clearly” implying it; you can however imply this, by considering a class of functions <span class="math inline">\(f\)</span> and demonstrating that the time and ensemble average converge to one another for all bounded functions <span class="math inline">\(f\)</span>; a uniform law of large numbers, related to convergence in the empirical measure).</p>
+<section id="commentary" class="level2">
+<h2 class="anchored" data-anchor-id="commentary">Commentary</h2>
+<p>These prior theorems deal with the “long-time” dynamics of this process <span class="math inline">\(f(X_s)\)</span>. Essentially you can think of the variability of averages vanishing, and then boom-pow everything is just a consistent scalar quantity rather than a random one; it is a “stable estimate” describing all times. In truth however, this is in calculation just an observation that the error of our time averages is “small enough” after some large time <span class="math inline">\(T\)</span> with respect to our ensemble average (a result of Ergodicity, but not “clearly” implying it; you can however imply this, by considering a class of functions <span class="math inline">\(f\)</span> and demonstrating that the time and ensemble average converge to one another for all bounded functions <span class="math inline">\(f\)</span>; a uniform law of large numbers, related to convergence in the empirical measure).</p>
 <p>This is my main point, the informal take on this result is just “our estimates are stable and descriptive”, and “my estimates apply to populations, and equally to an individual across their life”. What matters first and foremost however is not simplicity in estimation, but the fact that we may transfer ensemble dynamics to path-wise dynamics. Simply observing that some quantities that are for the most part well-behaved is the lesser one. Ergodicity give us information about the properties of any path we might be on. This information is not restricted to infinite time as required by Birkhoff (<span class="math inline">\(T\rightarrow\infty)\)</span> but has value also in medium or short (finite) time processes, and even processes that are “Ergodicity breaking” such as dynamics under ruin. We do not live forever, and our enviroments are changing, so asymptotic properties though pleasant may not always be physically meaningful. This suffers the same problem of assuming “market equilibrium” and “uniform free-trade”. For ergodicity, this assumption is replaced by path-wise stationarity, and infinite time horizons. It will assume that the forward process <span class="math inline">\(T_s\)</span> is more or less stable, and that “people” do not “meaningfully die”. Both these assumptions are more or less ridiculous, but can be assuaged by approximation: (1) for how long is our process “essentially ergodic”? (2) when making decisions, how does finite time horizon (an “ergodicity-breaking” event; death) pressure individuals to not make “ergodicity optimal” decision? (3) in light of this, what estimates are useful non-asymptotically? (3i) how do we measure approximate ergodicity, in the sense that our estimates are useful in practice?</p>
 <p>The main mathematical problem, which I dedicated the above discussion two, dealt with applying Birkhoff’s Theorem where some lack of mathematical background seems to have lead some researchers to treating most cases as special cases, sometimes without scrutinizing the inherent problems. This left some feeling that they needed to extend the “theory that is Ergodicity Economics” without practically identifying what needs extension, and whether the current lack of extention might be ignorance of the literature, where I believe we can, through formal treatment, make informed inference based on its foundation, Ergodic Theory.</p>
 </section>

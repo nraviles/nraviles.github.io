@@ -38,7 +38,7 @@ $$
 \end{equation*}
 $$
 
-[^timeperm]: Clearly the distribution of a simple random walk is such that $\Sigma_{n}^{(j)}$ and $\Sigma_{n+k}^{(j)}$ are related, differing only by $\sum_{i=n+1}^{n+k}S_i$; a time dependence. Invariance in permutation of label within a sample, so as to be considered an ensemble, just means that label doesn't affect the distribution. Similarly invariance to permutation to time identifies that time doesn't affect the distribution.
+[^timeperm]: Clearly the distribution of a simple random walk is such that $\Sigma_{n}^{(j)}$ and $\Sigma_{n+k}^{(j)}$ are related, differing only by $\sum_{i=n+1}^{n+k}S_i$; a time dependence. Invariance in permutation of label within a sample, so as to be considered an ensemble, just means that label doesn't affect the distribution (but it might depend on the sample size $m$!). Similarly invariance to permutation to time identifies that time doesn't affect the distribution.
 
 This leads to the question of what *would* it mean for an ensemble to be *invariant to time*?[^notinv]
 
@@ -83,12 +83,12 @@ $$
   (S_{1}^{(j)},S_{2}^{(j)},\dots, S_{n}^{(j)}) \deq (S_{\pi_\infty(1)}^{(\pi(j))},S_{\pi_\infty(2)}^{(\pi(j))},\dots, S_{\pi_\infty(n)}^{(\pi(j))}).
 \end{equation*}
 $$
-For instance consider a random path $\pr{X_t^{(1)}}_{t\ge 0}$ and an ensemble at an arbitrary time $\tau$, $\pr{X_\tau^{(j)}}_{j\ge 1}$, where invariance under $\pi_\infty$ holds in both time and label.
+For instance consider a random path $\pr{X_t^{(1)}}_{t\ge 0}$ and an ensemble at an arbitrary time $\tau$, $\br{X_\tau^{(j)}}_{j\ge 1}$, where invariance under $\pi_\infty$ holds in both time and label.
 Then for bounded functions $f$ (or potentially a larger class)
 
 $$
 \begin{equation*}
-  \frac{1}{T}\sum_{t=0}^{T}f\pr{X_t^{(1)}} \deq \frac{1}{T}\sum_{j=0}^{T}f\pr{X_\tau^{(j)}}.
+  \frac{1}{T}\sum_{t=0}^{T-1}f\pr{X_t^{(1)}} \deq \frac{1}{T}\sum_{j=1}^{T}f\pr{X_\tau^{(j)}}.
 \end{equation*}
 $$
 This will be the primary goal of Ergodic Theory, providing conditions for the weaker result that that we might asymptotically the ensemble and temporal are exchangeable, where for all choices of bounded $f$ conditioned on convergence (via the strong law of large numbers)
@@ -117,7 +117,7 @@ $$
 This statement implies that $\mathcal{I}$ must be either "essentially" the entire space ($\mu(\Omega) = 1$) or "essentially" nothing ($\mu(\phi) = 0$); in either case the difference between $\mathcal{I}$ and the two options is of size or measure zero - e.g. maybe a countable number of points for example.[^fixedpoint]
 
 [^fixedpoint]: This, as already indicated, identifies that once a random variable $X_s \in \mathcal{I}$ (associated to our probability measure $\mu \circ T_t^{-1}$), it is in there forever with probability 1.
-Note: if $\mu(T_s^{-1}\mathcal{I}) = 0$ then $X_s$ with probability $1$ is never in $\mathcal{I}$; unless we define it that way with $X_0 \in \mathcal{I}$). This is just a reiteration of the invariance under the forward map, $\Pr[X_s \in \mathcal{I}] = \mu(T_t^{-1}\mathcal{I}) = \mu(\mathcal{I})\in \cbr{0,1}$, plus the measure preserving property and definition of ergodicity. 
+Note: if $\mu(T_s^{-1}\mathcal{I}) = 0$ then $X_s$ with probability $1$ is never in $\mathcal{I}$; unless we define it that way with $X_0 \in \mathcal{I}$). This is just a reiteration of the invariance under the forward map, $\Pr[X_s \in \mathcal{I}] = \mu(T_s^{-1}\mathcal{I}) = \mu(\mathcal{I})\in \cbr{0,1}$, plus the measure preserving property and definition of ergodicity. 
 
 A consequence of this is that if we define
 
@@ -161,7 +161,7 @@ $$
 \mathbb{E}[f(X)| \mathcal{I}_j] = \pr{\lim_{T\rightarrow \infty} \frac{1}{N(T,\mathcal{I}_j)} \int_{0}^{T} f(X_s)\mathbb{I}_{X_s \in \mathcal{I}_j} \dd s} \quad \text{a.s.}
 $$
 
-which is a funky way of saying that conditioned on being in $\mathcal{I}_j$, then Birkhoff holds (if you're in an Ergodic component $\implies$ you're Ergodic!). This now makes the AGRM results (*drum-roll*) random variables, results only in probability!
+which is a funky way of saying that conditioned on being in $\mathcal{I}_j$, then Birkhoff holds (if you're in an Ergodic component $\implies$ you're Ergodic!). This now makes the Asymptotic Growth-Rate Maximization (AGRM; whuch is the basis of the decision theory in EE: choose the larger growth-rate process, fixate on the growth-rate) results (*drum-roll*) random variables, results only in probability!
 Specifically[^birkoff_Nt]
 $$
 \begin{align*}
@@ -193,7 +193,7 @@ $$
 
 These prior theorems deal with the "long-time" dynamics of this process $f(X_s)$. Essentially you can think of the variability of averages vanishing, and then boom-pow everything is just a consistent scalar quantity rather than a random one; it is a "stable estimate" describing all times. In truth however, this is in calculation just an observation that the error of our time averages is "small enough" after some large time $T$ with respect to our ensemble average (a result of Ergodicity, but not "clearly" implying it; you can however imply this, by considering a class of functions $f$ and demonstrating that the time and ensemble average converge to one another for all bounded functions $f$; a uniform law of large numbers, related to convergence in the empirical measure).
 
-This is my main point, the informal take on this result is just "our estimates are stable and descriptive", and "my estimates apply to populations, and equally to an individual across their life".
+The informal take on this result is just "our estimates are stable and descriptive", and "my estimates apply to populations, and equally to an individual across their life".
 What matters first and foremost however is not simplicity in estimation, but the fact that we may transfer ensemble dynamics to path-wise dynamics.
 Simply observing that some quantities that are for the most part well-behaved is the lesser one.
 Ergodicity give us information about the properties of any path we might be on. This information is not restricted to infinite time as required by Birkhoff ($T\rightarrow\infty)$ but has value also in medium or short (finite) time processes, and even processes that are "Ergodicity breaking" such as dynamics under ruin.
@@ -203,7 +203,11 @@ For ergodicity, this assumption is replaced by path-wise stationarity, and infin
 It will assume that the forward process $T_s$ is more or less stable, and that "people" do not "meaningfully die".
 Both these assumptions are more or less ridiculous, but can be assuaged by approximation: (1) for how long is our process "essentially ergodic"? (2) when making decisions, how does finite time horizon (an "ergodicity-breaking" event; death) pressure individuals to not make "ergodicity optimal" decision? (3) in light of this, what estimates are useful non-asymptotically? (3i) how do we measure approximate ergodicity, in the sense that our estimates are useful in practice?
 
-The main mathematical problem, which I dedicated the above discussion two, dealt with applying Birkhoff's Theorem where some lack of mathematical background seems to have lead some researchers to treating most cases as special cases, sometimes without scrutinizing the inherent problems. This left some feeling that they needed to extend the "theory that is Ergodicity Economics" without practically identifying what needs extension, and whether the current lack of extention might be ignorance of the literature, where I believe we can, through formal treatment, make informed inference based on its foundation, Ergodic Theory.
+The main mathematical problem, which I dedicated the above discussion to, was reference for applying Birkhoff's Theorem where some lack of mathematical background seems to have lead some researchers to treating most cases as special cases, sometimes without scrutinizing the inherent problems. This left some feeling that they needed to extend the "theory that is Ergodicity Economics" without practically identifying what needs extension, and whether the current lack of extention might be ignorance of the literature, where I believe we can, through formal treatment, make informed inference based on its foundation, Ergodic Theory.
+I have also been particularly concerned with the precedence of Asymptotic Growth-Rate Maximization, where the decision theory element of EE boils down to selecting the process with the larger expected growth rate, rather than analyzing the non-asymptotic behavior, and the path-wise dynamics at a finer level. 
+Recognizing the benefit of ergodicity is important, again identifying that we may transfer learning from the ensemble to the individual throughout their life, but there are important questions to be had about how quickly mixing occurs (how quickly this ergodicity actual matters to decsions by/for the particular individual). 
+
+The behavioral element is clear: people make decisions within the dynamics of their environment/existence. What isn't clear is how reasonable asymptotic dynamics are useful in a finite life, and whether humans differentiate the two. What would be interesting here is to allow for mixtures of finite time horizons (random absorption times). Here, conditional on non-absorption, a process may be ergodic (there is the problem of sampling bias; we do not sample the dead to ask how the living are doing, though maybe we sometimes should). Here we should ask whether the mixing time is amenable to the time horizion, so as to judge whether decisions based on substitution of ensemble for time are appropriates; whether we judge our system to be approximately ergodic away from our shelf life. This would potentially connect the many differences in decision making for young people compared to old.
 
 # Growth Rates and Multiplicative Gambles in Finite Time
 

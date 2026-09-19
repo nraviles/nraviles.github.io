@@ -1,5 +1,5 @@
 ---
-title: "Notes on Spectral Theory"
+title: "Post Template/Examples"
 date: "2026-09-10"
 author: "Your Name"
 categories: [Analysis]

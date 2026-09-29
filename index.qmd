@@ -1,5 +1,6 @@
 ---
 title: "The Foremost Facade"
+author: "N. R. Aviles"
 listing:
   id: recent-posts
   contents: posts

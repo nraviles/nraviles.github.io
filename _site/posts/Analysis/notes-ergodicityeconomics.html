@@ -9,7 +9,7 @@
 <meta name="author" content="Your Name">
 <meta name="dcterms.date" content="2026-09-17">
 
-<title>Notes on Ergodicity Economics Conference – The Tilted Windmill</title>
+<title>Notes on Ergodicity in Decision Making – The Tilted Windmill</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -28,7 +28,26 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -148,7 +167,7 @@ window.Quarto = {
 <header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Notes on Ergodicity Economics Conference</h1>
+      <h1 class="title">Notes on Ergodicity in Decision Making</h1>
                                 <div class="quarto-categories">
                 <div class="quarto-category">Analysis</div>
               </div>
@@ -178,7 +197,7 @@ window.Quarto = {
   <div>
     <div class="abstract">
       <div class="block-title">Abstract</div>
-      Some notes commenting on discussions had at an EE conference a few years back. This is mostly a superfical account of some confusion (percieved, not necessarily identified) when attempting to formulate some EE problems. These notes were written by a slightly arrogant and slightly frustrated youth (at least young-ish); likely full of typos.
+      Some notes on applications of ergodicity in decision making. Based initially on superficial exposure, and is now a practice of penance trying to formalize my thoughts and concepts aleady established.
     </div>
   </div>
   
@@ -192,34 +211,24 @@ window.Quarto = {
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#path-wise-dynamics" id="toc-path-wise-dynamics" class="nav-link" data-scroll-target="#path-wise-dynamics">Path-wise Dynamics</a>
   <ul class="collapse">
+  <li><a href="#ensembles-vs.-paths" id="toc-ensembles-vs.-paths" class="nav-link" data-scroll-target="#ensembles-vs.-paths">Ensembles vs.&nbsp;Paths</a></li>
   <li><a href="#ergodicity-concepts" id="toc-ergodicity-concepts" class="nav-link" data-scroll-target="#ergodicity-concepts">Ergodicity Concepts</a>
   <ul class="collapse">
   <li><a href="#extentions-of-birkoff" id="toc-extentions-of-birkoff" class="nav-link" data-scroll-target="#extentions-of-birkoff">Extentions of Birkoff</a></li>
   </ul></li>
-  <li><a href="#detailed-critique" id="toc-detailed-critique" class="nav-link" data-scroll-target="#detailed-critique">Detailed Critique</a></li>
+  <li><a href="#commentary" id="toc-commentary" class="nav-link" data-scroll-target="#commentary">Commentary</a></li>
   </ul></li>
-  <li><a href="#growth-rates-and-multiplicative-gambles-in-finite-time" id="toc-growth-rates-and-multiplicative-gambles-in-finite-time" class="nav-link" data-scroll-target="#growth-rates-and-multiplicative-gambles-in-finite-time">Growth Rates and Multiplicative Gambles in Finite Time</a>
+  <li><a href="#convergence-rates-and-mixing-times" id="toc-convergence-rates-and-mixing-times" class="nav-link" data-scroll-target="#convergence-rates-and-mixing-times">Convergence rates and Mixing Times</a></li>
+  <li><a href="#growth-rateergodic-transforms" id="toc-growth-rateergodic-transforms" class="nav-link" data-scroll-target="#growth-rateergodic-transforms">Growth-rate/Ergodic Transforms</a></li>
+  <li><a href="#poisson-equation-and-harmonic-transforms" id="toc-poisson-equation-and-harmonic-transforms" class="nav-link" data-scroll-target="#poisson-equation-and-harmonic-transforms">Poisson equation and Harmonic transforms</a></li>
+  <li><a href="#asymptotic-growth-rate-maximization" id="toc-asymptotic-growth-rate-maximization" class="nav-link" data-scroll-target="#asymptotic-growth-rate-maximization">Asymptotic Growth-rate Maximization</a></li>
+  <li><a href="#finite-time-games" id="toc-finite-time-games" class="nav-link" data-scroll-target="#finite-time-games">Finite Time Games</a>
   <ul class="collapse">
-  <li><a href="#stochastic-precedence" id="toc-stochastic-precedence" class="nav-link" data-scroll-target="#stochastic-precedence">Stochastic Precedence</a>
-  <ul class="collapse">
-  <li><a href="#problemsalternatives-to-stochastic-precedence" id="toc-problemsalternatives-to-stochastic-precedence" class="nav-link" data-scroll-target="#problemsalternatives-to-stochastic-precedence">Problems/Alternatives to stochastic precedence</a></li>
-  </ul></li>
-  <li><a href="#ergodic-transform-in-finite-time" id="toc-ergodic-transform-in-finite-time" class="nav-link" data-scroll-target="#ergodic-transform-in-finite-time">Ergodic Transform in Finite time</a></li>
-  <li><a href="#remarks" id="toc-remarks" class="nav-link" data-scroll-target="#remarks">Remarks</a>
-  <ul class="collapse">
-  <li><a href="#first" id="toc-first" class="nav-link" data-scroll-target="#first">First</a></li>
-  <li><a href="#second" id="toc-second" class="nav-link" data-scroll-target="#second">Second</a></li>
-  </ul></li>
   <li><a href="#consequence-ruin-under-agrm-indistinguishably" id="toc-consequence-ruin-under-agrm-indistinguishably" class="nav-link" data-scroll-target="#consequence-ruin-under-agrm-indistinguishably">Consequence: Ruin under AGRM Indistinguishably</a></li>
   </ul></li>
-  <li><a href="#one-time-bets-living-with-the-consequences" id="toc-one-time-bets-living-with-the-consequences" class="nav-link" data-scroll-target="#one-time-bets-living-with-the-consequences">One-Time Bets: Living with the Consequences</a>
+  <li><a href="#one-time-bets-stochastic-precedence-is-trivial" id="toc-one-time-bets-stochastic-precedence-is-trivial" class="nav-link" data-scroll-target="#one-time-bets-stochastic-precedence-is-trivial">One-Time Bets: Stochastic precedence is trivial</a>
   <ul class="collapse">
   <li><a href="#years-gained-vs.-lost" id="toc-years-gained-vs.-lost" class="nav-link" data-scroll-target="#years-gained-vs.-lost">Years gained vs.&nbsp;lost</a></li>
-  </ul></li>
-  <li><a href="#ergodic-transforms-diffusion-processes" id="toc-ergodic-transforms-diffusion-processes" class="nav-link" data-scroll-target="#ergodic-transforms-diffusion-processes">Ergodic Transforms, Diffusion Processes</a>
-  <ul class="collapse">
-  <li><a href="#oops-wrong-transform" id="toc-oops-wrong-transform" class="nav-link" data-scroll-target="#oops-wrong-transform">Oops, Wrong Transform!</a></li>
-  <li><a href="#martingales" id="toc-martingales" class="nav-link" data-scroll-target="#martingales">Martingales</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -392,237 +401,306 @@ $$
 
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
-<p>Fundamentally, agents must act in and react to the environment they inhabit. If in this the system dynamics of scale matter, they should accordingly take action in a way that differentiate between scales; if time matters they choose their actions under the precedence that they must live or die in time. This is rudimentary, and the models we use to explain agents actions must reflect this.</p>
-<p>This is not what standard Economics does explicitly, but it is what it envisioned. Ergodicity Economics attempts to do what it intended to do, and that is study actors under varying dynamics and mathematically explain what Economics relegates very quickly to psychology.</p>
-<p>This (hopefully) short notes will attempt to explain and justify the short comings of the current (note: as of 5 years ago) “precise” framework of Ergodicity Economics, where I feel the hammer used (or at least whats expounded over and over) is just one aspect of a more general theory. This leads to very agitating situation where at least in discussion, so that where the hammer doesn’t strike flush, the situation gets bemoaned as a place the entire “theory” doesn’t apply (“at least for now”).</p>
+<p>Fundamentally, agents must act in and react to the environment they inhabit. If in this the system dynamics of scale matter, they should accordingly take action in a way that differentiate between scales; if time matters they choose their actions under the precedence that they must live or die in time. This is rudimentary, and the models (and actions) of in this context need to be coherent with this.</p>
+<p>This is not what standard Economics does explicitly, but it is what it envisioned. Ergodicity Economics is one attempt to clarify this goal, in studying actors under varying dynamics and proscribing model frameworks (for the part that is an experimental and not just formal science) which account especially for inherent temporal components.</p>
 </section>
 <section id="path-wise-dynamics" class="level1 page-columns page-full">
 <h1>Path-wise Dynamics</h1>
+<section id="ensembles-vs.-paths" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="ensembles-vs.-paths">Ensembles vs.&nbsp;Paths</h2>
+<p>To provide context we will discuss briefly the difference between ensembles and paths. Consider the simple random walk <span class="math inline">\((\Sigma_1,\Sigma_2,\dots)\)</span>, with <span class="math inline">\(\Sigma_n \sum_{i=1}^n S_i\)</span> where <span class="math inline">\(S_i\)</span> is either <span class="math inline">\(-1\)</span> or <span class="math inline">\(1\)</span> with equal probability. An ensemble, or population, refers to a set of resamples of a random varibles, i.e.&nbsp;<span class="math inline">\((\Sigma_n^{(1)},\Sigma_n^{(2)},\dots, \Sigma_n^{(m)})\)</span> such that each <span class="math inline">\(\Sigma_n^{(j)}\)</span> for <span class="math inline">\(j\in[m]\)</span> marginally has the same distribution.</p>
+<p>These <span class="math inline">\(\Sigma_n^{(j)}\)</span> need not be independent, ensembles often just refer to a “sample” of random variables that are exchangeable. Specifically we assume that the distribution of the sample vector is invariant under any permutation <span class="math inline">\(\pi\)</span> of <span class="math inline">\([m]\)</span> <span class="math display">\[
+\begin{equation*}
+  (\Sigma_n^{(1)},\Sigma_n^{(2)},\dots, \Sigma_n^{(m)}) \deq (\Sigma_n^{(\pi(1))},\Sigma_n^{(\pi(2))},\dots, \Sigma_n^{(\pi(m))})\doteq\cbr{\Sigma_n^{(j)}}_{j=1}^m.
+\end{equation*}
+\]</span> An important specification is <span class="math inline">\(n\)</span>, which acts as the time parameter. In the above definition, what was “scrambled” was the index associated with each value at time <span class="math inline">\(n\)</span>, not <span class="math inline">\(n\)</span> itself. It is clear therefore (given the structure of <span class="math inline">\(\Sigma_n^{(m)}\)</span>) that a temporal permutation, both within the ensemble, and within a specific sample is not invariant: the (ordered) vector<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> <span class="math display">\[
+\begin{equation*}
+  (\Sigma_{1}^{(j)},\Sigma_{2}^{(j)},\dots, \Sigma_{n}^{(j)}) \not \deq (\Sigma_{\pi(1)}^{(j)},\Sigma_{\pi(2)}^{(j)},\dots, \Sigma_{\pi(n)}^{(j)}).
+\end{equation*}
+\]</span></p>
+<div class="no-row-height column-margin column-container"><div id="fn1"><p><sup>1</sup>&nbsp;Clearly the distribution of a simple random walk is such that <span class="math inline">\(\Sigma_{n}^{(j)}\)</span> and <span class="math inline">\(\Sigma_{n+k}^{(j)}\)</span> are related, differing only by <span class="math inline">\(\sum_{i=n+1}^{n+k}S_i\)</span>; a time dependence. Invariance in permutation of label within a sample, so as to be considered an ensemble, just means that label doesn’t affect the distribution (but it might depend on the sample size <span class="math inline">\(m\)</span>!). Similarly invariance to permutation to time identifies that time doesn’t affect the distribution.</p></div><div id="fn2"><p><sup>2</sup>&nbsp;a simple random walk is not invariant to time, unless the walk is on a “finite graph”; e.g., a reflected walk with bounds at <span class="math inline">\(\abs{\Sigma_k} = B\)</span> (constraining <span class="math inline">\(\abs{\Sigma_k} \in [B]\)</span> for all <span class="math inline">\(k\in \Z_+\)</span>).</p></div></div><p>This leads to the question of what <em>would</em> it mean for an ensemble to be <em>invariant to time</em>?<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<p>If a random variable was invariant to time, each of the ensembles are also: <span class="math display">\[
+\begin{equation*}
+  (\Sigma_{n}^{(1)},\Sigma_{n}^{(2)},\dots, \Sigma_{n}^{(m)}) \deq (\Sigma_{\pi(n)}^{(1)},\Sigma_{\pi(n)}^{(2)},\dots, \Sigma_{\pi(n)}^{(m)}).
+\end{equation*}
+\]</span> A strengthening of this would be an invariance under compositions of single component permutations <span class="math display">\[
+\begin{equation*}
+  (\Sigma_{n}^{(1)},\Sigma_{n}^{(2)},\dots, \Sigma_{n}^{(m)}) \deq (\Sigma_{\pi(n)}^{(1)},\Sigma_{n}^{(2)},\dots, \Sigma_{n}^{(m)}),
+\end{equation*}
+\]</span> into multiple component-wise permutations <span class="math inline">\(\pi_j\)</span> <span class="math display">\[
+\begin{equation*}
+  (\Sigma_{n}^{(1)},\Sigma_{n}^{(2)},\dots, \Sigma_{n}^{(m)}) \deq (\Sigma_{\pi_1(n)}^{(1)},\Sigma_{\pi_2(n)}^{(2)},\dots, \Sigma_{\pi_2(n)}^{(m)}).
+\end{equation*}
+\]</span> A further strengthening requires “consistency” of invariance under permutations: we must extend our definition of exchangeability to invariance under permutations <span class="math inline">\(\pi\)</span> of <span class="math inline">\([\infty]\)</span>.</p>
+<p>Clearly as mentioned previously, for a simple random walk, for <span class="math inline">\(\pi_n\)</span> a permutation of <span class="math inline">\([n]\)</span> <span class="math display">\[
+\begin{equation*}
+  (\Sigma_{1}^{(j)},\Sigma_{2}^{(j)},\dots, \Sigma_{n}^{(j)}) \not \deq (\Sigma_{\pi(1)}^{(j)},\Sigma_{\pi(2)}^{(j)},\dots, \Sigma_{\pi(n)}^{(j)}).
+\end{equation*}
+\]</span> It is also therefore not invariant under <span class="math inline">\(\pi_\infty\)</span> a permutation of <span class="math inline">\(\infty\)</span>. What is however, are the increments of a simple random walk <span class="math display">\[
+\begin{equation*}
+  (S_{1}^{(j)},S_{2}^{(j)},\dots, S_{n}^{(j)}) \deq (S_{\pi_\infty(1)}^{(j)},S_{\pi_\infty(2)}^{(j)},\dots, S_{\pi_\infty(n)}^{(j)}).
+\end{equation*}
+\]</span> Here, we can also permute the index <span class="math display">\[
+\begin{equation*}
+  (S_{1}^{(j)},S_{2}^{(j)},\dots, S_{n}^{(j)}) \deq (S_{\pi_\infty(1)}^{(\pi(j))},S_{\pi_\infty(2)}^{(\pi(j))},\dots, S_{\pi_\infty(n)}^{(\pi(j))}).
+\end{equation*}
+\]</span> For instance consider a random path <span class="math inline">\(\pr{X_t^{(1)}}_{t\ge 0}\)</span> and an ensemble at an arbitrary time <span class="math inline">\(\tau\)</span>, <span class="math inline">\(\cbr{X_\tau^{(j)}}_{j\ge 1}\)</span>, where invariance under <span class="math inline">\(\pi_\infty\)</span> holds in both time and label. Then for bounded functions <span class="math inline">\(f\)</span> (or potentially a larger class)</p>
+<p><span class="math display">\[
+\begin{equation*}
+  \frac{1}{T}\sum_{t=0}^{T-1}f\pr{X_t^{(1)}} \deq \frac{1}{T}\sum_{j=1}^{T}f\pr{X_\tau^{(j)}}.
+\end{equation*}
+\]</span> This will be the primary observation of Ergodic Theory, providing conditions for the weaker result that that we might asymptotically (eventually past a certain point in time) the ensemble and temporal are exchangeable, where for all choices of bounded <span class="math inline">\(f\)</span> conditioned on convergence (via the strong law of large numbers) <span class="math display">\[
+\begin{equation*}
+  \lim_{T\uparrow\infty}\frac{1}{T}\sum_{t=0}^{T}f\pr{X_t^{(1)}} = \lim_{T\uparrow\infty}\frac{1}{T}\sum_{j=0}^{T}f\pr{X_\tau^{(j)}} = \E[f(X_1)], \quad \mathrm{a.s}.
+\end{equation*}
+\]</span></p>
+</section>
 <section id="ergodicity-concepts" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="ergodicity-concepts">Ergodicity Concepts</h2>
-<p>The main driving force of Ergodicity Economics is it relation to the rich literature of Ergodic Theory and it’s further relation to path-wise dynamics. Ergodicity is a property whereby the only invariant set under the forward action is the entire set (move forward in time <span class="math inline">\(T_s (X_s) = X_{t+s}\)</span>, which in technical math-y must be measure preserving <span class="math inline">\(\mu(T_s^{-1}\Omega) = \mu(\Omega)\)</span>, i.e.&nbsp;no loss in mass).</p>
-<p>Rephrased, this means that whenever we have a set <span class="math inline">\(\mathcal{I}\)</span> s.t. where particles or points in space are “stuck” (that they have always been confined to this set), measured through the stationary/fixed-ness of inverse map</p>
-<p><span class="math display">\[
-T_s^{-1} \mathcal{I} = \mathcal{I}
+<p>Ergodicity gives us tools to relate ensemble and path-wise dynamics, but is the weakest in the mixing hierarchy: <span class="math inline">\(\mathrm{mixing} \implies \mathrm{(weak)mixing} \implies \mathrm{ergodic}\)</span>. We will briefly run through relevant definitions, which we sometimes specialize for easy of discussion here.</p>
+<div id="def-trans_map" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 1</strong></span> For a measure space <span class="math inline">\((\Omega,\mu)\)</span> for <span class="math inline">\(\Omega\)</span> a Banach space and <span class="math inline">\(\mu\)</span> a measure over <span class="math inline">\(\sigma(\Omega)\)</span>, we call <span class="math inline">\(T_s : \Omega \rightarrow \Omega\)</span> for <span class="math inline">\(s\in \R_+\)</span> the transform map of a random variable <span class="math inline">\(X_s(\omega)\)</span> for <span class="math inline">\(\omega \in \Omega\)</span> if:</p>
+<ol type="1">
+<li><span class="math inline">\(T\)</span> is measure preserving: <span class="math inline">\(\mu(T^{-1}(\Omega)) = \mu(\Omega)\)</span>.</li>
+<li><span class="math inline">\(T_s\)</span> is measureable for all <span class="math inline">\(s\)</span>, i.e.&nbsp;for <span class="math inline">\(A\in \sigma(\Omega)\)</span>, <span class="math inline">\(T_s^{-1}(A) \in \sigma(\Omega)\)</span>, where we write <span class="math inline">\((\mu\circ T_s^{-1})(A) = \mu_s(A) = \Pr[X_s \in A]\)</span>.</li>
+<li><span class="math inline">\(T_s\)</span> admits composition <span class="math inline">\(T_s \circ T_{t} = T_{s+t}\)</span></li>
+<li><span class="math inline">\(T_S\)</span> is continuous in <span class="math inline">\(s\)</span>, i.e.&nbsp;<span class="math inline">\(\lim_{h\downarrow 0}\norm{T_s - T_{s+h}} =0\)</span></li>
+</ol>
+</div>
+<div id="def-mixing" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 2</strong></span> We say that <span class="math inline">\(T\)</span>, a transform map is (strongly) mixing for measure <span class="math inline">\(\mu\)</span> if <span class="math display">\[
+\begin{equation*}
+\lim_{t\uparrow\infty}\mu(A \cap T_t^{-1}(B)) = \mu(A)\mu(B)
+\end{equation*}
 \]</span></p>
-<p>then the probability measure <span class="math inline">\(\mu\)</span> associated to our space <span class="math inline">\(\Omega\)</span> must be such that</p>
-<p><span class="math display">\[
-\mu(\mathcal{I}) \in \{0, 1\}
+</div>
+<div id="def-weakmixing" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 3</strong></span> We say that <span class="math inline">\(T\)</span>, a transform map is weakly mixing for measure <span class="math inline">\(\mu\)</span> if <span class="math display">\[
+\begin{equation*}
+\lim_{N\uparrow\infty}\frac{1}{N}\sum_{k=1}^{N}\abs{\mu(A \cap T_k^{-1}(B)) -\mu(A)\mu(B)} = 0
+\end{equation*}
 \]</span></p>
-<p>This statement implies that <span class="math inline">\(\mathcal{I}\)</span> must be either “essentially” the entire space (<span class="math inline">\(\mu(\Omega) = 1\)</span>) or “essentially” nothing (<span class="math inline">\(\mu(\phi) = 0\)</span>); in either case the difference between <span class="math inline">\(\mathcal{I}\)</span> and the two options is of size or measure zero - e.g.&nbsp;maybe a countable number of points for example.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
-<div class="no-row-height column-margin column-container"><div id="fn1"><p><sup>1</sup>&nbsp;This, as already indicated, identifies that once a random variable <span class="math inline">\(X_s \in \mathcal{I}\)</span> (associated to our probability measure <span class="math inline">\(\mu \circ T_t^{-1}\)</span>), it is in there forever with probability 1. Note: if <span class="math inline">\(\mu(T_s^{-1}\mathcal{I}) = 0\)</span> then <span class="math inline">\(X_s\)</span> with probability <span class="math inline">\(1\)</span> is never in <span class="math inline">\(\mathcal{I}\)</span>; unless we define it that way with <span class="math inline">\(X_0 \in \mathcal{I}\)</span>). This is just a reiteration of the invariance under the forward map, <span class="math inline">\(\Pr[X_s \in \mathcal{I}] = \mu(T_t^{-1}\mathcal{I}) = \mu(\mathcal{I})\in \cbr{0,1}\)</span>, plus the measure preserving property and definition of ergodicity.</p></div></div><p>A consequence of this is that if we define</p>
+</div>
+<div id="def-ergodic" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 4</strong></span> We say that <span class="math inline">\(T\)</span>, a transform map is ergodic for measure <span class="math inline">\(\mu\)</span> if:</p>
+<ol type="1">
+<li><span class="math inline">\(T\)</span> is measure preserving: <span class="math inline">\(\mu(T^{-1}(\Omega)) = \mu(\Omega)\)</span></li>
+<li>If <span class="math inline">\(J\)</span> is an invariant map of <span class="math inline">\(T\)</span>, i.e.&nbsp;<span class="math inline">\(T^{-1}(J) = J\)</span>, then <span class="math inline">\(\mu(J) \in \cbr{0,1}\)</span>.<br>
+</li>
+</ol>
+</div>
+<p>This statement implies that <span class="math inline">\(J\)</span> must be either “essentially” the entire space (<span class="math inline">\(\mu(\Omega) = 1\)</span>) or “essentially” nothing (<span class="math inline">\(\mu(\phi) = 0\)</span>); in either case the difference between <span class="math inline">\(J\)</span> and the two options is of size or measure zero - e.g.&nbsp;maybe a countable number of points for example.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+<div class="no-row-height column-margin column-container"><div id="fn3"><p><sup>3</sup>&nbsp;This, as already indicated, identifies that once a random variable <span class="math inline">\(X_s \in J\)</span> (associated to our probability measure <span class="math inline">\(\mu_s\)</span>), it is in there forever with probability 1: if <span class="math inline">\(\mu(T_s^{-1}J) = 0\)</span> then almost all <span class="math inline">\(X_s\)</span> with probability <span class="math inline">\(1\)</span> are never in <span class="math inline">\(J\)</span> if initialized with distribution <span class="math inline">\(\mu\)</span> (note <span class="math inline">\(T_0\)</span> is the identify map by the continuity assumption). This is just a reiteration of the invariance under the forward map, <span class="math inline">\(\Pr[X_s \in J] = \mu(T_s^{-1}J) = \mu(J)\in \cbr{0,1}\)</span>, plus the measure preserving property and definition of ergodicity.</p></div></div><p>We note that ergodic random variables <span class="math inline">\(X_s\)</span> (those constructed via an ergodic map: <span class="math inline">\(X_{s+t} = T_t (X_s)\)</span>), by construction identify <span class="math inline">\(\mu\)</span> as their stationary distribtion, i.e.&nbsp;<span class="math inline">\(\lim_{t\uparrow\infty}\mu \circ T_s^{-1} = \mu\)</span> where instead simply <span class="math inline">\(\mu_s = \mu_t\)</span> for all <span class="math inline">\(s,t\ge 0\)</span>. Ergodicity is a stricter form of stationarity (finer). The distiction needed to be made here is the exact initial position <span class="math inline">\(X_s\)</span>.</p>
+<p>We will assume that <span class="math inline">\(X_0(\omega)=\omega\)</span>, i.e.&nbsp;we do not start observing all paths, observable in aggregate with <span class="math inline">\(\mu\)</span>, but observe the specific process <span class="math inline">\(\pr{X_s(\omega)}_{s \ge 0}\)</span> with distribution path <span class="math display">\[
+\mu_s^{\omega}\doteq\pr{\mu_s\circ \delta_\omega}_{s \ge 0}
+\]</span> which is <em>not</em> stationary. Written this way, it is still deceiving, as the distribution path <span class="math inline">\(\mu_s^{\omega}\)</span> is still about an ensemble given a starting position, not the path <span class="math inline">\(X_s(\omega)\)</span> itself (which may be completely determined by an individual <span class="math inline">\(\omega\)</span>).<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></p>
+<div class="no-row-height column-margin column-container"><div id="fn4"><p><sup>4</sup>&nbsp;In the previous section’s discussion, we should note that stationarity and ergodicity in time are equivalent to invariance of <span class="math inline">\((\Sigma_k)_{k\in \Z}\)</span> under displacement in time <span class="math inline">\(T_n(\Sigma_k)_{k\in \Z} = (\Sigma_{k+n})_{k\in \Z} \deq (\Sigma_{k})_{k\in \Z}\)</span>. Here we are again with respect to the simple random walk, with all its other problems, we have a non-stationary process where <span class="math inline">\(\Sigma_0 = 0\)</span>, i.e.&nbsp;<span class="math inline">\(\mu_k^{0}\)</span>.</p></div><div id="fn5"><p><sup>5</sup>&nbsp;That <span class="math inline">\(X\sim \mu\)</span> further stipulates that we cannot look at any ensemble initialized on say <span class="math inline">\(A\)</span>, with corresponding measure path <span class="math inline">\(\mu_s^{A}\)</span> but that we also need to wait long enough that <span class="math inline">\(\mu_s^A \approx \mu\)</span>. This begs the question of whether the <em>current</em> ensemble, potentially as it evolves, is a good representative sample to measure from in order to estimate our paths, as in practice (imagining <span class="math inline">\(A\)</span> as a discrete set of points; a physical population) we estimate <span class="math display">\[
+\begin{equation*}
+  \frac{1}{T}\sum_{t=0}^{T}f\pr{X_t(\omega)} \approx \frac{1}{T}\sum_{t=0}^{T}\E[f(X_t^A)] \approx \E[f(X)].
+\end{equation*}
+\]</span> The stipulation here is that eventually all paths and the ensemble “look” alike, you could even “substitute” one for the other as representative for the same individual at different point in their life.</p></div></div><p>The primary observation of Ergodic theory is that there is information about all individual paths observable (measurable) from the ensemble, if we watch the ensemble for a long enough time. Here, we have what is called Birkoff’s theorem, indicating that for almost any initialization of <span class="math inline">\(X_s(\omega)\)</span> (with associated measure and ergodic map) <span class="math display">\[
+\begin{equation*}
+  \lim_{T\uparrow\infty}\frac{1}{T}\sum_{t=0}^{T}f\pr{X_t} = \E[f(X)], \quad \mathrm{a.s}.
+\end{equation*}
+\]</span> where <span class="math inline">\(X\)</span> identifies the distributional limit of <span class="math inline">\(X_t\)</span>, or rather <span class="math inline">\(X\sim \mu\)</span>, for stationary measure <span class="math inline">\(\mu\)</span>. Here the identification that this result is almost sure is why this is often called the “Point-wise Ergodic Theorem”, which say for almost all but a size 0 set of paths, the time average converges to a deterministic value corresponding to the ensemble average for the function (generalization of law of large numbers). <a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></p>
+<p>As an example application (which will lead up to further discussion), consider</p>
 <p><span class="math display">\[
 N(t,A) = \lambda\{s : X_s \in A, s \in [0,t]\},
 \]</span></p>
-<p>the “amount of time, <span class="math inline">\(X_s\)</span> is in <span class="math inline">\(A\)</span>” (<span class="math inline">\(\lambda\)</span> is the Lebesgue measure which is just the length of the set in the traditional sense <span class="math inline">\(\lambda [0,t) = t\)</span>), then if <span class="math inline">\(X \deq \lim_{t\rightarrow \infty}X_t\)</span></p>
+<p>understood as the “amount of time, <span class="math inline">\(X_s\)</span> is in <span class="math inline">\(A\)</span>” (<span class="math inline">\(\lambda\)</span> is the Lebesgue measure which is just the length of the set in the traditional sense <span class="math inline">\(\lambda [0,t) = t\)</span>). Then by Birkoff’s we have that</p>
 <p><span class="math display">\[
-\lim_{t\rightarrow \infty} \frac{N(t,A)}{t} = \Pr[X \in A]
+\lim_{t\rightarrow \infty} \frac{N(t,A)}{t} = \Pr[X \in A] = \mu(A),
 \]</span></p>
-<p>which says that the amount of time spent in set <span class="math inline">\(A\)</span> is equal to the probability that any path might be in <span class="math inline">\(A\)</span> if we wait long enough (basically forget the limit and approximate); under ergodicity, we see that if <span class="math inline">\(\mu(\mathcal{I})= 1\)</span> then <span class="math inline">\(\Pr[X \in A] = \Pr[X \in A \cap \mathcal{I}]\)</span>. The premise here is that eventually all paths and the ensemble “look” alike, you could even “substitute” one for the other.</p>
-<p>This is a very simple example of what is the hammer of Ergodicity Economics, Birkhoff’s Theorem which states that</p>
-<p><span class="math display">\[
-\mathbb{E}[f(X)] = \lim_{T\rightarrow \infty} \frac{1}{T} \int_{0}^{T} f(X_s)\dd s \quad \text{a.s.}
-\]</span></p>
-<p>the almost sure part of the statement is why this is often called the “Point-wise Ergodic Theorem”, which say for almost all but a size 0 set of paths, the right side always converges to a deterministic value which happens to be the ensemble average for the function (generalization of law of large numbers).</p>
-<p>If you wanted to be blatant and very informal, this says that if we scramble time (even though time matters) and just take the usual average under permutation (sample mean) and treat it as if it was from an ensemble, the usual law of large numbers for sample means holds <span class="math display">\[
+<p>which says that the amount of time spent in set <span class="math inline">\(A\)</span> is equal to the probability that any path might be in <span class="math inline">\(A\)</span> if we wait long enough (basically forget the limit and approximate).<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> <a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a></p>
+<div class="no-row-height column-margin column-container"><div id="fn6"><p><sup>6</sup>&nbsp;Under ergodicity, we see that if <span class="math inline">\(\mu(J)= 1\)</span> then <span class="math inline">\(\Pr[X \in A] = \Pr[X \in A \cap J]\)</span>.</p></div><div id="fn7"><p><sup>7</sup>&nbsp;An informal, view of Birkoffs essentially indicates that if we scramble time and take the average under permutation (sample time average) and treat it as if it was from an ensemble (sample population average), the usual law of large numbers for sample means holds <span class="math display">\[
 \begin{align*}
-    \frac{1}{T} \int_{0}^{T} f(X_s)\dd s &amp;\approx \frac{1}{T} \sum_{j=0}^{N-1} f(X_{s_j}) \Delta s_j \\
-    &amp;= \frac{1}{T} \sum_{j=0}^{N-1} f(X_{s_{\pi(j)}}) \Delta s_{\pi(j)} \\
-    &amp;\approx \E[f(X_1)]
+\frac{1}{T} \int_{0}^{T} f(X_s)\dd s &amp;\approx \frac{1}{T} \sum_{j=0}^{N-1} f(X_{s_j}) \Delta s_j \\
+&amp;= \frac{1}{T} \sum_{j=0}^{T-1} f(X_{s_{\pi(j)}}) \Delta s_{\pi(j)} \\
+&amp;\approx \E[f(X_1)]
 \end{align*}
-\]</span> where <span class="math inline">\(\pi (\cdot)\)</span> is a permutation of all possible rational numbers <span class="math inline">\(s_j \in \Q \cap [0,T]\)</span> (note: we are considering a countably dense set of points), where we may assume for instance that we are taking “finer” partitions as <span class="math inline">\(N\uparrow \infty\)</span>; each partition embedded in the last, such that the size of the largest <span class="math inline">\(\abs{\pi} =\max_j\abs{s_j - s_{j-1}}\downarrow 0\)</span>. This looks silly and obvious, the potentially confusing part here is recognizing that for large enough <span class="math inline">\(T\)</span> and <span class="math inline">\(N\)</span>, I am allowing this permutation of points to come from any point in time.</p>
-<p>Once I say “any point” Ergodicity tells me that there are an overwelmingly infinite number of points after a large enough <span class="math inline">\(T\)</span> that are essentially indistinguishable from one another (in the grand scheme of things - <span class="math inline">\(L_1\)</span> convergence sense) and therefore this average should look like an ensemble average; getting closer the larger <span class="math inline">\(N\)</span> is as it relates to <span class="math inline">\(T\)</span> (size <span class="math inline">\(T = \lambda[0,T) &lt; \lambda[T,\infty) = \infty, \implies\)</span> “uniform sampling” of points for my average gives <span class="math inline">\(0\)</span> points coming from <span class="math inline">\([0,T]\)</span> with probability 1).</p>
-<section id="extentions-of-birkoff" class="level3 page-columns page-full">
+\]</span> where <span class="math inline">\(\pi (\cdot)\)</span> is a permutation of all possible rational numbers <span class="math inline">\(s_j \in \Q \cap [0,T]\)</span> (note: we are considering a countably dense set of points), where we may assume for instance that we are taking “finer” partitions as <span class="math inline">\(N\uparrow \infty\)</span>; we can just take <span class="math inline">\(\Delta s_i = 1/N\)</span> in the simplest case.</p></div></div><section id="extentions-of-birkoff" class="level3 page-columns page-full">
 <h3 class="anchored" data-anchor-id="extentions-of-birkoff">Extentions of Birkoff</h3>
-<p>In Ergodic theory, what you can disucss are things called Ergodic Components. Basically say you have spaces <span class="math inline">\((T,\mathcal{I}_1,\mathcal{I}_2)\)</span> where these spaces don’t connect to one another except from <span class="math inline">\(T \rightarrow \mathcal{I}_j\)</span> (<span class="math inline">\(T\)</span> is the “transitive space”, basically you eventually leave, unless the process is ugly) and once in <span class="math inline">\(\mathcal{I}_j\)</span> you never leave (at least almost surely don’t). These <span class="math inline">\(\mathcal{I}_j\)</span> could be absorbing states, or might be richer sets, but at the end of the day what I am getting at is that instead of using Birkhoff in the traditional sense you need to use Birkhoff-Khinchin which augments Birkhoff as follows, again defining <span class="math inline">\(N(t,A) = \lambda\{s : X_s \in A, s \in [0,t]\}\)</span>,</p>
-<p><span class="math display">\[
-\mathbb{E}[f(X)| \mathcal{I}_j] = \pr{\lim_{T\rightarrow \infty} \frac{1}{N(T,\mathcal{I}_j)} \int_{0}^{T} f(X_s)\mathbb{I}_{X_s \in \mathcal{I}_j} \dd s} \quad \text{a.s.}
+<p>In Ergodic theory, what you can discuss are things called Ergodic Components. Basically say you have spaces <span class="math inline">\((T,J_1,J_2)\)</span> where these spaces don’t connect to one another except from <span class="math inline">\(T \rightarrow J_j\)</span> (<span class="math inline">\(T\)</span> is the “transitive space”, basically you eventually leave, unless the process is ugly) and once in <span class="math inline">\(J_j\)</span> you never leave (at least not in probability). These <span class="math inline">\(J_j\)</span> could be absorbing states, or might be richer sets, but at the end of the day, instead of using Birkhoff’s in the traditional sense, we can extend this to the Birkhoff-Khinchin which augments Birkhoff as follows<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a>, again defining <span class="math inline">\(N(t,A) = \lambda\{s : X_s \in A, s \in [0,t]\}\)</span>,</p>
+<div class="no-row-height column-margin column-container"><div id="fn8"><p><sup>8</sup>&nbsp;Importantly, any ergodic measure <span class="math inline">\(\mu\)</span> can be represented as a decomposition over its ergodic components, with <span class="math display">\[
+\mu = \rho \mu^{J_1} + (1-\rho)\mu^{J_2}
+\]</span> where <span class="math inline">\(\rho = \Pr[X_s \text{ is eventually in } J_1]\)</span> (note: the transient part is missing; there is no <span class="math inline">\(\mu^T\)</span>, as with probability <span class="math inline">\(1\)</span> all paths eventually leave <span class="math inline">\(T\)</span>). This extends to more general parameterizations, where for ergodic components identified with parameter <span class="math inline">\(\theta \in\Theta\)</span> <span class="math display">\[
+\mu(A) = \int_\Theta \mu^{\theta}(A) \dd \rho(\theta).
+\]</span></p></div></div><p><span class="math display">\[
+\mathbb{E}[f(X)| J_j] = \pr{\lim_{T\rightarrow \infty} \frac{1}{N(T,J_j)} \int_{0}^{T} f(X_s)\mathbb{I}_{X_s \in J_j} \dd s} \quad \text{a.s.}
 \]</span></p>
-<p>which is a funky way of saying that conditioned on being in <span class="math inline">\(\mathcal{I}_j\)</span>, then Birkhoff holds (if you’re in an Ergodic component <span class="math inline">\(\implies\)</span> you’re Ergodic!). This now makes the AGRM results (<em>drum-roll</em>) random variables, results only in probability! Specifically<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> <span class="math display">\[
+<p>which complicated expression just indicating that conditioned on being in <span class="math inline">\(J_j\)</span>, then Birkhoff holds with <span class="math inline">\(\mu^{J_j}\)</span> (if you’re in an Ergodic component <span class="math inline">\(\implies\)</span> you’re Ergodic!). This identifies the asymptotic quantity itself as random variables, specifically<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a> <span class="math display">\[
 \begin{align*}
-    \lim_{T\rightarrow \infty} \frac{1}{T} \int_{0}^{T} f(X_s)\dd s &amp;= \mathbb{E}[f(X)| \mathcal{I}_j] \\
-    &amp;\text{w.p} \quad\Pr[X_s \ \text{eventually in } \mathcal{I}_j]
+    \lim_{T\rightarrow \infty} \frac{1}{T} \int_{0}^{T} f(X_s)\dd s &amp;= \mathbb{E}[f(X)| J_j] \\
+    &amp;\text{w.p} \quad\Pr[X_s \ \text{eventually in } J_j]
 \end{align*}
 \]</span></p>
-<div class="no-row-height column-margin column-container"><div id="fn2"><p><sup>2</sup>&nbsp;We remember here that <span class="math inline">\(N(t,A)/t \rightarrow \Pr[X\in A]\)</span>. Defining <span class="math display">\[
-\cbr{Y_s : s \in [0,N(T,\mathcal{I}_j)]} =\mathrm{Compact}\cbr{X_s : X_s \in \mathcal{I}_j, s \in [0,T]}
-\]</span> as a simply reordering/compactification of the process <span class="math inline">\(X_s\)</span> such that that <span class="math inline">\(X_s \in \mathcal{I}_j\)</span>; which can approximate in as having times $s ] $; a change of variables in time induces the same space $[0,T]. By definition, we observe that <span class="math inline">\(\E[f(Y_s)/\Pr[X \in \mathcal{I}_j]] = \E[\cbr{X_s | X_s \in \mathcal{I}_j}\)</span>. We therefore find the stated fact (in approximation): <span class="math display">\[
+<div class="no-row-height column-margin column-container"><div id="fn9"><p><sup>9</sup>&nbsp;We remember here that <span class="math inline">\(N(t,A)/t \rightarrow \Pr[X\in A]\)</span>. Defining <span class="math display">\[
+\cbr{Y_s : s \in [0,N(T,J_j)]} =\mathrm{Join}\cbr{X_s : X_s \in J_j, s \in [0,T]}
+\]</span> as a simply reordering/joining of the process <span class="math inline">\(X_s\)</span> such that that <span class="math inline">\(X_s \in J_j\)</span>; which can approximate in as having times <span class="math inline">\(s \in [0,T\Pr[X\in J_j]]\)</span>; a change of variables in time induces the same space $[0,T]. By definition, we observe that <span class="math inline">\(\E[f(Y_s)/\Pr[X \in J_j]] = \E[\cbr{X_s | X_s \in J_j}\)</span>. We therefore find the stated fact (in approximation): <span class="math display">\[
 \begin{align*}
-  \frac{1}{N(T,\mathcal{I}_j)} \int_{0}^{T} f(X_s)\mathbb{I}_{X_s \in \mathcal{I}_j} \dd s
-  &amp;= \frac{1}{N(T,\mathcal{I}_j)} \int_{0}^{N(T,\mathcal{I}_j)} f(X_s)\mathbb{I}_{X_s \in \mathcal{I}_j} \dd s \dd s \\
-  &amp;\approx \frac{1}{T\Pr[X\in \mathcal{I}_j]} \int_{0}^{T\Pr[X\in \mathcal{I}_j]} f(Y_s) \dd s \\
+  \frac{1}{N(T,J_j)} \int_{0}^{T} f(X_s)\mathbb{I}_{X_s \in J_j} \dd s
+  &amp;= \frac{1}{N(T,J_j)} \int_{0}^{N(T,J_j)} f(X_s)\mathbb{I}_{X_s \in J_j} \dd s \dd s \\
+  &amp;\approx \frac{1}{T\Pr[X\in J_j]} \int_{0}^{T\Pr[X\in J_j]} f(Y_s) \dd s \\
   &amp;\approx \E[f(X)|\mathcal{I_j}]
 \end{align*}
-\]</span></p></div></div><p>The hope is that saying this, makes AGRM more questionable in terms of definitive preferences leading to better outcomes. It’s answer to decisions (while I believe correct in it’s approach for long enough time) is still something that just says “here’s the stable thing to look at” and even at infinity is still just something reduced to “choose the thing in probability that gives you a better number”.</p>
+\]</span></p></div></div><p>Once I say “any point” Ergodicity tells me that there are an overwelmingly infinite number of points after a large enough <span class="math inline">\(T\)</span> that are essentially indistinguishable from one another (in the grand scheme of things - <span class="math inline">\(L_1\)</span> convergence sense) and therefore this average should look like an ensemble average; getting closer the larger <span class="math inline">\(N\)</span> is as it relates to <span class="math inline">\(T\)</span> (size <span class="math inline">\(T = \lambda[0,T) &lt; \lambda[T,\infty) = \infty, \implies\)</span> “uniform sampling” of points for my average gives <span class="math inline">\(0\)</span> points coming from <span class="math inline">\([0,T]\)</span> with probability 1).</p>
 </section>
 </section>
-<section id="detailed-critique" class="level2">
-<h2 class="anchored" data-anchor-id="detailed-critique">Detailed Critique</h2>
-<p>These prior theorems, and not my commentary, deal with the “long-time” dynamics of this process <span class="math inline">\(f(X_s)\)</span>. Essentially you can think of the variability of averages vanishing, and then boom-pow everything is just a consistent scalar quantity rather than a random one; it is a “stable estimate” describing all times. In truth however, this is in calculation just an observation that the error of our time averages is “small enough” after some large time <span class="math inline">\(T\)</span> with respect to our ensemble average (a result of Ergodicity, but not “clearly” implying it; you can however imply this, by considering a class of functions <span class="math inline">\(f\)</span> and demonstrating that the time and ensemble average converge to one another for all bounded functions <span class="math inline">\(f\)</span>; a uniform law of large numbers, related to convergence in the empirical measure).</p>
-<p>This is my main point, the informal take on this result is just “our estimates are stable and descriptive”, and “my estimates apply to populations, and equally to an individual across their life”. What matters first and foremost however is not simplicity in estimation, but the fact that we may transfer ensemble dynamics to path-wise dynamics. Simply observing that some quantities that are for the most part well-behaved is the lesser one. Ergodicity give us information about the properties of any path we might be on. This information is not restricted to infinite time as required by Birkhoff (<span class="math inline">\(T\rightarrow\infty)\)</span> but has value also in medium or short (finite) time processes, and even processes that are “Ergodicity breaking” such as dynamics under ruin. We do not live forever, and our enviroments are changing, so asymptotic properties though pleasant may not always be physically meaningful. This suffers the same problem of assuming “market equilibrium” and “uniform free-trade”. For ergodicity, this assumption is replaced by path-wise stationarity, and infinite time horizons. It will assume that the forward process <span class="math inline">\(T_s\)</span> is more or less stable, and that “people” do not “meaningfully die”. Both these assumptions are more or less ridiculous, but can be assuaged by approximation: (1) for how long is our process “essentially ergodic”? (2) when making decisions, how does finite time horizon (an “ergodicity-breaking” event; death) pressure individuals to not make “ergodicity optimal” decision? (3) in light of this, what estimates are useful non-asymptotically? (3i) how do we measure approximate ergodicity, in the sense that our estimates are useful in practice?</p>
-<p>The main mathematical problem, which I dedicated the above discussion two, dealt with applying Birkhoff’s Theorem where some lack of mathematical background seems to have lead some researchers to treating most cases as special cases, sometimes without scrutinizing the inherent problems. This left some feeling that they needed to extend the “theory that is Ergodicity Economics” without practically identifying what needs extension, and whether the current lack of extention might be ignorance of the literature, where I believe we can, through formal treatment, make informed inference based on its foundation, Ergodic Theory.</p>
+<section id="commentary" class="level2">
+<h2 class="anchored" data-anchor-id="commentary">Commentary</h2>
+<p>These prior statements deal with the “long-time” dynamics of this process <span class="math inline">\(f(X_s)\)</span>, presuming that the variability of averages are vanishing. In practice however, this observation is just that the error of our time averages is “small enough” after some large time <span class="math inline">\(T\)</span> with respect to our ensemble average and that they are consistent across paths (tending to the same quantity for most paths). Essentially, “our estimates are stable and descriptive”, and “our estimates apply equally to populations, and as well as across an individuals life”: that we may transfer ensemble dynamics to path-wise dynamics. Ergodicity give us information the properties of path ensembles of paths. This information is not restricted to infinite time as required by Birkhoff (<span class="math inline">\(T\rightarrow\infty)\)</span> but has value also in medium or short (finite) time processes, but depends on how representative the population is for the individual. How “representative” will depend on the distribution of the ensemble, specifically how close this distribution approximates the stationary distribution. Temporally, we will care about how long we have observed the individual and the population, asking whether each has had enough time to explore the space; note that if all individuals behave the same, the more coverage we will have (in time and space) of a single individuals life (which we can think of as being approximated by others “close to them” in the population).</p>
+<p>In the rest of these notes I will cover some related concepts and at the end include some questions of consideration (either that they were or are being considered by the author). We will begin with a small off-shoot to talking about mixing times, which will attempt to give an answer to “have we watched/measured the individual long enough?” assuming that the population is stationary and the individual dynamic. Afterwards we will discuss the premise of using ergodicity for decisions. Specifically, we will discuss “growth-rate optimality” which is the premise of Ergodicity Economics. This will be the primary (potentially temporary) interest of these notes, attempting to clarify and account for related concepts; as well as being a dumping ground for some superficial analysis.</p>
 </section>
 </section>
-<section id="growth-rates-and-multiplicative-gambles-in-finite-time" class="level1">
-<h1>Growth Rates and Multiplicative Gambles in Finite Time</h1>
-<p>Let us revisit the standard multiplicative gamble, but in more generality, including finite time horizons.</p>
-<p>You are forced to play a game, and can choose between two wealth dynamics:</p>
+<section id="convergence-rates-and-mixing-times" class="level1 page-columns page-full">
+<h1>Convergence rates and Mixing Times</h1>
+<div id="def-mixingtime" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 5</strong></span> We define the <span class="math inline">\(\epsilon &gt; 0\)</span> mixing time for measure <span class="math inline">\(\mu\)</span> as <span class="math display">\[
+t_\varepsilon =\inf\cbr{t\ge 0:\sup_{\omega\in \Omega} \sup_{Q\in \Omega} \abs{\mu_t^{\omega}(Q) - \mu(Q)}\le \varepsilon}.
+\]</span></p>
+</div>
+<p>Mixing times are often fairly difficult to work with (having a rather complicated definition, and require sometimes unclear coupling arguments), but they are a useful measure of how quick a distribution <span class="math inline">\(\mu_s^{\omega}\)</span> starting at any point <span class="math inline">\(\omega\in\Omega\)</span> will well approximate the stationary measure <span class="math inline">\(\mu\)</span>. Reiterating, this is still about the ensemble, as a measurement of the uniform worst case across ensembles of possible paths. As such it give us, up to discretization error, a good answer to how quickly a population distributed over <span class="math inline">\(A\)</span> with ensemble path distribution <span class="math inline">\(\mu_s^A\)</span> will approximate the stationary distribution <span class="math inline">\(\mu\)</span>.<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a></p>
+<div class="no-row-height column-margin column-container"><div id="fn10"><p><sup>10</sup>&nbsp;Here, if <span class="math inline">\(A\sim \nu\)</span> is a random set (point process), we can represent <span class="math inline">\(\mu_s^A = \nu \mu_{s}^{\omega^A}\)</span> with <span class="math inline">\(\omega^A\)</span> identifying elements of the point process <span class="math inline">\(A\)</span>. Here we see that by Jensen’s inequality <span class="math display">\[
+\begin{align*}
+\sup_{Q\in\Omega}\abs{\mu_s^A(Q) - \mu(Q)}
+&amp;\le \E_A \br{\sup_{Q\in\Omega}\abs{\mu_s^{\omega^A}(Q) - \mu(Q)}} \\
+&amp;\le \E_A \br{\sup_{\omega\in \Omega} \sup_{Q\in \Omega} \abs{\mu_t^{\omega}(Q) - \mu(Q)}} \\
+&amp;= \sup_{\omega\in \Omega} \sup_{Q\in \Omega} \abs{\mu_t^{\omega}(Q) - \mu(Q)}
+\end{align*}
+\]</span> and so the mixing time is <span class="math inline">\(\le t_\varepsilon\)</span>; again, up to the discretization error treating <span class="math inline">\(A\)</span> as an observed quantity.</p></div><div id="fn11"><p><sup>11</sup>&nbsp;Both this expression, and the expression of mixing time, are related to questions about the convergence of the empirical process associated to the random variable; for later it may be interesting to consider uniform LLN/CLT/etc.</p></div></div><p>How much data we actually have is important, and this <span class="math inline">\(t_\varepsilon\)</span> quantity is saying that only really for <span class="math inline">\(t&gt; t_\varepsilon\)</span> can we consider the observed ensemble a representative sample for the distribution. This still however leaves out the question of how close our specific time average is to the ensemble and population average. To answer this, deliberately non-asymptotically, we need to ask about convergence rates, i.e.&nbsp;for what <span class="math inline">\(r_n\downarrow 0\)</span> <span class="math display">\[
+\abs{\frac{1}{T}\sum_{t=0}^{T}f\pr{X_t} - \E[f(X)]} = O_p\pr{r_T}
+\]</span> and the indicated time <span class="math inline">\(T\)</span> such that this approximation is small enough (say smaller than <span class="math inline">\(\varepsilon&gt;0\)</span>). <a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a> We are interested here in a study of “large deviations”, and bounds such as Chernoff, Hoeffding, etc. For reversible ergodic markov chains CLT and non-asymtpotic bound exist for the time average. <span class="citation" data-cites="Lezaud1998 Geyer1992">(<a href="#ref-Lezaud1998" role="doc-biblioref">Lezaud 1998</a>; <a href="#ref-Geyer1992" role="doc-biblioref">Geyer 1992</a>)</span></p>
+</section>
+<section id="growth-rateergodic-transforms" class="level1 page-columns page-full">
+<h1>Growth-rate/Ergodic Transforms</h1>
+<div id="def-grtrans" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 6</strong></span> <span class="math inline">\(v:\R_+\times\Omega \rightarrow \Omega\)</span> is the growth-rate transform of a process <span class="math inline">\(X_t\)</span>, if it exists is the one such that <span class="math inline">\(v_t(X_t) = v(t,X_t)\)</span> has ergodic increments <span class="math inline">\(\Delta v_t (X_t)\)</span></p>
+</div>
+<p>Note here that to even say “ergodic increments” this implies that we are already considering these increments to be sampled from the associated stationary measure <span class="math inline">\(\mu\)</span>; this is not always made formal or clear in discussion. This stationarity further supposes that the “drift” of <span class="math inline">\(\Delta v_t (X_t)\)</span>, is constant with respect to time <span class="math display">\[
+\E[\Delta v_t(X_t)|X_t = x] = g(x)
+\]</span> and further supposes that the noise of <span class="math inline">\(\Delta v_t (X_t)\)</span> is stationary (again possibly depending on position, but not time). We must note again as well that this is an ensemble property, not a path property.</p>
+<p>From Ito’s lemma<a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a>, in the simplest case of absolute continutity with respect to a brownian motion <span class="math inline">\(B_t\)</span>, we are saying that <span class="math inline">\(X_t = f_t(Y_t)\)</span> where <span class="math inline">\(Y_t\)</span> has ergodic increments and <span class="math display">\[
+\dd Y_t = g(Y_t)\dd t + \sigma(Y_t)\dd B_t
+\]</span> where therefore we see <span class="math inline">\(v_t\)</span> right inverse of <span class="math inline">\(f_t\)</span>. Importantly, but never discussed is that this transform with respect to might <span class="math inline">\(X_t\)</span> might be valid even for <span class="math inline">\(X_t\)</span> with non-stationary growth independent our premised <span class="math inline">\(Y_t\)</span>. For instance we may simply consider <span class="math display">\[
+X_t = e^{Y_t - \int_{0}^t \lambda(t)\dd t} \doteq e^{Y_t - \Lambda_t}
+\]</span> for non constant <span class="math inline">\(\lambda(t)\)</span>.</p>
+<div class="no-row-height column-margin column-container"><div id="fn12"><p><sup>12</sup>&nbsp;Can’t figure out how to accent the o.</p></div></div><p>A specialization of this idea is what is primary considered in Ergodicity Economics.</p>
+<div id="def-linearization" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 7</strong></span> <span class="math inline">\(\ell:\R_+\times\Omega \rightarrow \Omega\)</span> is the linearization of a process <span class="math inline">\(X_t\)</span>, if it exists is the one such that <span class="math inline">\(\ell_t(X_t) = \ell(t,X_t)\)</span> has ergodic increments <span class="math inline">\(\Delta v_t (X_t)\)</span> such that <span class="math inline">\(\E[\Delta v_t (X_t)|X_t = x] = g\)</span> where <span class="math inline">\(g\)</span> is a constant.</p>
+</div>
+<p>This heavily simplifes Birkoffs Theorem in the Feller case (strong markov; where this operation in the SDE sense makes sense) into <span class="math display">\[
+\lim_{T\uparrow\infty} \frac{1}{T}\int_{0}^T \dd Y_t = \lim_{h\downarrow0}\E\br{\frac{Y_{t+h}-Y_t}{h} \Bigg |Y_t = y } = g.
+\]</span></p>
+</section>
+<section id="poisson-equation-and-harmonic-transforms" class="level1 page-columns page-full">
+<h1>Poisson equation and Harmonic transforms</h1>
+<p>By Ito’s lemma finding an ergodic transformation comes down locally, with <span class="math display">\[
+\begin{align*}
+\dd X_t
+&amp;= \xi_t(X_t)\dd t +\rho_t(X_t) \dd B_t
+\end{align*}
+\]</span></p>
+<p>requires</p>
+<p><span class="math display">\[
+\begin{align*}
+\dd v_t(X_t)
+&amp;= \partial_t v_t(X_t)\dd t +\partial_x v_t(X_t)\dd X_t +  \frac{1}{2}\partial_{x}^2 v_t(X_t) \dd [X,X]_t \\
+&amp;= \br{\partial_t v_t(X_t) +\xi_t(x)\partial_x v_t(x) + \frac{1}{2}\partial_{x}^2 v_t(X_t)\rho_t(X_t)^2}\dd t +\partial_x v_t(X_t)\rho_t(X_t)\dd B_t,
+\end{align*}
+\]</span></p>
+<p>to satisfy<a href="#fn13" class="footnote-ref" id="fnref13" role="doc-noteref"><sup>13</sup></a></p>
+<div class="no-row-height column-margin column-container"><div id="fn13"><p><sup>13</sup>&nbsp;Note that this is an extension of the Poisson equation for an operator <span class="math inline">\(\calL\)</span> acting on <span class="math inline">\(v_t\)</span>, with <span class="math inline">\(\calL v_t = g\)</span>.</p></div></div><p><span class="math display">\[
+\begin{align*}
+g(x)
+&amp;= \br{\partial_t v_t(x) +\xi_t(x)\partial_x v_t(x) + \frac{\rho_t(x)^2}{2}\partial_{x}^2 v_t(x)}\\
+\sigma(x)
+&amp;=\partial_x v_t(x)\rho_t(x).
+\end{align*}
+\]</span> In terms of <span class="math inline">\(v_t\)</span> we write clearly in the second case that <span class="math display">\[
+\begin{align*}
+\partial_x v_t(x)
+&amp;= \frac{\sigma(x)}{\rho_t(x)}
+\end{align*}
+\]</span> which via substitution gives <span class="math display">\[
+\begin{align*}
+g(x)
+&amp;= \br{\partial_t v_t(x) +\xi_t(x)\partial_x v_t(x)+ \frac{1}{2}\partial_{x}^2 v_t(x)\rho_t(x)^2}\\
+&amp;= \br{\partial_t v_t(x) +\frac{\sigma(x)\xi_t(x)}{\rho_t(x)} + \frac{\rho_t(x)^2}{2}\partial_{x}^2\pr{\frac{\sigma(x)}{\rho_t(x)}} }\\
+\implies \partial_t v_t(x)
+&amp;= g(x) - \pr{\frac{\sigma(x)\xi_t(x)}{\rho_t(x)} +\xi_t(x) \frac{\rho_t(x)^2}{2}\partial_{x}^2\pr{\frac{\sigma(x)}{\rho_t(x)}}}
+\end{align*}
+\]</span></p>
+<p>The format for linearization is similar, simpler, but more strict. Both cases are made simply by no direct <span class="math inline">\(t\)</span> dependence; or at least a known one (for instance consider <span class="math inline">\(X_t e^{\Lambda_t} = e^{Y_t}\)</span>).</p>
+</section>
+<section id="asymptotic-growth-rate-maximization" class="level1">
+<h1>Asymptotic Growth-rate Maximization</h1>
+<p>Still thinking about what to include here. The basic premise of most of Ergodicity Economics is that you should make decisions to maximize the linearized growth rate (see <a href="#def-linearization" class="quarto-xref">Definition&nbsp;7</a>). This only makes sense asymptotically, and if such a linearization exists.</p>
+</section>
+<section id="finite-time-games" class="level1 page-columns page-full">
+<h1>Finite Time Games</h1>
+<p>Most games will be structure as the choice between two or more wealth dynamics. Consider for now simply:</p>
 <p><span class="math display">\[
 X_s = x_0 e^{Z_t}, \quad Y_t = y_0 e^{W_t}
 \]</span></p>
-<p>whose whose rate increments <span class="math inline">\(\Delta Z_t\)</span> and <span class="math inline">\(\Delta W_t\)</span> are Ergodic processes with long time-averages <span class="math inline">\(g_X\)</span> and <span class="math inline">\(g_Y\)</span>, and where <span class="math inline">\(x_0\)</span> and <span class="math inline">\(y_0\)</span> are initial values of wealth.</p>
-<p>In the short time, what should be obvious is that as long as I don’t force you to play forever, I might be able to “grease the wheel” and bribe you into the worse long-run gamble with enough money out-front (<span class="math inline">\(x_0, y_0\)</span>). However Asymptotic Growth-Rate Maximization, shortened as AGRM, as would be the recommendation of applying Birkhoff, may give you the wrong answer under finite time horizons.</p>
-<p>Now, lets take a step back and chat about path-wise probabilities. If I want to choose the process (<span class="math inline">\(X_s,Y_t\)</span>) that is best for me, with all the information I have, I should do so in a way in which I am more likely to make the better decision, i.e.&nbsp;the one I have to “live with”. Any option, a job, spouse or other, you’re usually expecting to have to live or die with it - the dynamics after the decision. Of course there are caveats, but forgive me for now and assume we are not considering ruin processes, and that these problems actually give me hope for the application of psychology (other criteria for good bets included of course, but hopefully relevant to individuals in practice).</p>
-<p>The measure of what is “better-off” has been the primary debate in econcomics leading to utility theory. Standard Ergodicity Economics indicates that a better choice is “long-run growth”, a path-wise focus that is tied to an individual rather than a population (if not aggregated and measured over time of course). While this makes many problems more coherent (especially with established results in quantitative finance), it is not clear that it is always an apt description - if I die, what then? - should I not want to die? - should I want others to inherit my riches? - is my goal to make the financial most of myself over my limited time? Each suffers the capitalist imperative that money <em>is</em> life, and fails to measure the human. Some work has been done identifying public good as the as a mode consistent with long-run growth (betterment). Similarly the EE framework has been used to demonstrate that cooperation in classical economic examples (one-time bets) which do not admit cooperative equilibrium, by forcing the game to continue. Mathematically this are quite interesting, but anthropologically, it is clear that forcing people to have to live with each other under regulations (rules) admits cooperation; economists would likely even argue that slaves live in cooperation with there masters if not given the means (legislative [rules] or otherwise) to overthrow them. In any case, many of these cooperative games are often still quite weird, as they focus on corporations (monsters who are premised with a goal of living forever, or causing as much economic turbulence as possible in their demise), or strictly on organizations of public good (who have the actual incentive to be and do good). This is besides the point, but in all honesty, I would like to see a reasonable economic scenario authentic enough to allow for murder.</p>
-<section id="stochastic-precedence" class="level2">
-<h2 class="anchored" data-anchor-id="stochastic-precedence">Stochastic Precedence</h2>
-<p>James Price brought up something which he showed had value in finite time (and is also in the original formulation of Ergodicity Economics - the Nature paper!), which is called Stochastic Precedence.</p>
-<p>Essentially when I am weighting my preference between (<span class="math inline">\(X_s,Y_t\)</span>), it is useful to consider whether</p>
-<p><span class="math display">\[
-\Pr[X_t &gt; Y_t]
-\]</span></p>
-<p>is very large, i.e.&nbsp;if <span class="math inline">\(X_s\)</span> is just more likely to produce better path outcomes as evaluated at time <span class="math inline">\(t\)</span>. Of interest in addition to this is comparative risks, such as <span class="math display">\[
-\frac{\Pr[X_s &lt; r]}{\Pr[Y_s &lt; r]}
-\]</span> for some value <span class="math inline">\(r\)</span>. For instance <span class="math inline">\(r\)</span> could be the condition where the money lender comes and breaks your shins.</p>
-<p>This makes sense when one treats finite time “one-shot” gambles, and the expected difference</p>
-<p><span class="math display">\[
-\mathbb{E}[X_1 - Y_1]
-\]</span></p>
-<p>might be the traditional proxy for the decision, but is just one criteria and of course may not include relevant information such as the the magnitude of potential losses.</p>
-<p>What’s useful with respect to Ergodicity is the implied stability of the variable, in this case (<span class="math inline">\(Z_t,W_t\)</span>), so it’s useful to start here first. We will focus mainly on the case where <span class="math inline">\(X_s\)</span> and <span class="math inline">\(Y_s\)</span> are the same kind of process with the same kind of growth-rates. In this case stochastic precedence is a very simple idea to extend, as deterministic growth rates induce clear stochastic precedence which cannot be argued as confounded; given two of the same processes, and only those two (you aren’t allowed to back out; we’ll break more than your kneecaps if you do), and you are given only one point in the future (past a certain time <span class="math inline">\(T&gt;0\)</span>) to back out, under exponential growth-rates you just take the one likely to be better.</p>
-<section id="problemsalternatives-to-stochastic-precedence" class="level3">
-<h3 class="anchored" data-anchor-id="problemsalternatives-to-stochastic-precedence">Problems/Alternatives to stochastic precedence</h3>
-<p>There are some problems with stochastic precedence, where preferred processes under the probablistic criteria and not inherited (i.e, <span class="math inline">\(X_s \gg Y_s\)</span>, <span class="math inline">\(Y_s \gg Z_s\)</span>, but <span class="math inline">\(Z_s \gg X_s\)</span>), but I think there is a meaningful extension to integrated probabilities and likelihood ratios. We will talk about this later, but you always have a choice to not play the game offered (even if we break your shins because of it). Assuming for simplicity that you can go on living your own life, or opt into the game, a simplified premise is that your choice is relative to your current position <span class="math inline">\(N_s\)</span> not to transitions between positions; e.g., “how much better does <span class="math inline">\(X_s\)</span> make me better off compared to <span class="math inline">\(N_s\)</span>, and is this more than <span class="math inline">\(Y_s\)</span> makes than <span class="math inline">\(N_s\)</span>?”. There are problems here too but it is an idea. Here we can also ask, for what time <span class="math inline">\(\tau\)</span> could my decision “flip” i.e.&nbsp;I would prefer <span class="math inline">\(Y_\tau\)</span> to <span class="math inline">\(X_\tau\)</span>.</p>
-<p>Another, very path-wise question, is about regret. Not the regret in amount of money that is usually considered by rather an integrated stochastic precedence: <span class="math display">\[
-\begin{equation*}
-    \int_{0}^T \log\Pr[X_s &gt; Y_s] \dd s
-\end{equation*}
-\]</span> In this sense you are really asking, over the betting period, do I prefer my option to the alternative for more of the time (the <span class="math inline">\(\log\)</span> is arbitrary, for instance to emphasize extremes). We can see this related to the log of the expected amount of time relative to <span class="math inline">\(T\)</span>, where we might define <span class="math display">\[
-\begin{equation*}
-    N_t(X,Y) = \lambda[s: X_s \ge Y_s, s\in [0,t]]
-\end{equation*}
-\]</span></p>
-<p>Similarly, the ratio mentioned before is a valid starting point with <span class="math display">\[
-\begin{equation*}
-    \int_{0}^T \log\pr{\frac{\Pr[X_s &gt; r]}{\Pr[Y_s &gt; r]}} \dd s
-\end{equation*}
-\]</span> Again, if <span class="math inline">\(r\)</span> is the point you get killed (or your kneecaps shattered) the primary point is that you choose the option where that doesn’t happen. This is answered more directly by comparing <span class="math display">\[
-\begin{equation*}
-  \Pr[\exists s : X_s &lt; r, s \in [0,t]]
-\end{equation*}
-\]</span> This can similarly be extended to curves <span class="math display">\[
-\begin{equation*}
-  \Pr[\exists s : X_s &lt; r_s, s \in [0,t]] = \Pr[\tau_{r_s} \in [0,t]]
-\end{equation*}
-\]</span> where <span class="math inline">\(\tau_{r_s}\)</span> identifies the the first hitting time of <span class="math inline">\(X_s\in (-\infty,r_s]\)</span> for curve <span class="math inline">\(r_s\)</span>. We can extend this to conditionals given current position, e.g., <span class="math display">\[
-\begin{equation*}
-  \Pr[\exists s : X_s &lt; r_s, s \in [u,t] | \tau_{r_s} &gt; u].
-\end{equation*}
-\]</span> Where you might get fired from your job for not meeting the required growth (maybe you work as a quant, and they’re not gonna keep you on unless you’re better than the S&amp;P).</p>
-<p>If we are worried about sailing on a barrel full of cement, clearly “ergodicity breaking”, this can also be extended to joint probabilities where we consider the time <span class="math display">\[
-\begin{equation*}
-    N_t(X,Y) = \lambda[s: X_s \ge Y_s, X_s \ge r_s, s\in [0,t]]
-\end{equation*}
-\]</span></p>
-</section>
-</section>
-<section id="ergodic-transform-in-finite-time" class="level2">
-<h2 class="anchored" data-anchor-id="ergodic-transform-in-finite-time">Ergodic Transform in Finite time</h2>
-<p>We will now consider the Ergodic transform under multiplicative dynamics on <span class="math inline">\(X_s\)</span> i.e.&nbsp;in probability as per Stochastic Precedence <span class="math display">\[
-\begin{align*}
-    \Pr[X_T &gt; Y_T] &amp;= \Pr[\frac{1}{T}\log (\frac{X_T}{X_0}) &gt; \frac{1}{T}\log (\frac{Y_T}{Y_0})] \\
-    &amp;= \Pr[\frac{1}{T}Z_T &gt; \frac{1}{T}W_T + \frac{1}{T}\log (\frac{y_0}{x_0})] \\
-    &amp;= \Pr[\bar{g}_{T}^{X} &gt; \bar{g}_{T}^{Y} + \frac{1}{T}\log (\frac{y_0}{x_0})] \\
-    &amp;\doteq \Pr[\bar{g}_{T}^{X} &gt; \bar{g}_{T}^{Y} + \gamma_T ]
-\end{align*}
-\]</span> what we see here is that we are once again comparing “relatively stable” processes, the average growth rate, and some bias attributed to the initial wealth.</p>
-<p>If <span class="math inline">\(X_s = Y_T\)</span>, the sign of <span class="math inline">\(\gamma_T\)</span> selects in probability the better process if we make our decision as whether</p>
-<p><span class="math display">\[
-\Pr[\bar{g}_{T}^{X} &gt; \bar{g}_{T}^{Y} + \gamma_T ] &gt; \frac{1}{2}
-\]</span></p>
-<p>or not.</p>
-</section>
-<section id="remarks" class="level2">
-<h2 class="anchored" data-anchor-id="remarks">Remarks</h2>
-<section id="first" class="level3">
-<h3 class="anchored" data-anchor-id="first">First</h3>
-<p>Quick first remark, remembering Birkhoff</p>
-<p><span class="math display">\[
-\mathbb{E}[f(X)] = \lim_{T\rightarrow \infty} \frac{1}{T} \int_{0}^{T} f(X_s)\dd s \quad \text{a.s.}
-\]</span></p>
-<p>note that I didn’t care what <span class="math inline">\(Z_t\)</span> or <span class="math inline">\(W_t\)</span> looked like, all I did was say it was Ergodic, not that it was a stationary independent increment Brownian motion with constant drift and diffusion as many papers have assumed for simplicity. No need for “niceness” like</p>
-<p><span class="math display">\[
-dX_s = a \dd s + b dB_t, \quad a,b \in \mathbb{R},
-\]</span></p>
-<p>this is just a very special case that makes calculations easy, and is actually quite restrictive.</p>
-</section>
-<section id="second" class="level3">
-<h3 class="anchored" data-anchor-id="second">Second</h3>
-<p>Second, AGRM in either case “nice” or not, is implied by Stochastic precedence. Consider once again</p>
-<p><span class="math display">\[
-\Pr[\bar{g}_{T}^{X} &gt; \bar{g}_{T}^{Y} + \gamma_T ]
-\]</span></p>
-<p>Birkhoff says that as the limit is in the almost sure sense we have that <span class="math display">\[
-\begin{align*}
-    \Pr[\lim_{T\rightarrow \infty}\{\bar{g}_{T}^{X} &gt; \bar{g}_{T}^{Y} + \gamma_T \}] &amp;= \Pr[\bar{g}_{\infty}^{X} &gt; \bar{g}_{\infty}^{Y}] \\
-    &amp;= \Pr[g_{X} &gt; g_{Y}] \in \{0,1\}
-\end{align*}
-\]</span></p>
-<p>the only worry one may have is when <span class="math inline">\(g_X = g_Y\)</span>, which is an infinite-time/limit issue that’s a great segway into the next section, ruin!</p>
-</section>
-</section>
-<section id="consequence-ruin-under-agrm-indistinguishably" class="level2">
+<p>whose whose rate increments <span class="math inline">\(\Delta Z_t\)</span> and <span class="math inline">\(\Delta W_t\)</span> are ergodic, with stationary increments, having time-averages in expectation <span class="math inline">\(g_X\)</span> and <span class="math inline">\(g_Y\)</span>, and where <span class="math inline">\(x_0\)</span> and <span class="math inline">\(y_0\)</span> are initial values of wealth.</p>
+<p>In the short time (I do not force you to play forever), the adminstrator of this game may be able to “grease the wheel” and bribe you into the worse long-run gamble with enough money out-front (<span class="math inline">\(x_0, y_0\)</span>). However Asymptotic Growth-Rate Maximization, shortened as AGRM, as would be the recommendation of applying Birkhoff, may give you the wrong answer under finite time horizons.</p>
+<section id="consequence-ruin-under-agrm-indistinguishably" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="consequence-ruin-under-agrm-indistinguishably">Consequence: Ruin under AGRM Indistinguishably</h2>
-<p>So, AGRM of course just shouldn’t be applied under ruin, or for finite time games. The second case is clear, but requires some further discussion (we do so below; theres no such thing as a finite time game, if the time that it ends isn’t your life - you have to go on living till you die with the result of the game). The first, while it gives you the “correct answer”, if you’re forced to play forever and all processes eventually kill you, choosing correctly is kind of a mute point.</p>
-<p>Say I give you two processes with random growth rate increments <span class="math display">\[
+<p>The premise for this section is simple: AGRM does not distinguish between differences in volatility subject to the same asymptotic growth-rate.<a href="#fn14" class="footnote-ref" id="fnref14" role="doc-noteref"><sup>14</sup></a> This is expressly do to the assumption of not finite time horizon; if you play forever, who cares as long as your wealth diverges to infinity. For now, I can see two work arounds, potentially in combination:</p>
+<div class="no-row-height column-margin column-container"><div id="fn14"><p><sup>14</sup>&nbsp;Say I give you two processes <span class="math inline">\(X_t=e^{r_X(t)}\)</span> and <span class="math inline">\(Y_t=e^{r_Y(t)}\)</span> with random growth rate increments <span class="math display">\[
 \begin{align}
-    r_X &amp;\sim \mathcal{N}(g,\sigma_X^2) \\
-    r_Y &amp;\sim \mathcal{N}(g,\sigma_Y^2)
+r_X(t) &amp;\sim \mathcal{N}(gt,t\sigma_X^2) \\
+r_Y(t) &amp;\sim \mathcal{N}(gt,t\sigma_Y^2).
 \end{align}
-\]</span> under the potential for ruin/absorbance at</p>
+\]</span></p></div></div><ol type="1">
+<li>Observe the actual physical time horizon.</li>
+<li>Observe absorbing states in association too, or caused by (lack) of wealth.</li>
+</ol>
+<p>The first should be clear, we die eventually even without input. The second is premised on the fact that for instance under most multiplicative games, there is no non-asymptotic absorbing state; under sufficiently poor growth rates you will be penniless (fractions-of-a-fraction of a penny) but, as modeled, will never die due to your wealth. Incorporating both is simply specifying a morbidity function <span class="math inline">\(Q(t,X_t)\)</span> (the literal survival function for time of death <span class="math inline">\(\tau\)</span>, that death <span class="math inline">\(Q(t,X_t)=\Pr[\tau&gt;t|X_t]\)</span>) which will depend on the current time and current wealth, which will dictate the probability of death at time <span class="math inline">\(t\)</span>.</p>
+<p>As a simplification we will for now consider that time alive is valuable without diminishing, and that we would like to maximize it as much as possible. If we wish later to make time less valuable, the clearest way to diminish the worth of time is to diminish the growth rate.<a href="#fn15" class="footnote-ref" id="fnref15" role="doc-noteref"><sup>15</sup></a></p>
+<div class="no-row-height column-margin column-container"><div id="fn15"><p><sup>15</sup>&nbsp;Less wealth accrued over time, means longer times below a certain level of wealth, leading to increased chance of death for instance.</p></div></div><p>The problem can therefore be phrase as “maximizing my growth rate for the longest time” which here we simplify as total growth. For a multiplicative gamble this is just</p>
 <p><span class="math display">\[
-W_t = 0
-\]</span> corresponding the the Gaussian process in the exponential, with <span class="math inline">\(e^{W_t}\)</span>.</p>
-<p>Then of <span class="math inline">\((Y_t,r_Y)\)</span> has a higher probability of ruin each time step due to its higher variance (deviation from a pure exponential growth). We observe that if <span class="math inline">\(g-\frac{1}{2}\sigma_{Y}^2 &lt; 0\)</span> and <span class="math inline">\(g-\frac{1}{2}\sigma_{X}^2 &gt; 0\)</span>, one can show that <span class="math inline">\(Y_t\downarrow 0\)</span> almost surely, while the same cannot be said for <span class="math inline">\(X_t\)</span>. In either case we can quite quickly, if <span class="math inline">\(\frac{\sigma_Y}{\sigma_X} \gg 1\)</span>, distinguish the two processes in the sense that</p>
-<p><span class="math display">\[
-\Pr[X_{t} &gt; Y_{t}] &gt; \frac{1}{2}.
+\arg\max\cbr{\log\pr{X_{\tau_1}^{(1)}},\ldots  \log\pr{X_{\tau_{m}}^{(m)}}}
+\]</span> where <span class="math inline">\(\tau_j\)</span> are determined themselves determined by the wealth process <span class="math inline">\(X_{t}^{(j)}\)</span> and the morbidity function <span class="math inline">\(Q(t,X_t^{(j)})\)</span>. If we are to parse <span class="math inline">\(\tau_j\)</span> in terms of expectation, then applying the law of total expectation (condition on the entire path <span class="math inline">\(X_t = x_t\)</span>)<a href="#fn16" class="footnote-ref" id="fnref16" role="doc-noteref"><sup>16</sup></a></p>
+<div class="no-row-height column-margin column-container"><div id="fn16"><p><sup>16</sup>&nbsp;This problem seems to be something we might deal with more directly via an optional stopping time for martingales.</p></div></div><p><span class="math display">\[
+\E[\tau_j] = \E\br{\int_0^\infty Q\pr{t,X_t^{(j)}}\dd t}
 \]</span></p>
 </section>
 </section>
-<section id="one-time-bets-living-with-the-consequences" class="level1">
-<h1>One-Time Bets: Living with the Consequences</h1>
-<p>This framework of Stochastic Precedence once again translates quite nicely into one time bets. In this section we need to consider the multiplicative growth process (absorbed at absolute 0, not just relative - you still don’t ever have “negative” wealth) where I force you to play or allow you to choose to bet at a given time, say <span class="math inline">\(\tau\)</span> on gamble <span class="math inline">\(G_\tau\)</span>. In the very silly case one looks at <span class="math display">\[
+<section id="one-time-bets-stochastic-precedence-is-trivial" class="level1">
+<h1>One-Time Bets: Stochastic precedence is trivial</h1>
+<p>We will consider one-time bets under linear and multiplicative growth. The important observation is that you must live with the outcome, and therefore the “game” doesn’t truly stop until one dies (a random, finite time horizon). At a time <span class="math inline">\(\tau\)</span>, you are allowed to choose opt-in to the game <span class="math inline">\(G_\tau\)</span>. In the multiplicative case, under the premise of stochastic precedence, we consider the time <span class="math inline">\(\tau\)</span> relation <span class="math display">\[
 \begin{align*}
-    \Pr[X_{\tau}^{G} &gt; X_\tau] \doteq \Pr[X_\tau G_\tau &gt; X_\tau]
+    \Pr[X_{\tau}^{G} &gt; X_\tau] \doteq \Pr[X_\tau G_\tau &gt; X_\tau],
 \end{align*}
 \]</span></p>
-<p>which is fine, you choose to play if its a favorable bet, but now realize that even after you cheated on your wife or went to the casino you have to go back to home and live under the old dynamics of wealth growth, so lets look at time <span class="math inline">\(X_{\tau + T}\)</span>. <span class="math display">\[
+<p>Clearly, choose to play if its a favorable bet, i.e.&nbsp;<span class="math inline">\(G_\tau\)</span> is likely greater than <span class="math inline">\(1\)</span>. This criteria does not change even when considering <span class="math inline">\(X_{\tau + T}\)</span>, <span class="math display">\[
 \begin{align*}
     \Pr[X_{\tau+T}^{G} &gt; X_{\tau +T}] &amp;\doteq \Pr[(X_\tau G_\tau)\frac{X_{\tau+T}}{X_\tau} &gt; X_{\tau+T}] \\
     &amp;= \Pr[ G_\tau&gt; 1]
 \end{align*}
-\]</span> so under multiplicative games, stochastic precedence in terms of taking a bet or not is just whether our money grows more than half the time. This seems like a fairly silly and obvious observation that does not consider much how much money I currently have in terms of how much more important the bet is. What is clear however is that, for most bets, for <span class="math inline">\(G_\tau\)</span> to be a viable bet greater than <span class="math inline">\(1\)</span>, this is easier done with a small initial stake (multiplicative bets are annoying in this way). Consider instead the additive and relative bet <span class="math display">\[
+\]</span> Essentially the same result will be true under any additive relation of the bet <span class="math display">\[
 \begin{align*}
     \Pr[X_{\tau+T}^{G} &gt; X_{\tau +T}]
     &amp;\doteq \Pr[(X_\tau + G_\tau)\frac{X_{\tau+T}}{X_\tau} &gt; X_{\tau+T}] \\
     &amp;= \Pr\br{\frac{X_\tau +G_\tau}{X_\tau}&gt;1} \\
     &amp;= \Pr\br{G_\tau&gt;0}
 \end{align*}
-\]</span> which at first seems relative to your current bank account at time <span class="math inline">\(\tau\)</span>, but is again also trivially a question of whether <span class="math inline">\(G_\tau\)</span> tends to be positive.</p>
+\]</span> where, though the decision at first appears relative to your current wealth at time time <span class="math inline">\(\tau\)</span>, it is again also trivially a question of whether <span class="math inline">\(G_\tau\)</span> tends to be positive.</p>
 <section id="years-gained-vs.-lost" class="level2">
 <h2 class="anchored" data-anchor-id="years-gained-vs.-lost">Years gained vs.&nbsp;lost</h2>
-<p>It’s therefore clear that a more comprehensive temporal analysis is needed. Relative to ones current life measure only through wealth is not descriptive. An author is the literature has mentioned measurement through “lost time” which seems rather interesting. Here we might ask how one judges years gained without just projecting the expected growth-rate (maybe enough?). Clearly this needs to be relative, judged as an inverse problem comparing years gained and lost <span class="math display">\[
+<p>It’s therefore clear that a more comprehensive temporal analysis is needed (this is based off an article whose name I have forgotten). The framing in this section will measure the bet relative to the current dynamics rather than independent of it. A framing for this is “gained/lost time” with respect to ones current wealth and wealth dynamics. Slightly confusing in this section will be the difference between expected and stochastic changes in wealth, and how a human percieves and makes these decisions when converted to time. Gained/lost years will be measured via the inverse problem of a bet <span class="math display">\[
 \begin{align*}
     X_{\tau}^G  
     &amp;= X_\tau + G_\tau \\
-    &amp;\doteq X_\tau + \int_{\tau}^{\sigma}\dd X_s
+    &amp;\doteq X_\tau + \int_{\tau}^{\sigma}\dd X_s = X_{\tau+\sigma}
 \end{align*}
 \]</span> where we need to identify <span class="math inline">\(\sigma\)</span> such that <span class="math display">\[
 \begin{align*}
    G_\tau
   &amp;\doteq \int_{\tau}^{\sigma}\dd X_s
 \end{align*}
-\]</span> and the distribution of <span class="math inline">\(\sigma\)</span>. The most real forms of <span class="math inline">\(X_s\)</span> can be decomposed into a linear and exponential component (cash/“unappreciating” assets, and investments). This is however not easy to invert in this case. In the exponential case, it is straightforward, where we might write <span class="math display">\[
+\]</span> and the distribution of <span class="math inline">\(\sigma\)</span>. The simplest dynamics for <span class="math inline">\(X_s\)</span> can be decomposed into a linear and exponential component (cash/“unappreciating” assets, and investments). For now, we will not deal with these simultaneously (in linear combination); mainly considering the latter case. In the exponential case, it is straightforward, where we might write <span class="math display">\[
 \begin{align*}
    \int_{\tau}^{\sigma}\dd X_s
    &amp;= X_\tau e^{\mu(\sigma -\tau) + \sqrt{\nu}(B_\sigma - B_\tau)} \\
@@ -638,102 +716,215 @@ W_t = 0
 \end{align*}
 \]</span></p>
 <p>Under strictly linear growth <span class="math inline">\(X_t = A t + \sqrt{\nu} B_t\)</span>, a comparable result can be derived.</p>
-</section>
-</section>
-<section id="ergodic-transforms-diffusion-processes" class="level1">
-<h1>Ergodic Transforms, Diffusion Processes</h1>
-<p>I would love to talk about Semi-Martingales in general here, but its a bit involved so for now lets say we consider growth-rates that are diffusion. A diffusion process is a process <span class="math inline">\(X_s\)</span> where</p>
+<!-- # Ergodic Transforms, Diffusion Processes -->
+<!-- I would love to talk about Semi-Martingales in general here, but its a bit involved so for now lets say we consider growth-rates that are diffusion. A diffusion process is a process $X_s$ where -->
+<!-- $$ -->
+<!-- dX_s = a(X_s) \dd s + b(X_s)dB_t -->
+<!-- $$ -->
+<!-- where now we allow the drift and diffusion to be a function of the current position. The Ergodic Transform generates increments under the transform $f$, $\Delta f(X_s)$, which are Ergodic. When it exists in the constant drift constant variance sense things are nice, but assuming it doesn't "exactly" is still fine. -->
+<!-- The simplest case one could come up with is just that these coefficients for drift and variance converge point-wise in time -->
+<!-- $$ -->
+<!-- \lim_{t\rightarrow \infty} (a(X_s), b(X_s)) = (\mu, \sigma) \quad a.s. -->
+<!-- $$ -->
+<!-- This is of course not in general required, as we can instead discuss "dominance" of the dynamics with respect to $T$, i.e. integrating and dividing the process by $T$ we have -->
+<!-- $$ -->
+<!-- \frac{1}{T} \int_{0}^{T} dX_s =  \frac{1}{T}X_0 + \frac{1}{T} \int_{0}^{T} a(X_s) \dd s + \frac{1}{T} \int_{0}^{T} b(X_s)dB_t -->
+<!-- $$ -->
+<!-- Then if we let $a = f$ as a nice relabeling to make things familiar to the notation of Birkhoff, we have -->
+<!-- $$ -->
+<!-- \frac{1}{T} \int_{0}^{T} f(X_s) \dd s = \frac{1}{T} (X_s - X_0) - \frac{1}{T} \int_{0}^{T} b(X_s)dB_t -->
+<!-- $$ -->
+<!-- which is literally subtracting the "noise" (diffusion part) from the "signal" (drift part). What we have here essentially says that as long as -->
+<!-- $$ -->
+<!-- \int_{0}^{T} b(X_s)dB_t = o(T) -->
+<!-- $$ -->
+<!-- i.e.[^gausserror] -->
+<!-- $$ -->
+<!-- \lim_{T\rightarrow \infty} \frac{1}{T}\int_{0}^{T} b(X_s)dB_t = 0, \quad a.s. -->
+<!-- $$ -->
+<!-- [^gausserror]:For instance with -->
+<!-- $$ -->
+<!-- \frac{1}{T}\int b(X_s)dB_t \sim \mathcal{N}\pr{0, \frac{1}{T^2}\int_{0}^{T}\mathbb{E}[b(X_s)^2]\dd s} -->
+<!-- $$ -->
+<!-- Then in the same sense as Birkhoff and we might write -->
+<!-- $$ -->
+<!-- \frac{1}{T} (X_s - X_0) \approx \frac{1}{T} \int f(X_s) \dd s + o_p(1) -->
+<!-- $$ -->
+<!-- i.e. looking at the time average in increments of -->
+<!-- $$ -->
+<!-- \frac{1}{T}X_s = \frac{1}{T}\sum \Delta X_s -->
+<!-- $$ -->
+<!-- is just leaves some mean-zero noise around the actual "growth rate". -->
+<!-- ## Oops, Wrong Transform! -->
+<!-- Now lets say me and my Watson brain, or the random participant in a study doesn't know whats going on, but takes an "educated" guess at the dynamics of the system (going on subconciously in decision making). Then if you allow me the simplification, me assume there truly is an Ergodic Transform. -->
+<!-- For instance consider the multiplicative process starting at $X_0 = 1$ with -->
+<!-- $$ -->
+<!-- X_s = e^{Z_t} -->
+<!-- $$ -->
+<!-- $$ -->
+<!-- d(\log(X_s)) = dZ_t =  \mu \dd s + \sigma dB_t -->
+<!-- $$ -->
+<!-- Instead of realizing this, us knuckleheads apply what we hoped was the linear transform -->
+<!-- $$ -->
+<!-- \mathcal{E}_\alpha (X_s) = \varepsilon_\alpha(\log (X_s)). -->
+<!-- $$ -->
+<!-- Then by It$\hat{\text{o}}$'s formula, -->
+<!-- $$ -->
+<!-- \begin{align*} -->
+<!--     d(\mathcal{E}_\alpha (X_s)) &= d( \varepsilon_\alpha (Z_t)) \\ -->
+<!--     &= \partial_x \varepsilon_\alpha (Z_t) dZ_t + \frac{1}{2} \partial_x^2 \varepsilon_\alpha (Z_t)d[Z,Z]_t \\ -->
+<!--     &= (\mu \partial_x \varepsilon_\alpha (Z_t) + \frac{\sigma^2}{2} \partial_x^2 \varepsilon_\alpha (Z_t))\dd s + \sigma  \partial_x \varepsilon_\alpha (Z_t) dB_t \\ -->
+<!--     &\doteq \mathcal{A}_z \varepsilon_\alpha (Z_t) \dd s + \mathcal{B}_z \varepsilon_\alpha (Z_t) dB_t -->
+<!-- \end{align*} -->
+<!-- $$ -->
+<!-- where to save space we write -->
+<!-- $$ -->
+<!-- \int_0^T \mathcal{A}_z \varepsilon_\alpha (Z_t) \dd s = \mathbf{A}_T (Z,\alpha) -->
+<!-- $$ -->
+<!-- and  -->
+<!-- $$ -->
+<!-- \int_0^T \mathcal{B}_z \varepsilon_\alpha (Z_t) dB_t = \mathbb{M}_T (Z,\alpha). -->
+<!-- $$ -->
+<!-- This is of course quite bad if $\mathcal{E}_\alpha$ is very far off $\log$. For a simple example lets compare this guessed process to the real one, in probability -->
+<!-- $$ -->
+<!-- \begin{align*} -->
+<!--     \Pr[\mathcal{E}_\alpha (X_s) > Z_t] &= \Pr[\mathbf{A}_t (Z,\alpha) + \mathbb{M}_t (Z,\alpha) > Z_t] \\ -->
+<!--     &= \Pr[\mathbf{A}_t (Z,\alpha) + \mathbb{M}_t (Z,\alpha) > \mu t + \sigma B_t] \\ -->
+<!--     &= \Pr[\mathbf{A}_t (Z,\alpha) - \mu t > \sigma B_t - \mathbb{M}_t (Z,\alpha)] -->
+<!-- \end{align*}. -->
+<!-- $$ -->
+<!-- The last line is written to suggest that the probability is dictated by "how much" the difference of the drifts is able to overwhelm the noisiness of the data from the diffusion term.  -->
+<!-- The problem is now two-fold, the drift can be out-of-wack because of the wrong transform was applied, which leads to rapid increase/decrease in the difference, driving the probability to 1/0. -->
+<!-- This would indicate that you feel much better/worse about the processes than you actually should. The same is true for the noise, but more so as it effects the clarity of your perception of reality. -->
+<!-- Interesting here is that because of the flexibility you can thing of $(\mathbf{A}_t,\mathbf{B}_t)$ as the participant themselves estimating the drift and diffusion over time, which is an interesting premise to explore especially if you force the participant/gambler to play a game at finite times for a process that in reality is continuous in time (they estimate over increments! $\implies x^{1/t}$ instead of $\log(x)$?). -->
+<!-- ## Martingales -->
+<!-- I just wanted to reiterate that this can be discussed in more generality, I wrote -->
+<!-- $$ -->
+<!-- \mathcal{E}_\alpha (X_s) = \mathbf{A}_t (Z,\alpha) + \mathbb{M}_t (Z,\alpha) -->
+<!-- $$ -->
+<!-- for a reason, the RHS is just how one would write a Semi-Martingale (plus some bits and bobs that are missing in this specific case), more generally the above is the Doob Decomposition of the process $\mathcal{E}_\alpha (X_s)$ -->
+<!-- Also very important to mention is that now that we've focused on Ergodic process with Martingale parts, there are many neat tricks for doing calculations (Optional Stopping, Martingale Convergence, Feynman-Kac/Dynkins Formula, etc). -->
+<!-- I also would like to note, that an "ergodic transform", is often the equivalent in quantitative finance to a "linearization" as associated to risk-neutral measure. -->
+<!-- # Ranting and other unthoughtful nonsense -->
+<!-- , and even processes that are "Ergodicity breaking" such as dynamics under ruin. -->
+<!-- We do not live forever, and our enviroments are changing, so asymptotic properties though pleasant may not always be physically meaningful. -->
+<!-- This suffers the same problem of assuming "market equilibrium" and "uniform free-trade". -->
+<!-- For ergodicity, this assumption is replaced by path-wise stationarity, and infinite time horizons. -->
+<!-- It will assume that the forward process $T_s$ is more or less stable, and that "people" do not "meaningfully die". -->
+<!-- Both these assumptions are more or less ridiculous, but can be assuaged by approximation: (1) for how long is our process "essentially ergodic"? (2) when making decisions, how does finite time horizon (an "ergodicity-breaking" event; death) pressure individuals to not make "ergodicity optimal" decision? (3) in light of this, what estimates are useful non-asymptotically? (3i) how do we measure approximate ergodicity, in the sense that our estimates are useful in practice? -->
+<!-- The main mathematical problem, which I dedicated the above discussion to, was reference for applying Birkhoff's Theorem where some lack of mathematical background seems to have lead some researchers to treating most cases as special cases, sometimes without scrutinizing the inherent problems. This left some feeling that they needed to extend the "theory that is Ergodicity Economics" without practically identifying what needs extension, and whether the current lack of extention might be ignorance of the literature, where I believe we can, through formal treatment, make informed inference based on its foundation, Ergodic Theory. -->
+<!-- I have also been particularly concerned with the precedence of Asymptotic Growth-Rate Maximization, where the decision theory element of EE boils down to selecting the process with the larger expected growth rate, rather than analyzing the non-asymptotic behavior, and the path-wise dynamics at a finer level.  -->
+<!-- Recognizing the benefit of ergodicity is important, again identifying that we may transfer learning from the ensemble to the individual throughout their life, but there are important questions to be had about how quickly mixing occurs (how quickly this ergodicity actual matters to decsions by/for the particular individual).  -->
+<!-- The behavioral element is clear: people make decisions within the dynamics of their environment/existence. What isn't clear is how reasonable asymptotic dynamics are useful in a finite life, and whether humans differentiate the two. What would be interesting here is to allow for mixtures of finite time horizons (random absorption times). Here, conditional on non-absorption, a process may be ergodic (there is the problem of sampling bias; we do not sample the dead to ask how the living are doing, though maybe we sometimes should). Here we should ask whether the mixing time is amenable to the time horizion, so as to judge whether decisions based on substitution of ensemble for time are appropriates; whether we judge our system to be approximately ergodic away from our shelf life. This would potentially connect the many differences in decision making for young people compared to old. -->
+<!-- The measure of what is "better-off" has been the primary debate in econcomics leading to utility theory. Standard Ergodicity Economics indicates that a better choice is "long-run growth", a path-wise focus that is tied to an individual rather than a population (if not aggregated and measured over time of course). While this makes many problems more coherent (especially with established results in quantitative finance), it is not clear that it is always an apt description - if I die, what then? - should I not want to die? - should I want others to inherit my riches? - is my goal to make the financial most of myself over my limited time? Each suffers the capitalist imperative that money *is* life, and fails to measure the human. Some work has been done identifying public good as the as a mode consistent with long-run growth (betterment). Similarly the EE framework has been used to demonstrate that cooperation in classical economic examples (one-time bets) which do not admit cooperative equilibrium, by forcing the game to continue. Mathematically this are quite interesting, but anthropologically, it is clear that forcing people to have to live with each other under regulations (rules) admits cooperation; economists would likely even argue that slaves live in cooperation with there masters if not given the means (legislative [rules] or otherwise) to overthrow them. -->
+<!-- In any case, many of these cooperative games are often still quite weird, as they focus on corporations (monsters who are premised with a goal of living forever, or causing as much economic turbulence as possible in their demise), or strictly on organizations of public good (who have the actual incentive to be and do good). -->
+<!-- This is besides the point, but in all honesty, I would like to see a reasonable economic scenario authentic enough to allow for murder. -->
+<!-- ### Problems/Alternatives to stochastic precedence -->
+<!-- There are some problems with stochastic precedence, where preferred processes under the probablistic criteria and not inherited (i.e, $X_s \gg Y_s$, $Y_s \gg Z_s$, but $Z_s \gg X_s$), but I think there is a meaningful extension to integrated probabilities and likelihood ratios. -->
+<!-- We will talk about this later, but you always have a choice to not play the game offered (even if we break your shins because of it). -->
+<!-- Assuming for simplicity that you can go on living your own life, or opt into the game, a simplified premise is that your choice is relative to your current position $N_s$ not to transitions between positions; e.g., "how much better does $X_s$ make me better off compared to $N_s$, and is this more than $Y_s$ makes than $N_s$?". There are problems here too but it is an idea. -->
+<!-- Here we can also ask, for what time $\tau$ could my decision "flip" i.e. I would prefer $Y_\tau$ to $X_\tau$. -->
+<!-- Another, very path-wise question, is about regret. Not the regret in amount of money that is usually considered by rather an integrated stochastic precedence: -->
+<!-- $$ -->
+<!-- \begin{equation*} -->
+<!--     \int_{0}^T \log\Pr[X_s > Y_s] \dd s -->
+<!-- \end{equation*} -->
+<!-- $$ -->
+<!-- In this sense you are really asking, over the betting period, do I prefer my option to the alternative for more of the time (the $\log$ is arbitrary, for instance to emphasize extremes). -->
+<!-- We can see this related to the log of the expected amount of time relative to $T$, where we might define  -->
+<!-- $$ -->
+<!-- \begin{equation*} -->
+<!--     N_t(X,Y) = \lambda[s: X_s \ge Y_s, s\in [0,t]] -->
+<!-- \end{equation*} -->
+<!-- $$ -->
+<!-- Similarly, the ratio mentioned before is a valid starting point with -->
+<!-- $$ -->
+<!-- \begin{equation*} -->
+<!--     \int_{0}^T \log\pr{\frac{\Pr[X_s > r]}{\Pr[Y_s > r]}} \dd s -->
+<!-- \end{equation*} -->
+<!-- $$ -->
+<!-- Again, if $r$ is the point you get killed (or your kneecaps shattered) the primary point is that you choose the option where that doesn't happen. -->
+<!-- This is answered more directly by comparing -->
+<!-- $$ -->
+<!-- \begin{equation*} -->
+<!--   \Pr[\exists s : X_s < r, s \in [0,t]] -->
+<!-- \end{equation*} -->
+<!-- $$ -->
+<!-- This can similarly be extended to curves -->
+<!-- $$ -->
+<!-- \begin{equation*} -->
+<!--   \Pr[\exists s : X_s < r_s, s \in [0,t]] = \Pr[\tau_{r_s} \in [0,t]] -->
+<!-- \end{equation*} -->
+<!-- $$ -->
+<!-- where $\tau_{r_s}$ identifies the the first hitting time of $X_s\in (-\infty,r_s]$ for curve $r_s$. -->
+<!-- We can extend this to conditionals given current position, e.g., -->
+<!-- $$ -->
+<!-- \begin{equation*} -->
+<!--   \Pr[\exists s : X_s < r_s, s \in [u,t] | \tau_{r_s} > u]. -->
+<!-- \end{equation*} -->
+<!-- $$ -->
+<!-- Where you might get fired from your job for not meeting the required growth (maybe you work as a quant, and they're not gonna keep you on unless you're better than the S&P). -->
+<!-- If we are worried about sailing on a barrel full of cement, clearly "ergodicity breaking", this can also be extended to joint probabilities where we consider the time -->
+<!-- $$ -->
+<!-- \begin{equation*} -->
+<!--     N_t(X,Y) = \lambda[s: X_s \ge Y_s, X_s \ge r_s, s\in [0,t]] -->
+<!-- \end{equation*} -->
+<!-- $$ -->
+<!-- ## Ergodic Transform in Finite time -->
+<!-- We will now consider the Ergodic transform under multiplicative dynamics on $X_s$ i.e. in probability as per Stochastic Precedence -->
+<!-- $$ -->
+<!-- \begin{align*} -->
+<!--     \Pr[X_T > Y_T] &= \Pr[\frac{1}{T}\log (\frac{X_T}{X_0}) > \frac{1}{T}\log (\frac{Y_T}{Y_0})] \\ -->
+<!--     &= \Pr[\frac{1}{T}Z_T > \frac{1}{T}W_T + \frac{1}{T}\log (\frac{y_0}{x_0})] \\ -->
+<!--     &= \Pr[\bar{g}_{T}^{X} > \bar{g}_{T}^{Y} + \frac{1}{T}\log (\frac{y_0}{x_0})] \\ -->
+<!--     &\doteq \Pr[\bar{g}_{T}^{X} > \bar{g}_{T}^{Y} + \gamma_T ] -->
+<!-- \end{align*} -->
+<!-- $$ -->
+<!-- what we see here is that we are once again comparing "relatively stable" processes, the average growth rate, and some bias attributed to the initial wealth.  -->
+<!-- If $X_s = Y_T$, the sign of $\gamma_T$ selects in probability the better process if we make our decision as whether -->
 <p><span class="math display">\[
-dX_s = a(X_s) \dd s + b(X_s)dB_t
+\Pr[\bar{g}_{T}^{X} &gt; \bar{g}_{T}^{Y} + \gamma_T ] &gt; \frac{1}{2}
 \]</span></p>
-<p>where now we allow the drift and diffusion to be a function of the current position. The Ergodic Transform generates increments under the transform <span class="math inline">\(f\)</span>, <span class="math inline">\(\Delta f(X_s)\)</span>, which are Ergodic. When it exists in the constant drift constant variance sense things are nice, but assuming it doesn’t “exactly” is still fine.</p>
-<p>The simplest case one could come up with is just that these coefficients for drift and variance converge point-wise in time</p>
-<p><span class="math display">\[
-\lim_{t\rightarrow \infty} (a(X_s), b(X_s)) = (\mu, \sigma) \quad a.s.
-\]</span></p>
-<p>This is of course not in general required, as we can instead discuss “dominance” of the dynamics with respect to <span class="math inline">\(T\)</span>, i.e.&nbsp;integrating and dividing the process by <span class="math inline">\(T\)</span> we have</p>
-<p><span class="math display">\[
-\frac{1}{T} \int_{0}^{T} dX_s =  \frac{1}{T}X_0 + \frac{1}{T} \int_{0}^{T} a(X_s) \dd s + \frac{1}{T} \int_{0}^{T} b(X_s)dB_t
-\]</span></p>
-<p>Then if we let <span class="math inline">\(a = f\)</span> as a nice relabeling to make things familiar to the notation of Birkhoff, we have</p>
-<p><span class="math display">\[
-\frac{1}{T} \int_{0}^{T} f(X_s) \dd s = \frac{1}{T} (X_s - X_0) - \frac{1}{T} \int_{0}^{T} b(X_s)dB_t
-\]</span></p>
-<p>which is literally subtracting the “noise” (diffusion part) from the “signal” (drift part). What we have here essentially says that as long as</p>
-<p><span class="math display">\[
-\int_{0}^{T} b(X_s)dB_t = o(T)
-\]</span></p>
-<p>i.e.[^gauss_error]</p>
-<p><span class="math display">\[
-\lim_{T\rightarrow \infty} \frac{1}{T}\int_{0}^{T} b(X_s)dB_t = 0, \quad a.s.
-\]</span></p>
-<p><span class="math display">\[
-\frac{1}{T}\int b(X_s)dB_t \sim \mathcal{N}\pr{0, \frac{1}{T^2}\int_{0}^{T}\mathbb{E}[b(X_s)^2]\dd s}
-\]</span></p>
-<p>Then in the same sense as Birkhoff and we might write</p>
-<p><span class="math display">\[
-\frac{1}{T} (X_s - X_0) \approx \frac{1}{T} \int f(X_s) \dd s + o_p(1)
-\]</span></p>
-<p>i.e.&nbsp;looking at the time average in increments of</p>
-<p><span class="math display">\[
-\frac{1}{T}X_s = \frac{1}{T}\sum \Delta X_s
-\]</span></p>
-<p>is just leaves some mean-zero noise around the actual “growth rate”.</p>
-<section id="oops-wrong-transform" class="level2">
-<h2 class="anchored" data-anchor-id="oops-wrong-transform">Oops, Wrong Transform!</h2>
-<p>Now lets say me and my Watson brain, or the random participant in a study doesn’t know whats going on, but takes an “educated” guess at the dynamics of the system (going on subconciously in decision making). Then if you allow me the simplification, me assume there truly is an Ergodic Transform. For instance consider the multiplicative process starting at <span class="math inline">\(X_0 = 1\)</span> with</p>
-<p><span class="math display">\[
-X_s = e^{Z_t}
-\]</span></p>
-<p><span class="math display">\[
-d(\log(X_s)) = dZ_t =  \mu \dd s + \sigma dB_t
-\]</span></p>
-<p>Instead of realizing this, us knuckleheads apply what we hoped was the linear transform</p>
-<p><span class="math display">\[
-\mathcal{E}_\alpha (X_s) = \varepsilon_\alpha(\log (X_s)).
-\]</span></p>
-<p>Then by It<span class="math inline">\(\hat{\text{o}}\)</span>’s formula, <span class="math display">\[
-\begin{align*}
-    d(\mathcal{E}_\alpha (X_s)) &amp;= d( \varepsilon_\alpha (Z_t)) \\
-    &amp;= \partial_x \varepsilon_\alpha (Z_t) dZ_t + \frac{1}{2} \partial_x^2 \varepsilon_\alpha (Z_t)d[Z,Z]_t \\
-    &amp;= (\mu \partial_x \varepsilon_\alpha (Z_t) + \frac{\sigma^2}{2} \partial_x^2 \varepsilon_\alpha (Z_t))\dd s + \sigma  \partial_x \varepsilon_\alpha (Z_t) dB_t \\
-    &amp;\doteq \mathcal{A}_z \varepsilon_\alpha (Z_t) \dd s + \mathcal{B}_z \varepsilon_\alpha (Z_t) dB_t
-\end{align*}
-\]</span></p>
-<p>where to save space we write</p>
-<p><span class="math display">\[
-\int_0^T \mathcal{A}_z \varepsilon_\alpha (Z_t) \dd s = \mathbf{A}_T (Z,\alpha)
-\]</span></p>
-<p>and</p>
-<p><span class="math display">\[
-\int_0^T \mathcal{B}_z \varepsilon_\alpha (Z_t) dB_t = \mathbb{M}_T (Z,\alpha).
-\]</span></p>
-<p>This is of course quite bad if <span class="math inline">\(\mathcal{E}_\alpha\)</span> is very far off <span class="math inline">\(\log\)</span>. For a simple example lets compare this guessed process to the real one, in probability <span class="math display">\[
-\begin{align*}
-    \Pr[\mathcal{E}_\alpha (X_s) &gt; Z_t] &amp;= \Pr[\mathbf{A}_t (Z,\alpha) + \mathbb{M}_t (Z,\alpha) &gt; Z_t] \\
-    &amp;= \Pr[\mathbf{A}_t (Z,\alpha) + \mathbb{M}_t (Z,\alpha) &gt; \mu t + \sigma B_t] \\
-    &amp;= \Pr[\mathbf{A}_t (Z,\alpha) - \mu t &gt; \sigma B_t - \mathbb{M}_t (Z,\alpha)]
-\end{align*}.
-\]</span> The last line is written to suggest that the probability is dictated by “how much” the difference of the drifts is able to overwhelm the noisiness of the data from the diffusion term.</p>
-<p>The problem is now two-fold, the drift can be out-of-wack because of the wrong transform was applied, which leads to rapid increase/decrease in the difference, driving the probability to 1/0. This would indicate that you feel much better/worse about the processes than you actually should. The same is true for the noise, but more so as it effects the clarity of your perception of reality.</p>
-<p>Interesting here is that because of the flexibility you can thing of <span class="math inline">\((\mathbf{A}_t,\mathbf{B}_t)\)</span> as the participant themselves estimating the drift and diffusion over time, which is an interesting premise to explore especially if you force the participant/gambler to play a game at finite times for a process that in reality is continuous in time (they estimate over increments! <span class="math inline">\(\implies x^{1/t}\)</span> instead of <span class="math inline">\(\log(x)\)</span>?).</p>
-</section>
-<section id="martingales" class="level2">
-<h2 class="anchored" data-anchor-id="martingales">Martingales</h2>
-<p>I just wanted to reiterate that this can be discussed in more generality, I wrote</p>
-<p><span class="math display">\[
-\mathcal{E}_\alpha (X_s) = \mathbf{A}_t (Z,\alpha) + \mathbb{M}_t (Z,\alpha)
-\]</span></p>
-<p>for a reason, the RHS is just how one would write a Semi-Martingale (plus some bits and bobs that are missing in this specific case), more generally the above is the Doob Decomposition of the process <span class="math inline">\(\mathcal{E}_\alpha (X_s)\)</span></p>
-<p>Also very important to mention is that now that we’ve focused on Ergodic process with Martingale parts, there are many neat tricks for doing calculations (Optional Stopping, Martingale Convergence, Feynman-Kac/Dynkins Formula, etc).</p>
-<p>I also would like to note, that an “ergodic transform”, is often the equivalent in quantitative finance to a “linearization” as associated to risk-neutral measure.</p>
+<p>or not.</p>
+<!-- ## Remarks -->
+<!-- ### First -->
+<!-- Quick first remark, remembering Birkhoff -->
+<!-- $$ -->
+<!-- \mathbb{E}[f(X)] = \lim_{T\rightarrow \infty} \frac{1}{T} \int_{0}^{T} f(X_s)\dd s \quad \text{a.s.} -->
+<!-- $$ -->
+<!-- note that I didn't care what $Z_t$ or $W_t$ looked like, all I did was say it was Ergodic, not that it was a stationary independent increment Brownian motion with constant drift and diffusion as many papers have assumed for simplicity. No need for "niceness" like -->
+<!-- $$ -->
+<!-- dX_s = a \dd s + b dB_t, \quad a,b \in \mathbb{R}, -->
+<!-- $$ -->
+<!-- this is just a very special case that makes calculations easy, and is actually quite restrictive. -->
+<!-- ### Second -->
+<!-- Second, AGRM in either case "nice" or not, is implied by Stochastic precedence. Consider once again -->
+<!-- $$ -->
+<!-- \Pr[\bar{g}_{T}^{X} > \bar{g}_{T}^{Y} + \gamma_T ] -->
+<!-- $$ -->
+<!-- Birkhoff says that as the limit is in the almost sure sense we have that -->
+<!-- $$ -->
+<!-- \begin{align*} -->
+<!--     \Pr[\lim_{T\rightarrow \infty}\{\bar{g}_{T}^{X} > \bar{g}_{T}^{Y} + \gamma_T \}] &= \Pr[\bar{g}_{\infty}^{X} > \bar{g}_{\infty}^{Y}] \\ -->
+<!--     &= \Pr[g_{X} > g_{Y}] \in \{0,1\} -->
+<!-- \end{align*} -->
+<!-- $$ -->
+<!-- the only worry one may have is when $g_X = g_Y$, which is an infinite-time/limit issue that's a great segway into the next section, ruin! -->
 
 
+
 </section>
 </section>
 
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-Geyer1992" class="csl-entry" role="listitem">
+Geyer, Charles J. 1992. <span>“<span>Practical Markov Chain Monte Carlo</span>.”</span> <em>Statistical Science</em> 7 (4): 473–83. <a href="https://doi.org/10.1214/ss/1177011137">https://doi.org/10.1214/ss/1177011137</a>.
+</div>
+<div id="ref-Lezaud1998" class="csl-entry" role="listitem">
+Lezaud, Pascal. 1998. <span>“<span class="nocase">Chernoff-type bound for finite Markov chains</span>.”</span> <em>The Annals of Applied Probability</em> 8 (3): 849–67. <a href="https://doi.org/10.1214/aoap/1028903453">https://doi.org/10.1214/aoap/1028903453</a>.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";

@@ -1,5 +1,6 @@
 ---
 title: "About Me"
+author: "N. R. Aviles"
 about:
   template: trestles
   # image: profile.jpg  (Uncomment if you add a profile image)

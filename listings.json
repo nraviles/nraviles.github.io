@@ -1,6 +1,6 @@
 [
   {
-    "listing": "/notes.html",
+    "listing": "/index.html",
     "items": [
       "/posts/Analysis/notes-ergodicityeconomics.html",
       "/posts/Analysis/notes-testing_dynamics.html",
@@ -10,7 +10,7 @@
     ]
   },
   {
-    "listing": "/index.html",
+    "listing": "/notes.html",
     "items": [
       "/posts/Analysis/notes-ergodicityeconomics.html",
       "/posts/Analysis/notes-testing_dynamics.html",

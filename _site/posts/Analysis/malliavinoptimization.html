@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Your Name">
+<meta name="dcterms.date" content="2026-10-09">
+
+<title>Summary: Notes on SDE Constrained Optimization – The Tilted Windmill</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-172ba59bd5e0b52282274ba0c0cc16fc.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="floating nav-fixed slimcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">The Tilted Windmill</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../notes.html"> 
+<span class="menu-text">Notes &amp; Blog</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Summary: Notes on SDE Constrained Optimization</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">Stochastic Calculus</div>
+                <div class="quarto-category">Optimization</div>
+                <div class="quarto-category">Malliavin Calculus</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Your Name </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">October 9, 2026</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  <div>
+    <div class="abstract">
+      <div class="block-title">Abstract</div>
+      An exploration of concepts in SDE-constrained optimization, covering functional variations of diffusions, Malliavin calculus, Skorohod integration, Wick products, and Wasserstein gradient flows.
+    </div>
+  </div>
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
+  <ul class="collapse">
+  <li><a href="#initial-example-and-calculations" id="toc-initial-example-and-calculations" class="nav-link" data-scroll-target="#initial-example-and-calculations">Initial Example and Calculations</a>
+  <ul class="collapse">
+  <li><a href="#polynomial-hermite-expansions" id="toc-polynomial-hermite-expansions" class="nav-link" data-scroll-target="#polynomial-hermite-expansions">Polynomial &amp; Hermite Expansions</a></li>
+  </ul></li>
+  <li><a href="#geometric-and-manifold-considerations" id="toc-geometric-and-manifold-considerations" class="nav-link" data-scroll-target="#geometric-and-manifold-considerations">Geometric and Manifold Considerations</a></li>
+  </ul></li>
+  <li><a href="#explorations-in-parametric-wasserstein-flows" id="toc-explorations-in-parametric-wasserstein-flows" class="nav-link" data-scroll-target="#explorations-in-parametric-wasserstein-flows">Explorations in Parametric &amp; Wasserstein Flows</a>
+  <ul class="collapse">
+  <li><a href="#parametric-perturbations" id="toc-parametric-perturbations" class="nav-link" data-scroll-target="#parametric-perturbations">Parametric Perturbations</a></li>
+  </ul></li>
+  <li><a href="#mathematical-foundations" id="toc-mathematical-foundations" class="nav-link" data-scroll-target="#mathematical-foundations">Mathematical Foundations</a>
+  <ul class="collapse">
+  <li><a href="#malliavin-operators-on-wiener-space" id="toc-malliavin-operators-on-wiener-space" class="nav-link" data-scroll-target="#malliavin-operators-on-wiener-space">Malliavin Operators on Wiener Space</a></li>
+  <li><a href="#chaos-expansions-wick-calculus" id="toc-chaos-expansions-wick-calculus" class="nav-link" data-scroll-target="#chaos-expansions-wick-calculus">Chaos Expansions &amp; Wick Calculus</a></li>
+  </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block page-columns page-full" id="quarto-document-content">
+<div style="display:none;">
+
+$$
+
+% Common Math Sets &amp; Operators
+
+\newcommand{\R}{\mathbb{R}}
+
+\newcommand{\C}{\mathbb{C}}
+
+\newcommand{\N}{\mathbb{N}}
+
+\newcommand{\Z}{\mathbb{Z}}
+
+\newcommand{\Q}{\mathbb{Q}}
+
+
+
+% Blackboard Bold
+
+\newcommand{\bbE}{\mathbb{E}}
+
+\newcommand{\bbI}{\mathbb{I}}
+
+\newcommand{\bbP}{\mathbb{P}}
+
+\newcommand{\bbZ}{\mathbb{Z}}
+
+\newcommand{\bbQ}{\mathbb{Q}}
+
+\newcommand{\Fbar}{\Bar{F}}
+
+
+
+% Calligraphic
+
+\newcommand{\calC}{\mathcal{C}}
+
+\newcommand{\calF}{\mathcal{F}}
+
+\newcommand{\calG}{\mathcal{G}}
+
+\newcommand{\calK}{\mathcal{K}}
+
+\newcommand{\calL}{\mathcal{L}}
+
+\newcommand{\calR}{\mathcal{R}}
+
+\newcommand{\calS}{\mathcal{S}}
+
+\newcommand{\SR}{\mathcal{SR}}
+
+\newcommand{\mcE}{\mathcal{E}}
+
+
+
+% Accents &amp; Overlines
+
+\newcommand{\fhat}{\widehat{f}}
+
+\newcommand{\Fbar}{\bar{F}}
+
+\newcommand{\Bhat}{\widehat{B}}
+
+\newcommand{\muhat}{\widehat{\mu}}
+
+\newcommand{\mub}{\mu_{\bullet}}
+
+\newcommand{\nub}{\nu_{\bullet}}
+
+\newcommand{\tu}{\Tilde{u}}
+
+\newcommand{\tbeta}{\Tilde{\beta}}
+
+\newcommand{\Phistar}{{\Phi^\star}}
+
+\newcommand{\Omegastar}{\Omega^\star}
+
+\newcommand{\Ctilde}{\tilde{C}}
+
+\newcommand{\bA}{\mathbf{A}}
+
+
+
+% Relations &amp; Convergence
+
+\newcommand{\deq}{\stackrel{d}{=}}
+
+\newcommand{\dsim}{\stackrel{d}{\sim}}
+
+\newcommand{\pto}{\stackrel{p}{\rightarrow}}
+
+\newcommand{\iid}{\stackrel{\text{iid}}{\sim}}
+
+\newcommand{\tell}{\Tilde{\ell}}
+
+\newcommand{\tmu}{\Tilde{\mu}}
+
+\newcommand{\tnu}{\Tilde{\nu}}
+
+\newcommand{\tg}{\Tilde{g}}
+
+\newcommand{\ex}{\operatorname{ex}}
+
+\newcommand{\ind}{\perp\!\!\!\!\perp}
+
+
+
+% Delimiters &amp; Paired Brackets
+
+\newcommand{\pr}[1]{\left( #1 \right)}
+
+\newcommand{\br}[1]{\left[ #1 \right]}
+
+\newcommand{\cbr}[1]{\left\{ #1 \right\}}
+
+\newcommand{\brZ}[1]{\left[ #1 \right]_{\Z}}
+
+\newcommand{\inp}[2]{\left\langle #1, #2 \right\rangle}
+
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+\newcommand{\abs}[1]{\left\lvert#1\right\rvert}
+
+\newcommand{\inner}[2]{\left\langle #1, #2 \right\rangle}
+
+
+
+% Math Operators
+
+\DeclareMathOperator{\E}{\mathbb{E}}
+
+\DeclareMathOperator{\V}{\mathbb{V}}
+
+\DeclareMathOperator{\Gibbs}{Gibbs}
+
+\DeclareMathOperator{\Mult}{Mult}
+
+\DeclareMathOperator{\Pois}{Pois}
+
+\DeclareMathOperator{\End}{End}
+
+\DeclareMathOperator{\Aut}{Aut}
+
+\DeclareMathOperator{\Span}{span}
+
+\DeclareMathOperator{\Spec}{Spec}
+
+
+
+\newcommand{\dd}{\mathrm{d}}
+
+$$
+
+</div>
+
+
+
+
+
+<section id="introduction" class="level1 page-columns page-full">
+<h1>Introduction</h1>
+<p>This is simply just a summary of the (likely annoyingly) long, similarly titled, notes.</p>
+<section id="initial-example-and-calculations" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="initial-example-and-calculations">Initial Example and Calculations</h2>
+<p>To illustrate the framework, consider approximating a target process such as Brownian motion <span class="math inline">\(W_t\)</span> over a time horizon <span class="math inline">\([0, T]\)</span>. Define the objective functional:</p>
+<p><span class="math display">\[
+\mathcal{J}[X(\sigma)] = \mathbb{E}\left[\int_0^T (W_t^2 - X_t)^2 \mathrm{d}t\right]
+\]</span></p>
+<p>which measures the expected squared deviation between <span class="math inline">\(X_t\)</span> and the path <span class="math inline">\(W_t^2\)</span>.</p>
+<p>Suppose <span class="math inline">\(X_t\)</span> belongs to a class of pure diffusion processes:</p>
+<p><span class="math display">\[
+X_t = X_0 + \int_0^t \sigma(s,X_s) \mathrm{d}W_s
+\]</span></p>
+<p>We examine the first variation <span class="math inline">\(\delta \mathcal{J}\)</span> under a perturbation <span class="math inline">\(\sigma \mapsto \sigma + \varepsilon \gamma\)</span>, where <span class="math inline">\(\gamma_t\)</span> is a suitably regular stochastic process vanishing on boundaries:</p>
+<p><span class="math display">\[
+\begin{align*}
+    \delta \mathcal{J}[X(\sigma)] &amp;= \lim_{\varepsilon \rightarrow 0}\frac{1}{\varepsilon}\left(\mathbb{E}\left[\int_0^T (W_t^2 - X_t + \varepsilon \tilde{X}_t)^2 \mathrm{d}t\right] - \mathbb{E}\left[\int_0^T (W_t^2 - X_t)^2 \mathrm{d}t\right] \right) \\
+    &amp;= \mathbb{E}\left[ \int_0^T 2(W_t^2 - X_t)\tilde{X}_t \mathrm{d}t \right]
+\end{align*}
+\]</span></p>
+<p>Expanding the variation process <span class="math inline">\(\tilde{X}_t\)</span>:</p>
+<p><span class="math display">\[
+\delta \mathcal{J}[X(\sigma)] = \mathbb{E}\left[ \int_0^T 2(W_t^2 - X_t) \left(\int_0^t \gamma(s,X_s) \mathrm{d}W_s \right) \mathrm{d}t \right]
+\]</span></p>
+<p>To express this variation as an inner product, we introduce the Skorohod integral operator <span class="math inline">\(\delta(\cdot)\)</span>, formally written using white noise <span class="math inline">\(\dot{W}_s\)</span> and Wick product <span class="math inline">\(\diamond\)</span> <span class="citation" data-cites="GO">(<a href="#ref-GO" role="doc-biblioref">Gjessing et al. 1992</a>)</span>:</p>
+<p><span class="math display">\[
+\delta(\cdot) = \int_0^T (\cdot)\diamond \dot{W}_s \mathrm{d}s = \int_0^T (\cdot) \mathrm{d}W_s
+\]</span></p>
+<p>Using the Malliavin integration-by-parts duality under Gaussian measure <span class="citation" data-cites="NU">(<a href="#ref-NU" role="doc-biblioref">Nualart 2019</a>)</span>:</p>
+<p><span class="math display">\[
+\mathbb{E}\left[ F \cdot \delta(u) \right] = \mathbb{E}\left[ \int_0^T (\mathbf{D}_s F) u_s \mathrm{d}s \right] = \mathbb{E}\left[ \langle\mathbf{D}_s F, u \rangle_{[0,T]} \right]
+\]</span></p>
+<p>where <span class="math inline">\(\mathbf{D}_s\)</span> denotes the Malliavin derivative operator. Differentiating diffusion processes yields:</p>
+<p><span class="math display">\[
+\mathbf{D}_s X_T = \mathbf{D}_s \int_{0}^T \mu(r,X_r) \mathrm{d}r = \int_{s}^T \mathbf{D}_s \mu(r,X_r) \mathrm{d}r
+\]</span></p>
+<p><span class="math display">\[
+\mathbf{D}_s X_T = \mathbf{D}_s \int_{0}^T \sigma(r,X_r) \mathrm{d}W_r = \sigma(s,X_s) + \int_{s}^T \mathbf{D}_s \sigma(r,X_r) \mathrm{d}W_r
+\]</span></p>
+<p>For monomial path evaluations <span class="math inline">\(W_t^n\)</span>:</p>
+<p><span class="math display">\[
+\mathbf{D}_s (W_t^n) = n W_t^{n-1} \mathbb{I}_{[0,t]}(s)
+\]</span></p>
+<p>Rewriting <span class="math inline">\(\tilde{X}_t = \delta\left(\mathbb{I}_{[0,t]}\gamma\right)\)</span>, the functional derivative becomes:</p>
+<p><span class="math display">\[
+\begin{align*}
+    \delta \mathcal{J} &amp;= \int_0^T 2\mathbb{E}\left[ \int_0^T \mathbf{D}_s (W_t^2 - X_t) \mathbb{I}_{[0,t]}(s)\gamma(s,X_s) \mathrm{d}s\right] \mathrm{d}t \\
+    &amp;= \int_0^T 2\mathbb{E}\left[ \int_0^T (2 W_t \mathbb{I}_{[0,t]}(s) - \mathbf{D}_s X_t) \mathbb{I}_{[0,t]}(s)\gamma(s,X_s) \mathrm{d}s\right] \mathrm{d}t \\
+    &amp;= \int_0^T 2\mathbb{E}\left[ \langle 2 W_t \mathbb{I}_{[0,t]}(s) - \mathbf{D}_s X_t, \mathbb{I}_{[0,t]}\gamma \rangle\right] \mathrm{d}t
+\end{align*}
+\]</span></p>
+<p>Stationarity requires:</p>
+<p><span class="math display">\[
+\mathbf{D}_s X_t = \sigma(s,X_s) + \int_s^t \mathbf{D}_s\sigma(r,X_r)\mathrm{d}W_r = 2 W_t \mathbb{I}_{[0,t]}(s)
+\]</span></p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>Note that setting <span class="math inline">\(\sigma(s,X_s) = 2 W_s \mathbb{I}_{[0,t]}(s)\)</span> formally satisfies this relation, but makes <span class="math inline">\(\sigma\)</span> explicitly path-dependent via <span class="math inline">\(W_s\)</span> rather than a deterministic state function <span class="math inline">\(\sigma(s,x)\)</span>.</p>
+</div></div><section id="polynomial-hermite-expansions" class="level3">
+<h3 class="anchored" data-anchor-id="polynomial-hermite-expansions">Polynomial &amp; Hermite Expansions</h3>
+<p>When restricting <span class="math inline">\(X_t\)</span> to finite Hermite polynomial expansions:</p>
+<p><span class="math display">\[
+X_t = \sum_{n=0}^N c_n H_n \left(\frac{W_t}{\sqrt{t}}\right)
+\]</span></p>
+<p>the Malliavin derivative simplifies to:</p>
+<p><span class="math display">\[
+\mathbf{D}_s X_t = \sum_{n=1}^N \frac{c_n}{\sqrt{t}} H_{n-1} \left(\mathbb{I}_{[0,t]}(s)\frac{W_t}{\sqrt{t}}\right)
+\]</span></p>
+<p>Since Hermite polynomials form an orthonormal basis on Wiener space <span class="citation" data-cites="GO NU">(<a href="#ref-GO" role="doc-biblioref">Gjessing et al. 1992</a>; <a href="#ref-NU" role="doc-biblioref">Nualart 2019</a>)</span>, the coefficients satisfy:</p>
+<p><span class="math display">\[
+c_n = \langle F, H_n\rangle_{\Omega} = \mathbb{E}[F H_n] = \mathbb{E}[\partial^n_x F]
+\]</span></p>
+<p>When coefficients are time-dependent (<span class="math inline">\(c_n \doteq c_n(t)\)</span>), the Skorohod integral takes the Wick product form:</p>
+<p><span class="math display">\[
+\delta\left(c_n(t) H_n \left(\frac{W_t}{\sqrt{t}}\right) \right) = \int_0^T \left(\frac{c_n(t)}{t^{n/2}}W^{\diamond n}_t\right) \diamond \dot{W}_t \mathrm{d}t
+\]</span></p>
+<p>For general diffusions with drift <span class="math inline">\(\mu(r,X_r)\)</span> and volatility <span class="math inline">\(\sigma(r,X_r)\)</span>, the tangent variation process <span class="math inline">\(Y_r = \mathbf{D}_s X_r\)</span> solves:</p>
+<p><span class="math display">\[
+\mathrm{d}Y_r = \mu_x (r,X_r)Y_r \mathrm{d}r + \sigma_x (r,X_r) Y_r \mathrm{d}W_r, \quad Y_s = \sigma(s,X_s)
+\]</span></p>
+<p>with explicit geometric solution:</p>
+<p><span class="math display">\[
+Y_t = \sigma(s,X_s)\exp\left\{\int_s^t \left(\mu_x (r,X_r) - \frac{1}{2} \sigma_{x}^2(r,X_r)\right)\mathrm{d}r + \int_s^t \sigma_x (r,X_r) \mathrm{d}W_r\right\}
+\]</span></p>
+<div id="thm-ClarkOcone" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 1 (Clark-Ocone Formula)</strong></span> Let <span class="math inline">\(F \in \mathbb{D}^{1,2}\)</span> be <span class="math inline">\(\mathcal{F}_T\)</span>-measurable. Then <span class="math inline">\(F\)</span> admits the stochastic integral representation <span class="citation" data-cites="CS NU">(<a href="#ref-CS" role="doc-biblioref">Hairer 2021</a>; <a href="#ref-NU" role="doc-biblioref">Nualart 2019</a>)</span>:</p>
+<p><span class="math display">\[
+F = \mathbb{E}[F] + \int_0^T \mathbb{E}[\mathbf{D}_t F \mid \mathcal{F}_t]\mathrm{d}W_t
+\]</span></p>
+</div>
+</section>
+</section>
+<section id="geometric-and-manifold-considerations" class="level2">
+<h2 class="anchored" data-anchor-id="geometric-and-manifold-considerations">Geometric and Manifold Considerations</h2>
+<p>Key geometric insights regarding this calculus include:</p>
+<ol type="1">
+<li><strong>Stationary Conditions vs.&nbsp;Optimization Geometry:</strong> While necessary conditions for stationary points can be derived heuristically, equipping the space of diffusion processes with a Riemannian manifold structure (enabling gradient descent) remains difficult.</li>
+<li><strong>Variational Spaces:</strong> Variations on drift coefficients correspond naturally to the flat geometry of the Cameron-Martin space. However, variations on diffusion coefficients <span class="math inline">\(\sigma\)</span> lack an obvious metric structure without restricting to specific density-space geometries (e.g., Wasserstein flows) <span class="citation" data-cites="LC">(<a href="#ref-LC" role="doc-biblioref">Lambert et al. 2022</a>)</span>.</li>
+</ol>
+<hr>
+</section>
+</section>
+<section id="explorations-in-parametric-wasserstein-flows" class="level1 page-columns page-full">
+<h1>Explorations in Parametric &amp; Wasserstein Flows</h1>
+<section id="parametric-perturbations" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="parametric-perturbations">Parametric Perturbations</h2>
+<p>Consider a parameter <span class="math inline">\(\theta_t\)</span> driving process <span class="math inline">\(X_t \sim P_{\theta_t}\)</span> with Gaussian prior <span class="math inline">\(\theta_t \sim \mathcal{N}\left(\vartheta_t, \int_0^t v_s \mathrm{d}s\right)\)</span>. Representing <span class="math inline">\(X_t = G^{-1}(t, U, \theta_t)\)</span> via conditional CDF <span class="math inline">\(G\)</span>:</p>
+<p><span class="math display">\[
+\mathbf{D}_s X_t = \left \langle \frac{\sigma_t \mathbb{I}_{[0,t]}(s)}{g(G^{-1}(t,U, \theta_t))}, \dot{\gamma}_s \right \rangle
+\]</span></p>
+<p>In Wasserstein geometry, vector fields take the form <span class="math inline">\(V(\rho) = -\nabla \frac{\delta \mathcal{F}}{\delta \rho}\)</span> <span class="citation" data-cites="LC">(<a href="#ref-LC" role="doc-biblioref">Lambert et al. 2022</a>)</span>. For relative entropy <span class="math inline">\(\mathcal{F}[\rho] = \mathcal{D}_{KL}(\rho \parallel \rho^*)\)</span>, <span class="math inline">\(V(\rho) = -\left(\frac{\nabla \rho}{\rho} + \nabla f\right)\)</span>, corresponding to Langevin diffusion:</p>
+<p><span class="math display">\[
+\mathrm{d}X_t = -\nabla f (X_t) \mathrm{d}t + \sqrt{2} \mathrm{d}W_t
+\]</span></p>
+<p>The first variation process for Langevin diffusion evaluates to:</p>
+<p><span class="math display">\[
+\mathbf{D}_s X_t = \sqrt{2}\exp\left\{-\int_s^t \Delta f (X_r)\mathrm{d}r\right\}
+\]</span></p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>This indicates that pathwise perturbations decay or amplify exponentially according to accumulated spatial curvature <span class="math inline">\(\Delta f(X_r)\)</span> along the trajectory.</p>
+</div></div><p>Applying Girsanov’s Theorem with change of measure <span class="math inline">\(Z_t = \frac{\mathrm{d}Q}{\mathrm{d}P}\Big|_t\)</span>:</p>
+<p><span class="math display">\[
+\frac{1}{2} \langle \mathbf{D}_s V(X_t), (\mathbf{D}_s V)^* (X_t) Z_t\rangle = \left \langle - \partial_t \exp\left\{-\int_s^t (\Delta f (X_r) - \Delta f_r (r,X_r) )\mathrm{d}r\right\}, Z_t \right \rangle
+\]</span></p>
+<hr>
+</section>
+</section>
+<section id="mathematical-foundations" class="level1">
+<h1>Mathematical Foundations</h1>
+<section id="malliavin-operators-on-wiener-space" class="level2">
+<h2 class="anchored" data-anchor-id="malliavin-operators-on-wiener-space">Malliavin Operators on Wiener Space</h2>
+<p>Let <span class="math inline">\(\mathbb{F}_t\)</span> denote the <span class="math inline">\(L^2\)</span>-space of <span class="math inline">\(\mathcal{F}_t\)</span>-adapted processes generated by Brownian motion <span class="citation" data-cites="CS">(<a href="#ref-CS" role="doc-biblioref">Hairer 2021</a>)</span>.</p>
+<div id="thm-WienerRepresentation" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 2 (Wiener Representation Theorem)</strong></span> Every <span class="math inline">\(F \in L^2(\Omega, \mathcal{F}_T, P)\)</span> admits a unique representation <span class="citation" data-cites="DOP NU">(<a href="#ref-DOP" role="doc-biblioref">Di Nunno et al. 2009</a>; <a href="#ref-NU" role="doc-biblioref">Nualart 2019</a>)</span>:</p>
+<p><span class="math display">\[
+F_T = \mathbb{E}[F_T] + \int_{0}^{T} \alpha^{F}_t \mathrm{d} W_{t}
+\]</span></p>
+<p>where <span class="math inline">\(\alpha^{F}_t\)</span> is an adapted <span class="math inline">\(L^2\)</span>-predictable process.</p>
+</div>
+<div id="def-MalliavinDerivative" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 1 (Malliavin Derivative)</strong></span> Let <span class="math inline">\(F: \Omega \rightarrow \mathbb{R}\)</span> be a random variable, <span class="math inline">\(g \in L^2([0,T])\)</span>, and <span class="math inline">\(\gamma(t) = \int_0^t g(s) \mathrm{d}s\)</span>. The directional derivative of <span class="math inline">\(F\)</span> along <span class="math inline">\(\gamma\)</span> is:</p>
+<p><span class="math display">\[
+\mathbf{D}_\gamma F(\omega) = \lim_{\varepsilon \rightarrow 0} \frac{F(\omega + \varepsilon \gamma) - F(\omega)}{\varepsilon}
+\]</span></p>
+<p>If there exists <span class="math inline">\(\psi \in L^2([0,T] \times \Omega)\)</span> such that <span class="math inline">\(\mathbf{D}_\gamma F = \langle \psi, g \rangle_{L^2[0,T]}\)</span>, then <span class="math inline">\(F \in \mathbb{D}^{1,2}\)</span> and <span class="math inline">\(\mathbf{D}_t F = \psi(t, \cdot)\)</span>.</p>
+</div>
+<div id="def-SkorohodIntegral" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 2 (Skorohod Integral (Divergence Operator))</strong></span> The Skorohod integral operator <span class="math inline">\(\delta\)</span> is defined as the <span class="math inline">\(L^2\)</span>-adjoint of the Malliavin derivative <span class="math inline">\(\mathbf{D}\)</span> <span class="citation" data-cites="NU">(<a href="#ref-NU" role="doc-biblioref">Nualart 2019</a>)</span>:</p>
+<p><span class="math display">\[
+\mathbb{E}[F \cdot \delta(u)] = \mathbb{E}\left[\langle \mathbf{D} F, u \rangle_{L^2[0,T]}\right], \quad \forall F \in \mathbb{D}^{1,2}, \, u \in \text{Dom}(\delta)
+\]</span></p>
+</div>
+<p>For adapted processes <span class="math inline">\(u_t\)</span>, <span class="math inline">\(\delta(u) = \int_0^T u_t \mathrm{d}W_t\)</span> coincides with the Itô integral <span class="citation" data-cites="DOP">(<a href="#ref-DOP" role="doc-biblioref">Di Nunno et al. 2009</a>)</span>. For simple non-adapted processes <span class="math inline">\(u = \sum_{i=1}^n F_i h_i\)</span>:</p>
+<p><span class="math display">\[
+\delta(u) = \sum_{i=1}^n F_i W(h_i) - \sum_{i=1}^n \langle \mathbf{D} F_i, h_i \rangle_{L^2[0,T]}
+\]</span></p>
+<p>Hermite polynomials <span class="math inline">\(H_n(x)\)</span> arise directly via repeated divergence operations: <span class="math inline">\(H_n(x) = \delta^n(1)\)</span> <span class="citation" data-cites="GO">(<a href="#ref-GO" role="doc-biblioref">Gjessing et al. 1992</a>)</span>. The Ornstein-Uhlenbeck generator <span class="math inline">\(\Delta = -\delta \mathbf{D}\)</span> satisfies:</p>
+<p><span class="math display">\[
+\Delta H_n = -n H_n
+\]</span></p>
+</section>
+<section id="chaos-expansions-wick-calculus" class="level2">
+<h2 class="anchored" data-anchor-id="chaos-expansions-wick-calculus">Chaos Expansions &amp; Wick Calculus</h2>
+<p>Iterated stochastic integrals <span class="math inline">\(I_n(f_n) = \int_0^T \dots \int_0^{t_2} f_n(t_1, \dots, t_n) \mathrm{d}W_{t_1} \dots \mathrm{d}W_{t_n}\)</span> satisfy <span class="math inline">\(I_n(g^{\otimes n}) = \|g\|^n H_n\left(\frac{\int g \mathrm{d}W}{\|g\|}\right)\)</span> <span class="citation" data-cites="GO NU">(<a href="#ref-GO" role="doc-biblioref">Gjessing et al. 1992</a>; <a href="#ref-NU" role="doc-biblioref">Nualart 2019</a>)</span>.</p>
+<div id="def-WickProduct" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 3 (Wick Product)</strong></span> For chaos expansions <span class="math inline">\(X = \sum_{\alpha} x_\alpha H_\alpha\)</span> and <span class="math inline">\(Y = \sum_{\beta} y_\beta H_\beta\)</span>, the Wick product is <span class="citation" data-cites="GO">(<a href="#ref-GO" role="doc-biblioref">Gjessing et al. 1992</a>)</span>:</p>
+<p><span class="math display">\[
+X \diamond Y = \sum_{\gamma} \left(\sum_{\alpha + \beta = \gamma} x_\alpha y_\beta \right) H_{\gamma}
+\]</span></p>
+</div>
+<p>Using Wick products, the SDE <span class="math inline">\(\mathrm{d}X_t = f(X_t)\mathrm{d}t + \sigma(X_t)\mathrm{d}W_t\)</span> transforms into a random ordinary differential equation <span class="citation" data-cites="DOP">(<a href="#ref-DOP" role="doc-biblioref">Di Nunno et al. 2009</a>)</span>:</p>
+<p><span class="math display">\[
+\frac{\mathrm{d}}{\mathrm{d}t} X_t = f(X_t) + \sigma(X_t) \diamond \dot{W}_t
+\]</span></p>
+<div id="exm-GBM" class="theorem example">
+<p><span class="theorem-title"><strong>Example 1 (Geometric Brownian Motion in Wick Form)</strong></span> Geometric Brownian Motion <span class="math inline">\(\mathrm{d}X_t = \mu X_t \mathrm{d}t + \sigma X_t \mathrm{d}W_t\)</span> written in Wick ODE form:</p>
+<p><span class="math display">\[
+\frac{\mathrm{d}}{\mathrm{d}t} X_t = X_t \diamond (\mu + \sigma \dot{W}_t)
+\]</span></p>
+<p>has the exact solution:</p>
+<p><span class="math display">\[
+X_t = x_0 \exp(\mu t) \diamond \exp^{\diamond}(\sigma W_t) = x_0 \exp\left(\left(\mu - \frac{\sigma^2}{2}\right)t + \sigma W_t\right)
+\]</span></p>
+</div>
+<hr>
+</section>
+</section>
+<section id="references" class="level1">
+
+
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-DOP" class="csl-entry" role="listitem">
+Di Nunno, Giuseppina, Bernt Øksendal, and Frank Proske. 2009. <em>Malliavin Calculus for l<span>é</span>vy Processes with Applications to Finance</em>. Universitext. Springer.
+</div>
+<div id="ref-GO" class="csl-entry" role="listitem">
+Gjessing, Håkon Kristian, Bernt Øksendal, and Jan Ubøe. 1992. <em>The Wick Product</em>.
+</div>
+<div id="ref-CS" class="csl-entry" role="listitem">
+Hairer, Martin. 2021. <em>Introduction to Malliavin Calculus</em>. Lecture Notes.
+</div>
+<div id="ref-LC" class="csl-entry" role="listitem">
+Lambert, Marc, Sinho Chewi, Francis Bach, Silvère Bonnabel, and Philippe Rigollet. 2022. <span>“Variational Inference via Wasserstein Gradient Flows.”</span> In <em>arXiv Preprint arXiv:2205.15902</em>. <a href="https://arxiv.org/abs/2205.15902">https://arxiv.org/abs/2205.15902</a>.
+</div>
+<div id="ref-NU" class="csl-entry" role="listitem">
+Nualart, David. 2019. <em>Malliavin Calculus</em>. BGSMath Lecture Notes.
+</div>
+</div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/nraviles\.github\.io\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

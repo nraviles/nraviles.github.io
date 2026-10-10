@@ -1,0 +1,1101 @@
+---
+title: "Notes on SDE Constrained Optimization"
+date: "2026-10-09"
+author: "Your Name"
+categories: [Stochastic Calculus, Optimization, Malliavin Calculus]
+reference-location: margin
+abstract: "A failed but interesting log of notes and exploratory calculations on extending PDE-constrained optimization principles to SDEs, covering functional derivatives of diffusions, Malliavin calculus, Skorohod integration, Wick products, and Wasserstein flows. Our first observation is that the idea of using Malliavin based optimization strange, where drift control us trivial (geometrically flat; Cameron-Martin Space; maintains a.c. with respect to original measure; Girsanov's Theorem) and diffusion control nonsensical (singular; anticipating control). A more interesting observation is made later, where we can show that Malliavin perturbations of a Langevin flow expand or shrink exponentially with the integrated curvature."
+---
+
+# Introduction
+
+These notes are derived from a project for a topics class at UW-Madision led by Dr. Qin Li (who was kind enough to pity my work into passing), and attempted preform some derivations under the premise of "constrained optimization" for SDEs via Malliavin(Otto) Calculus. My mathematics ability is meager so don't expect this to really go anywhere, though hopefully. It will mostly consist of a hodge-podge of ideas and examples; frankly much of what I am doing seems to have already been explored in the literature by better caliber researchers, but this was a good learning experience. Think of this a log of failures and supplementary materials which may be useful. Before even looking at the material below (or continue, whatever, just left the specifics be glossed over), please look at the supplementary material.
+
+The premise as in PDE based Optimization is in some sense to "best" select model parameters and form given recorded measurements. Here we wish to ask the question of whether we can describe stochastic processes in a similar manner; i.e., given measurements of a stochastic process (or the entirety of it), can we either (1) reconstruct it or at least (2) best approximate it in some sense within a constrained class of stochastic processes?
+
+For stochastic processes, work is generally done by converting the problem to a question about PDEs (restrict ourselves to the Fokker-Planck Equation). We will attempt to approach the process directly, without relying explicitly on the underlying probability measure.
+
+## Initial Example and Calculations (nonsense!)
+
+To outline a success (which will not be achieved), we would like to demonstrate something like the obvious fact that a Brownian Bridge Process or Gaussian process "best" approximates true Brownian motion given a selection of measurements.
+
+For example, consider the functional:
+
+$$
+\mathcal{J}[X(\sigma)] = \mathbb{E}\left[\int_0^T (W_t^2 - X_t)^2 \mathrm{d}t\right]
+$$
+
+which can be seen as minimizing the expected squared variation of our process $X_t$ in comparison to the square Wiener Process (Brownian motion) $W_t^2$.
+
+Let's say that $X_t$ is from some class of diffusion processes of the very simple form:
+
+$$
+X_t = X_0 + \int_0^t \sigma(s,X_s) \mathrm{d}W_s
+$$
+
+We would now like to ask, what is the variation in this functional $\mathcal{J}[\sigma, \cdot]$ as we perturb $\sigma$? The simplest answer comes from Itô, but let's calculate this in the more general sense for now by perturbing $\sigma$ by $\varepsilon \gamma_t$, where $\gamma_t$ is a stochastic process with sufficiently nice properties (compact support, vanishing on the boundary, etc.):
+
+$$
+\begin{align*}
+    \delta \mathcal{J}[X(\sigma)] &= \lim_{\varepsilon \rightarrow 0}\frac{1}{\varepsilon}\left(\mathbb{E}\left[\int_0^T (W_t^2 - X_t + \varepsilon \tilde{X}_t)^2 \mathrm{d}t\right] - \mathbb{E}\left[\int_0^T (W_t^2 - X_t)^2 \mathrm{d}t\right] \right) \\
+    &= \mathbb{E}\left[ \int_0^T 2(W_t^2 - X_t)\tilde{X}_t \mathrm{d}t \right]
+\end{align*}
+$$
+
+Expanding $\tilde{X}_t = \int_0^t \gamma(s,X_s) \mathrm{d}W_s$ as a strictly stochastic term (a perturbation a.c. with respect to $W_s$), we have:
+
+$$
+\delta \mathcal{J}[X(\sigma)] = \mathbb{E}\left[ \int_0^T 2(W_t^2 - X_t) \left(\int_0^t \gamma(s,X_s) \mathrm{d}W_s \right) \mathrm{d}t \right]
+$$
+
+We now look to express this as an inner product on some space, and look for the "adjoint" that gets rid of this "stochastic integral operator":
+
+$$
+\delta(\cdot) = \int_0^T (\cdot)\diamond \dot{W}_s \mathrm{d}s = \int_0^T (\cdot) \mathrm{d}W_s
+$$
+
+The first equality for now is just fancy notation for what a physicist might want to write, and the second equality corresponds to how it appears in the above equation (the explicit "truth" of this will be discussed later) [@GO].
+
+We would like to now write everything as an inner product, and identify an adjoint, but as this is motivation and not explicit, you will need to take my word for some of the following calculations which is just a consequence of integration by parts using Stein's Formula under the Gaussian measure [@NU].
+
+Here we will identify the adjoint in the sense that for a stochastic process $\Delta$:
+
+$$
+\mathbb{E}\left[ \Delta \delta(\gamma) \right] = \mathbb{E}\left[ \int_0^T (\mathbf{D}_t \Delta_T) \gamma_s \mathrm{d}s \right] = \mathbb{E}\left[ \langle \mathbf{D}_t \Delta, \gamma \rangle_{[0,T]} \right]
+$$
+
+and you will need to take the following properties of this "Stochastic Derivative" $\mathbf{D}_t$ for granted. When we take the derivative of a diffusion process (where the second line is the supposed form of $X_T$), we have:
+
+$$
+\mathbf{D}_s X_T = \mathbf{D}_s \int_{0}^T \mu(r,X_r) \mathrm{d}r = \int_{s}^T \mathbf{D}_s \mu(r,X_r) \mathrm{d}r
+$$
+
+$$
+\mathbf{D}_s X_T = \mathbf{D}_s \int_{0}^T \sigma(r,X_r) \mathrm{d}W_r = \sigma(s,X_s) + \int_{s}^T \mathbf{D}_s \sigma(r,X_r) \mathrm{d}W_r
+$$
+
+We will also be using the special case below:
+
+$$
+\mathbf{D}_s (W_t^n) = n W_t^{n-1} \mathbb{I}_{[0,t]}(s)
+$$
+
+Therefore, if we are to rewrite $\tilde{X}_t$ in terms of this new $\delta(\cdot)$, we have:
+
+$$
+\int_0^t \gamma(s,X_s) \mathrm{d}W_s = \int_0^T \mathbb{I}_{[0,t]}(s)\gamma(s,X_s) \mathrm{d}W_s = \delta\left(\mathbb{I}_{[0,t]}\gamma\right)
+$$
+
+and further our functional derivative, using the formal notation above, is then:
+
+$$
+\begin{align*}
+    \mathbb{E}\left[ \int_0^T 2(W_t^2 - X_t) \delta (\mathbb{I}_{[0,t]}\gamma) \mathrm{d}t \right] &= \int_0^T \mathbb{E}\left[2(W_t^2 - X_t) \delta (\mathbb{I}_{[0,t]}\gamma)\right] \mathrm{d}t  \\
+    &= \int_0^T 2\mathbb{E}\left[ \int_0^T \mathbf{D}_s (W_t^2 - X_t) \mathbb{I}_{[0,t]}(s)\gamma(s,X_s) \mathrm{d}s\right] \mathrm{d}t \\
+    &= \int_0^T 2\mathbb{E}\left[ \int_0^T (2 W_t \mathbb{I}_{[0,t]}(s) - \mathbf{D}_s X_t) \mathbb{I}_{[0,t]}(s)\gamma(s,X_s) \mathrm{d}s\right] \mathrm{d}t \\
+    &= \int_0^T 2\mathbb{E}\left[ \langle (2 W_t \mathbb{I}_{[0,t]}(s) - \mathbf{D}_s X_t), \mathbb{I}_{[0,t]}\gamma \rangle\right] \mathrm{d}t
+\end{align*}
+$$
+
+And we come to the obvious conclusion that the $\sigma(t,X_t)$ minimizing the square variation over time must have:
+
+$$
+\mathbf{D}_s X_t = \sigma(s,X_s) + \int_s^T \mathbf{D}_s\sigma(r,X_r)\mathrm{d}W_r = 2 W_t \mathbb{I}_{[0,t]}(s)
+$$
+
+Owing to the simplicity of the problem, an appropriate solution is of course:
+
+$$
+\sigma(s,X_s) = 2 W_s \mathbb{I}_{[0,t]}(s)
+$$
+
+as we have only allowed a diffusion term, and no drift, i.e., we can write:
+
+$$
+2 W_t \mathbb{I}_{[0,t]}(s) = 2 W_s \mathbb{I}_{[0,t]}(s) + \int_s^T 2 \mathbb{I}_{[0,t]}(s)\mathbb{I}_{[0,t]}(r)\mathrm{d} W_r
+$$
+
+which is of course ridiculous looking, and the second term is just 0. Another way to look at this is:
+
+$$
+1 = \frac{\mathbf{D}_s F - \int_s^T \mathbf{D}_s\sigma(r,X_r)\mathrm{d}W_r}{\sigma(s,X_s)}
+$$
+
+In slight generality, the above can of course be done restricting ourselves to arbitrary polynomials of $W_t$, and is a good strategy for a certain class of functions.
+
+Further, we can use some nice properties of Hermite polynomials as follows [@GO]. Let's say I can expand a stochastic process $X_t$ as the linear combination of Hermite Polynomials (for now the specifics are not important, just call them $H_n(x)$):
+
+$$
+X_t = \sum_{n=0}^N c_n H_n (W_t/\sqrt{t})
+$$
+
+where we have plugged in $W_t/\sqrt{t}$ into its argument to make calculations nice. We then have the beautiful result that with a simple calculation of Stochastic Derivatives, and a result you'll need to take my word for that works whenever the $c_n$ are constants, we have:
+
+$$
+\mathbf{D}_s X_t = \sum_{n=1}^N \frac{c_n}{\sqrt{t}} H_{n-1} (\mathbb{I}_{[0,t]}(s)W_t/\sqrt{t})
+$$
+
+$$
+\delta(\mathbf{D}_s X_t) = C + \sum_{n=1}^N c_n H_n (W_t/\sqrt{t}) = \sum_{n=0}^N c_n H_n (W_t/\sqrt{t})
+$$
+
+where here we just identify the initial condition $C = c_0 H_0 (W_t/\sqrt{t}) = \mathbb{E}[X_t]$, where once again $\delta(\cdot)$ is here the Skorohod integral, which for adapted predictable functions is the standard Itô [@DOP].
+
+Thus a reasonable approach to all our problems is restricting ourselves to the class of finite term Hermite Expandable processes. These polynomials are dense in our space of consideration, so infinite sequences are allowable, but the calculations become difficult. We also have the very nice fact that each $c_n$ can be computed quite explicitly given that $H_n$ form an orthonormal basis, and we have that:
+
+$$
+c_n = \langle F, H_n\rangle_{\Omega} = \mathbb{E}[F H_n] = \mathbb{E}[\partial^n_x F]
+$$
+
+For now this may seem unnecessary, as why not just use polynomials of $W_t$ themselves, but when we allow for time dependent terms, drifting expectation and diffusive terms may be an issue; i.e., as we may allow all the coefficients to be:
+
+$$
+c_n \doteq c_n(t)
+$$
+
+where now the Skorohod integral is no longer nice:
+
+$$
+\delta\left(c_n(t) H_n \left(\frac{W_t}{\sqrt{t}}\right) \right)= \int_0^T c_n(t) H_n \left(\frac{W_t}{\sqrt{t}}\right) \mathrm{d}W_t = \int_0^T \left(\frac{c_n(t)}{t^{\frac{n}{2}}}W^{\diamond n}_t\right) \diamond \dot{W}_t \mathrm{d}t
+$$
+
+The last equality again for consideration later [@GO].
+
+If we instead wanted a general result holding for arbitrary $t \in [0,T]$, we would need to explicitly calculate out the chain rule as:
+
+$$
+\mathbf{D}_s X_t = \sigma(s,X_s) + \int_s^T \sigma_x(r,X_r)\mathbf{D}_s X_r \mathrm{d}W_r
+$$
+
+and in further generality with drift, a kind of complicated theorem so that we can try and evaluate $\mathbf{D}_s X_t$ as:
+
+$$
+\begin{align*}
+    \mathbf{D}_s X_t &= \int_s^t \mathbf{D}_s \mu(r,X_r)\mathrm{d}r + \left(\sigma(s,X_s) + \int_s^t \mathbf{D}_s \sigma(r,X_r) \mathrm{d}W_r \right) \\
+    &= \int_s^t \mu_x (r,X_r)\mathbf{D}_s X_r \mathrm{d}r + \left(\sigma(s,X_s) + \int_s^t \sigma_x (r,X_r) \mathbf{D}_s X_r \mathrm{d}W_r \right)
+\end{align*}
+$$
+
+which one could solve by Itô:
+
+$$
+Y_t = \sigma(s,X_s) + \int_s^t \mu_x (r,X_r)Y_r \mathrm{d}r + \int_s^t \sigma_x (r,X_r) Y_r \mathrm{d}W_r
+$$
+
+or:
+
+$$
+\mathrm{d}Y_t = \mu_x (t,X_t)Y_t \mathrm{d}t + \sigma_x (t,X_t) Y_t \mathrm{d}W_t, \quad Y_s = \sigma(s,X_s)
+$$
+
+or explicitly as:
+
+$$
+\begin{equation}
+Y_t = \sigma(s,X_s)\exp\left\{\int_s^t \left(\mu_x (r,X_r) - \frac{1}{2} \sigma_{x}^2(r,X_r)\right)\mathrm{d}r + \int_s^t \sigma_x (r,X_r) \mathrm{d}W_r\right\}
+\end{equation}
+$${#eq-malliavinsolve}
+
+and then as before need to solve:
+
+$$
+Y_t = 2 W_t \mathbb{I}_{[0,t]}(s)
+$$
+
+This might seem kind of silly now in our case. If we look at the two, the RHS is pure drift, so we just need:
+
+$$
+\sigma(s,X_s) + \int_s^t \sigma_x (r,X_r) Y_r \mathrm{d}W_r = 2 \mathbb{I}_{[0,t]}(s)\int_0^t \mathrm{d}W_r = 2 \mathbb{I}_{[0,t]}(s)W_s + 2 \mathbb{I}_{[0,t]}(s)\int_s^t \mathrm{d}W_r
+$$
+
+so a natural guess would be $Y_r = 2 \mathbb{I}_{[0,t]}(s) \left[ \sigma_x(r,X_r) \right]^{-1}$ and $\sigma(s,X_s) = 2 W_s \mathbb{I}_{[0,t]}(s)$, which are both kosher as the derivative $\sigma_x = 2$.
+
+This is not informative but may demonstrate a way to explore alternative methods so that instead of solving one very complicated equation for one unknown we might have a more tractable, lower order problem.
+
+Alternatively we have the funny approach, which is the Clark-Ocone Formula which we will discuss later in more detail [@CS; @NU]. The idea is that our problem is reduced to a bias-variance trade-off in the functional form we have been using.
+
+::: {#thm-ClarkOcone}
+## Clark-Ocone Formula
+
+Let $F \in \mathbb{D}^{1,2}$ and be $\mathcal{F}_T$-measurable (generated by Wiener), i.e.:
+
+$$
+\|F\|_{1,2}^2 = \mathbb{E}\left[\int_0^T F^2 \mathrm{d}t \right] + \mathbb{E}\left[\int_0^T (\mathbf{D}_t F)^2 \mathrm{d}t \right] < \infty
+$$
+
+Then:
+
+$$
+F = \mathbb{E}[F] + \int_0^T \mathbb{E}[\mathbf{D}_t F \mid \mathcal{F}_t]\mathrm{d}W_t
+$$
+:::
+
+## Critiques after discussion with Nicolas Garcia Trillos
+
+I had a short (2 hours haha) meeting with Nicolas, and he came to the probably accurate conclusion that he didn't feel anything could come out of this "Calculus" other than some heuristics, proof methods, and explicit formulas.
+
+As we have shown above, we can derive necessary conditions for stationary solutions to our functional; however, he was pessimistic regarding whether one could actually equip this procedure with an associated geometry, and from there do something like Gradient Descent.
+
+The hang-ups seemed to be that for any other variation than on the drift by $\varepsilon \gamma_t$, it may not in any way distinguish a good "Manifold" by which to describe the geometry of the underlying process. The Cameron-Martin Space seems to be a flat and nice-ish place (implied by this drift variation) to consider this, but variation of $\sigma$ does not seem to have an obvious interpretation.
+
+An idea discussed is how one might impose a metric on a slightly more general space. Say we consider the family of $P_\theta$ a curve in our space of interest. How do we take our ideas thus far, and translate a "directional derivative" to tangent vectors on this space?
+
+As such, for the rest of the paper we will now do small explorations and elaborations on motivated topics, and the follow-up will be supplementary material such as Wick Calculus, and both formal as well as definitional treatments of Malliavin Calculus.
+
+---
+
+# Exploration
+
+## Bayes-like Perturbations
+
+A silly thing that jumps to my mind is to forcefully be a Bayesian. Consider the following grouping of function and distribution for an underlying parameter. We'd like to ask, how does $F(X_t)$ change under variation of this underlying $\theta_t$?
+
+$$
+F(X_t), \quad X_t \sim P_{\theta_t}, \quad \theta_t \sim \mathcal{N}\left(\vartheta_t, \int_0^t v_s \mathrm{d}s\right)
+$$
+
+For now let's just assume that we have absolute continuity with respect to the Lebesgue measure, that $X_t$ is Markov, and can rewrite using $G$ as the conditional cumulative distribution function (conditioning on $\theta_t$; by assumption continuous and differentiable, $U$ independent of $\theta_t$ and uniformly distributed) as:
+
+$$
+X_t = G^{-1}(t, U, \theta_t)
+$$
+
+Therefore let us first consider the Stochastic derivative $\mathbf{D}_\gamma X_t$, and let the notation $\Sigma_t \gamma = \int_0^t \sigma_s \dot{\gamma}_s \mathrm{d}s$:
+
+$$
+\begin{align*}
+    \mathbf{D}_s X_t &= \lim_{\varepsilon \rightarrow 0}\frac{1}{\varepsilon}\left(G^{-1}(t,U,\theta_t + \varepsilon \Sigma_t\gamma) - G^{-1}(t,U,\theta_t) \right) \\
+    &= (G^{-1})' (t,U, \theta_t) \Sigma_t \gamma \\
+    &= \frac{\Sigma_t\gamma}{g(G^{-1}(t,U, \theta_t))} \\
+    &= \int_0^s \frac{\sigma_r}{g(G^{-1}(r,U, \theta_r))} \dot{\gamma}_r \mathrm{d}r \\
+    &= \int_0^T \frac{\sigma_r \mathbb{I}_{[0,t]}(r)}{g(G^{-1}(r,U, \theta_r))} \dot{\gamma}_r \mathrm{d}r \\
+    &= \left \langle \frac{\sigma_r \mathbb{I}_{[0,t]}(r)}{g(G^{-1}(r,U, \theta_r))}, \dot{\gamma}_r \right \rangle
+\end{align*}
+$$
+
+<!-- Alternatively, what might be more interesting and reliable to consider is the following: -->
+
+<!-- $$ -->
+<!-- \begin{align*} -->
+<!--     \mathbb{E}\left[ X_t \right] &= \mathbb{E}_{(x,\theta)} \left[ x f(t, x, \theta_t)\right]\\ -->
+<!--     &= \mathbb{E}_{\theta} \left[ \int_\mathbb{X} x f(t,x, \theta_t)\mathrm{d}x\right]\\ -->
+<!--     &\doteq \mathbb{E}_\theta \left[ \mathcal{X}(t,\theta_t) \right] -->
+<!-- \end{align*} -->
+<!-- $$ -->
+
+<!-- The emphasis on these different perspectives is in regards to how we might construct our argument with respect to Malliavin Calculus. -->
+
+<!-- In the second line we can see $X_t$ as in some way defining a function $\mathcal{X}(t,\cdot)$ as a curve for $\theta$. In this way we could think of: -->
+
+<!-- $$ -->
+<!-- \mathcal{X}(t, \theta_0) = -\int_0^t V( \mathcal{X}(s, \theta_s)) \mathrm{d}s -->
+<!-- $$ -->
+
+<!-- where we have written it in this way that we identify this as the solution of a "flow" induced by a vector field $V(\cdot)$: -->
+
+<!-- $$ -->
+<!-- \frac{\mathrm{d}}{\mathrm{d}t}\mathcal{X}(t, \theta) = -V(\mathcal{X}(t, \theta)) -->
+<!-- $$ -->
+
+<!-- I am interested in considering the statement in this way. The reason for this is that in a not insignificant way, the current update formula for Wasserstein Flows and many other variational algorithms can be seen as an updating of parametric summaries of the distribution [@LC]. -->
+
+<!-- The simplest and most recent examples include the change in the mean and variance of a Gaussian flow, where here we can identify the $\frac{\mathrm{d}}{\mathrm{d}t}$ formula above as: -->
+
+<!-- $$ -->
+<!-- \dot{m}_t = \frac{\mathrm{d}}{\mathrm{d}t} \mathbb{E}_\theta \left[ \mathcal{X}(t,\theta_t) \right] = \mathbb{E}_\theta \left[ -V\left(\mathcal{X}(t,\theta_t) \right)\right] = -V\left( \mathbb{E}_\theta \left[ \mathcal{X}(t,\theta_t) \right]\right) = -V\left( m_t\right) -->
+<!-- $$ -->
+
+<!-- In the Wasserstein sense we identify: -->
+
+<!-- $$ -->
+<!-- V(\rho(x)) = - \nabla \frac{\delta \mathcal{F}}{\delta \rho}(\rho(x)) -->
+<!-- $$ -->
+
+<!-- where $\mathcal{F}(\cdot)$ is the functional we are interested in minimizing in the Wasserstein Geometry [@LC]. Continuing with this premise, consider the Malliavin derivative as before, with respect to $\theta_t$: -->
+
+<!-- $$ -->
+<!-- \theta_s = \vartheta_s + \int_0^s \sigma_r \mathrm{d}W_r -->
+<!-- $$ -->
+
+<!-- which of course has perturbation: -->
+
+<!-- $$ -->
+<!-- \delta\theta_s = \Sigma_s \gamma = \int_0^s \sigma_r \dot{\gamma}_r \mathrm{d}r -->
+<!-- $$ -->
+
+<!-- The first order variation of $\mathcal{X}$ is the accumulation of the perturbed velocities along the flow. More specifically, it is a measure as to how much different the flow is from before now that it has been perturbed. -->
+
+<!-- Assuming regularity conditions are satisfied and the vector field is of course linear: -->
+
+<!-- $$ -->
+<!-- \begin{align*} -->
+<!--     \delta_\gamma \mathcal{X} &= \lim_{\varepsilon \rightarrow 0}\frac{1}{\varepsilon} (\mathcal{X}_{ \varepsilon \gamma}(t, \theta_t) - \mathcal{X}(t, \theta_t) ) \\ -->
+<!--     &= \lim_{\varepsilon \rightarrow 0}\frac{1}{\varepsilon} \left(\int_0^t V( \mathcal{X}_{ \varepsilon \gamma}(s, \theta_s)) \mathrm{d}s - \int_0^t V( \mathcal{X}(s, \theta_s)) \mathrm{d}s \right) \\ -->
+<!--     &= \int_0^t V\left(\lim_{\varepsilon \rightarrow 0}\frac{1}{\varepsilon} \left(\mathcal{X}_{ \varepsilon \gamma} (s, \theta_s) - \mathcal{X}(s, \theta_s)\right)\right) \mathrm{d}s \\ -->
+<!--     &= \int_0^t V\left(\mathbf{D}_\gamma \mathcal{X}(s,\theta_s)\right) \mathrm{d}s  -->
+<!-- \end{align*} -->
+<!-- $$ -->
+
+<!-- or infinitesimally we have the error perturbation as: -->
+
+<!-- $$ -->
+<!-- \begin{align*} -->
+<!--     \frac{\mathrm{d}}{\mathrm{d}t} \left(\delta_\gamma \mathcal{X}_t\right) &= V \mathbf{D}_t \mathcal{X}_t \cdot (\sigma_t \dot{\gamma}_t) + \mathbf{D}_t \mathcal{X}_t \cdot V (\sigma_t \dot{\gamma}_t) \\ -->
+<!--     &\stackrel{d}{=} \left \langle (V +V^c)\nabla_\theta \mathcal{X}_s , \sigma_s \dot{\gamma}_s \right \rangle_{[0,t]} -->
+<!-- \end{align*} -->
+<!-- $$ -->
+
+<!-- assuming that there are no domain issues. Because in the end $\mathbf{D}_t \mathcal{X}_t$ produces only the trivial indicator $\mathbb{I}_{[0,t]}(t)$ and is otherwise just $\nabla_\theta$, we have skipped to it quickly. We have of course been slightly more general here, insisting that we consider $\sigma_s\gamma_s$ up to time $t$; we could of course just assume $\dot{\gamma}([l,t]) = 0$ and of course would therefore be defining $\mathbf{D}_\gamma$ only up to time $l$ (perturbing only till this time point) and therefore relatedly only consider $\mathbf{D}_l$. -->
+
+<!-- In actuality this of course depends on how the perturbation looks. If $V$ consists of no partial derivatives with respect to time $\partial_t$, the second term above after applying Leibniz rule is 0 if $\sigma_s$ (which is semi-forced to be on the right side) is constant in $x$. -->
+
+<!-- If it does, we can simplify the above as: -->
+
+<!-- $$ -->
+<!-- \frac{\mathrm{d}}{\mathrm{d}t} \left(\mathbf{D}_\gamma \mathcal{X}_t\right) \stackrel{d}{=} \left \langle \sigma_s^{*} \left((V -\partial_s a(s,\mathcal{X}_s))\nabla_\theta \mathcal{X}_s \right),\ \dot{\gamma}_s \right\rangle_{[0,t]} -->
+<!-- $$ -->
+
+<!-- but we can be fancy and nevertheless write: -->
+
+<!-- $$ -->
+<!-- \frac{\mathrm{d}}{\mathrm{d}t} \left(\mathbf{D}_\gamma \mathcal{X}_t\right) \stackrel{d}{=} \left \langle \sigma_s^{*} \left((V -\partial_s a(s,\mathcal{X}_s))\mathbf{D}_s \mathcal{X}_s \right)\mathbb{I}_{[0,t]}(s), \dot{\gamma}_s \right \rangle_{[0,T]} -->
+<!-- $$ -->
+
+<!-- In the traditional Cameron-Martin sense we require $\dot{\gamma}_s$ to be deterministic, so here we can take the expectation and get: -->
+
+<!-- $$ -->
+<!-- (\dot{\delta_\gamma m})_t = \left \langle \mathbb{E}\left[ \sigma_s^{*} \left((V -\partial_s a(s,\mathcal{X}_s))\mathbf{D}_s \mathcal{X}_s\right)\right]\mathbb{I}_{[0,t]}(s), \dot{\gamma}_s \right \rangle_{[0,T]} -->
+<!-- $$ -->
+
+<!-- If we consider $\mathcal{X}(s,\theta)$ as truly a path in the sense that $\mathcal{X}(s,\theta_0) = \mathcal{X}(0,\theta_s)$, then we can convince ourselves that this is truly in some sense a tangent vector at the point $(s,\theta_s)$: -->
+
+<!-- $$ -->
+<!-- (\dot{\delta m})_s (\theta_s) = \mathbb{E}_{\theta_s} \left[ \sigma_s^{*} \left((V -\partial_s a(s,\mathcal{X}_s))\mathbf{D}_s \mathcal{X}_s\right)\right]\mathbb{I}_{[0,t]}(s) -->
+<!-- $$ -->
+
+<!-- Here we can quickly adjust the possible shortening to time $l$ as simply producing an extra qualifier on the calculation: -->
+
+<!-- $$ -->
+<!-- (\dot{\delta_l m})_s (\theta_s) = \mathbb{E}_{\theta_s} \left[ \sigma_s^{*} \left((V -\partial_s a(s,\mathcal{X}_s))\mathbf{D}_s \mathcal{X}_s\right)\right]\mathbb{I}_{[0,t]^2}(l,s) -->
+<!-- $$ -->
+
+<!-- If $V$ truly has no partial derivative term, then instead we can think about it strictly in the parametric sense as $(\dot{\delta m}) (\theta_s)$. -->
+
+<!-- We have left out some possible issues: -->
+
+<!-- 1. Why is what we're doing even interesting or important? -->
+<!-- 2. We do not yet know if these derivatives commute. -->
+
+<!-- Regarding (1), the honest answer is that it may not be, at least in any novel sense. As seen above, the calculations we stumbled through for the most part have nothing to do with Malliavin Calculus; we pretty much just took the derivative with respect to an argument and suggested this be analyzed as a perturbation in the usual sense. -->
+
+<!-- The only obvious difference would be the variance scaling, $\sigma_s$, which wouldn't have traditionally been identified, and the fact that we have restricted our analysis to the Cameron-Martin Space which allows for easier computation as we only need to consider an expectation of a function with respect to a clearly defined Gaussian measure [@NU]. -->
+
+<!-- As an extra point, because we can identify this as our "Stochastic Derivative", when it comes to proof techniques we can now leverage the extensive literature and tools of Malliavin Calculus to assist us [@CS; @NU]. -->
+
+## Langevin variation
+
+Let us make this analysis clearer. We will consider in the Wasserstein sense the minimization of the functional [@LC]:
+
+$$
+\begin{align*}
+    \mathcal{F}[\rho] &= \int \rho \ln \rho + \int U \rho \\
+    &= \int \left(\frac{\rho}{\rho^*}\right)\ln{\left(\frac{\rho}{\rho^*}\right)}\rho^*; \quad U \doteq -\ln \rho^* \\
+    &= \mathcal{D}_{KL}(\rho \parallel \rho^*)
+\end{align*}
+$$
+
+The Wasserstein gradient of this function can be calculated with the definition I used earlier to result in [@LC]:
+
+$$
+- \nabla \frac{\delta \mathcal{F}}{\delta \rho}(\rho(x)) = - \left(\frac{\nabla \rho}{\rho} + \nabla U\right) \doteq V(\rho(x))
+$$
+
+and thereafter once embedded in the Wasserstein flow, corresponding to the Fokker-Planck equation, we see (with $v = V(\rho(x))$):
+
+$$
+\begin{align*}
+    \partial_t \rho &= - \nabla \cdot ( v \rho) \\
+    &= \Delta \rho + \nabla \cdot (\nabla U \rho)
+\end{align*}
+$$
+
+Here, identifying $U = f$ as in the usual optimization problem with goal $\rho^* \propto e^{-f}$:
+
+$$
+\partial_t \rho = \Delta \rho + \nabla \cdot (\nabla f \rho)
+$$
+
+This of course corresponds to Langevin Diffusion:
+
+$$
+\mathrm{d}X_t = -\nabla f (X_t) \mathrm{d}t + \sqrt{2} \mathrm{d}W_t
+$$
+
+<!-- but one instead often sends out deterministic particles with the dynamics [@LC]: -->
+
+<!-- $$ -->
+<!-- \dot{x}_t^{(i)} = -V(\rho(x_t^{(i)})) \doteq \left(\frac{\nabla \rho(x_t^{(i)})}{\rho(x_t^{(i)})} + \nabla U(x_t^{(i)})\right) = - \nabla \ln{\left(\frac{\rho}{\rho^{*}}\right)} -->
+<!-- $$ -->
+
+<!-- evolving according to some initial distribution $\pi_0$. -->
+
+<!-- In this way, if we wished to evaluate the mean over time, we would consider: -->
+
+<!-- $$ -->
+<!-- \dot{m}_t = \frac{\mathrm{d}}{\mathrm{d}t} \mathbb{E}_{\pi_0} \left[ x_t \right] = \mathbb{E}_{\pi_0} \left[ -V\left(x_t \right)\right] = -V\left( \mathbb{E}_{\pi_0} \left[ x_t \right]\right) = -V\left( m_t\right) -->
+<!-- $$ -->
+
+<!-- Here we have a very simple dependence on "some function of a Wiener process" to analyze, as otherwise the dynamics are deterministic; but will still need to consider what the "Stochastic Derivative" looks like for $X_t$. -->
+
+Let us borrow the formula from @eq-malliavinsolve.
+For general diffusions with drift $\mu(r,X_r)$ and volatility $\sigma(r,X_r)$, the tangent variation process $Y_r = \mathbf{D}_s X_r$ solves:
+
+$$
+\mathrm{d}Y_r = \mu_x (r,X_r)Y_r \mathrm{d}r + \sigma_x (r,X_r) Y_r \mathrm{d}W_r, \quad Y_s = \sigma(s,X_s)
+$$
+
+with explicit geometric solution:
+
+$$
+Y_t = \sigma(s,X_s)\exp\left\{\int_s^t \left(\mu_x (r,X_r) - \frac{1}{2} \sigma_{x}^2(r,X_r)\right)\mathrm{d}r + \int_s^t \sigma_x (r,X_r) \mathrm{d}W_r\right\}
+$$
+
+
+We find that for the simple Langevin process, the first order (Malliavin) variation of a general diffusion $X_t$, $\mathbf{D}_s$, is the solution to a specific SDE, and can be written as (in this specific case):
+
+$$
+\begin{align*}
+    \mathbf{D}_s X_t &= \sigma(s,X_s)\exp\left\{\int_s^t \left(\mu_x (r,X_r) - \frac{1}{2} \sigma_{x}^2(r,X_r)\right)\mathrm{d}r + \int_s^t \sigma_x (r,X_r) \mathrm{d}W_r\right\} \\
+    &= \sqrt{2}\exp\left\{-\int_s^t \Delta f (X_r)\mathrm{d}r\right\}.
+\end{align*}
+$$
+We alternatively see that this is just the exponential of $Z_t - Z_s$ which we can call the "Ito-Malliavin-variation" of $X_r$ (with drift and diffusion, the spatial derivative of the drift and diffusion of $X_r$).
+While possible useless, if anything is a fascinating result to consider.
+I can attempt to rephrase this as "a perturbation in the underlying Wiener process results in a functional perturbation whose order is related exponentially to the accumulated negative curvature along its path".
+
+So let's implement this. We know $V(X_t)$ and $\mathbf{D}_s X_t$, so to reconfirm the formula before, as there were likely errors, we will also relabel $U \doteq f$ the target to differentiate it from the current distribution at time $t$, $f_t \sim \rho_t$.
+
+We will for the most part be doing nothing new here. If we had ignored the evaluation at $\mathbf{D}_s X_t$ and replaced this with just $X_t$, this would say quite nicely that perturbation is observed as the difference in the gradients of the log-densities. Here it is a bit unwieldy, and I have difficulty really interpreting this result:
+
+$$
+\begin{align*}
+    \frac{\mathrm{d}}{\mathrm{d}t} \left(\delta_\gamma \mathcal{X}_t\right) &= V \mathbf{D}_\gamma X_t \\
+    &= V \int_0^T \mathbf{D}_s X_t \cdot \gamma_s \mathrm{d}s \\
+    &= V \int_0^t \mathbf{D}_s X_t \cdot \gamma_s \mathrm{d}s \quad (\mathbf{D}_s X_t = 0, \ s \geq t) \\
+    &= \int_0^t V\left(\mathbf{D}_s X_t \cdot \gamma_s\right) \mathrm{d}s \\
+    &= \int_0^t \left(V\left(\mathbf{D}_s X_t\right) \cdot \gamma_s + \mathbf{D}_s X_t \cdot V\left(\gamma_s\right)\right) \mathrm{d}s \\
+    &= \int_0^t V\left(\mathbf{D}_s X_t\right) \cdot \gamma_s \mathrm{d}s \quad (\text{deterministic, not a function of } x) \\
+    &= \int_0^t \left(\frac{\nabla \rho(\mathbf{D}_s X_t)}{\rho(\mathbf{D}_s X_t)} + \nabla f (\mathbf{D}_s X_t)\right) \cdot \gamma_s \mathrm{d}s \\
+    &= \int_0^t \left(\nabla \ln \left( \rho(\mathbf{D}_s X_t)\right) + \nabla f(\mathbf{D}_s X_t)\right) \cdot \gamma_s \mathrm{d}s \\
+    &= -\int_0^t \left( \nabla f_t(\mathbf{D}_s X_t) - \nabla f(\mathbf{D}_s X_t)\right) \cdot \gamma_s \mathrm{d}s \\
+    &= -\int_0^t \left(\nabla f_t - \nabla f\right)\left(\sqrt{2}\exp\left\{-\int_s^t \Delta f (X_r)\mathrm{d}r\right\}\right) \cdot \gamma_s \mathrm{d}s
+\end{align*}
+$$
+
+Let us now look at this from the other side, i.e.:
+
+$$
+\begin{align*}
+    \mathbf{D}_\gamma V(X_t) &= -\mathbf{D}_\gamma \left(\nabla f_t - \nabla f\right)(X_t) \\
+    &= -\left(\Delta f_t - \Delta f\right)(X_t) \cdot \mathbf{D}_\gamma X_t \\
+    &= -\left(\Delta f_t - \Delta f\right)(X_t) \cdot \int_0^t \sqrt{2}\exp\left\{-\int_s^t \Delta f (X_r)\mathrm{d}r\right\} \cdot \gamma_s \mathrm{d}s \\
+    &= -\int_0^t \sqrt{2}\left(\Delta f_t - \Delta f\right)(X_t) \cdot \exp\left\{-\int_s^t \Delta f (X_r)\mathrm{d}r\right\} \cdot \gamma_s \mathrm{d}s
+\end{align*}
+$$
+
+Which is almost just the silly and sort of obvious fact that we have just changed the order of differentiation, but we notice that the derivative is exchanged to be internal or external:
+
+$$
+V(\mathbf{D}_\gamma X_t) = -\left\langle \left(\nabla f_t - \nabla f\right)\left(\exp\left\{-\int_s^t \Delta f (X_r)\mathrm{d}r\right\}\right) , \ \cdot \gamma_s \right\rangle
+$$
+
+versus:
+
+$$
+\mathbf{D}_\gamma V(X_t) = -\left\langle \nabla \cdot \left(\nabla f_t - \nabla f\right)(X_t) , \ \exp\left\{-\int_s^t \Delta f (X_r)\mathrm{d}r\right\} \cdot \gamma_s \right\rangle
+$$
+
+The difference between the two can therefore be written as follows with $\varphi_t = (f_t - f)$:
+
+$$
+\begin{align*}
+    [V, \mathbf{D}_s](X_t) = \nabla \varphi_t (\mathbf{D}_s X_t) - \Delta \varphi_t (X_t) \cdot (\mathbf{D}_s X_t) &= (\nabla \varphi_t \circ \mathbf{D}_s - \Delta \varphi_t \otimes \mathbf{D}_s) X_t \\
+    &= (\nabla \cdot ( \varphi_t \circ \mathbf{D}_s - \nabla \varphi_t \otimes \mathbf{D}_s))X_t
+\end{align*}
+$$
+
+The inner part is of course just a measure of second order or higher differences, i.e., approximately a measure of the change in curvature in time as expected.
+
+We can also try for the heck of it to rewrite the RHS of $\mathbf{D}_s V(X_t)$ as follows, though I am uncertain for what purpose... We will denote $(\mathbf{D}_s V)^*$, only in the final line, as the variation with respect to the target distribution and the other the current distribution:
+
+$$
+\begin{align*}
+    \mathbf{D}_s V(X_t) &= -\sqrt{2}\left(\Delta f_t - \Delta f\right)(X_t) \cdot \exp\left\{-\int_s^t \Delta f (X_r)\mathrm{d}r\right\} \\
+    \frac{1}{\sqrt{2}}\mathbf{D}_s V(X_t) \exp\left\{-\int_s^t \Delta f_r (r, X_r)\mathrm{d}r\right\} &= -\left(\Delta f - \Delta f_t\right)(X_t) \cdot \exp\left\{-\int_s^t (\Delta f (X_r) - \Delta f_r (r,X_r) )\mathrm{d}r\right\} \\
+    &= -\partial_t \exp\left\{-\int_s^t (\Delta f (X_r) - \Delta f_r (r, X_r) )\mathrm{d}r\right\}\\
+    \frac{1}{2}\mathbf{D}_s V(X_t) \cdot (\mathbf{D}_s V)^* (X_t) &= -\partial_t \exp\left\{-\int_s^t (\Delta f (X_r) - \Delta f_r (r, X_r) )\mathrm{d}r\right\}
+\end{align*}
+$$
+
+We now have something that looks like an inner-product:
+
+$$
+\begin{align*}
+    \frac{1}{2}\int \mathbf{D}_s V(X_t) \cdot (\mathbf{D}_s V)^* (X_t) \mathrm{d}t &= \exp\left\{-\int_s^t (\Delta f (X_r) - \Delta f_r (r, X_r) )\mathrm{d}r\right\} \\
+    \frac{1}{2} \langle \mathbf{D}_s V(X_t), (\mathbf{D}_s V)^* (X_t)\rangle &= \dots
+\end{align*}
+$$
+
+Notably, we do not have decay to 0 explicitly as the limiting curvature should be the same, and anything extra comes from random error.
+
+Nicely however, we could use Girsanov's Theorem to calculate in expectation as we observe that the LHS is only a function of $X_t$ before the integral with respect to time. With the Radon-Nikodym derivative as:
+
+$$
+Z_t = \frac{\mathrm{d}Q}{\mathrm{d}P}\bigg|_t = \exp \left \{\int_0^t \frac{\nabla f(X_r)}{\sqrt{2}}\mathrm{d}r - \int_0^t \left(\frac{\nabla f(X_r)}{\sqrt{2}}\right)^2 \mathrm{d}r \right \}
+$$
+
+$$
+\begin{align*}
+    \frac{1}{2}\int \mathbf{D}_s V(X_t) \cdot (\mathbf{D}_s V)^* (X_t) Z_t \mathrm{d}t &= -\int \partial_t \exp\left\{-\int_s^t (\Delta f (X_r) - \Delta f_r (r,X_r) )\mathrm{d}r\right\} Z_t \mathrm{d}t \\
+    \frac{1}{2} \langle \mathbf{D}_s V(X_t), (\mathbf{D}_s V)^* (X_t) Z_t\rangle &= \left \langle - \partial_t \exp\left\{-\int_s^t (\Delta f (X_r) - \Delta f_r (r,X_r) )\mathrm{d}r\right\}, Z_t \right \rangle 
+\end{align*}
+$$
+
+The RHS, conditioned on my having gotten the signs for the two terms in $Z_t$ correct, is now a function of a $Q$-Wiener process with no drift, and the two sides are equal in expectation to the inner product not having said $Z_t$ under this $Q$-measure.
+
+---
+
+# Framing & Supplementary Material
+
+The idea is always to "extremize" some objective function $\mathcal{L}[\varphi]$ with respect to $\varphi$ (to find a stationary point—hopefully a max or min). Whether this is with respect to a finite or infinite dimensional parameter $\sigma$, $\varphi_\sigma$, it is restricted to some class of things satisfying certain conditions.
+
+In the course, we considered of course PDEs, with constraints of the form:
+
+$$
+\begin{align*}
+    \mathcal{G}_\sigma \varphi - f \doteq \mathcal{E}_\sigma[\varphi] &= 0 \\
+    \partial [ \varphi ] &= 0
+\end{align*}
+$$
+
+where $\mathcal{G}_\sigma$ is a linear differential operator parameterized by $\sigma$, and $\partial [ \cdot ]$ is my lazy way of writing $\varphi$ evaluated on the boundary. More explicitly our task is:
+
+$$
+\begin{align*}
+    \min_{\varphi} \quad &\mathcal{J}[\varphi] \\
+    \text{s.t.} \quad &\mathcal{E}_\sigma[\varphi] = 0
+\end{align*}
+$$
+
+What we would like to do here is rephrase this to allow our constraint to be regarding the form of the local dynamics of a stochastic rather than deterministic process.
+
+First let's consider the constraint.
+
+### Constraint
+
+We need to reinterpret this source $f$ and linear operator $\mathcal{G}_\sigma$. For generality let's now say that $f$ is a stochastic process, and $\mathcal{G}_\sigma$ is a stochastic linear operator (a random distribution). (The point of this section is for clarity, so that we can think like we do in the PDE case, for this SDE case, while introducing some ideas we'll use later).
+
+Let us constrain also that our process must be included in $\mathbb{F}_t$ space comprised of the $\sigma$-algebras generated from the Wiener process (a random measure/distribution) $W(0,t] \doteq W_t$ up to time $t$, of $L^2([0,t] \times \Omega)$ integrable processes, which is classically called the "Wiener Space" [@CS].
+
+This allows us the following representation theorem:
+
+::: {#thm-WienerRepresentation}
+## Wiener Representation Theorem
+
+Let $F \in \mathbb{F}_t$. Then if $\gamma$ is the Wiener Measure (Gaussian probability) and $\int (\cdot) \mathrm{d}\sigma$ designates the traditional Itô integral with respect to the continuous process $\sigma$ [@DOP]:
+
+$$
+F(\sigma) = \int_{C_{0}} F(p) \, \mathrm{d} \gamma (p) + \int_{0}^{T} \alpha^{F} (\sigma)_{t} \, \mathrm{d} \sigma_{t}
+$$
+
+($C_0$ here is actually $C_0([0,T]; \mathbb{R})$, the space of continuous functions $[0,T] \rightarrow \mathbb{R}$ of bounded domain—this generalizes and makes more apparent that this $F$ is a random linear functional in the simplest case, a distribution in more complex cases).
+
+And more traditionally with $\sigma = W$, a Brownian motion, we have:
+
+$$
+F_T = \mathbb{E}[F_T] + \int_{0}^{T} \alpha^{F} (W)_{t} \mathrm{d} W_{t}
+$$
+
+where in both cases $\alpha^{F} (W)_{t}$ is a well-defined integrable process.
+:::
+
+Here what we see is something very reminiscent of the fundamental theorem of calculus, convincing us almost that:
+
+$$
+\mathbf{D}_t F_T = \alpha^{F} (W)_{t}
+$$
+
+for some properly defined derivation $\mathbf{D}_t$, and $\mathcal{F}_t$ adapted function $F$, which should be something like the "derivative operator" on the Wiener space [@CS].
+
+Let's make this more explicit, and I ask you to take me at my word for now.
+
+## Malliavin Calculus
+
+The crucial part now is to properly define in what space we live in so we can define a derivative properly [@CS; @NU].
+
+### Wiener Random Measure
+
+Note, a way to define the Wiener process is as a random measure, acting on some input function. This is how white noise is defined, as a distributional quantity whose aggregate is the Wiener measure.
+
+In the usual way (indicator $\rightarrow$ simple $\rightarrow$ dense approximation) we can define:
+
+$$
+W[g] = \int g \, \mathrm{d}W
+$$
+
+As in the Riesz Representation, this would just look like a functional if we jazz it up a little bit by making the "peculiar" statement that, in some sense:
+
+$$
+W[g] = \int g \, \mathrm{d}W = \int g_t \dot{W}_t \, \mathrm{d}t
+$$
+
+This is of course informal, but motivates the argument: "well if we can't talk about regular derivatives, what about functional derivatives?" i.e., this is defined in the weak sense anyway.
+
+### Aside/Motivation: $\dot{W}_t$
+
+As a motivating example consider $L^2([0,T])$, a Hilbert space which if nice and separable has a countable orthonormal basis $\{e_j\}_{j=1}^\infty$ and inner product $\langle \cdot, \cdot \rangle$.
+
+Let us now define the Wiener process in terms of this orthonormal decomposition as:
+
+$$
+\begin{align*}
+    W_t &= \int_0^t \mathrm{d}W_s \\
+    &= \int \mathbb{I}_{[0,t]}(s) \mathrm{d}W_s \\
+    &= \int \sum_{j=1}^{\infty} \langle \mathbb{I}_{[0,t]}, e_j \rangle e_j \mathrm{d}W_s \\
+    &= \sum_{j=1}^{\infty} \langle \mathbb{I}_{[0,t]}, e_j \rangle \left( \int e_j \mathrm{d}W_s \right)\\
+    &= \sum_{j=1}^{\infty}\left( \int_{0}^{T} \mathbb{I}_{[0,t]}(s) e_{j}(s) \mathrm{d}s \right) W_{e_j} \\
+    &= \sum_{j=1}^{\infty}\left( \int_{0}^{t} e_{j}(s) \mathrm{d}s \right) W_{e_j}
+\end{align*}
+$$
+
+where each $W_{e_j}$ is an independent standard Gaussian, and from here we have the usual result that is always abused:
+
+$$
+\frac{\mathrm{d}}{\mathrm{d}t}W_t \doteq \dot{W}_t = \sum_{j=1}^{\infty}e_{j}(t) W_{e_j}
+$$
+
+Now, this quantity of course is really not defined in the point-wise sense (you can't take the derivative of a Brownian Motion), but is something well-defined distributionally in the space.
+
+But remember, what we're technically taking the derivative with respect to here is the dependence of $W_t$ on the indicator function $\mathbb{I}_{[0,t]}$.
+
+### Functional Derivative of Wiener Process
+
+::: {#def-MalliavinDerivative}
+## Malliavin Derivative
+
+Let $F: \Omega \rightarrow \mathbb{R}$ be a random variable, $g \in L^2([0,T])$, and let:
+
+$$
+\gamma(t) = \int_0^t g(s) \mathrm{d}s \quad \in \Omega
+$$
+
+Then we define the derivative in $\gamma$ to be:
+
+$$
+\mathbf{D}_\gamma F(\omega) = \lim_{\varepsilon \rightarrow 0} \frac{F(\omega + \varepsilon \gamma) - F(\omega)}{\varepsilon}
+$$
+
+when it exists, and if even better $\exists \psi \in L^2 (\lambda \times P)$ s.t.:
+
+$$
+\mathbf{D}_\gamma F(\omega) = \int_0^T \psi(t,\omega) g(t) \mathrm{d}t = \langle \psi , g \rangle_{[0,T]}
+$$
+
+we say $F$ is differentiable, and identifying $\psi$ as its stochastic derivative/gradient we have that:
+
+$$
+\mathbf{D}_t F(\omega) = \psi(t,\omega)
+$$
+:::
+
+::: {#exm-WienerDerivative}
+## Derivative of Wiener Process
+
+The above definition implies that, in the Wiener space where $W(\omega) = \omega$ is the identity operator:
+
+$$
+\mathbf{D}_\gamma W_t(\omega) = \lim_{\varepsilon \rightarrow 0} \frac{\int_0^T \mathbb{I}_{[0,t]}\mathrm{d}(W + \varepsilon \gamma) - \int_0^T \mathbb{I}_{[0,t]}\mathrm{d}(W)}{\varepsilon} = \int_{0}^{T} \mathbb{I}_{[0,t]}(s) g(s) \mathrm{d}s
+$$
+
+Which implies that:
+
+$$
+\psi_s = \mathbb{I}_{[0,t]}(s)
+$$
+
+as one would expect if I was trying to in general define a kind of anti-stochastic-derivative $W_t = \int \mathbb{I}_{[0,t]}(s) \mathrm{d}W_s$. What we have done is not exactly this, but the intuition is good and it's true when the integrand for the Stochastic Integral representation is a deterministic function.
+
+If it's not quite correct, we will of course need to cover what is, and this will lead us to developing something called a Skorohod integral where we can show the derivative and anti-derivative comment is true up to a constant [@NU]:
+
+$$
+[\mathbf{D},\delta](\gamma, u) = \mathbf{D}_\gamma \delta(u) - \delta \mathbf{D}_\gamma(u) = \langle \dot{\gamma}_t, \dot{u}_t \rangle_{[0,T]}
+$$
+:::
+
+From here we have many things, for example the chain rule:
+
+$$
+\mathbf{D}_t F(W_1, W_2, \dots, W_n) = \sum_{i=1}^n \partial_i F \cdot \mathbf{D}_t W_i = \sum_{i=1}^n \partial_i F \cdot h_i
+$$
+
+with $h_i$ such that $W[h_i] = W_i$, and a slightly more nuanced fundamental theorem of calculus that would require us to define a new operator called the Skorohod Integral [@NU].
+
+### Skorohod Integral
+
+There are some very beautiful ways to define this object (Wiener-Itô Expansion, etc.), but I will keep this as terse as possible, and only refer back to other representative results as a "bridge" for doing calculations [@DOP; @NU].
+
+::: {#def-SkorohodIntegral}
+## Informal Skorohod Integral
+
+Very simply, the Skorohod Integral can be seen as the adjoint operator of $\mathbf{D}_t$ in the sense that [@NU]:
+
+$$
+\begin{align*}
+    \mathbb{E}[\mathbf{D}_{\gamma}F] &= \mathbb{E}[\langle \mathbf{D}_t F, g \rangle_{[0,T]}] \\
+    &= \mathbb{E}[F \cdot \delta(g) ]
+\end{align*}
+$$
+
+Which maps directly to our calculus understanding of divergences (this calculation generally derived via integration by parts on smooth enough $g$).
+:::
+
+Well, let's try it! Let $F = F(W_T)$. Using Stein's formula for expectation under the Gaussian measure of adapted processes (not predictive) we have, in reverse:
+
+$$
+\begin{align*}
+    \mathbb{E}[F \cdot W_T ] &= \mathbb{E}[F' \cdot T ] \\
+    &= \mathbb{E}[F' \langle \mathbb{I}_{[0,T]},\mathbb{I}_{[0,T]}\rangle_{[0,T]}] \\
+    &= \mathbb{E}[ \langle F'\mathbb{I}_{[0,T]},\mathbb{I}_{[0,T]}\rangle_{[0,T]}] \\
+    &= \mathbb{E}[ \langle \mathbf{D}_t F,\mathbb{I}_{[0,T]}\rangle_{[0,T]}]
+\end{align*}
+$$
+
+i.e., we have that:
+
+$$
+\delta(\mathbb{I}_{[0,T]}) = W_T = \int_0^T \mathrm{d}W_s
+$$
+
+the normal Itô integral. Through the usual way (indicator, simple...), as long as $u \in \text{Dom}(\delta)$ adapted to $\mathcal{F}_T$, we have that [@DOP]:
+
+$$
+\delta(u) = \int_0^T u_s \mathrm{d}W_s
+$$
+
+In more generality, for predictive (think inside trading, knows before it happens) we have for say the simple process ($F_i$ an adapted random variable, and $h_i$ a smooth enough function on a bounded set):
+
+$$
+u = \sum_{i=1}^n F_i h_i
+$$
+
+that again via integration by parts, or an explicit computation using the chain rule on $\mathbb{E}[\mathbf{D}_\gamma (X Y)]$, we get [@NU]:
+
+$$
+\delta(u) = \sum_{i=1}^n F_i W(h_i) - \sum_{i=1}^n \langle \mathbf{D} F_i, h_i \rangle_{[0,T]}
+$$
+
+The summand terms are also called the Wick products if rewritten as [@GO]:
+
+$$
+\begin{align*}
+    \delta(u) &= \sum_{i=1}^n F_i W(h_i) - \langle \mathbf{D} F_i, h_i \rangle_{[0,T]}\\
+    &= \sum_{i=1}^n (F_i h_i) \diamond W
+\end{align*}
+$$
+
+Thus in the limit as say the partition size goes to 0 we have (in the $L^2$ sense):
+
+$$
+\delta(u) = \int_0^T F_t \mathrm{d}W_t - \int_0^T \mathbf{D}_t F_t \mathrm{d}t
+$$
+
+and when $F_i$ is also predictable (a constant in the projected space), $\mathbf{D} F_i = 0$, again we recover the normal stochastic integral:
+
+$$
+\delta(u) = \int_0^T F_s \mathrm{d}W_s
+$$
+
+If you're interested in further relations, Nualart has some really good material [@NU] for how the derivative and divergence operator here come up as adjoints with respect to the Gaussian measure, and how the composition of the two is related to something called the Ornstein-Uhlenbeck Operator:
+
+$$
+\Delta = -\delta \mathbf{D}
+$$
+
+Above we have taken for granted the following results:
+
+$$
+\text{"Gaussian Derivative":} \quad \mathbf{D}f(\omega) = f' (\omega)
+$$
+
+$$
+\text{"Gaussian Divergence":} \quad \delta f(\omega) = \omega f(\omega) - f'(\omega)
+$$
+
+The latter being the divergence operator also pops up in literature as the "Stein Operator" and is often used to distinguish if something is distributionally Gaussian.
+
+Let's compose the two via a commutator, and we find that with $f \in C^2(\mathbb{R})$:
+
+$$
+[\mathbf{D},\delta](f) = (\mathbf{D}\delta - \delta \mathbf{D})f = f
+$$
+
+In a fascinating manner we can show that the divergence operator is the generator of Hermite Polynomials (we will show later that this is exactly an iterated stochastic integral), i.e.:
+
+$$
+H_n(x) = \delta^n 1
+$$
+
+where of course $H_0(x) = 1$. Coming full circle to the Ornstein-Uhlenbeck operator, we have that the Hermite Polynomials are eigenfunctions/vectors with eigenvalue $-n$ [@NU]:
+
+$$
+\Delta H_n = - \delta \mathbf{D}H_n = -\delta H_n' = -n \delta H_{n-1} = -n H_n
+$$
+
+This operator forms a semi-group using $H_n$ as a basis such that:
+
+$$
+P_t H_n = e^{-nt}H_n
+$$
+
+This whole bit is stolen from Nualart's notes of course [@NU], so the goal is just to demonstrate some properties that make what we're doing here relevant, e.g., one can show:
+
+$$
+f(\omega) - \int_\mathbb{R} f(\omega) \mathrm{d}P_\omega = -\int_{\mathcal{R}^+} \Delta P_t f(\omega) \mathrm{d}t
+$$
+
+and that we have nice bounds for smooth functions such as:
+
+$$
+\text{Var}(f) \leq \|\mathbf{D} f\|_{L^2 (\mathbb{R},P_\omega)}^2
+$$
+
+## Asides
+
+### Clark-Ocone Formula
+
+From the actual calculations perspective, using Itô calculus makes things "difficult", and maybe we don't really like that we can't solve our equations using the regular kind of calculus. We will introduce what can be called Wick Calculus having many nice properties as a result of Malliavin Calculus [@GO].
+
+We can then hope to write our equations in a form similar to a regular ODE or PDE.
+
+As an aside, but very very useful for deriving explicit representations, what we should actually have for adapted, though possibly anticipating, processes here is something called the Clark-Ocone Formula which gives more explicit general justification for what $\alpha^{F}(W)_t$ should be [@CS; @NU].
+
+::: {#thm-ClarkOcone2}
+## Clark-Ocone Formula
+
+Let $F \in \mathbb{D}^{1,2}$ and be $\mathcal{F}_T$ measurable (generated by Wiener), i.e.:
+
+$$
+\|F\|_{1,2}^2 = \mathbb{E}\left[\int_0^T F^2 \mathrm{d}t \right] + \mathbb{E}\left[\int_0^T (\mathbf{D}_t F)^2 \mathrm{d}t \right] < \infty
+$$
+
+Then:
+
+$$
+F = \mathbb{E}[F] + \int_0^T \mathbb{E}[\mathbf{D}_t F \mid \mathcal{F}_t]\mathrm{d}W_t
+$$
+:::
+
+::: {#exm-ClarkOconeExp}
+## Example: $e^{\sigma W_T}$
+
+$$
+\begin{align*}
+    e^{\sigma W_T} &= e^{\frac{\sigma^2}{2}T} + \int_0^T \mathbb{E}[\mathbf{D}_t e^{\sigma W_T}\mid\mathcal{F}_t]\mathrm{d}W_t \\
+    &= e^{\frac{\sigma^2}{2}T} + \int_0^T \mathbb{E}[\sigma e^{\sigma W_T}\mid\mathcal{F}_t]\mathrm{d}W_t \\
+    &= e^{\frac{\sigma^2}{2}T} + \int_0^T \sigma \mathbb{E}[e^{\sigma W_t + \sigma (W_T - W_t)}\mid\mathcal{F}_t]\mathrm{d}W_t \\
+    &= e^{\frac{\sigma^2}{2}T} + \int_0^T \sigma e^{\frac{\sigma^2}{2}(T-t)} e^{\sigma W_t} \mathrm{d}W_t
+\end{align*}
+$$
+:::
+
+And note the funny looking expansion if we keep applying Clark-Ocone for suitable functions:
+
+$$
+\begin{align*}
+    F &= \mathbb{E}[F] + \int_0^T \mathbb{E}[\mathbf{D}_t F \mid \mathcal{F}_t]\mathrm{d}W_t \\
+    &= \mathbb{E}[F] + \int_0^T \mathbb{E}\left[ \mathbb{E}[\mathbf{D}_t F] +\int_0^t \mathbf{D}_s\mathbb{E}[\mathbf{D}_t F \mid \mathcal{F}_s]\mathrm{d}W_s \bigg{|} \mathcal{F}_t\right]\mathrm{d}W_t \\
+    &= \mathbb{E}[F] + \int_0^T \mathbb{E}\left[\mathbb{E}[\mathbf{D}_t F] + \int_0^t \mathbb{E}[\mathbf{D}_s\mathbf{D}_t F \mid \mathcal{F}_s]\mathrm{d}W_s \bigg{|} \mathcal{F}_t\right]\mathrm{d}W_t \\
+    &= \mathbb{E}[F] + \int_0^T \mathbb{E}[\mathbf{D}_t F] \mathrm{d}W_t + \int_0^T \int_0^t \mathbb{E}[\mathbf{D}_s\mathbf{D}_t F \mid \mathcal{F}_s]\mathrm{d}W_s \mathrm{d}W_t \\
+    &= \mathbb{E}[F] + \int_0^T f_1 (t) \mathrm{d}W_t + \int_0^T \int_0^t f_2(s,t)\mathrm{d}W_s \mathrm{d}W_t \\
+    &= \mathbb{E}[F] + \sum_{n=1}^\infty I_n(\tilde{f}_n)
+\end{align*}
+$$
+
+where:
+
+$$
+I_n(\tilde{f}_n) \doteq \int_0^T \int_0^{t_n} \dots \int_0^{t_2} \tilde{f}_n(t_1, \dots , t_n) \mathrm{d}W_{t_1} \dots \mathrm{d}W_{t_n}
+$$
+
+and $\tilde{f}_n$ is symmetric (and therefore not necessarily equal to $f_n$ as above), are called the $n^{\text{th}}$-order Itô integral with the also beautiful result that:
+
+$$
+\mathbf{D}_t I_n(\tilde{f}_n) = n I_{n-1}(\tilde{f}_n (t))
+$$
+
+which is the way we could have defined the Malliavin Derivative to begin with [@NU].
+
+Which is rather a consequence of the tools that make Clark-Ocone work, but is a nice teaser at an expansion with respect to iterated stochastic integrals with respect to projections in some sense. An important point here is that these things are awful, dreadful even, to calculate in general and are used mainly as a proof technique rather than for explicit manipulations.
+
+Well let me introduce you to a generalization of the Itô integral, the Skorohod integral which can be seen to be motivated by the above iterated integrals but apply to special cases and differ with respect to predictive functions [@DOP; @NU].
+
+### Wick Calculus
+
+We have mentioned before that the iterated stochastic integral $I_n(\cdot)$ can form a kind of decomposition of a function [@GO; @NU]:
+
+$$
+F = \sum_{n=0}^{\infty} I_n(f_n)
+$$
+
+for some symmetric functions $f_n$ (the "tilde" has been dropped henceforth because it is annoying). One can make these even more explicit by observing, as historically Itô did, that for Hermite Polynomials:
+
+$$
+H_n(x) = (-1)^n e^{\frac{1}{2}x^2} \frac{\mathrm{d}^n}{\mathrm{d}x^n}\left(e^{-\frac{1}{2}x^2}\right)
+$$
+
+and for a given function $g(t)$:
+
+$$
+I_n (g^{\otimes n}) = \|g\|^n H_n \left(\frac{\int g \, \mathrm{d}W}{\|g\|} \right)
+$$
+
+Think of this as making more explicit what one would want to do by writing:
+
+$$
+\begin{align*}
+    \left(\int_0^t g_s \mathrm{d}W_s\right)^n &\tilde{=} \int_0^t \dots \int_0^t g_{s_1} \dots g_{s_n} \mathrm{d}W_{s_1} \otimes \dots \otimes \mathrm{d}W_{s_n} \\
+    &\tilde{=} \int_{[0,t]^n} g_s^{\otimes n} \mathrm{d}W^\otimes_s
+\end{align*}
+$$
+
+where we can no longer define equality, as:
+
+$$
+\mathrm{d}W_s \otimes \mathrm{d}W_t \neq \mathrm{d}W_s \cdot \mathrm{d}W_t
+$$
+
+in the sense of preserving norms (Itô Isometry) as well as other properties you would like such as it being a Martingale.
+
+In a similar manner to the above representation, though not as explicitly, we can also write:
+
+$$
+F = \sum_{n=0}^{\infty} c_n H_n (f_n)
+$$
+
+where $f_n$ has unit norm in $L^2 ([0,T] \times \Omega)$. So if we treat this as an orthonormal decomposition (each of the polynomials are orthogonal with respect to the Wiener Measure), i.e., we take, considering $\hat{\otimes}$ the symmetrized product:
+
+$$
+I_n(e_1^{\otimes \alpha_1}\hat{\otimes}\dots\hat{\otimes}e_n^{\alpha_n}) = \prod_{k=1}^{n}H_{\alpha_k}\left(\int_0^T e_k(t)\mathrm{d}W_t\right)
+$$
+
+which is often called Wick's Theorem [@GO], we have the decomposition further to:
+
+$$
+F = \sum_{n=0}^{\infty} \tilde{c}_n H_n
+$$
+
+where $H_n$ is understood as being constructed from the underlying basis.
+
+When restricting $X_t$ to finite Hermite polynomial expansions:
+
+$$
+X_t = \sum_{n=0}^N c_n H_n \left(\frac{W_t}{\sqrt{t}}\right)
+$$
+
+the Malliavin derivative simplifies to:
+
+$$
+\mathbf{D}_s X_t = \sum_{n=1}^N \frac{c_n}{\sqrt{t}} H_{n-1} \left(\mathbb{I}_{[0,t]}(s)\frac{W_t}{\sqrt{t}}\right)
+$$
+Since Hermite polynomials form an orthonormal basis on Wiener space [@GO; @NU], the coefficients satisfy:
+
+$$
+c_n = \langle F, H_n\rangle_{\Omega} = \mathbb{E}[F H_n] = \mathbb{E}[\partial^n_x F]
+$$
+
+When coefficients are time-dependent ($c_n \doteq c_n(t)$), the Skorohod integral takes the Wick product form:
+
+$$
+\delta\left(c_n(t) H_n \left(\frac{W_t}{\sqrt{t}}\right) \right) = \int_0^T \left(\frac{c_n(t)}{t^{n/2}}W^{\diamond n}_t\right) \diamond \dot{W}_t \mathrm{d}t
+$$
+
+
+Now we define the Wick product in the following way:
+
+::: {#def-WickProduct}
+## Wick Product
+
+Let $X$ and $Y$ have the following decomposition [@GO]:
+
+$$
+X = \sum_{\alpha} x_\alpha H_\alpha, \quad Y = \sum_{\beta} y_\beta H_\beta
+$$
+
+Then the Wick product is defined as:
+
+$$
+\begin{align*}
+    X \diamond Y &= \sum_{\alpha,\beta} x_\alpha y_\beta H_{\alpha + \beta} \\
+    &= \sum_{\gamma} \left(\sum_{\alpha + \beta=\gamma} x_\alpha y_\beta \right) H_{\gamma}
+\end{align*}
+$$
+:::
+
+From this, we have another beautiful result that [@GO]:
+
+$$
+\delta(X) = \int X \delta W = \int X_t \diamond \dot{W}_t \mathrm{d}t
+$$
+
+which can be extended to an arbitrary Lévy process or Semi-Martingale as long as the basis polynomials are defined correctly (easiest way to find them is to find the exponential martingale for a stochastic process and then expand it out term by term, the $n^{\text{th}}$ order Martingale will be the coefficient of the $n^{\text{th}}$ power $x^n$).
+
+The Wick product is a product in every sense of the word, and works like the product in a normal deterministic integral (Note $X \diamond Y = X \cdot Y$ when either or both are deterministic).
+
+So when you write:
+
+$$
+\mathrm{d}X_t = f(X_t)\mathrm{d}t + \sigma(X_t)\mathrm{d}W_t
+$$
+
+what you mean is:
+
+$$
+\mathrm{d}X_t = (f(X_t) + \sigma(X_t)\diamond \dot{W}_t) \mathrm{d}t
+$$
+
+Which can be rewritten in the Wick sense (products are now Wick Products) as [@DOP]:
+
+$$
+\frac{\mathrm{d}}{\mathrm{d}t} X_t = f(X_t) + \sigma(X_t)\diamond \dot{W}_t
+$$
+
+::: {#exm-GBM}
+## Geometric Brownian Motion in Wick Form
+
+As a more familiar example we can write:
+
+$$
+\begin{align*}
+    \mathrm{d}X_t &= X_t (\mu \mathrm{d}t + \sigma \mathrm{d}W_t) \\
+    \frac{\mathrm{d}}{\mathrm{d}t} X_t &\doteq X_t \diamond (\mu + \sigma \dot{W}_t)
+\end{align*}
+$$
+
+The equation is solved like the usual ODE but with Wick Product as [@DOP; @GO]:
+
+$$
+X_t = x_0 \exp(\mu t)\exp^{\diamond}(\sigma W_t)
+$$
+
+where one can show (what term is missing that would make $\exp^{\diamond}(\sigma W_t)$ an exponential martingale? Well $\exp(\sigma W_t - \frac{\sigma^2}{2}t)$ is an exponential martingale...):
+
+$$
+X_t = x_0 \exp(\mu t) \exp^{\diamond}(\sigma W_t) = x_0 \exp \left( \left(\mu - \frac{\sigma^2}{2}\right)t + \sigma W_t \right)
+$$
+:::
+
+which allows us, after rewriting, to use the normal tools of calculus.
+
+---
+
+# References

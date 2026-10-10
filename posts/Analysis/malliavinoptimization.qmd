@@ -1,0 +1,276 @@
+---
+title: "Summary: Notes on SDE Constrained Optimization"
+date: "2026-10-09"
+author: "Your Name"
+categories: [Stochastic Calculus, Optimization, Malliavin Calculus]
+reference-location: margin
+abstract: "An exploration of concepts in SDE-constrained optimization, covering functional variations of diffusions, Malliavin calculus, Skorohod integration, Wick products, and Wasserstein gradient flows."
+---
+
+# Introduction
+
+This is simply just a summary of the (likely annoyingly) long, similarly titled, notes.
+
+## Initial Example and Calculations
+
+To illustrate the framework, consider approximating a target process such as Brownian motion $W_t$ over a time horizon $[0, T]$. Define the objective functional:
+
+$$
+\mathcal{J}[X(\sigma)] = \mathbb{E}\left[\int_0^T (W_t^2 - X_t)^2 \mathrm{d}t\right]
+$$
+
+which measures the expected squared deviation between $X_t$ and the path $W_t^2$.
+
+Suppose $X_t$ belongs to a class of pure diffusion processes:
+
+$$
+X_t = X_0 + \int_0^t \sigma(s,X_s) \mathrm{d}W_s
+$$
+
+We examine the first variation $\delta \mathcal{J}$ under a perturbation $\sigma \mapsto \sigma + \varepsilon \gamma$, where $\gamma_t$ is a suitably regular stochastic process vanishing on boundaries:
+
+$$
+\begin{align*}
+    \delta \mathcal{J}[X(\sigma)] &= \lim_{\varepsilon \rightarrow 0}\frac{1}{\varepsilon}\left(\mathbb{E}\left[\int_0^T (W_t^2 - X_t + \varepsilon \tilde{X}_t)^2 \mathrm{d}t\right] - \mathbb{E}\left[\int_0^T (W_t^2 - X_t)^2 \mathrm{d}t\right] \right) \\
+    &= \mathbb{E}\left[ \int_0^T 2(W_t^2 - X_t)\tilde{X}_t \mathrm{d}t \right]
+\end{align*}
+$$
+
+Expanding the variation process $\tilde{X}_t$:
+
+$$
+\delta \mathcal{J}[X(\sigma)] = \mathbb{E}\left[ \int_0^T 2(W_t^2 - X_t) \left(\int_0^t \gamma(s,X_s) \mathrm{d}W_s \right) \mathrm{d}t \right]
+$$
+
+To express this variation as an inner product, we introduce the Skorohod integral operator $\delta(\cdot)$, formally written using white noise $\dot{W}_s$ and Wick product $\diamond$ [@GO]:
+
+$$
+\delta(\cdot) = \int_0^T (\cdot)\diamond \dot{W}_s \mathrm{d}s = \int_0^T (\cdot) \mathrm{d}W_s
+$$
+
+Using the Malliavin integration-by-parts duality under Gaussian measure [@NU]:
+
+$$
+\mathbb{E}\left[ F \cdot \delta(u) \right] = \mathbb{E}\left[ \int_0^T (\mathbf{D}_s F) u_s \mathrm{d}s \right] = \mathbb{E}\left[ \langle\mathbf{D}_s F, u \rangle_{[0,T]} \right]
+$$
+
+where $\mathbf{D}_s$ denotes the Malliavin derivative operator. Differentiating diffusion processes yields:
+
+$$
+\mathbf{D}_s X_T = \mathbf{D}_s \int_{0}^T \mu(r,X_r) \mathrm{d}r = \int_{s}^T \mathbf{D}_s \mu(r,X_r) \mathrm{d}r
+$$
+
+$$
+\mathbf{D}_s X_T = \mathbf{D}_s \int_{0}^T \sigma(r,X_r) \mathrm{d}W_r = \sigma(s,X_s) + \int_{s}^T \mathbf{D}_s \sigma(r,X_r) \mathrm{d}W_r
+$$
+
+For monomial path evaluations $W_t^n$:
+
+$$
+\mathbf{D}_s (W_t^n) = n W_t^{n-1} \mathbb{I}_{[0,t]}(s)
+$$
+
+Rewriting $\tilde{X}_t = \delta\left(\mathbb{I}_{[0,t]}\gamma\right)$, the functional derivative becomes:
+
+$$
+\begin{align*}
+    \delta \mathcal{J} &= \int_0^T 2\mathbb{E}\left[ \int_0^T \mathbf{D}_s (W_t^2 - X_t) \mathbb{I}_{[0,t]}(s)\gamma(s,X_s) \mathrm{d}s\right] \mathrm{d}t \\
+    &= \int_0^T 2\mathbb{E}\left[ \int_0^T (2 W_t \mathbb{I}_{[0,t]}(s) - \mathbf{D}_s X_t) \mathbb{I}_{[0,t]}(s)\gamma(s,X_s) \mathrm{d}s\right] \mathrm{d}t \\
+    &= \int_0^T 2\mathbb{E}\left[ \langle 2 W_t \mathbb{I}_{[0,t]}(s) - \mathbf{D}_s X_t, \mathbb{I}_{[0,t]}\gamma \rangle\right] \mathrm{d}t
+\end{align*}
+$$
+
+Stationarity requires:
+
+$$
+\mathbf{D}_s X_t = \sigma(s,X_s) + \int_s^t \mathbf{D}_s\sigma(r,X_r)\mathrm{d}W_r = 2 W_t \mathbb{I}_{[0,t]}(s)
+$$
+
+::: {.column-margin}
+Note that setting $\sigma(s,X_s) = 2 W_s \mathbb{I}_{[0,t]}(s)$ formally satisfies this relation, but makes $\sigma$ explicitly path-dependent via $W_s$ rather than a deterministic state function $\sigma(s,x)$.
+:::
+
+### Polynomial & Hermite Expansions
+
+When restricting $X_t$ to finite Hermite polynomial expansions:
+
+$$
+X_t = \sum_{n=0}^N c_n H_n \left(\frac{W_t}{\sqrt{t}}\right)
+$$
+
+the Malliavin derivative simplifies to:
+
+$$
+\mathbf{D}_s X_t = \sum_{n=1}^N \frac{c_n}{\sqrt{t}} H_{n-1} \left(\mathbb{I}_{[0,t]}(s)\frac{W_t}{\sqrt{t}}\right)
+$$
+
+Since Hermite polynomials form an orthonormal basis on Wiener space [@GO; @NU], the coefficients satisfy:
+
+$$
+c_n = \langle F, H_n\rangle_{\Omega} = \mathbb{E}[F H_n] = \mathbb{E}[\partial^n_x F]
+$$
+
+When coefficients are time-dependent ($c_n \doteq c_n(t)$), the Skorohod integral takes the Wick product form:
+
+$$
+\delta\left(c_n(t) H_n \left(\frac{W_t}{\sqrt{t}}\right) \right) = \int_0^T \left(\frac{c_n(t)}{t^{n/2}}W^{\diamond n}_t\right) \diamond \dot{W}_t \mathrm{d}t
+$$
+
+For general diffusions with drift $\mu(r,X_r)$ and volatility $\sigma(r,X_r)$, the tangent variation process $Y_r = \mathbf{D}_s X_r$ solves:
+
+$$
+\mathrm{d}Y_r = \mu_x (r,X_r)Y_r \mathrm{d}r + \sigma_x (r,X_r) Y_r \mathrm{d}W_r, \quad Y_s = \sigma(s,X_s)
+$$
+
+with explicit geometric solution:
+
+$$
+Y_t = \sigma(s,X_s)\exp\left\{\int_s^t \left(\mu_x (r,X_r) - \frac{1}{2} \sigma_{x}^2(r,X_r)\right)\mathrm{d}r + \int_s^t \sigma_x (r,X_r) \mathrm{d}W_r\right\}
+$$
+
+::: {#thm-ClarkOcone}
+## Clark-Ocone Formula
+
+Let $F \in \mathbb{D}^{1,2}$ be $\mathcal{F}_T$-measurable. Then $F$ admits the stochastic integral representation [@CS; @NU]:
+
+$$
+F = \mathbb{E}[F] + \int_0^T \mathbb{E}[\mathbf{D}_t F \mid \mathcal{F}_t]\mathrm{d}W_t
+$$
+:::
+
+## Geometric and Manifold Considerations
+
+Key geometric insights regarding this calculus include:
+
+1.  **Stationary Conditions vs. Optimization Geometry:** While necessary conditions for stationary points can be derived heuristically, equipping the space of diffusion processes with a Riemannian manifold structure (enabling gradient descent) remains difficult.
+2.  **Variational Spaces:** Variations on drift coefficients correspond naturally to the flat geometry of the Cameron-Martin space. However, variations on diffusion coefficients $\sigma$ lack an obvious metric structure without restricting to specific density-space geometries (e.g., Wasserstein flows) [@LC].
+
+---
+
+# Explorations in Parametric & Wasserstein Flows
+
+## Parametric Perturbations
+
+Consider a parameter $\theta_t$ driving process $X_t \sim P_{\theta_t}$ with Gaussian prior $\theta_t \sim \mathcal{N}\left(\vartheta_t, \int_0^t v_s \mathrm{d}s\right)$. Representing $X_t = G^{-1}(t, U, \theta_t)$ via conditional CDF $G$:
+
+$$
+\mathbf{D}_s X_t = \left \langle \frac{\sigma_t \mathbb{I}_{[0,t]}(s)}{g(G^{-1}(t,U, \theta_t))}, \dot{\gamma}_s \right \rangle
+$$
+
+
+In Wasserstein geometry, vector fields take the form $V(\rho) = -\nabla \frac{\delta \mathcal{F}}{\delta \rho}$ [@LC]. For relative entropy $\mathcal{F}[\rho] = \mathcal{D}_{KL}(\rho \parallel \rho^*)$, $V(\rho) = -\left(\frac{\nabla \rho}{\rho} + \nabla f\right)$, corresponding to Langevin diffusion:
+
+$$
+\mathrm{d}X_t = -\nabla f (X_t) \mathrm{d}t + \sqrt{2} \mathrm{d}W_t
+$$
+
+The first variation process for Langevin diffusion evaluates to:
+
+$$
+\mathbf{D}_s X_t = \sqrt{2}\exp\left\{-\int_s^t \Delta f (X_r)\mathrm{d}r\right\}
+$$
+
+::: {.column-margin}
+This indicates that pathwise perturbations decay or amplify exponentially according to accumulated spatial curvature $\Delta f(X_r)$ along the trajectory.
+:::
+
+Applying Girsanov's Theorem with change of measure $Z_t = \frac{\mathrm{d}Q}{\mathrm{d}P}\Big|_t$:
+
+$$
+\frac{1}{2} \langle \mathbf{D}_s V(X_t), (\mathbf{D}_s V)^* (X_t) Z_t\rangle = \left \langle - \partial_t \exp\left\{-\int_s^t (\Delta f (X_r) - \Delta f_r (r,X_r) )\mathrm{d}r\right\}, Z_t \right \rangle
+$$
+
+---
+
+# Mathematical Foundations
+
+## Malliavin Operators on Wiener Space
+
+Let $\mathbb{F}_t$ denote the $L^2$-space of $\mathcal{F}_t$-adapted processes generated by Brownian motion [@CS].
+
+::: {#thm-WienerRepresentation}
+## Wiener Representation Theorem
+
+Every $F \in L^2(\Omega, \mathcal{F}_T, P)$ admits a unique representation [@DOP; @NU]:
+
+$$
+F_T = \mathbb{E}[F_T] + \int_{0}^{T} \alpha^{F}_t \mathrm{d} W_{t}
+$$
+
+where $\alpha^{F}_t$ is an adapted $L^2$-predictable process.
+:::
+
+::: {#def-MalliavinDerivative}
+## Malliavin Derivative
+
+Let $F: \Omega \rightarrow \mathbb{R}$ be a random variable, $g \in L^2([0,T])$, and $\gamma(t) = \int_0^t g(s) \mathrm{d}s$.
+The directional derivative of $F$ along $\gamma$ is:
+
+$$
+\mathbf{D}_\gamma F(\omega) = \lim_{\varepsilon \rightarrow 0} \frac{F(\omega + \varepsilon \gamma) - F(\omega)}{\varepsilon}
+$$
+
+If there exists $\psi \in L^2([0,T] \times \Omega)$ such that $\mathbf{D}_\gamma F = \langle \psi, g \rangle_{L^2[0,T]}$, then $F \in \mathbb{D}^{1,2}$ and $\mathbf{D}_t F = \psi(t, \cdot)$.
+:::
+
+::: {#def-SkorohodIntegral}
+## Skorohod Integral (Divergence Operator)
+
+The Skorohod integral operator $\delta$ is defined as the $L^2$-adjoint of the Malliavin derivative $\mathbf{D}$ [@NU]:
+
+$$
+\mathbb{E}[F \cdot \delta(u)] = \mathbb{E}\left[\langle \mathbf{D} F, u \rangle_{L^2[0,T]}\right], \quad \forall F \in \mathbb{D}^{1,2}, \, u \in \text{Dom}(\delta)
+$$
+:::
+
+For adapted processes $u_t$, $\delta(u) = \int_0^T u_t \mathrm{d}W_t$ coincides with the Itô integral [@DOP]. For simple non-adapted processes $u = \sum_{i=1}^n F_i h_i$:
+
+$$
+\delta(u) = \sum_{i=1}^n F_i W(h_i) - \sum_{i=1}^n \langle \mathbf{D} F_i, h_i \rangle_{L^2[0,T]}
+$$
+
+Hermite polynomials $H_n(x)$ arise directly via repeated divergence operations: $H_n(x) = \delta^n(1)$ [@GO]. The Ornstein-Uhlenbeck generator $\Delta = -\delta \mathbf{D}$ satisfies:
+
+$$
+\Delta H_n = -n H_n
+$$
+
+## Chaos Expansions & Wick Calculus
+
+Iterated stochastic integrals $I_n(f_n) = \int_0^T \dots \int_0^{t_2} f_n(t_1, \dots, t_n) \mathrm{d}W_{t_1} \dots \mathrm{d}W_{t_n}$ satisfy $I_n(g^{\otimes n}) = \|g\|^n H_n\left(\frac{\int g \mathrm{d}W}{\|g\|}\right)$ [@GO; @NU].
+
+::: {#def-WickProduct}
+## Wick Product
+
+For chaos expansions $X = \sum_{\alpha} x_\alpha H_\alpha$ and $Y = \sum_{\beta} y_\beta H_\beta$, the Wick product is [@GO]:
+
+$$
+X \diamond Y = \sum_{\gamma} \left(\sum_{\alpha + \beta = \gamma} x_\alpha y_\beta \right) H_{\gamma}
+$$
+:::
+
+Using Wick products, the SDE $\mathrm{d}X_t = f(X_t)\mathrm{d}t + \sigma(X_t)\mathrm{d}W_t$ transforms into a random ordinary differential equation [@DOP]:
+
+$$
+\frac{\mathrm{d}}{\mathrm{d}t} X_t = f(X_t) + \sigma(X_t) \diamond \dot{W}_t
+$$
+
+::: {#exm-GBM}
+## Geometric Brownian Motion in Wick Form
+
+Geometric Brownian Motion $\mathrm{d}X_t = \mu X_t \mathrm{d}t + \sigma X_t \mathrm{d}W_t$ written in Wick ODE form:
+
+$$
+\frac{\mathrm{d}}{\mathrm{d}t} X_t = X_t \diamond (\mu + \sigma \dot{W}_t)
+$$
+
+has the exact solution:
+
+$$
+X_t = x_0 \exp(\mu t) \diamond \exp^{\diamond}(\sigma W_t) = x_0 \exp\left(\left(\mu - \frac{\sigma^2}{2}\right)t + \sigma W_t\right)
+$$
+:::
+
+---
+
+# References

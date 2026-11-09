@@ -1,9 +1,7 @@
 [
   {
-    "listing": "/index.html",
+    "listing": "/notes.html",
     "items": [
-      "/posts/Analysis/malliavinoptimization.html",
-      "/posts/Analysis/notes-malliavin_optimization.html",
       "/posts/Analysis/notes-hermite_polynomials.html",
       "/posts/Analysis/notes-ergodicityeconomics.html",
       "/posts/Analysis/notes-testing_dynamics.html",
@@ -13,10 +11,8 @@
     ]
   },
   {
-    "listing": "/notes.html",
+    "listing": "/index.html",
     "items": [
-      "/posts/Analysis/malliavinoptimization.html",
-      "/posts/Analysis/notes-malliavin_optimization.html",
       "/posts/Analysis/notes-hermite_polynomials.html",
       "/posts/Analysis/notes-ergodicityeconomics.html",
       "/posts/Analysis/notes-testing_dynamics.html",

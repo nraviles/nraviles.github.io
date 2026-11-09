@@ -35,7 +35,7 @@ $$
 
 Since $e^{\lambda X - \frac{1}{2}\lambda^2}$ is a martingale for all $\lambda > 0$, equating coefficients of $\lambda^n$ shows that each term $H_n(X)$ is equal in conditional expectation and inherits the martingale property.
 
-More generally, consider a stochastic integral $X_t = \int_0^t g \mathrm{d}W$, with quadratic variation $[X]_t = \int_0^t g(r)^2 \mathrm{d}r \doteq \|g\|_t^2$ (recalling that for standard Brownian motion $[B]_t = t$, corresponding to $\mathrm{d}B_t \sim \mathcal{O}(\sqrt{\mathrm{d}t})$). Using the scaling property $H_n(c \cdot x) = c^n H_n(x)$ for time-scaled arguments, the conditional expectation of the exponential martingale expands as:
+More generally, consider a stochastic integral $X_t = \int_0^t g \mathrm{d}W$, with quadratic variation $[X]_t = \int_0^t g(r)^2 \mathrm{d}r \doteq \|g\|_t^2$ (recalling that for standard Brownian motion $[B]_t = t$, corresponding to $\mathrm{d}B_s \sim \mathcal{O}(\sqrt{\mathrm{d}s})$). Using the scaling property $H_n(c \cdot x) = c^n H_n(x)$ for time-scaled arguments, the conditional expectation of the exponential martingale expands as:
 
 $$
 \begin{align*}
@@ -47,7 +47,7 @@ $$
 \end{align*}
 $$
 
-To describe processes evolving in time, taking $\lambda = \sigma_t \doteq \sqrt{\sigma t}$ for scaled Gaussian processes produces time dependencies for functional approximations.
+<!-- To describe processes evolving in time, taking $\lambda = \sigma_t \doteq \sqrt{\sigma t}$ for scaled Gaussian processes produces time dependencies for functional approximations. -->
 
 ## Chaos Decomposition
 
@@ -76,68 +76,785 @@ This shift interpretation generalizes directly to Girsanov's Theorem.
 Consider a homogeneous diffusion process $X_t$ satisfying:
 
 $$
-X_t = \int_{t=0}^T \mu(t,X_t) \mathrm{d}t + \int_{t=0}^T \mathrm{d}B_t
+X_t = \int_{0}^t \mu(s,X_s) \mathrm{d}s + \int_{0}^t \mathrm{d}B_s
 $$
 
-where $B_t$ is a standard Brownian motion. Girsanov's Theorem states that:
+where $B_t$ is a standard Brownian motion. 
+
+If possible, analysis of this process would be made easier if we could "subtract off" (so that only the Brownian motion component remains).
+A specific instance of Girsanov's Theorem establishes in this case that there exists a measure $\mathbb{Q}$ such that
 
 $$
-\mathcal{E}_t = \exp\left(X_t - \frac{1}{2}[X]_t\right)
+\mathbb{E}_{\mathbb{P}}[f(X_t)] = \mathbb{E}_{\mathbb{Q}}\left[f(\widetilde{B}_t) e^{\int_{0}^t \mu(s,\widetilde{B}_s)\mathrm{d}\widetilde{B}_s + \frac{1}{2}\int_{0}^t \mu(s,\widetilde{B}_s)^2 \mathrm{d}s}\right]
 $$
+with $\widetilde{B}$ a brownian motion under $\mathbb{Q}$.
 
-where $[X]_t$ is the quadratic variation, is a martingale representing the likelihood ratio under measure transformation.
-
-To "subtract off" the drift so that only the Brownian motion component remains, Girsanov's Theorem establishes:
-
-$$
-\mathbb{E}_{X_t}[f(X_t)] = \mathbb{E}_{B_t}\left[f(B_t) e^{\int_{t=0}^T \mu(t,X_t)\mathrm{d}B_t - \frac{1}{2}\int_{t=0}^T \mu(t,X_t)^2 \mathrm{d}t}\right]
-$$
-
-Equivalently, defining $\tilde{B}_t = B_t + \int_0^t \mu(s,X_s)\mathrm{d}s$ converts $X_t$ into a Brownian motion under measure $Q$:
+This formula is non-obvious, but is intuitive argued by a change of variables (a drift correction).
+Define $\widetilde{B}_t = B_t + \int_0^t \mu(s,X_s)\mathrm{d}s$, then we see that
 
 $$
-\int_{t=0}^T \mu(t,X_t) \mathrm{d}t + \int_{t=0}^T \mathrm{d}B_t = \int_{t=0}^T \mu(t,X_t) \mathrm{d}t + \int_{t=0}^T \mathrm{d}\left(\tilde{B}_t - \int_{0}^t \mu(s,X_s)\mathrm{d}s\right) = \int_{t=0}^T \mathrm{d}\tilde{B}_t
+X_t =\int_{0}^t \mu(s,X_s) \mathrm{d}s + \int_{0}^t \mathrm{d}B_s =  \int_{0}^t \mathrm{d}\widetilde{B}_s
+$$
+This identifies, essentially, a change of variables
+$$
+X_t \mapsto B_t = \int_{0}^t \mathrm{d}B_s.
 $$
 
-When state-dependent volatility $\sigma(t,X_t) > 0$ is present:
+If under a change of measure, $\widetilde{B}_t$ was a Brownian motion and therefore a martingale, we would have $X_t = \widetilde{B}_t$ a martingale under this measure.
+To make this supposition rigorous will require some work, but for now observe a generalization.
+When state-dependent volatility $\sigma(s,X_s) > 0$ is present, just as before we would like to define $\widetilde{B}$ so that
 
 $$
-\int_{t=0}^T \mu(t,X_t) \mathrm{d}t + \int_{t=0}^T \sigma(t,X_t) \mathrm{d}B_t = \int_{t=0}^T \sigma(t,X_t)\mathrm{d}\tilde{B}_t
+Y_s =\int_{0}^t \mu(s,Y_s) \mathrm{d}s + \int_{0}^t \sigma(s,Y_s) \mathrm{d}B_s = \int_{0}^t \sigma(s,Y_s)\mathrm{d}\widetilde{B}_s,
+$$
+which is satisfied with $\mathrm{d}\widetilde{B}_t = \mathrm{d}B_s + \frac{\mu(s,X_s)}{\sigma(s,X_s)}\mathrm{d}s$.
+
+This identifies, essentially, a change of variables
+$$
+Y_t \mapsto X_t = \int_{0}^t \sigma(s,X_s)\mathrm{d}B_s,
 $$
 
-where $\mathrm{d}\tilde{B}_t = \mathrm{d}B_t + \frac{\mu(t,X_t)}{\sigma(t,X_t)}\mathrm{d}t$ under measure $Q$, yielding:
+Girsano's comparably yields in this case
 
 $$
-\mathbb{E}_{X_t}[f(X_t)] = \mathbb{E}_Q\left[f(X_t)e^{\int_{t=0}^T \frac{\mu(t,X_t)}{\sigma(t,X_t)}\mathrm{d}B_t - \frac{1}{2}\int_{t=0}^T \left( \frac{\mu(t,X_t)}{\sigma(t,X_t)} \right)^2 \mathrm{d}t}\right]
+\mathbb{E}_{\mathbb{Q}}[f(Y_t)] = \mathbb{E}_{\mathbb{P}}\left[f(X_t)e^{\int_{0}^t \frac{\mu(s,X_s)}{\sigma(s,X_s)}\mathrm{d}B_s + \frac{1}{2}\int_{0}^t \left( \frac{\mu(s,X_s)}{\sigma(s,X_s)} \right)^2 \mathrm{d}s}\right].
 $$
 
-<!-- ## Aside: Differences in Coefficients -->
+This representation intuitively attempts to "subtracts off" the drift, but Girsanov's theorem is not exactly this statement and is a bit more confusing.
+The primary use of Girsanov is to relate semi-martingales $X$ and $Y$ via a reference martingale $M$.[^semimartingale]
+Often this will assume that $X_t = A_t + M^{X}_t$ and $Y_t = M^X_t$ is the pure martingale component, which are related through a martingale $K$ (for instance if both $X_t$ and $Y_t$ are SDEs, they will be related through $M_t = B_t$).
 
-<!-- We examine how Hermite projection coefficients change under conditional expectations given filtration $\mathcal{F}_s$ ($s < t$). Denoting increments $\Delta_{s,t} f(X) = f(X_t) - f(X_s)$ and $\Delta_{s,t} H_1(X) = H_1(X_t) - H_1(X_s)$: -->
+In general, if there exists an exponential martingale in $K$ call it $Z(K)$ (assumed non-negative; inevitably we will use $Z(K) = \exp(K - [K]/2)$) with expectation $\E[Z(K_0)] =1$, then $\mathbb{Q}(A)=\int_A Z(K)\dd \mathbb{P}$ is also a probability measure.
+[^probmeasure]
+What Girsanov's says in addition to this is that $Z(K)$ is indeed the likelihood ratio between two martingales: $M^X$ a martingale under $\mathbb{P}$, and $X$ (observed as now) a martingale under $\mathbb{Q}$, related to one another through a martingale $K$, so long as $\langle M^X,K\rangle = -A_t$, where $\langle M,X\rangle$,[^compensation] with where therefore[^girsanov]
+$$
+X = M^X - \langle M^X,K\rangle .
+$$
+
+To demonstrate the existence: we need to find a martingale $K$ satisfying $\langle M^X,K\rangle = -A_t$, and, show that $K$ also produces exponential martingale $Z(K)$; the later is true so long as $K$ is a continuous martingale, and so the former is the primary condition.
+This can be developed via Ito's formula and some useful facts.
+First of all, by definition of $Z = \exp(K-[K]/2)$ in the continuous case (i.e. a gaussian process)
+$$
+\begin{align*}
+\dd Z(K) 
+&= Z \dd \pr{K - \frac{1}{2}[K]} + \frac{1}{2}Z\dd \br{K - \frac{1}{2}[K]}  \\
+&= Z \dd K 
+\end{align*}.
+$$
+We need 
+$$
+\begin{align*}
+\dd (XZ) 
+&= Z\dd X + X \dd Z + \dd \langle X,Z\rangle  \\
+&= Z (\dd A + \dd M) + X Z\dd K + Z\dd \langle X,K\rangle \\
+&= Z( \dd A + \dd \langle X,K\rangle) + Z( X \dd K + \dd M) \\
+&= Z( X \dd K + \dd M)
+\end{align*}
+$$
+to be a martingale, where we have already previously observed (backwards) that in order to meet the requirement that $X = M - \langle M, K\rangle$
+$$
+\dd \langle X,K\rangle = \dd \langle A + M, K\rangle = -\dd A 
+$$
+where $A$ is simply a finite variation part (absolutely continuous to $\lambda$).
+Therefore with no covariation, implies that
+$$
+\dd \langle M, K\rangle = -\dd A.
+$$
+If $\dd A_s = \mu_s \dd s$, and $M = \int \sigma_s \dd B_s$ then we can simplify scaling of $K$ by noticing more generally that, so long as it is well defined (as absolutely continuous)
+$$
+K = -\int \gamma_s \dd M_s = -\int \gamma_s \sigma_s\dd B_s \doteq \int \mu_s \dd B_s \implies K=  -\int \frac{\dd A_s}{\dd \langle M\rangle_s}\dd B_s
+$$
+or in this case simply
+$$
+K = -\int \gamma_s \dd B_s =-\int \frac{\mu_s}{\sigma_s}\dd B_s
+$$
+where we observe of course as intended that
+$$
+\dd \langle \int \sigma_s \dd B_s, -\int \frac{\mu_s}{\sigma_s}\dd B_s\rangle = -\int \sigma_s \cdot\frac{\mu_s}{\sigma_s} \dd[B,B]_s = -\int \mu_s \dd t = -A_t
+$$
+This confirms that $XZ(K)$ is a martingale under $\mathbb{P}$.
+We note by definition, in this example, that $X = M_t^X -\langle M^X,K \rangle_t$, and so this chain of operations should really be considered as a "backwards" to what is usually premised in Girsanov, where we start with a martingale $M_t^X$ under $\mathbb{P}$, show $XZ(K) =  (M^X -\langle M^X,K \rangle)Z(K)$ is also a martingale under $\mathbb{P}$, and as a consequence demonstrate that this implies $X$ is a martingale under $\mathbb{Q}$.
+
+To demonstrate that this last statement is a consequence, we use a generalized form of Bayes rule: for $A\in \mathcal{F}_s$ 
+$$
+\E_{\mathbb{Q}}\br{\mathbb{1}_A\E_{\mathbb{Q}}\br{X_t|\mathcal{F}_s}}=\E_{\mathbb{Q}}\br{\mathbb{1}_A\frac{\E_{\mathbb{P}}[X_tZ_t(K)|\mathcal{F}_s]}{\E_{\mathbb{P}}[Z_t(K)|\mathcal{F}_s]}} = \E_{\mathbb{Q}}[\mathbb{1}_A X_s]
+$$
+This calculation works by definition of $Z_t$ as a likelihood ratio, which is measurable in $\mathbb{P}$, is a martinglate where $\E_{\mathbb{P}}[Z_t(K)|\mathcal{F}_s] = Z_s(K)$ (and therefore $\E_\mathbb{P}[\mathbb{1}_A Z_t] = \E_\mathbb{P}[\mathbb{1}_A \E[Z_t|\mathcal{F}_s]] = \E[\mathbb{1}_A Z_s]$), and where further we have already demonstrated that $X_tZ_t(K)$ is a martingale (note that $Z_t(K)$ is almost surely positive as an exponential, and therefore division is valid).[^zinfinity]
+
+[^zinfinity]: Often, or rather explicitly, one defines $Z_t = \E[Z_\infty(K)|\mathcal{F}_t]$, which is well defined for "closure" $Z_\infty(K)$ given uniformly (integrability) $\E[Z_t(K)] = 1$.
+
+Explicitly
+$$
+\begin{align*}
+\E_{\mathbb{Q}}\br{\mathbb{1}_A\frac{\E_{\mathbb{P}}[X_tZ_t(K)|\mathcal{F}_s]}{\E_{\mathbb{P}}[Z_t(K)|\mathcal{F}_s]}}
+&= \E_{\mathbb{P}}\br{\mathbb{1}_A\frac{\E_{\mathbb{P}}[X_tZ_t(K)|\mathcal{F}_s]}{\E_{\mathbb{P}}[Z_t(K)|\mathcal{F}_s]}Z_s(K)} \\
+&=^{(i)} \E_{\mathbb{P}}\br{\mathbb{1}_A\E_{\mathbb{P}}[X_tZ_t(K)|\mathcal{F}_s]} \\
+&= \E_{\mathbb{P}}\br{\mathbb{1}_AX_s Z_s(K)} \\
+&=^{(*)} \E_{\mathbb{Q}}\br{\mathbb{1}_AX_s } \\
+&=^{(ii)} \E_{\mathbb{P}}\br{\E_{\mathbb{P}}[\mathbb{1}_AX_tZ_t(K)|\mathcal{F}_s]} \\
+&=^{(iii)} \E_{\mathbb{Q}}\br{\mathbb{1}_AX_t} \\
+&=^{(iv)} \E_{\mathbb{Q}}\br{\mathbb{1}_A\E_\mathbb{Q}[X_t|\mathcal{F_s}]}
+\end{align*}
+$$
+where $(i)-(iv)$ combined with $(*)$ demonstrate that $X_t$ is a $\mathbb{Q}$ martingale.
+
+This gives the same result as previously developed, where
+$$
+\begin{align*}
+\E_{\mathbb{Q}}\br{f(X_t)} 
+&= \E_{\mathbb{Q}}\br{f(M_t^X - \langle M_t^X,K\rangle)} \\
+&=\E_{\mathbb{P}}\br{f(\widetilde{M}_t)\frac{\dd \mathbb{Q}}{\dd \mathbb{P}}_t(K)}\\
+&= \E_{\mathbb{P}}\br{f(\widetilde{M}_t)\exp\pr{\widetilde{K}_t - \frac{1}{2}[\widetilde{K}]_t}} \\
+&=\mathbb{E}_{\mathbb{P}}\left[f(\widetilde{M}_t)e^{-\int_{0}^t \frac{\mu(s,\widetilde{M}_t)}{\sigma(s,\widetilde{M}_t)}\mathrm{d}B_s - \frac{1}{2}\int_{0}^t \left( \frac{\mu(s,\widetilde{M}_t)}{\sigma(s,\widetilde{M}_t)} \right)^2 \mathrm{d}s}\right]
+\end{align*}
+$$
+It is important to understand that $\widetilde{M}_t$ as written is distinct from $M_t$, but is calculated as if it were (it takes the place of $x$ in $\int f(x)z(x)\dd \mathbb{P}(x)$, even though technically the argument is observed as $\int f(x+A(x))\dd \mathbb{Q}(x)$).
+As framed here, we note that the left-hand-side is described under $\mathbb{Q}$, which is opposite to how people generally used Girsanov's for calculation; requiring us to take the reciprocal of the likelihood ratio (well defined given almost sure positivity/absolute continuity).
+
+It must be noted that we cannot use $N = \int \nu_s \dd B_t$ as our target martingale.
+Path-wise, the quadratic variation is determined in probability, i.e. unless $\sigma_s = \nu_s$, 
+$$
+[\int \nu_s \dd B_s]=\int\nu_s^2\dd s \ne \int\sigma_s^2\dd s = [\int\sigma_s^2\dd B_s]
+$$
+which implies the paths are different even under change of measure, and therefore do not correspond; after adjusting for a change of measure.
+This comes from the fact that $\mathbb{Q}$ is absolutely continuous with respect to $\mathbb{P}$, so if 
+$$
+A = \cbr{\omega \in \Omega : \lim_{|\pi|\downarrow 0}\sum \abs{\Delta X}^2 =\int\sigma_s^2\dd s}
+$$
+this event, under any measure, happens with probability $\mathbb{P}(A)=1$, and so the quadratic variation not agreeing ($\mathbb{Q}(A) = 0$) implies that $\mathbb{Q}$ is singular with respect to $\mathbb{P}$, which is a contradiction.
+
+### Connection to Hermite Expansion
+We note that clearly $Z(K)$ is the proper exponential martingale premised in our discussion of Hermite Polynomials for continuous processes; or rather Gaussian processes.
+In the reverse direction, what has been developed above is the observation that
+$$
+\E_\mathbb{Q}[f(M_\mathbb{Q}^X + K)] =\E_\mathbb{P}\br{f(M^X) Z(K)}.
+$$
+An expansion of $Z(\lambda)$ is simply our already premised Hermite expansion with respect to $\lambda =\int \pr{\frac{\dd A_s}{\dd \langle M \rangle_s}}^2\dd s = \int \gamma_s^2 \dd s$ the compensating part,
+
+$$
+Z(K)=\sum_{n=0}^{\infty}\frac{\lambda^n}{n!}H_n(K) = \sum_{n=0}^{\infty}\frac{\lambda^n}{n!}H_n\pr{-\int \gamma_s \dd B_s}.
+$$
+Assuming $\gamma_s$ is $L_2([0,t],\dd m)$ for all $t$ (a condition we glossed over in order to apply Girsanov) we can write
+$$
+Z(K)=\sum_{n=0}^{\infty}\frac{(\sqrt{\lambda})^n}{n!}H_n\pr{-\int \frac{\gamma_s}{\norm{\gamma}} \dd B_s} \doteq \sum_{n=0}^{\infty}\frac{\norm{\gamma}^n}{n!}H_n\pr{\widetilde{B}_1}
+$$
+where $\widetilde{B}_1 \sim N(0,1)$.
+If $f\in C_b^\infty$, then we could preform our taylor expansion just as before.
+
+
+### Dolean Dade Exponential
+Though of a similar form, it is important to not (assume continuity) that
+$$
+Y = \exp\pr{X - X_0 - \frac{1}{2}[X]}
+$$
+the solution to the properly predictable
+$$
+\dd Y = Y_{-} \dd X
+$$
+is not a martingale unless $X$ is (expand $\dd X$), though with semi-martingale $X_t = A_t + K_t$ its does decompose into exponential drift and a martingale part
+$$
+Y = \exp(A)\exp\pr{K - \frac{1}{2}[K]}.
+$$
+Naturally, by definition we have that
+$$
+\E_{\mathbb{P}}[Y] = \E_{\widetilde{\mathbb{Q}}}[\exp(A)].
+$$
+Here it may be important to therefore ask what martingale transform this corresponds to.
+As before, we have that with any $M$ a martingale in $\mathbb{P}$,
+$$
+\widetilde{M} =M - \langle M, K \rangle
+$$
+is a martingale in $\widetilde{\mathbb{Q}}$.
+Here the trivial martingale is simply 
+$$
+\widetilde{M} =M - \langle M \rangle
+$$
+which is already also a martingale under $\mathbb{P}$ by definition.
+
+We can however rewrite
+$$
+\E_\mathbb{P}[Y] = \E_\widetilde{\mathbb{P}}[\exp(X - X_0)\exp\pr{ - \frac{1}{2}[K]}]
+$$
+Using our previous results, using 
+$$
+\widetilde{K} = -\int \frac{\dd A_s}{\dd \langle K \rangle_s}\dd B_s
+$$
+we can write (note we begin in $\mathbb{P}$, and so to write this in $\mathbb{Q}$ we need to take an inverse)
+$$
+\E_\mathbb{P}[\exp(X-X_0)\exp\pr{ - \frac{1}{2}[K]}] = \E_\mathbb{Q}[\exp{K}\exp\pr{-\pr{\widetilde{K}- \frac{1}{2}[\widetilde{K}]}}\exp\pr{ - \frac{1}{2}[K]}]
+$$
+By definition, the quadratic variations must agree (and therefore cancel), and we find that we can write
+$$
+\E_\mathbb{P}[Y] = \E_\mathbb{Q}[\exp\pr{K - \widetilde{K}}] 
+$$
+
+
+[^compensation]: Understood as the process such that $MX - \langle M,X \rangle$ is a local martingale (for continuous time processes it is equal to the covariation $[M,X]$).
+
+[^girsanov]: Girsanov specifically relates two martingales via a reference martingale $K$ as $M\sim \mathbb{P}$ and $\widetilde{M} = M - \langle M, K\rangle \sim \mathbb{Q}$. The important observation is that $\widetilde{M}$ may not be a martingale under $\mathbb{P}$, as with $X$.
+
+
+[^probmeasure]: It is clearly tight. Send $A\uparrow \Omega$, for $\Omega$ the "domain" of $\mathbb{P}$ (base; generating $\sigma(\Omega)$ associated to $\mathbb{P}$). Then $Q(A)$ is increasing (non-negative $Z$ if exponential), and the expectation of $Z(M)$ is $\mathbb{Q}(\Omega)=\int_\Omega Z(M)\dd \mathbb{P} = 1$.
+
+[^semimartingale]: Semi-martingale identifes that $X_t = A_t + \widetilde{M}_t$ is a local martingale: it admits a Doob decomposition, i.e. $A_t$ is a "drift" and $\widetilde{M}_t$ is a local martingale (where local means it acts as a martingale for a sequence of diverging stopping times $\cbr{\tau_k}_{k\ge 1}$).
+
+
+## Aside/Motivation: $\dot{W}_t$
+
+As a motivating example consider $L^2([0,T])$, a Hilbert space which if nice and separable has a countable orthonormal basis $\{e_j\}_{j=1}^\infty$ and inner product $\langle \cdot, \cdot \rangle$.
+
+Let us now define the Wiener process in terms of this orthonormal decomposition as:
+
+$$
+\begin{align*}
+    W_t &= \int_0^t \mathrm{d}W_s \\
+    &= \int \mathbb{I}_{[0,t]}(s) \mathrm{d}W_s \\
+    &= \int \sum_{j=1}^{\infty} \langle \mathbb{I}_{[0,t]}, e_j \rangle e_j \mathrm{d}W_s \\
+    &= \sum_{j=1}^{\infty} \langle \mathbb{I}_{[0,t]}, e_j \rangle \left( \int e_j \mathrm{d}W_s \right)\\
+    &= \sum_{j=1}^{\infty}\left( \int_{0}^{T} \mathbb{I}_{[0,t]}(s) e_{j}(s) \mathrm{d}s \right) W_{e_j} \\
+    &= \sum_{j=1}^{\infty}\left( \int_{0}^{t} e_{j}(s) \mathrm{d}s \right) W_{e_j}
+\end{align*}
+$$
+
+where each $W_{e_j}$ is an independent standard Gaussian, and from here we have the usual result that is always abused:
+
+$$
+\frac{\mathrm{d}}{\mathrm{d}t}W_t \doteq \dot{W}_t = \sum_{j=1}^{\infty}e_{j}(t) W_{e_j}
+$$
+
+Now, this quantity of course is really not defined in the point-wise sense (you can't take the derivative of a Brownian Motion), but is something well-defined distributionally in the space.
+
+But remember, what we're technically taking the derivative with respect to here is the dependence of $W_t$ on the indicator function $\mathbb{I}_{[0,t]}$.
+
+### Functional Derivative of Wiener Process
+
+::: {#def-MalliavinDerivative}
+## Malliavin Derivative
+
+Let $F: \Omega \rightarrow \mathbb{R}$ be a random variable, $g \in L^2([0,T])$, and let:
+
+$$
+\gamma(t) = \int_0^t g(s) \mathrm{d}s \quad \in \Omega
+$$
+
+Then we define the derivative in $\gamma$ to be:
+
+$$
+\mathbf{D}_\gamma F(\omega) = \lim_{\varepsilon \rightarrow 0} \frac{F(\omega + \varepsilon \gamma) - F(\omega)}{\varepsilon}
+$$
+
+when it exists, and if even better $\exists \psi \in L^2 (\lambda \times P)$ s.t.:
+
+$$
+\mathbf{D}_\gamma F(\omega) = \int_0^T \psi(t,\omega) g(t) \mathrm{d}t = \langle \psi , g \rangle_{[0,T]}
+$$
+
+we say $F$ is differentiable, and identifying $\psi$ as its stochastic derivative/gradient we have that:
+
+$$
+\mathbf{D}_t F(\omega) = \psi(t,\omega)
+$$
+:::
+
+::: {#exm-WienerDerivative}
+## Derivative of Wiener Process
+
+The above definition implies that, in the Wiener space where $W(\omega) = \omega$ is the identity operator:
+
+$$
+\mathbf{D}_\gamma W_t(\omega) = \lim_{\varepsilon \rightarrow 0} \frac{\int_0^T \mathbb{I}_{[0,t]}\mathrm{d}(W + \varepsilon \gamma) - \int_0^T \mathbb{I}_{[0,t]}\mathrm{d}(W)}{\varepsilon} = \int_{0}^{T} \mathbb{I}_{[0,t]}(s) g(s) \mathrm{d}s
+$$
+
+Which implies that:
+
+$$
+\psi_s = \mathbb{I}_{[0,t]}(s)
+$$
+
+as one would expect if I was trying to in general define a kind of anti-stochastic-derivative $W_t = \int \mathbb{I}_{[0,t]}(s) \mathrm{d}W_s$. What we have done is not exactly this, but the intuition is good and it's true when the integrand for the Stochastic Integral representation is a deterministic function.
+
+If it's not quite correct, we will of course need to cover what is, and this will lead us to developing something called a Skorohod integral where we can show the derivative and anti-derivative comment is true up to a constant [@NU]:
+
+$$
+[\mathbf{D},\delta](\gamma, u) = \mathbf{D}_\gamma \delta(u) - \delta \mathbf{D}_\gamma(u) = \langle \dot{\gamma}_t, \dot{u}_t \rangle_{[0,T]}
+$$
+:::
+
+From here we have many things, for example the chain rule:
+
+$$
+\mathbf{D}_t F(W_1, W_2, \dots, W_n) = \sum_{i=1}^n \partial_i F \cdot \mathbf{D}_t W_i = \sum_{i=1}^n \partial_i F \cdot h_i
+$$
+
+with $h_i$ such that $W[h_i] = W_i$, and a slightly more nuanced fundamental theorem of calculus that would require us to define a new operator called the Skorohod Integral [@NU].
+
+### Skorohod Integral
+
+There are some very beautiful ways to define this object (Wiener-Itô Expansion, etc.), but I will keep this as terse as possible, and only refer back to other representative results as a "bridge" for doing calculations [@DOP; @NU].
+
+::: {#def-SkorohodIntegral}
+## Informal Skorohod Integral
+
+Very simply, the Skorohod Integral can be seen as the adjoint operator of $\mathbf{D}_t$ in the sense that [@NU]:
+
+$$
+\begin{align*}
+    \mathbb{E}[\mathbf{D}_{\gamma}F] &= \mathbb{E}[\langle \mathbf{D}_t F, g \rangle_{[0,T]}] \\
+    &= \mathbb{E}[F \cdot \delta(g) ]
+\end{align*}
+$$
+
+Which maps directly to our calculus understanding of divergences (this calculation generally derived via integration by parts on smooth enough $g$).
+:::
+
+Well, let's try it! Let $F = F(W_T)$. Using Stein's formula for expectation under the Gaussian measure of adapted processes (not predictive) we have, in reverse:
+
+$$
+\begin{align*}
+    \mathbb{E}[F \cdot W_T ] &= \mathbb{E}[F' \cdot T ] \\
+    &= \mathbb{E}[F' \langle \mathbb{I}_{[0,T]},\mathbb{I}_{[0,T]}\rangle_{[0,T]}] \\
+    &= \mathbb{E}[ \langle F'\mathbb{I}_{[0,T]},\mathbb{I}_{[0,T]}\rangle_{[0,T]}] \\
+    &= \mathbb{E}[ \langle \mathbf{D}_t F,\mathbb{I}_{[0,T]}\rangle_{[0,T]}]
+\end{align*}
+$$
+
+i.e., we have that:
+
+$$
+\delta(\mathbb{I}_{[0,T]}) = W_T = \int_0^T \mathrm{d}W_s
+$$
+
+the normal Itô integral. Through the usual way (indicator, simple...), as long as $u \in \text{Dom}(\delta)$ adapted to $\mathcal{F}_T$, we have that [@DOP]:
+
+$$
+\delta(u) = \int_0^T u_s \mathrm{d}W_s
+$$
+
+In more generality, for predictive (think inside trading, knows before it happens) we have for say the simple process ($F_i$ an adapted random variable, and $h_i$ a smooth enough function on a bounded set):
+
+$$
+u = \sum_{i=1}^n F_i h_i
+$$
+
+that again via integration by parts, or an explicit computation using the chain rule on $\mathbb{E}[\mathbf{D}_\gamma (X Y)]$, we get [@NU]:
+
+$$
+\delta(u) = \sum_{i=1}^n F_i W(h_i) - \sum_{i=1}^n \langle \mathbf{D} F_i, h_i \rangle_{[0,T]}
+$$
+
+The summand terms are also called the Wick products if rewritten as [@GO]:
+
+$$
+\begin{align*}
+    \delta(u) &= \sum_{i=1}^n F_i W(h_i) - \langle \mathbf{D} F_i, h_i \rangle_{[0,T]}\\
+    &= \sum_{i=1}^n (F_i h_i) \diamond W
+\end{align*}
+$$
+
+Thus in the limit as say the partition size goes to 0 we have (in the $L^2$ sense):
+
+$$
+\delta(u) = \int_0^T F_t \mathrm{d}W_t - \int_0^T \mathbf{D}_t F_t \mathrm{d}t
+$$
+
+and when $F_i$ is also predictable (a constant in the projected space), $\mathbf{D} F_i = 0$, again we recover the normal stochastic integral:
+
+$$
+\delta(u) = \int_0^T F_s \mathrm{d}W_s
+$$
+
+If you're interested in further relations, Nualart has some really good material [@NU] for how the derivative and divergence operator here come up as adjoints with respect to the Gaussian measure, and how the composition of the two is related to something called the Ornstein-Uhlenbeck Operator:
+
+$$
+\Delta = -\delta \mathbf{D}
+$$
+
+Above we have taken for granted the following results:
+
+$$
+\text{"Gaussian Derivative":} \quad \mathbf{D}f(\omega) = f' (\omega)
+$$
+
+$$
+\text{"Gaussian Divergence":} \quad \delta f(\omega) = \omega f(\omega) - f'(\omega)
+$$
+
+The latter being the divergence operator also pops up in literature as the "Stein Operator" and is often used to distinguish if something is distributionally Gaussian.
+
+Let's compose the two via a commutator, and we find that with $f \in C^2(\mathbb{R})$:
+
+$$
+[\mathbf{D},\delta](f) = (\mathbf{D}\delta - \delta \mathbf{D})f = f
+$$
+
+In a fascinating manner we can show that the divergence operator is the generator of Hermite Polynomials (we will show later that this is exactly an iterated stochastic integral), i.e.:
+
+$$
+H_n(x) = \delta^n 1
+$$
+
+where of course $H_0(x) = 1$. Coming full circle to the Ornstein-Uhlenbeck operator, we have that the Hermite Polynomials are eigenfunctions/vectors with eigenvalue $-n$ [@NU]:
+
+$$
+\Delta H_n = - \delta \mathbf{D}H_n = -\delta H_n' = -n \delta H_{n-1} = -n H_n
+$$
+
+This operator forms a semi-group using $H_n$ as a basis such that:
+
+$$
+P_t H_n = e^{-nt}H_n
+$$
+
+This whole bit is stolen from Nualart's notes of course [@NU], so the goal is just to demonstrate some properties that make what we're doing here relevant, e.g., one can show:
+
+$$
+f(\omega) - \int_\mathbb{R} f(\omega) \mathrm{d}P_\omega = -\int_{\mathcal{R}^+} \Delta P_t f(\omega) \mathrm{d}t
+$$
+
+and that we have nice bounds for smooth functions such as:
+
+$$
+\text{Var}(f) \leq \|\mathbf{D} f\|_{L^2 (\mathbb{R},P_\omega)}^2
+$$
+
+## Asides
+
+### Clark-Ocone Formula
+
+From the actual calculations perspective, using Itô calculus makes things "difficult", and maybe we don't really like that we can't solve our equations using the regular kind of calculus. We will introduce what can be called Wick Calculus having many nice properties as a result of Malliavin Calculus [@GO].
+
+We can then hope to write our equations in a form similar to a regular ODE or PDE.
+
+As an aside, but very very useful for deriving explicit representations, what we should actually have for adapted, though possibly anticipating, processes here is something called the Clark-Ocone Formula which gives more explicit general justification for what $\alpha^{F}(W)_t$ should be [@CS; @NU].
+
+::: {#thm-ClarkOcone2}
+
+Let $F \in \mathbb{D}^{1,2}$ and be $\mathcal{F}_T$ measurable (generated by Wiener), i.e.:
+
+$$
+\|F\|_{1,2}^2 = \mathbb{E}\left[\int_0^T F^2 \mathrm{d}t \right] + \mathbb{E}\left[\int_0^T (\mathbf{D}_t F)^2 \mathrm{d}t \right] < \infty
+$$
+
+Then:
+
+$$
+F = \mathbb{E}[F] + \int_0^T \mathbb{E}[\mathbf{D}_t F \mid \mathcal{F}_t]\mathrm{d}W_t
+$$
+:::
+
+::: {#exm-ClarkOconeExp}
+## Example: $e^{\sigma W_T}$
+
+$$
+\begin{align*}
+    e^{\sigma W_T} &= e^{\frac{\sigma^2}{2}T} + \int_0^T \mathbb{E}[\mathbf{D}_t e^{\sigma W_T}\mid\mathcal{F}_t]\mathrm{d}W_t \\
+    &= e^{\frac{\sigma^2}{2}T} + \int_0^T \mathbb{E}[\sigma e^{\sigma W_T}\mid\mathcal{F}_t]\mathrm{d}W_t \\
+    &= e^{\frac{\sigma^2}{2}T} + \int_0^T \sigma \mathbb{E}[e^{\sigma W_t + \sigma (W_T - W_t)}\mid\mathcal{F}_t]\mathrm{d}W_t \\
+    &= e^{\frac{\sigma^2}{2}T} + \int_0^T \sigma e^{\frac{\sigma^2}{2}(T-t)} e^{\sigma W_t} \mathrm{d}W_t
+\end{align*}
+$$
+:::
+
+And note the funny looking expansion if we keep applying Clark-Ocone for suitable functions:
+
+$$
+\begin{align*}
+    F &= \mathbb{E}[F] + \int_0^T \mathbb{E}[\mathbf{D}_t F \mid \mathcal{F}_t]\mathrm{d}W_t \\
+    &= \mathbb{E}[F] + \int_0^T \mathbb{E}\left[ \mathbb{E}[\mathbf{D}_t F] +\int_0^t \mathbf{D}_s\mathbb{E}[\mathbf{D}_t F \mid \mathcal{F}_s]\mathrm{d}W_s \bigg{|} \mathcal{F}_t\right]\mathrm{d}W_t \\
+    &= \mathbb{E}[F] + \int_0^T \mathbb{E}\left[\mathbb{E}[\mathbf{D}_t F] + \int_0^t \mathbb{E}[\mathbf{D}_s\mathbf{D}_t F \mid \mathcal{F}_s]\mathrm{d}W_s \bigg{|} \mathcal{F}_t\right]\mathrm{d}W_t \\
+    &= \mathbb{E}[F] + \int_0^T \mathbb{E}[\mathbf{D}_t F] \mathrm{d}W_t + \int_0^T \int_0^t \mathbb{E}[\mathbf{D}_s\mathbf{D}_t F \mid \mathcal{F}_s]\mathrm{d}W_s \mathrm{d}W_t \\
+    &= \mathbb{E}[F] + \int_0^T f_1 (t) \mathrm{d}W_t + \int_0^T \int_0^t f_2(s,t)\mathrm{d}W_s \mathrm{d}W_t \\
+    &= \mathbb{E}[F] + \sum_{n=1}^\infty I_n(\widetilde{f}_n)
+\end{align*}
+$$
+
+where:
+
+$$
+I_n(\widetilde{f}_n) \doteq \int_0^T \int_0^{t_n} \dots \int_0^{t_2} \widetilde{f}_n(t_1, \dots , t_n) \mathrm{d}W_{t_1} \dots \mathrm{d}W_{t_n}
+$$
+
+and $\widetilde{f}_n$ is symmetric (and therefore not necessarily equal to $f_n$ as above), are called the $n^{\text{th}}$-order Itô integral with the also beautiful result that:
+
+$$
+\mathbf{D}_t I_n(\widetilde{f}_n) = n I_{n-1}(\widetilde{f}_n (t))
+$$
+
+which is the way we could have defined the Malliavin Derivative to begin with [@NU].
+
+Which is rather a consequence of the tools that make Clark-Ocone work, but is a nice teaser at an expansion with respect to iterated stochastic integrals with respect to projections in some sense. An important point here is that these things are awful, dreadful even, to calculate in general and are used mainly as a proof technique rather than for explicit manipulations.
+
+Well let me introduce you to a generalization of the Itô integral, the Skorohod integral which can be seen to be motivated by the above iterated integrals but apply to special cases and differ with respect to predictive functions [@DOP; @NU].
+
+### Wick Calculus
+
+We have mentioned before that the iterated stochastic integral $I_n(\cdot)$ can form a kind of decomposition of a function [@GO; @NU]:
+
+$$
+F = \sum_{n=0}^{\infty} I_n(f_n)
+$$
+
+for some symmetric functions $f_n$ (the "tilde" has been dropped henceforth because it is annoying). One can make these even more explicit by observing, as historically Itô did, that for Hermite Polynomials:
+
+$$
+H_n(x) = (-1)^n e^{\frac{1}{2}x^2} \frac{\mathrm{d}^n}{\mathrm{d}x^n}\left(e^{-\frac{1}{2}x^2}\right)
+$$
+
+and for a given function $g(t)$:
+
+$$
+I_n (g^{\otimes n}) = \|g\|^n H_n \left(\frac{\int g \, \mathrm{d}W}{\|g\|} \right)
+$$
+
+Think of this as making more explicit what one would want to do by writing:
+
+$$
+\begin{align*}
+    \left(\int_0^t g_s \mathrm{d}W_s\right)^n &\widetilde{=} \int_0^t \dots \int_0^t g_{s_1} \dots g_{s_n} \mathrm{d}W_{s_1} \otimes \dots \otimes \mathrm{d}W_{s_n} \\
+    &\widetilde{=} \int_{[0,t]^n} g_s^{\otimes n} \mathrm{d}W^\otimes_s
+\end{align*}
+$$
+
+where we can no longer define equality, as:
+
+$$
+\mathrm{d}W_s \otimes \mathrm{d}W_t \neq \mathrm{d}W_s \cdot \mathrm{d}W_t
+$$
+
+in the sense of preserving norms (Itô Isometry) as well as other properties you would like such as it being a Martingale.
+
+In a similar manner to the above representation, though not as explicitly, we can also write:
+
+$$
+F = \sum_{n=0}^{\infty} c_n H_n (f_n)
+$$
+
+where $f_n$ has unit norm in $L^2 ([0,T] \times \Omega)$. So if we treat this as an orthonormal decomposition (each of the polynomials are orthogonal with respect to the Wiener Measure), i.e., we take, considering $\hat{\otimes}$ the symmetrized product:
+
+$$
+I_n(e_1^{\otimes \alpha_1}\hat{\otimes}\dots\hat{\otimes}e_n^{\alpha_n}) = \prod_{k=1}^{n}H_{\alpha_k}\left(\int_0^T e_k(t)\mathrm{d}W_t\right)
+$$
+
+which is often called Wick's Theorem [@GO], we have the decomposition further to:
+
+$$
+F = \sum_{n=0}^{\infty} \widetilde{c}_n H_n
+$$
+
+where $H_n$ is understood as being constructed from the underlying basis.
+
+When restricting $X_t$ to finite Hermite polynomial expansions:
+
+$$
+X_t = \sum_{n=0}^N c_n H_n \left(\frac{W_t}{\sqrt{t}}\right)
+$$
+
+the Malliavin derivative simplifies to:
+
+$$
+\mathbf{D}_s X_t = \sum_{n=1}^N \frac{c_n}{\sqrt{t}} H_{n-1} \left(\mathbb{I}_{[0,t]}(s)\frac{W_t}{\sqrt{t}}\right)
+$$
+Since Hermite polynomials form an orthonormal basis on Wiener space [@GO; @NU], the coefficients satisfy:
+
+$$
+c_n = \langle F, H_n\rangle_{\Omega} = \mathbb{E}[F H_n] = \mathbb{E}[\partial^n_x F]
+$$
+
+When coefficients are time-dependent ($c_n \doteq c_n(t)$), the Skorohod integral takes the Wick product form:
+
+$$
+\delta\left(c_n(t) H_n \left(\frac{W_t}{\sqrt{t}}\right) \right) = \int_0^T \left(\frac{c_n(t)}{t^{n/2}}W^{\diamond n}_t\right) \diamond \dot{W}_t \mathrm{d}t
+$$
+
+
+Now we define the Wick product in the following way:
+
+::: {#def-WickProduct}
+## Wick Product
+
+Let $X$ and $Y$ have the following decomposition [@GO]:
+
+$$
+X = \sum_{\alpha} x_\alpha H_\alpha, \quad Y = \sum_{\beta} y_\beta H_\beta
+$$
+
+Then the Wick product is defined as:
+
+$$
+\begin{align*}
+    X \diamond Y &= \sum_{\alpha,\beta} x_\alpha y_\beta H_{\alpha + \beta} \\
+    &= \sum_{\gamma} \left(\sum_{\alpha + \beta=\gamma} x_\alpha y_\beta \right) H_{\gamma}
+\end{align*}
+$$
+:::
+
+From this, we have another beautiful result that [@GO]:
+
+$$
+\delta(X) = \int X \delta W = \int X_t \diamond \dot{W}_t \mathrm{d}t
+$$
+
+which can be extended to an arbitrary Lévy process or Semi-Martingale as long as the basis polynomials are defined correctly (easiest way to find them is to find the exponential martingale for a stochastic process and then expand it out term by term, the $n^{\text{th}}$ order Martingale will be the coefficient of the $n^{\text{th}}$ power $x^n$).
+
+The Wick product is a product in every sense of the word, and works like the product in a normal deterministic integral (Note $X \diamond Y = X \cdot Y$ when either or both are deterministic).
+
+So when you write:
+
+$$
+\mathrm{d}X_t = f(X_t)\mathrm{d}t + \sigma(X_t)\mathrm{d}W_t
+$$
+
+what you mean is:
+
+$$
+\mathrm{d}X_t = (f(X_t) + \sigma(X_t)\diamond \dot{W}_t) \mathrm{d}t
+$$
+
+Which can be rewritten in the Wick sense (products are now Wick Products) as [@DOP]:
+
+$$
+\frac{\mathrm{d}}{\mathrm{d}t} X_t = f(X_t) + \sigma(X_t)\diamond \dot{W}_t
+$$
+
+::: {#exm-GBM}
+## Geometric Brownian Motion in Wick Form
+
+As a more familiar example we can write:
+
+$$
+\begin{align*}
+    \mathrm{d}X_t &= X_t (\mu \mathrm{d}t + \sigma \mathrm{d}W_t) \\
+    \frac{\mathrm{d}}{\mathrm{d}t} X_t &\doteq X_t \diamond (\mu + \sigma \dot{W}_t)
+\end{align*}
+$$
+
+The equation is solved like the usual ODE but with Wick Product as [@DOP; @GO]:
+
+$$
+X_t = x_0 \exp(\mu t)\exp^{\diamond}(\sigma W_t)
+$$
+
+where one can show (what term is missing that would make $\exp^{\diamond}(\sigma W_t)$ an exponential martingale? Well $\exp(\sigma W_t - \frac{\sigma^2}{2}t)$ is an exponential martingale...):
+
+$$
+X_t = x_0 \exp(\mu t) \exp^{\diamond}(\sigma W_t) = x_0 \exp \left( \left(\mu - \frac{\sigma^2}{2}\right)t + \sigma W_t \right)
+$$
+:::
+
+which allows us, after rewriting, to use the normal tools of calculus.
+
+
+
+## Variation of an SDE
+If we instead wanted a general result holding for arbitrary $t \in [0,T]$, we would need to explicitly calculate out the chain rule as:
+
+$$
+\mathbf{D}_s X_t = \sigma(s,X_s) + \int_s^T \sigma_x(r,X_r)\mathbf{D}_s X_r \mathrm{d}W_r
+$$
+
+and in further generality with drift, a kind of complicated theorem so that we can try and evaluate $\mathbf{D}_s X_t$ as:
+
+$$
+\begin{align*}
+    \mathbf{D}_s X_t &= \int_s^t \mathbf{D}_s \mu(r,X_r)\mathrm{d}r + \left(\sigma(s,X_s) + \int_s^t \mathbf{D}_s \sigma(r,X_r) \mathrm{d}W_r \right) \\
+    &= \int_s^t \mu_x (r,X_r)\mathbf{D}_s X_r \mathrm{d}r + \left(\sigma(s,X_s) + \int_s^t \sigma_x (r,X_r) \mathbf{D}_s X_r \mathrm{d}W_r \right)
+\end{align*}
+$$
+
+which one could solve by Itô:
+
+$$
+Y_t = \sigma(s,X_s) + \int_s^t \mu_x (r,X_r)Y_r \mathrm{d}r + \int_s^t \sigma_x (r,X_r) Y_r \mathrm{d}W_r
+$$
+
+or:
+
+$$
+\mathrm{d}Y_t = \mu_x (t,X_t)Y_t \mathrm{d}t + \sigma_x (t,X_t) Y_t \mathrm{d}W_t, \quad Y_s = \sigma(s,X_s)
+$$
+
+or explicitly as:
+
+$$
+\begin{equation}
+Y_t = \sigma(s,X_s)\exp\left\{\int_s^t \left(\mu_x (r,X_r) - \frac{1}{2} \sigma_{x}^2(r,X_r)\right)\mathrm{d}r + \int_s^t \sigma_x (r,X_r) \mathrm{d}W_r\right\}
+\end{equation}
+$${#eq-malliavinsolve}
+
+## Langevin variation
+
+Let us make this analysis clearer. We will consider in the Wasserstein sense the minimization of the functional [@LC]:
+
+$$
+\begin{align*}
+    \mathcal{F}[\rho] &= \int \rho \ln \rho + \int U \rho \\
+    &= \int \left(\frac{\rho}{\rho^*}\right)\ln{\left(\frac{\rho}{\rho^*}\right)}\rho^*; \quad U \doteq -\ln \rho^* \\
+    &= \mathcal{D}_{KL}(\rho \parallel \rho^*)
+\end{align*}
+$$
+
+The Wasserstein gradient of this function can be calculated with the definition I used earlier to result in [@LC]:
+
+$$
+- \nabla \frac{\delta \mathcal{F}}{\delta \rho}(\rho(x)) = - \left(\frac{\nabla \rho}{\rho} + \nabla U\right) \doteq V(\rho(x))
+$$
+
+and thereafter once embedded in the Wasserstein flow, corresponding to the Fokker-Planck equation, we see (with $v = V(\rho(x))$):
+
+$$
+\begin{align*}
+    \partial_t \rho &= - \nabla \cdot ( v \rho) \\
+    &= \Delta \rho + \nabla \cdot (\nabla U \rho)
+\end{align*}
+$$
+
+Here, identifying $U = f$ as in the usual optimization problem with goal $\rho^* \propto e^{-f}$:
+
+$$
+\partial_t \rho = \Delta \rho + \nabla \cdot (\nabla f \rho)
+$$
+
+This of course corresponds to Langevin Diffusion:
+
+$$
+\mathrm{d}X_t = -\nabla f (X_t) \mathrm{d}t + \sqrt{2} \mathrm{d}W_t
+$$
+
+<!-- but one instead often sends out deterministic particles with the dynamics [@LC]: -->
 
 <!-- $$ -->
-<!-- \begin{align*} -->
-<!--     \mathbb{E}[f(X_t)H_1(X_t) - f(X_s)H_1(X_s)\mid\mathcal{F}_s] &= \mathbb{E}[f(X_t)(H_1(X_t) - H_1(X_s)) + f(X_t) H_1(X_s) - f(X_s)H_1(X_s)\mid\mathcal{F}_s] \\ -->
-<!--     &= \mathbb{E}[f(X_t)(H_1(X_t) - H_1(X_s)) + (f(X_t) - f(X_s))H_1(X_s)\mid\mathcal{F}_s] \\ -->
-<!--     &= \mathbb{E}[f(X_t)\Delta_{s,t}H_1(X) + \Delta_{s,t}f(X)H_1(X_s)\mid\mathcal{F}_s] \\ -->
-<!--     &= \mathbb{E}[\Delta_{s,t}f(X_t)\Delta_{s,t}H_1(X) + f(X_s)\Delta_{s,t}H_1(X) + \Delta_{s,t}f(X)H_1(X_s)\mid\mathcal{F}_s] \\ -->
-<!--     &= \mathbb{E}[\Delta_{s,t}f(X_t)\Delta_{s,t}H_1(X)\mid\mathcal{F}_s] + f(X_s)\mathbb{E}[\Delta_{s,t}H_1(X)\mid\mathcal{F}_s] + \mathbb{E}[\Delta_{s,t}f(X)\mid\mathcal{F}_s]H_1(X_s) -->
-<!-- \end{align*} -->
+<!-- \dot{x}_t^{(i)} = -V(\rho(x_t^{(i)})) \doteq \left(\frac{\nabla \rho(x_t^{(i)})}{\rho(x_t^{(i)})} + \nabla U(x_t^{(i)})\right) = - \nabla \ln{\left(\frac{\rho}{\rho^{*}}\right)} -->
 <!-- $$ -->
 
-<!-- Since $H_1(X)$ is a martingale for Gaussian arguments, $\mathbb{E}[\Delta_{s,t} H_1(X) \mid \mathcal{F}_s] = 0$. The second term vanishes, leaving: -->
+<!-- evolving according to some initial distribution $\pi_0$. -->
+
+<!-- In this way, if we wished to evaluate the mean over time, we would consider: -->
 
 <!-- $$ -->
-<!-- \mathbb{E}[f(X_t)H_1(X_t) - f(X_s)H_1(X_s)\mid\mathcal{F}_s] = \mathbb{E}[\Delta_{s,t}f(X_t)\Delta_{s,t}H_1(X)\mid\mathcal{F}_s] + \mathbb{E}[\Delta_{s,t}f(X)\mid\mathcal{F}_s]H_1(X_s) -->
+<!-- \dot{m}_t = \frac{\mathrm{d}}{\mathrm{d}t} \mathbb{E}_{\pi_0} \left[ x_t \right] = \mathbb{E}_{\pi_0} \left[ -V\left(x_t \right)\right] = -V\left( \mathbb{E}_{\pi_0} \left[ x_t \right]\right) = -V\left( m_t\right) -->
 <!-- $$ -->
 
-<!-- Equivalently, conditioning $f(X_t)H_1(X_t)$ yields: -->
+<!-- Here we have a very simple dependence on "some function of a Wiener process" to analyze, as otherwise the dynamics are deterministic; but will still need to consider what the "Stochastic Derivative" looks like for $X_t$. -->
 
-<!-- $$ -->
-<!-- \begin{align*} -->
-<!--     \mathbb{E}[f(X_t)H_1(X_t)\mid\mathcal{F}_s] &= \mathbb{E}[\Delta_{s,t}f(X_t)\Delta_{s,t}H_1(X)\mid\mathcal{F}_s] + \mathbb{E}[f(X_s) + \Delta_{s,t}f(X)\mid\mathcal{F}_s]H_1(X_s) \\ -->
-<!--     &= \mathbb{E}[\Delta_{s,t}f(X_t)\Delta_{s,t}H_1(X)\mid\mathcal{F}_s] + \mathbb{E}[f(X_t)\mid\mathcal{F}_s]H_1(X_s) -->
-<!-- \end{align*} -->
-<!-- $$ -->
+Let us borrow the formula from @eq-malliavinsolve.
+For general diffusions with drift $\mu(r,X_r)$ and volatility $\sigma(r,X_r)$, the tangent variation process $Y_r = \mathbf{D}_s X_r$ solves:
 
----
+$$
+\mathrm{d}Y_r = \mu_x (r,X_r)Y_r \mathrm{d}r + \sigma_x (r,X_r) Y_r \mathrm{d}W_r, \quad Y_s = \sigma(s,X_s)
+$$
+
+with explicit geometric solution:
+
+$$
+Y_t = \sigma(s,X_s)\exp\left\{\int_s^t \left(\mu_x (r,X_r) - \frac{1}{2} \sigma_{x}^2(r,X_r)\right)\mathrm{d}r + \int_s^t \sigma_x (r,X_r) \mathrm{d}W_r\right\}
+$$
+
+
+We find that for the simple Langevin process, the first order (Malliavin) variation of a general diffusion $X_t$, $\mathbf{D}_s$, is the solution to a specific SDE, and can be written as (in this specific case):
+
+$$
+\begin{align*}
+    \mathbf{D}_s X_t &= \sigma(s,X_s)\exp\left\{\int_s^t \left(\mu_x (r,X_r) - \frac{1}{2} \sigma_{x}^2(r,X_r)\right)\mathrm{d}r + \int_s^t \sigma_x (r,X_r) \mathrm{d}W_r\right\} \\
+    &= \sqrt{2}\exp\left\{-\int_s^t \Delta f (X_r)\mathrm{d}r\right\}.
+\end{align*}
+$$
